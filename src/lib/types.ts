@@ -41,3 +41,21 @@ export type CaseStudy = {
   imageHint: string;
   content: string;
 };
+
+export type Author = {
+    name: string;
+    imageUrl: string;
+    imageHint: string;
+};
+
+export type BlogPost = {
+    id: number;
+    slug: string;
+    title: string;
+    excerpt: string;
+    imageUrl: string;
+    imageHint: string;
+    date: string;
+    author: Author;
+    content: string;
+};
