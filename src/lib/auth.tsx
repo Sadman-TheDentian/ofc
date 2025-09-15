@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       handleAuthRedirect();
     } catch (error) {
       console.error("Error signing in with Google:", error);
+      throw error;
     }
   };
 
@@ -62,6 +63,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       handleAuthRedirect();
     } catch (error) {
       console.error("Error signing in with Github:", error);
+      throw error;
     }
   };
 

@@ -113,11 +113,21 @@ export default function Header() {
             ))}
           </nav>
         </div>
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+        <div className="md:hidden">
+            <Link href="/" className="mr-6 flex items-center space-x-2">
+              <Image src="/logo.svg" alt="DentiSystems Logo" width={24} height={24} />
+              <span className="font-bold sm:inline-block font-headline">
+                DentiSystems
+              </span>
+            </Link>
+        </div>
+        <div className="flex flex-1 items-center justify-end space-x-2">
           <div className="w-full flex-1 md:w-auto md:flex-none">
             {/* Can be used for a command menu later */}
           </div>
-          <UserMenu />
+          <div className="hidden md:flex">
+            <UserMenu />
+          </div>
         </div>
 
         {/* Mobile Menu */}

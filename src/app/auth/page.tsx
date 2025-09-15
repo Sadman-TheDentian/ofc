@@ -74,7 +74,8 @@ export default function AuthPage() {
         title: "Sign In Failed",
         description: firebaseError.message || "An unknown error occurred.",
       });
-      setLoading(false);
+    } finally {
+        setLoading(false);
     }
   };
 
@@ -89,7 +90,8 @@ export default function AuthPage() {
         title: "Sign Up Failed",
         description: firebaseError.message || "An unknown error occurred.",
       });
-      setLoading(false);
+    } finally {
+        setLoading(false);
     }
   };
   
