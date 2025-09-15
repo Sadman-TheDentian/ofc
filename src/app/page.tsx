@@ -21,7 +21,7 @@ const SphereAnimation = () => {
     let width = (canvas.width = canvas.parentElement!.offsetWidth);
     let height = (canvas.height = canvas.parentElement!.offsetHeight);
     let dots: Dot[] = [];
-    const DOTS_AMOUNT = 500;
+    const DOTS_AMOUNT = 1000;
     const DOT_RADIUS = 1;
     let GLOBE_RADIUS = width * 0.7;
     let GLOBE_CENTER_Z = -GLOBE_RADIUS;
@@ -73,7 +73,7 @@ const SphereAnimation = () => {
         const dx = mouse.x - this.projected.x;
         const dy = mouse.y - this.projected.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const highlightRadius = 100;
+        const highlightRadius = 150;
         const opacity = Math.max(0, 1 - distance / highlightRadius);
         
         ctx.beginPath();
@@ -98,7 +98,7 @@ const SphereAnimation = () => {
       }
     }
 
-    let targetRotationY = 0;
+    let targetRotationY = 0.001;
     let targetRotationX = 0;
     let currentRotationY = 0;
     let currentRotationX = 0;
@@ -109,6 +109,8 @@ const SphereAnimation = () => {
     function render() {
         if (!ctx) return;
         ctx.clearRect(0, 0, width, height);
+        
+        targetRotationY += 0.0005;
 
         currentRotationY += (targetRotationY - currentRotationY) * LERP_FACTOR;
         currentRotationX += (targetRotationX - currentRotationX) * LERP_FACTOR;
@@ -131,7 +133,7 @@ const SphereAnimation = () => {
                 const dz = dot1.z - dot2.z;
                 const distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
                 
-                if (distance < 120) {
+                if (distance < 80) {
                     const mouseDx1 = mouse.x - dot1.projected.x;
                     const mouseDy1 = mouse.y - dot1.projected.y;
                     const mouseDist1 = Math.sqrt(mouseDx1 * mouseDx1 + mouseDy1 * mouseDy1);
@@ -140,7 +142,7 @@ const SphereAnimation = () => {
                     const mouseDy2 = mouse.y - dot2.projected.y;
                     const mouseDist2 = Math.sqrt(mouseDx2 * mouseDx2 + mouseDy2 * mouseDy2);
 
-                    const highlightRadius = 150;
+                    const highlightRadius = 200;
                     const opacity = Math.max(0, 1 - (mouseDist1 + mouseDist2) / (2 * highlightRadius));
 
                     if (dot1.projected.scale > 0 && dot2.projected.scale > 0) {
@@ -199,7 +201,7 @@ const SphereAnimation = () => {
     }
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full opacity-40" />;
+  return <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full opacity-50" />;
 };
 
 
@@ -212,14 +214,14 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
         
         <div className="container relative z-10 px-4 md:px-6">
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up" style={{ animationDelay: '0.2s'}}>
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground">
-              Cybersecurity for the
+              Elite Cybersecurity &
               <br />
-              Modern Enterprise
+              Custom Web Engineering
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              DentiSystems provides elite breach monitoring, vendor reconnaissance, and secure development to reduce your operational risk in a complex digital world.
+              High-risk vendor recon, breach monitoring, and secure development that reduces operational risk.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button size="lg" asChild>
@@ -235,7 +237,7 @@ export default function Home() {
 
       <section id="services" className="py-20 md:py-32 bg-background">
         <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16">
+          <div className="text-center space-y-4 mb-16 animate-fade-in-up" style={{ animationDelay: '0.4s'}}>
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               A Unified Security Platform
             </h2>
@@ -245,7 +247,7 @@ export default function Home() {
           </div>
           <div className="grid gap-12 md:grid-cols-3">
              {services.map((service, index) => (
-              <div key={service.id} className="group relative">
+              <div key={service.id} className="group relative animate-fade-in-up" style={{ animationDelay: `${0.6 + index * 0.1}s`}}>
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
                 <Link href={`/services/${service.slug}`}>
                   <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all rounded-xl">
@@ -270,7 +272,7 @@ export default function Home() {
       <section id="tools" className="py-20 md:py-32 border-t border-border/50 bg-card">
         <div className="container px-4 md:px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-             <div className="space-y-4">
+             <div className="space-y-4 animate-fade-in-up" style={{ animationDelay: '0.8s'}}>
                 <div className="inline-block bg-secondary text-primary px-4 py-1 rounded-full text-sm font-bold">
                     OUR ARSENAL
                 </div>
@@ -286,7 +288,7 @@ export default function Home() {
                     </Link>
                 </Button>
             </div>
-            <div className="grid gap-6">
+            <div className="grid gap-6 animate-fade-in-up" style={{ animationDelay: '0.9s'}}>
               {tools.slice(0, 3).map((tool) => (
                 <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
                   <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary/50 transition-colors">
@@ -308,7 +310,7 @@ export default function Home() {
 
       <section id="case-studies" className="py-20 md:py-32">
         <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16">
+          <div className="text-center space-y-4 mb-16 animate-fade-in-up" style={{ animationDelay: '1.0s'}}>
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               Trusted by Industry Leaders
             </h2>
@@ -318,7 +320,7 @@ export default function Home() {
           </div>
           <div className="grid gap-8 md:grid-cols-3">
             {caseStudies.slice(0, 3).map((study, index) => (
-              <Link href={`/case-studies`} key={study.id} className="group">
+              <Link href={`/case-studies`} key={study.id} className="group animate-fade-in-up" style={{ animationDelay: `${1.2 + index * 0.1}s`}}>
                 <Card className="overflow-hidden h-full flex flex-col bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 rounded-xl">
                   <Image
                     src={study.imageUrl}
@@ -342,7 +344,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-           <div className="text-center mt-12">
+           <div className="text-center mt-12 animate-fade-in-up" style={{ animationDelay: '1.5s'}}>
                 <Button asChild size="lg">
                     <Link href="/case-studies">
                         View All Case Studies
@@ -354,5 +356,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
