@@ -246,7 +246,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
         
         <div className="container relative z-10 px-4 md:px-6">
-          <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="max-w-4xl mx-auto space-y-6">
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground">
               Elite Cybersecurity &
               <br />
@@ -269,7 +269,7 @@ export default function Home() {
 
       <section id="services" className="py-20 md:py-32 bg-background">
         <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16 animate-fade-in-up">
+          <div className="text-center space-y-4 mb-16">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               A Unified Security Platform
             </h2>
@@ -277,19 +277,21 @@ export default function Home() {
               From proactive defense to incident response, our services create a resilient security posture for your organization.
             </p>
           </div>
-          <div className="grid gap-12 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-3">
              {services.map((service, index) => (
-              <div key={service.id} className="group relative animate-fade-in-up" style={{ animationDelay: `${0.2 + index * 0.1}s` }}>
+              <div key={service.id} className="group relative">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
                 <Link href={`/services/${service.slug}`}>
-                  <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all rounded-xl">
-                    <CardHeader className="flex flex-row items-center gap-4 p-6">
-                      <service.icon className="w-8 h-8 text-primary shrink-0 transition-colors duration-300 group-hover:text-primary" />
-                      <CardTitle className="font-headline text-xl transition-colors duration-300 group-hover:text-primary">{service.title}</CardTitle>
+                  <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all duration-300 rounded-xl group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-2">
+                    <CardHeader className="p-6">
+                      <div className="p-4 bg-secondary self-start rounded-lg mb-4">
+                        <service.icon className="w-8 h-8 text-primary shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                      </div>
+                      <CardTitle className="font-headline text-xl">{service.title}</CardTitle>
                     </CardHeader>
                     <CardContent className="p-6 pt-0 flex-grow flex flex-col">
                       <p className="text-muted-foreground mb-4 flex-grow">{service.description}</p>
-                      <div className="self-start text-primary font-semibold flex items-center transition-colors duration-300 group-hover:underline">
+                      <div className="self-start text-primary font-semibold flex items-center group-hover:underline">
                           Learn More <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </div>
                     </CardContent>
@@ -304,7 +306,7 @@ export default function Home() {
       <section id="tools" className="py-20 md:py-32 border-t border-border/50 bg-card">
         <div className="container px-4 md:px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-             <div className="space-y-4 animate-fade-in-up">
+             <div className="space-y-4">
                 <div className="inline-block bg-secondary text-primary px-4 py-1 rounded-full text-sm font-bold">
                     OUR ARSENAL
                 </div>
@@ -320,7 +322,7 @@ export default function Home() {
                     </Link>
                 </Button>
             </div>
-            <div className="grid gap-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <div className="grid gap-6">
               {tools.slice(0, 3).map((tool) => (
                 <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
                   <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary/50 transition-colors">
@@ -342,7 +344,7 @@ export default function Home() {
 
       <section id="case-studies" className="py-20 md:py-32">
         <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16 animate-fade-in-up">
+          <div className="text-center space-y-4 mb-16">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               Trusted by Industry Leaders
             </h2>
@@ -352,7 +354,7 @@ export default function Home() {
           </div>
           <div className="grid gap-8 md:grid-cols-3">
             {caseStudies.slice(0, 3).map((study, index) => (
-              <Link href={`/case-studies`} key={study.id} className="group animate-fade-in-up" style={{ animationDelay: `${0.2 + index * 0.1}s` }}>
+              <Link href={`/case-studies`} key={study.id} className="group">
                 <Card className="overflow-hidden h-full flex flex-col bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 rounded-xl">
                   <Image
                     src={study.imageUrl}
@@ -376,7 +378,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-           <div className="text-center mt-12 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+           <div className="text-center mt-12">
                 <Button asChild size="lg">
                     <Link href="/case-studies">
                         View All Case Studies
@@ -388,5 +390,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
