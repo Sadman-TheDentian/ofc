@@ -65,13 +65,15 @@ export default function ThreatMonitorPage() {
 
   return (
     <div>
-      <h1 className="font-headline text-2xl font-bold mb-4">
-        AI-Powered Threat Monitor
-      </h1>
-      <p className="text-muted-foreground mb-8">
-        Analyze security news articles or intelligence reports to identify
-        potential threats to your organization.
-      </p>
+      <div className="mb-8">
+        <h1 className="font-headline text-2xl font-bold">
+          AI-Powered Threat Monitor
+        </h1>
+        <p className="text-muted-foreground mt-1">
+          Analyze security news articles or intelligence reports to identify
+          potential threats to your organization.
+        </p>
+      </div>
 
       <div className="grid md:grid-cols-3 gap-8">
         <div className="md:col-span-2">

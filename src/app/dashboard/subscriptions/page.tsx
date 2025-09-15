@@ -6,8 +6,10 @@ import { Check } from "lucide-react";
 export default function SubscriptionsPage() {
     return (
         <div>
-            <h1 className="font-headline text-2xl font-bold mb-4">Manage Subscription</h1>
-            <p className="text-muted-foreground mb-8">You are currently on the PRO plan. Thank you for your support.</p>
+            <div className="mb-8">
+                <h1 className="font-headline text-2xl font-bold">Manage Subscription</h1>
+                <p className="text-muted-foreground mt-1">You are currently on the PRO plan. Thank you for your support.</p>
+            </div>
 
             <div className="grid md:grid-cols-2 gap-8">
                 <Card className="border-primary border-2 shadow-lg shadow-primary/10">

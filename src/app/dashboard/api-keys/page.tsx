@@ -13,7 +13,7 @@ export default function ApiKeysPage() {
 
     return (
         <div>
-            <div className="flex justify-between items-start mb-4">
+            <div className="flex justify-between items-start mb-6">
                 <div>
                     <h1 className="font-headline text-2xl font-bold">API Keys</h1>
                     <p className="text-muted-foreground mt-1">Manage API keys for programmatic access to DentiSystems tools.</p>
