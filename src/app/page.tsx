@@ -278,11 +278,11 @@ export default function Home() {
                     alt={study.title}
                     width={600}
                     height={400}
-                    className="w-full h-48 object-cover transition-transform duration-300"
+                    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                     data-ai-hint={study.imageHint}
                   />
                   <CardHeader>
-                    <CardTitle className="font-headline text-lg">
+                    <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
                       {study.title}
                     </CardTitle>
                   </CardHeader>
