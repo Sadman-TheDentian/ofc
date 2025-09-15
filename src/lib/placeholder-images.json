@@ -1,3 +1,58 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "cs1",
+      "description": "A server room with glowing lights",
+      "imageUrl": "https://picsum.photos/seed/cs1/600/400",
+      "imageHint": "server room"
+    },
+    {
+      "id": "cs2",
+      "description": "A modern, empty hospital corridor",
+      "imageUrl": "https://picsum.photos/seed/cs2/600/400",
+      "imageHint": "hospital corridor"
+    },
+    {
+      "id": "cs3",
+      "description": "A person using a laptop for online shopping",
+      "imageUrl": "https://picsum.photos/seed/cs3/600/400",
+      "imageHint": "online shopping"
+    },
+    {
+      "id": "ds1",
+      "description": "A dashboard with charts and graphs",
+      "imageUrl": "https://picsum.photos/seed/ds1/1200/800",
+      "imageHint": "dashboard chart"
+    },
+    {
+      "id": "ds2",
+      "description": "A settings page with form fields",
+      "imageUrl": "https://picsum.photos/seed/ds2/1200/800",
+      "imageHint": "settings form"
+    },
+    {
+      "id": "ds3",
+      "description": "A data table with rows of information",
+      "imageUrl": "https://picsum.photos/seed/ds3/1200/800",
+      "imageHint": "data table"
+    },
+    {
+      "id": "pr1",
+      "description": "A user interface for editing an email",
+      "imageUrl": "https://picsum.photos/seed/pr1/1200/800",
+      "imageHint": "email editor"
+    },
+    {
+      "id": "pr2",
+      "description": "An analytics dashboard with various charts",
+      "imageUrl": "https://picsum.photos/seed/pr2/1200/800",
+      "imageHint": "analytics dashboard"
+    },
+    {
+      "id": "pl1",
+      "description": "A computer screen showing lines of code",
+      "imageUrl": "https://picsum.photos/seed/pl1/1200/800",
+      "imageHint": "code interface"
+    }
+  ]
 }
