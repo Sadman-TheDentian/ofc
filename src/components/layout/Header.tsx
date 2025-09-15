@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -7,6 +8,16 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useAuth } from "@/lib/auth";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -18,6 +29,62 @@ const navLinks = [
 
 export default function Header() {
   const pathname = usePathname();
+  const { user, loading, signOut } = useAuth();
+
+  const UserMenu = () => {
+    if (loading) return null;
+
+    if (user) {
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+              <Avatar className="h-8 w-8">
+                <AvatarImage src={user.photoURL || undefined} alt={user.displayName || user.email || ""} />
+                <AvatarFallback>
+                  {user.email?.[0].toUpperCase() || "U"}
+                </AvatarFallback>
+              </Avatar>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56" align="end" forceMount>
+            <DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium leading-none">
+                  {user.displayName || "Operator"}
+                </p>
+                <p className="text-xs leading-none text-muted-foreground">
+                  {user.email}
+                </p>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Link href="/dashboard">Dashboard</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/dashboard/subscriptions">Billing</Link>
+            </DropdownMenuItem>
+             <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={signOut}>
+              Log out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    }
+
+    return (
+      <nav className="hidden md:flex items-center space-x-2">
+        <Button variant="ghost" asChild>
+          <Link href="/auth">Login</Link>
+        </Button>
+        <Button asChild>
+          <Link href="/contact">Request Risk Audit</Link>
+        </Button>
+      </nav>
+    );
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
@@ -50,14 +117,7 @@ export default function Header() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
             {/* Can be used for a command menu later */}
           </div>
-          <nav className="hidden md:flex items-center space-x-2">
-            <Button variant="ghost" asChild>
-                <Link href="/auth">Login</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/contact">Request Risk Audit</Link>
-            </Button>
-          </nav>
+          <UserMenu />
         </div>
 
         {/* Mobile Menu */}
@@ -89,14 +149,25 @@ export default function Header() {
                 </Link>
               ))}
             </div>
-             <div className="flex flex-col space-y-2">
-                 <Button asChild>
-                    <Link href="/contact">Request Risk Audit</Link>
-                </Button>
-                <Button variant="ghost" asChild>
-                    <Link href="/auth">Login</Link>
-                </Button>
-            </div>
+            {user ? (
+                 <div className="flex flex-col space-y-2">
+                    <Button asChild>
+                        <Link href="/dashboard">Go to Dashboard</Link>
+                    </Button>
+                    <Button variant="ghost" onClick={signOut}>
+                        Logout
+                    </Button>
+                </div>
+            ) : (
+                <div className="flex flex-col space-y-2">
+                    <Button asChild>
+                        <Link href="/contact">Request Risk Audit</Link>
+                    </Button>
+                    <Button variant="ghost" asChild>
+                        <Link href="/auth">Login</Link>
+                    </Button>
+                </div>
+            )}
           </SheetContent>
         </Sheet>
       </div>

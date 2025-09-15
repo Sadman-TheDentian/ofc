@@ -1,3 +1,4 @@
+
 import type { LucideIcon } from "lucide-react";
 
 export type Service = {
@@ -60,4 +61,14 @@ export type BlogPost = {
     date: string;
     author: Author;
     content: string;
+};
+
+export type FirebaseConfig = {
+    apiKey: string;
+    authDomain: string;
+    projectId: string;
+    storageBucket: string;
+    messagingSenderId: string;
+    appId: string;
+    measurementId?: string;
 };
