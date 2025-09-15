@@ -40,17 +40,17 @@ export default function ServiceDetailPage({ params }: Props) {
         <div className="mb-12">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-6">
                 <service.icon className="w-12 h-12 text-primary shrink-0" />
-                <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl animate-fade-in-up">
+                <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
                 {service.title}
                 </h1>
             </div>
-             <p className="text-xl text-muted-foreground md:w-2/3 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+             <p className="text-xl text-muted-foreground md:w-2/3">
               {service.description}
             </p>
         </div>
       <div className="grid md:grid-cols-3 gap-12">
         <div className="md:col-span-2 space-y-8">
-            <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <div>
                 <Image 
                     src={service.imageUrl} 
                     alt={service.title} 
@@ -60,14 +60,14 @@ export default function ServiceDetailPage({ params }: Props) {
                     data-ai-hint={service.imageHint}
                 />
             </div>
-            <div className="prose prose-invert max-w-none text-foreground/80 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            <div className="prose prose-invert max-w-none text-foreground/80">
                 <p>{service.longDescription}</p>
             </div>
-            <Button asChild size="lg" className="mt-8 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+            <Button asChild size="lg">
                 <Link href="/contact">Get a Quote</Link>
             </Button>
         </div>
-        <aside className="space-y-6 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+        <aside className="space-y-6">
             <h3 className="font-headline text-xl font-semibold border-l-4 border-primary pl-4">Other Services</h3>
             <div className="space-y-4">
                 {otherServices.map(other => (

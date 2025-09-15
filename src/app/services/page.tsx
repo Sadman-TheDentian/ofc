@@ -8,17 +8,17 @@ export default function ServicesPage() {
   return (
     <div className="container py-12 md:py-20">
       <div className="text-center space-y-4 mb-12">
-        <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl animate-fade-in-up">
+        <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
           Our Services
         </h1>
-        <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl">
           A suite of services designed to provide 360-degree cybersecurity
           coverage for modern enterprises.
         </p>
       </div>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {services.map((service, index) => (
-          <Card key={service.id} className="flex flex-col hover:border-primary/50 transition-colors animate-fade-in-up" style={{ animationDelay: `${index * 0.1 + 0.3}s` }}>
+          <Card key={service.id} className="flex flex-col hover:border-primary/50 transition-colors">
             <CardHeader className="flex flex-row items-center gap-4">
               <service.icon className="w-10 h-10 text-primary" />
               <CardTitle className="font-headline text-xl">

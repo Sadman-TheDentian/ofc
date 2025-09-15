@@ -160,15 +160,15 @@ export default function Home() {
         
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6">
-            <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground animate-fade-in-up">
+            <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground">
               Cybersecurity for the
               <br />
               Modern Enterprise
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
               DentiSystems provides elite breach monitoring, vendor reconnaissance, and secure development to reduce your operational risk in a complex digital world.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button size="lg" asChild>
                 <Link href="/contact">Request Risk Audit</Link>
               </Button>
@@ -183,16 +183,16 @@ export default function Home() {
       <section id="services" className="py-20 md:py-32 bg-background">
         <div className="container px-4 md:px-6">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl animate-fade-in-up">
+            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               A Unified Security Platform
             </h2>
-            <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl">
               From proactive defense to incident response, our services create a resilient security posture for your organization.
             </p>
           </div>
           <div className="grid gap-12 md:grid-cols-3">
              {services.map((service, index) => (
-              <div key={service.id} className="group relative animate-fade-in-up" style={{ animationDelay: `${index * 0.2 + 0.3}s` }}>
+              <div key={service.id} className="group relative animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
                 <Link href={`/services/${service.slug}`}>
                   <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all">
@@ -217,7 +217,7 @@ export default function Home() {
       <section id="tools" className="py-20 md:py-32 border-t border-border/50 bg-card">
         <div className="container px-4 md:px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-             <div className="space-y-4 animate-fade-in-up">
+             <div className="space-y-4">
                 <div className="inline-block bg-secondary text-primary px-4 py-1 rounded-full text-sm font-bold">
                     OUR ARSENAL
                 </div>
@@ -233,7 +233,7 @@ export default function Home() {
                     </Link>
                 </Button>
             </div>
-            <div className="grid gap-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <div className="grid gap-6">
               {tools.slice(0, 3).map((tool) => (
                 <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
                   <div className="flex items-center gap-4 p-4 rounded-lg hover:bg-secondary/50 transition-colors">
@@ -256,16 +256,16 @@ export default function Home() {
       <section id="case-studies" className="py-20 md:py-32">
         <div className="container px-4 md:px-6">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl animate-fade-in-up">
+            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               Trusted by Industry Leaders
             </h2>
-            <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl">
               See how we've helped organizations like yours mitigate risks and fortify their digital defenses.
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
             {caseStudies.slice(0, 3).map((study, index) => (
-              <Link href={`/case-studies`} key={study.id} className="group animate-fade-in-up" style={{ animationDelay: `${index * 0.2 + 0.3}s` }}>
+              <Link href={`/case-studies`} key={study.id} className="group">
                 <Card className="overflow-hidden h-full flex flex-col bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
                   <Image
                     src={study.imageUrl}
@@ -289,7 +289,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-           <div className="text-center mt-12 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+           <div className="text-center mt-12">
                 <Button asChild size="lg">
                     <Link href="/case-studies">
                         View All Case Studies

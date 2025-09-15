@@ -8,17 +8,17 @@ export default function ToolsPage() {
   return (
     <div className="container py-12 md:py-20">
       <div className="text-center space-y-4 mb-12">
-        <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl animate-fade-in-up">
+        <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
           Our Arsenal
         </h1>
-        <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl">
           Cutting-edge tools to give you the upper hand in the digital
           battlefield.
         </p>
       </div>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {tools.map((tool, index) => (
-          <Card key={tool.id} className="flex flex-col hover:border-primary/50 transition-colors animate-fade-in-up" style={{ animationDelay: `${index * 0.1 + 0.3}s` }}>
+          <Card key={tool.id} className="flex flex-col hover:border-primary/50 transition-colors">
             <CardHeader className="flex flex-row items-center gap-4">
               <tool.icon className="w-10 h-10 text-primary" />
               <CardTitle className="font-headline text-xl">
