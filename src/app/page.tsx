@@ -4,7 +4,7 @@
 import { useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, Shield } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { services, tools, caseStudies } from '@/lib/data';
 import Image from 'next/image';
@@ -67,7 +67,8 @@ const SphereAnimation = () => {
         if (x < 0 || x > width || y < 0 || y > height) return;
         ctx.beginPath();
         ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.5 + this.z / GLOBE_RADIUS})`;
+        const opacity = 0.5 + this.z / GLOBE_RADIUS;
+        ctx.fillStyle = `rgba(0, 255, 0, ${opacity})`;
         ctx.fill();
       }
     }
@@ -120,7 +121,7 @@ const SphereAnimation = () => {
     }
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full opacity-30" />;
+  return <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full opacity-50" />;
 };
 
 
@@ -134,8 +135,8 @@ export default function Home() {
         
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center space-y-4">
-            <DentiSystemsLogo className="h-20 w-20 text-primary mx-auto"/>
-            <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl">
+            <DentiSystemsLogo className="h-24 w-24 text-primary mx-auto"/>
+            <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground">
               Elite Cybersecurity &
               <br />
               Custom Web Engineering
@@ -145,7 +146,7 @@ export default function Home() {
               development that reduces operational risk.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" asChild variant="secondary">
+              <Button size="lg" asChild>
                 <Link href="/dashboard">Access Dashboard</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
@@ -191,7 +192,7 @@ export default function Home() {
       <section id="tools" className="py-20 md:py-32 border-y border-border/50">
         <div className="container px-4 md:px-6">
           <div className="text-center space-y-4 mb-12">
-             <div className="inline-block bg-secondary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
+             <div className="inline-block bg-secondary text-secondary-foreground px-4 py-1 rounded-full text-sm font-medium">
                 Our Arsenal
             </div>
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
