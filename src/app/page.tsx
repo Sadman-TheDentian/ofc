@@ -1,14 +1,147 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Bot, ShieldCheck, Code } from "lucide-react";
-import Link from "next/link";
-import { services, tools, caseStudies } from "@/lib/data";
-import Image from "next/image";
+
+'use client';
+
+import { useRef, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { services, tools, caseStudies } from '@/lib/data';
+import Image from 'next/image';
+
+// Particle animation component
+const ParticleCanvas = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let particles: any[] = [];
+    const particleCount = 70;
+
+    const resizeCanvas = () => {
+        if (canvas.parentElement) {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+    };
+
+    class Particle {
+      x: number;
+      y: number;
+      size: number;
+      speedX: number;
+      speedY: number;
+
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1.5 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.size > 0.2) this.size -= 0.01;
+        if (this.size <= 0.2) {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 1.5 + 1;
+          this.speedX = Math.random() * 1 - 0.5;
+          this.speedY = Math.random() * 1 - 0.5;
+        }
+      }
+
+      draw() {
+        if(ctx) {
+            ctx.fillStyle = 'hsl(var(--primary) / 0.5)';
+            ctx.strokeStyle = 'hsl(var(--primary) / 0.5)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fill();
+        }
+      }
+    }
+
+    const init = () => {
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    };
+
+    const handleParticles = () => {
+        if (!ctx) return;
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+
+            for (let j = i; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 100) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `hsl(var(--primary) / ${1 - distance / 100})`;
+                    ctx.lineWidth = 0.2;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+            }
+             if (particles[i].x > canvas.width || particles[i].x < 0 || particles[i].y > canvas.height || particles[i].y < 0) {
+                particles[i].x = Math.random() * canvas.width;
+                particles[i].y = Math.random() * canvas.height;
+            }
+        }
+    }
+
+    const animate = () => {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        handleParticles();
+        requestAnimationFrame(animate);
+    }
+    
+    resizeCanvas();
+    init();
+    animate();
+
+    const handleResize = () => {
+        resizeCanvas();
+        init();
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    }
+
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full -z-10" />;
+};
+
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      <section className="py-24 sm:py-32 md:py-40 bg-grid-green-500/[0.05]">
+      <section className="relative py-24 sm:py-32 md:py-40 overflow-hidden">
+        <div className="absolute inset-0 bg-background/50 -z-20"/>
+        <ParticleCanvas />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent -z-10" />
+
         <div className="container px-4 md:px-6">
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-primary">
