@@ -22,7 +22,7 @@ const SphereAnimation = () => {
     let width = (canvas.width = canvas.parentElement!.offsetWidth);
     let height = (canvas.height = canvas.parentElement!.offsetHeight);
     let dots: Dot[] = [];
-    const DOTS_AMOUNT = 2000;
+    const DOTS_AMOUNT = 4000;
     const DOT_RADIUS = 1;
     let GLOBE_RADIUS = width * 0.7;
     let GLOBE_CENTER_Z = -GLOBE_RADIUS;
@@ -37,7 +37,7 @@ const SphereAnimation = () => {
     };
     
     let packets: Packet[] = [];
-    const PACKET_AMOUNT = 100;
+    const PACKET_AMOUNT = 200;
 
     class Dot {
       x: number;
@@ -117,22 +117,28 @@ const SphereAnimation = () => {
       to: Dot;
       progress: number;
       speed: number;
-      projected: { x: number, y: number, scale: number };
+      isThreat: boolean;
 
       constructor() {
           this.from = dots[Math.floor(Math.random() * dots.length)];
           this.to = dots[Math.floor(Math.random() * dots.length)];
           this.progress = 0;
           this.speed = Math.random() * 0.005 + 0.002;
-          this.projected = { x: 0, y: 0, scale: 0 };
+          this.isThreat = Math.random() < 0.05;
+      }
+      
+      reset() {
+        this.from = dots[Math.floor(Math.random() * dots.length)];
+        this.to = dots[Math.floor(Math.random() * dots.length)];
+        this.progress = 0;
+        this.speed = Math.random() * 0.005 + 0.002;
+        this.isThreat = Math.random() < 0.05;
       }
 
       move() {
           this.progress += this.speed;
           if (this.progress >= 1) {
-              this.from = dots[Math.floor(Math.random() * dots.length)];
-              this.to = dots[Math.floor(Math.random() * dots.length)];
-              this.progress = 0;
+              this.reset();
           }
       }
 
@@ -140,12 +146,23 @@ const SphereAnimation = () => {
           const currentX = this.from.projected.x + (this.to.projected.x - this.from.projected.x) * this.progress;
           const currentY = this.from.projected.y + (this.to.projected.y - this.from.projected.y) * this.progress;
           const currentScale = this.from.projected.scale + (this.to.projected.scale - this.from.projected.scale) * this.progress;
-
-          if (currentX < 0 || currentX > width || currentY < 0 || currentY > height || currentScale < 0) return;
+          
+          if (currentX < 0 || currentX > width || currentY < 0 || currentY > height || currentScale < 0) {
+              this.reset();
+              return;
+          }
+          
+          const dx = mouse.x - currentX;
+          const dy = mouse.y - currentY;
+          const distance = Math.sqrt(dx*dx+dy*dy);
+          
+          if(this.isThreat && distance < 20) {
+              this.isThreat = false;
+          }
 
           ctx.beginPath();
           ctx.arc(currentX, currentY, DOT_RADIUS * 1.5 * currentScale, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${primaryColor}, 0.8)`;
+          ctx.fillStyle = this.isThreat ? `rgba(255, 0, 0, 0.8)` : `rgba(${primaryColor}, 0.8)`;
           ctx.fill();
       }
     }
@@ -166,7 +183,7 @@ const SphereAnimation = () => {
 
     let targetRotationY = 0.001;
     let targetRotationX = 0;
-    let currentRotationY = 0;
+    let currentRotationY = 0.001;
     let currentRotationX = 0;
     const LERP_FACTOR = 0.08;
 
@@ -176,8 +193,6 @@ const SphereAnimation = () => {
         if (!ctx) return;
         ctx.clearRect(0, 0, width, height);
         
-        targetRotationY += 0.0005;
-
         currentRotationY += (targetRotationY - currentRotationY) * LERP_FACTOR;
         currentRotationX += (targetRotationX - currentRotationX) * LERP_FACTOR;
 
