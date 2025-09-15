@@ -34,18 +34,6 @@ export function DentiSystemsLogo(props: SVGProps<SVGSVGElement>) {
         d="M25.6667 41.7493V49.4427L46.3333 43.6667C47.3333 42.9227 47.8667 41.7947 47.8667 40.5787V33.2293L25.6667 41.7493Z"
         fill="currentColor"
       />
-       <text
-        x="25"
-        y="25"
-        font-family="Arial, sans-serif"
-        font-size="4px"
-        fill="currentColor"
-        text-anchor="middle"
-        dominant-baseline="central"
-        transform="rotate(-52 25 25)"
-      >
-        DENTI.SYSTEMS
-      </text>
     </svg>
   );
 }

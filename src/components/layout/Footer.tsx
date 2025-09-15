@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DentiSystemsLogo } from "@/components/icons";
+import Image from "next/image";
 import { Github, Twitter, Linkedin } from "lucide-react";
 
 export default function Footer() {
@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center space-x-2 mb-4">
-              <DentiSystemsLogo className="h-8 w-8 text-primary" />
+              <Image src="/logo.svg" alt="DentiSystems Logo" width={32} height={32} />
               <span className="font-bold text-lg font-headline">
                 DentiSystems
               </span>

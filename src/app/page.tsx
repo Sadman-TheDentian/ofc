@@ -8,10 +8,10 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { services, tools, caseStudies } from '@/lib/data';
 import Image from 'next/image';
-import { DentiSystemsLogo } from '@/components/icons';
 
 const SphereAnimation = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouse = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -24,7 +24,7 @@ const SphereAnimation = () => {
     let dots: any[] = [];
 
     const DOTS_AMOUNT = 1000;
-    const DOT_RADIUS = 1;
+    const DOT_RADIUS = 1.2;
     let GLOBE_RADIUS = width * 0.3;
     let GLOBE_CENTER_Z = -GLOBE_RADIUS;
     let PROJECTION_CENTER_X = width / 2;
@@ -52,6 +52,10 @@ const SphereAnimation = () => {
         const rotX = cosY * this.x + sinY * (this.z - GLOBE_CENTER_Z);
         const rotZ = -sinY * this.x + cosY * (this.z - GLOBE_CENTER_Z) + GLOBE_CENTER_Z;
         const rotY = cosX * this.y + sinX * rotZ;
+        const y2 = this.y * cosX - this.z * sinX;
+        const z2 = this.y * sinX + this.z * cosX;
+        const x2 = this.x * cosY - z2 * sinY;
+
 
         const scale = FIELD_OF_VIEW / (FIELD_OF_VIEW - rotZ);
         const projX = rotX * scale + PROJECTION_CENTER_X;
@@ -80,25 +84,30 @@ const SphereAnimation = () => {
       }
     }
 
-    let rotationY = 0;
+    let rotationY = 0.002;
     let rotationX = 0;
 
     function render() {
       if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
-
-      rotationY += 0.002;
-      rotationX += 0.0005;
+      
+      rotationY = mouse.current.x * 0.0005;
+      rotationX = mouse.current.y * 0.0005;
 
       const sinY = Math.sin(rotationY);
       const cosY = Math.cos(rotationY);
       const sinX = Math.sin(rotationX);
       const cosX = Math.cos(rotationX);
 
-      dots.forEach(dot => dot.draw(sinY, cosY, sinX, cosX));
+      dots.sort((a, b) => a.z - b.z).forEach(dot => dot.draw(sinY, cosY, sinX, cosX));
       requestAnimationFrame(render);
     }
     
+    function onMouseMove(e: MouseEvent) {
+        mouse.current.x = (e.clientX - PROJECTION_CENTER_X) * 0.5;
+        mouse.current.y = (e.clientY - PROJECTION_CENTER_Y) * 0.5;
+    }
+
     function onResize() {
         if(canvas && canvas.parentElement){
             width = canvas.width = canvas.parentElement.offsetWidth;
@@ -113,11 +122,13 @@ const SphereAnimation = () => {
     }
 
     window.addEventListener('resize', onResize);
+    window.addEventListener('mousemove', onMouseMove);
     createDots();
     render();
 
     return () => {
         window.removeEventListener('resize', onResize);
+        window.removeEventListener('mousemove', onMouseMove);
     }
   }, []);
 
@@ -135,7 +146,7 @@ export default function Home() {
         
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center space-y-4">
-            <DentiSystemsLogo className="h-24 w-24 text-primary mx-auto"/>
+             <Image src="/logo.svg" alt="DentiSystems Logo" width={96} height={96} className="mx-auto" />
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground">
               Elite Cybersecurity &
               <br />
@@ -229,7 +240,7 @@ export default function Home() {
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               Proven Success Stories
             </h2>
-            <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl">
+            <p className="maxw-2xl mx-auto text-muted-foreground md:text-xl">
               See how we've helped organizations like yours mitigate risks and
               fortify their defenses.
             </p>

@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Shield } from "lucide-react";
-import { DentiSystemsLogo } from "@/components/icons";
+import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -23,7 +23,7 @@ export default function Header() {
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <DentiSystemsLogo className="h-6 w-6 text-primary" />
+            <Image src="/logo.svg" alt="DentiSystems Logo" width={24} height={24} />
             <span className="hidden font-bold sm:inline-block font-headline">
               DentiSystems
             </span>
@@ -66,7 +66,7 @@ export default function Header() {
           </SheetTrigger>
           <SheetContent side="left" className="pr-0">
             <Link href="/" className="mr-6 flex items-center space-x-2 mb-6">
-              <DentiSystemsLogo className="h-6 w-6 text-primary" />
+              <Image src="/logo.svg" alt="DentiSystems Logo" width={24} height={24} />
               <span className="font-bold font-headline">DentiSystems</span>
             </Link>
             <div className="flex flex-col space-y-3">
