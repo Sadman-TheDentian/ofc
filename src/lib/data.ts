@@ -167,5 +167,3 @@ export const caseStudies: CaseStudy[] = [
     content: "Detailed content about the E-commerce case study...",
   },
 ];
-
-    

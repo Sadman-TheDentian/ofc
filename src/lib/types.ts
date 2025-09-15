@@ -41,5 +41,3 @@ export type CaseStudy = {
   imageHint: string;
   content: string;
 };
-
-    
