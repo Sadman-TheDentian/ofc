@@ -46,16 +46,16 @@ export default function CaseStudiesPage() {
   return (
     <div className="container py-12 md:py-20">
       <div className="text-center space-y-4 mb-12">
-        <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+        <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl animate-fade-in-up">
           Case Studies
         </h1>
-        <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl">
+        <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           Explore our successful partnerships and discover how we solve complex
           security challenges.
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 mb-8 p-4 border border-border rounded-lg bg-card">
+      <div className="flex flex-col md:flex-row gap-4 mb-8 p-4 border border-border rounded-lg bg-card animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
         <div className="relative flex-grow">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <Input
@@ -95,9 +95,9 @@ export default function CaseStudiesPage() {
 
       {filteredCaseStudies.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {filteredCaseStudies.map((study) => (
+          {filteredCaseStudies.map((study, index) => (
             <Link href="#" key={study.id} className="group">
-              <Card className="overflow-hidden h-full flex flex-col hover:border-primary/50 transition-colors">
+              <Card className="overflow-hidden h-full flex flex-col hover:border-primary/50 transition-colors animate-fade-in-up" style={{ animationDelay: `${index * 0.1 + 0.5}s` }}>
                 <Image
                   src={study.imageUrl}
                   alt={study.title}
@@ -125,7 +125,7 @@ export default function CaseStudiesPage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-16 border border-dashed rounded-lg">
+        <div className="text-center py-16 border border-dashed rounded-lg animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
           <h3 className="font-headline text-xl font-semibold">No Results Found</h3>
           <p className="text-muted-foreground mt-2">Try adjusting your search or filters.</p>
         </div>

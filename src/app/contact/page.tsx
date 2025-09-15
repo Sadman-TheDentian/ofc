@@ -10,16 +10,16 @@ export default function ContactPage() {
   return (
     <div className="container py-12 md:py-20">
       <div className="text-center space-y-4 mb-12">
-        <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+        <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl animate-fade-in-up">
           Get in Touch
         </h1>
-        <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl">
+        <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           Have a question or a project in mind? We&apos;d love to hear from you.
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-        <Card className="bg-card border-border/50">
+        <Card className="bg-card border-border/50 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
           <CardHeader>
             <CardTitle className="font-headline">Send us a Message</CardTitle>
             <CardDescription>
@@ -49,7 +49,7 @@ export default function ContactPage() {
           </CardContent>
         </Card>
 
-        <div className="space-y-8">
+        <div className="space-y-8 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
             <div>
                 <h3 className="font-headline text-xl font-semibold border-l-4 border-primary pl-4 mb-4">
                     Contact Information

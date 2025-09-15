@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, CheckCircle } from "lucide-react";
+import Image from "next/image";
 
 type Props = {
   params: { slug: string };
@@ -36,25 +37,37 @@ export default function ServiceDetailPage({ params }: Props) {
 
   return (
     <div className="container py-12 md:py-20">
-      <div className="grid md:grid-cols-3 gap-12">
-        <div className="md:col-span-2">
-          <div className="flex items-center gap-4 mb-6">
-            <service.icon className="w-12 h-12 text-primary" />
-            <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-              {service.title}
-            </h1>
-          </div>
-          <div className="prose prose-invert max-w-none text-foreground/80">
-            <p className="text-xl text-muted-foreground">
+        <div className="mb-12">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-6">
+                <service.icon className="w-12 h-12 text-primary shrink-0" />
+                <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl animate-fade-in-up">
+                {service.title}
+                </h1>
+            </div>
+             <p className="text-xl text-muted-foreground md:w-2/3 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               {service.description}
             </p>
-            <p>{service.longDescription}</p>
-          </div>
-          <Button asChild size="lg" className="mt-8">
-            <Link href="/contact">Get a Quote</Link>
-          </Button>
         </div>
-        <aside className="space-y-6">
+      <div className="grid md:grid-cols-3 gap-12">
+        <div className="md:col-span-2 space-y-8">
+            <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                <Image 
+                    src={service.imageUrl} 
+                    alt={service.title} 
+                    width={800} 
+                    height={500} 
+                    className="rounded-lg shadow-lg object-cover w-full"
+                    data-ai-hint={service.imageHint}
+                />
+            </div>
+            <div className="prose prose-invert max-w-none text-foreground/80 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+                <p>{service.longDescription}</p>
+            </div>
+            <Button asChild size="lg" className="mt-8 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+                <Link href="/contact">Get a Quote</Link>
+            </Button>
+        </div>
+        <aside className="space-y-6 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
             <h3 className="font-headline text-xl font-semibold border-l-4 border-primary pl-4">Other Services</h3>
             <div className="space-y-4">
                 {otherServices.map(other => (
