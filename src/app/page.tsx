@@ -85,34 +85,41 @@ const SphereAnimation = () => {
     }
 
     let baseRotationY = 0;
-    let rotationY = 0;
-    let rotationX = 0;
+    let targetRotationY = 0;
+    let targetRotationX = 0;
+    let currentRotationY = 0;
+    let currentRotationX = 0;
+    const LERP_FACTOR = 0.05; // Smoothing factor
+
 
     function render() {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, width, height);
+        if (!ctx) return;
+        ctx.clearRect(0, 0, width, height);
 
-      baseRotationY += 0.001; // Constant auto-rotation speed
-      
-      const interactiveRotationY = mouse.current.x * 0.0003;
-      const interactiveRotationX = mouse.current.y * 0.0003;
+        baseRotationY += 0.001; // Constant auto-rotation speed
 
-      rotationY = baseRotationY + interactiveRotationY;
-      rotationX = interactiveRotationX;
+        // Smoothly interpolate current rotation towards target rotation
+        currentRotationY += (targetRotationY - currentRotationY) * LERP_FACTOR;
+        currentRotationX += (targetRotationX - currentRotationX) * LERP_FACTOR;
 
+        const finalRotationY = baseRotationY + currentRotationY;
+        const finalRotationX = currentRotationX;
+        
+        const sinY = Math.sin(finalRotationY);
+        const cosY = Math.cos(finalRotationY);
+        const sinX = Math.sin(finalRotationX);
+        const cosX = Math.cos(finalRotationX);
 
-      const sinY = Math.sin(rotationY);
-      const cosY = Math.cos(rotationY);
-      const sinX = Math.sin(rotationX);
-      const cosX = Math.cos(rotationX);
-
-      dots.sort((a, b) => a.z - b.z).forEach(dot => dot.draw(sinY, cosY, sinX, cosX));
-      requestAnimationFrame(render);
+        dots.sort((a, b) => a.z - b.z).forEach(dot => dot.draw(sinY, cosY, sinX, cosX));
+        requestAnimationFrame(render);
     }
     
     function onMouseMove(e: MouseEvent) {
-        mouse.current.x = (e.clientX - PROJECTION_CENTER_X) * 0.7; // 70% of mouse influence
-        mouse.current.y = (e.clientY - PROJECTION_CENTER_Y) * 0.7; // 70% of mouse influence
+        const interactiveRotationY = (e.clientX - PROJECTION_CENTER_X) * 0.0003;
+        const interactiveRotationX = (e.clientY - PROJECTION_CENTER_Y) * 0.0003;
+        
+        targetRotationY = interactiveRotationY * 0.7; // 70% of mouse influence
+        targetRotationX = interactiveRotationX * 0.7; // 70% of mouse influence
     }
 
     function onResize() {
