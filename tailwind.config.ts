@@ -90,13 +90,6 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      backgroundImage: {
-        "grid-pattern":
-          "linear-gradient(to bottom, transparent 1px, hsl(var(--background)) 1px), linear-gradient(to right, transparent 1px, hsl(var(--background)) 1px)",
-        "grid-green-500/[0.05]": `radial-gradient(ellipse 80% 50% at 50% -20%,rgba(0,255,136,0.1), transparent),
-        linear-gradient(to bottom, transparent, hsl(var(--background))),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke-width='1' stroke='rgba(0,255,136,0.05)'%3E%3Cpath d='M0 .5H31.5V32'/%3E%3C/svg%3E")`,
-      },
     },
   },
   plugins: [require("tailwindcss-animate")],
