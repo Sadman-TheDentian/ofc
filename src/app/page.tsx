@@ -20,23 +20,28 @@ const SphereAnimation = () => {
 
     let width = (canvas.width = canvas.parentElement!.offsetWidth);
     let height = (canvas.height = canvas.parentElement!.offsetHeight);
-    let dots: any[] = [];
-
-    const DOTS_AMOUNT = 1000;
+    let dots: Dot[] = [];
+    const DOTS_AMOUNT = 500;
     const DOT_RADIUS = 1;
     let GLOBE_RADIUS = width * 0.7;
     let GLOBE_CENTER_Z = -GLOBE_RADIUS;
     let PROJECTION_CENTER_X = width / 2;
     let PROJECTION_CENTER_Y = height / 2;
     let FIELD_OF_VIEW = width * 0.8;
+    const primaryColor = '0, 255, 136'; // #00FF88 in RGB
+
+    let mouse = {
+        x: 0,
+        y: 0,
+    };
 
     class Dot {
       x: number;
       y: number;
       z: number;
-      radius: number;
       theta: number;
       phi: number;
+      projected: { x: number; y: number; scale: number; };
 
       constructor(i: number) {
         this.theta = Math.acos(-1 + (2 * i) / DOTS_AMOUNT);
@@ -44,7 +49,7 @@ const SphereAnimation = () => {
         this.x = GLOBE_RADIUS * Math.cos(this.phi) * Math.sin(this.theta);
         this.y = GLOBE_RADIUS * Math.sin(this.phi) * Math.sin(this.theta);
         this.z = GLOBE_RADIUS * Math.cos(this.theta);
-        this.radius = 0;
+        this.projected = { x: 0, y: 0, scale: 0 };
       }
 
       project(sinY: number, cosY: number, sinX: number, cosX: number) {
@@ -53,23 +58,35 @@ const SphereAnimation = () => {
         const rotY = cosX * this.y + sinX * rotZ;
 
         const scale = FIELD_OF_VIEW / (FIELD_OF_VIEW - rotZ);
-        const projX = rotX * scale + PROJECTION_CENTER_X;
-        const projY = rotY * scale + PROJECTION_CENTER_Y;
-        const projRadius = DOT_RADIUS * scale;
-
-        return { x: projX, y: projY, r: projRadius, rotZ };
+        this.projected = {
+            x: rotX * scale + PROJECTION_CENTER_X,
+            y: rotY * scale + PROJECTION_CENTER_Y,
+            scale: scale,
+        };
       }
 
       draw(sinY: number, cosY: number, sinX: number, cosX: number) {
         if (!ctx) return;
-        const { x, y, r, rotZ } = this.project(sinY, cosY, sinX, cosX);
-        if (x < 0 || x > width || y < 0 || y > height) return;
-        
-        const opacity = 1 - Math.abs(rotZ) / GLOBE_RADIUS;
+        this.project(sinY, cosY, sinX, cosX);
+        if (this.projected.x < 0 || this.projected.x > width || this.projected.y < 0 || this.projected.y > height) return;
 
+        const dx = mouse.x - this.projected.x;
+        const dy = mouse.y - this.projected.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const highlightRadius = 100;
+        const opacity = Math.max(0, 1 - distance / highlightRadius);
+        
         ctx.beginPath();
-        ctx.arc(x, y, r, 0, 2 * Math.PI, false);
-        ctx.fillStyle = `rgba(0, 255, 136, ${opacity > 0 ? opacity : 0})`;
+        const radius = DOT_RADIUS * this.projected.scale * (1 + opacity * 1.5);
+        ctx.arc(this.projected.x, this.projected.y, radius, 0, 2 * Math.PI, false);
+
+        if (opacity > 0) {
+            const glow_opacity = Math.min(0.8, opacity);
+            ctx.fillStyle = `rgba(${primaryColor}, ${glow_opacity})`;
+        } else {
+            ctx.fillStyle = `rgba(${primaryColor}, 0.25)`;
+        }
+
         ctx.fill();
       }
     }
@@ -81,7 +98,6 @@ const SphereAnimation = () => {
       }
     }
 
-    let baseRotationY = 0;
     let targetRotationY = 0;
     let targetRotationX = 0;
     let currentRotationY = 0;
@@ -94,38 +110,75 @@ const SphereAnimation = () => {
         if (!ctx) return;
         ctx.clearRect(0, 0, width, height);
 
-        baseRotationY += 0.0005;
-
         currentRotationY += (targetRotationY - currentRotationY) * LERP_FACTOR;
         currentRotationX += (targetRotationX - currentRotationX) * LERP_FACTOR;
 
-        const finalRotationY = baseRotationY + currentRotationY;
-        const finalRotationX = currentRotationX;
+        const sinY = Math.sin(currentRotationY);
+        const cosY = Math.cos(currentRotationY);
+        const sinX = Math.sin(currentRotationX);
+        const cosX = Math.cos(currentRotationX);
 
-        const sinY = Math.sin(finalRotationY);
-        const cosY = Math.cos(finalRotationY);
-        const sinX = Math.sin(finalRotationX);
-        const cosX = Math.cos(finalRotationX);
+        dots.forEach(dot => dot.project(sinY, cosY, sinX, cosX));
+        dots.sort((a, b) => a.z - b.z);
+        
+        // Draw connections
+        for (let i = 0; i < dots.length; i++) {
+            for (let j = i + 1; j < dots.length; j++) {
+                const dot1 = dots[i];
+                const dot2 = dots[j];
+                const dx = dot1.x - dot2.x;
+                const dy = dot1.y - dot2.y;
+                const dz = dot1.z - dot2.z;
+                const distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                
+                if (distance < 120) {
+                    const mouseDx1 = mouse.x - dot1.projected.x;
+                    const mouseDy1 = mouse.y - dot1.projected.y;
+                    const mouseDist1 = Math.sqrt(mouseDx1 * mouseDx1 + mouseDy1 * mouseDy1);
 
-        dots.sort((a, b) => a.z - b.z).forEach(dot => dot.draw(sinY, cosY, sinX, cosX));
+                    const mouseDx2 = mouse.x - dot2.projected.x;
+                    const mouseDy2 = mouse.y - dot2.projected.y;
+                    const mouseDist2 = Math.sqrt(mouseDx2 * mouseDx2 + mouseDy2 * mouseDy2);
+
+                    const highlightRadius = 150;
+                    const opacity = Math.max(0, 1 - (mouseDist1 + mouseDist2) / (2 * highlightRadius));
+
+                    if (dot1.projected.scale > 0 && dot2.projected.scale > 0) {
+                        ctx.beginPath();
+                        ctx.moveTo(dot1.projected.x, dot1.projected.y);
+                        ctx.lineTo(dot2.projected.x, dot2.projected.y);
+                        
+                        if (opacity > 0) {
+                            ctx.strokeStyle = `rgba(${primaryColor}, ${Math.min(0.5, opacity)})`;
+                        } else {
+                            ctx.strokeStyle = "rgba(0, 255, 136, 0.05)";
+                        }
+                        
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        dots.forEach(dot => dot.draw(sinY, cosY, sinX, cosX));
         animationFrameId = requestAnimationFrame(render);
     }
     
     function onMouseMove(e: MouseEvent) {
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
-      const interactiveRotationY = (e.clientX - rect.left - PROJECTION_CENTER_X) * 0.0001;
-      const interactiveRotationX = (e.clientY - rect.top - PROJECTION_CENTER_Y) * 0.0001;
-
-      targetRotationY = interactiveRotationY;
-      targetRotationX = interactiveRotationX;
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      
+      targetRotationY = (mouse.x - PROJECTION_CENTER_X) * 0.001;
+      targetRotationX = (mouse.y - PROJECTION_CENTER_Y) * 0.001;
     }
 
     function onResize() {
         if(canvas && canvas.parentElement){
             width = canvas.width = canvas.parentElement.offsetWidth;
             height = canvas.height = canvas.parentElement.offsetHeight;
-            GLOBE_RADIUS = width * 0.7;
+            GLOBE_RADIUS = width * 0.6;
             GLOBE_CENTER_Z = -GLOBE_RADIUS;
             PROJECTION_CENTER_X = width / 2;
             PROJECTION_CENTER_Y = height / 2;
@@ -159,7 +212,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
         
         <div className="container relative z-10 px-4 md:px-6">
-          <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up">
+          <div className="max-w-4xl mx-auto space-y-6">
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground">
               Cybersecurity for the
               <br />
@@ -182,7 +235,7 @@ export default function Home() {
 
       <section id="services" className="py-20 md:py-32 bg-background">
         <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16 animate-fade-in-up">
+          <div className="text-center space-y-4 mb-16">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               A Unified Security Platform
             </h2>
@@ -192,7 +245,7 @@ export default function Home() {
           </div>
           <div className="grid gap-12 md:grid-cols-3">
              {services.map((service, index) => (
-              <div key={service.id} className="group relative animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
+              <div key={service.id} className="group relative">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
                 <Link href={`/services/${service.slug}`}>
                   <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all rounded-xl">
@@ -216,7 +269,7 @@ export default function Home() {
 
       <section id="tools" className="py-20 md:py-32 border-t border-border/50 bg-card">
         <div className="container px-4 md:px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center animate-fade-in-up">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
              <div className="space-y-4">
                 <div className="inline-block bg-secondary text-primary px-4 py-1 rounded-full text-sm font-bold">
                     OUR ARSENAL
@@ -255,7 +308,7 @@ export default function Home() {
 
       <section id="case-studies" className="py-20 md:py-32">
         <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16 animate-fade-in-up">
+          <div className="text-center space-y-4 mb-16">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               Trusted by Industry Leaders
             </h2>
@@ -265,7 +318,7 @@ export default function Home() {
           </div>
           <div className="grid gap-8 md:grid-cols-3">
             {caseStudies.slice(0, 3).map((study, index) => (
-              <Link href={`/case-studies`} key={study.id} className="group animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
+              <Link href={`/case-studies`} key={study.id} className="group">
                 <Card className="overflow-hidden h-full flex flex-col bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 rounded-xl">
                   <Image
                     src={study.imageUrl}
@@ -289,7 +342,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-           <div className="text-center mt-12 animate-fade-in-up">
+           <div className="text-center mt-12">
                 <Button asChild size="lg">
                     <Link href="/case-studies">
                         View All Case Studies
@@ -301,3 +354,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
