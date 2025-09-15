@@ -146,7 +146,7 @@ const SphereAnimation = () => {
     }
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full opacity-20" />;
+  return <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full opacity-40" />;
 };
 
 
@@ -159,7 +159,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
         
         <div className="container relative z-10 px-4 md:px-6">
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up">
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground">
               Cybersecurity for the
               <br />
@@ -182,7 +182,7 @@ export default function Home() {
 
       <section id="services" className="py-20 md:py-32 bg-background">
         <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16">
+          <div className="text-center space-y-4 mb-16 animate-fade-in-up">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               A Unified Security Platform
             </h2>
@@ -216,7 +216,7 @@ export default function Home() {
 
       <section id="tools" className="py-20 md:py-32 border-t border-border/50 bg-card">
         <div className="container px-4 md:px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-12 items-center animate-fade-in-up">
              <div className="space-y-4">
                 <div className="inline-block bg-secondary text-primary px-4 py-1 rounded-full text-sm font-bold">
                     OUR ARSENAL
@@ -255,7 +255,7 @@ export default function Home() {
 
       <section id="case-studies" className="py-20 md:py-32">
         <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16">
+          <div className="text-center space-y-4 mb-16 animate-fade-in-up">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               Trusted by Industry Leaders
             </h2>
@@ -289,7 +289,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-           <div className="text-center mt-12">
+           <div className="text-center mt-12 animate-fade-in-up">
                 <Button asChild size="lg">
                     <Link href="/case-studies">
                         View All Case Studies
