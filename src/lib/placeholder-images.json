@@ -53,6 +53,26 @@
       "description": "A computer screen showing lines of code",
       "imageUrl": "https://picsum.photos/seed/pl1/1200/800",
       "imageHint": "code interface"
+    },
+    {
+      "id": "s1",
+      "description": "A secure data center aisle with server racks",
+      "imageUrl": "https://picsum.photos/seed/s1/600/400",
+      "imageHint": "data center security"
+    },
+    {
+      "id": "s2",
+      "description": "Abstract glowing lines representing network infrastructure",
+      "imageUrl": "https://picsum.photos/seed/s2/600/400",
+      "imageHint": "network infrastructure"
+    },
+    {
+      "id": "s3",
+      "description": "A developer's laptop screen showing lines of code in an editor",
+      "imageUrl": "https://picsum.photos/seed/s3/600/400",
+      "imageHint": "developer laptop code"
     }
   ]
 }
+
+    

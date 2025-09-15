@@ -52,10 +52,6 @@ const SphereAnimation = () => {
         const rotX = cosY * this.x + sinY * (this.z - GLOBE_CENTER_Z);
         const rotZ = -sinY * this.x + cosY * (this.z - GLOBE_CENTER_Z) + GLOBE_CENTER_Z;
         const rotY = cosX * this.y + sinX * rotZ;
-        const y2 = this.y * cosX - this.z * sinX;
-        const z2 = this.y * sinX + this.z * cosX;
-        const x2 = this.x * cosY - z2 * sinY;
-
 
         const scale = FIELD_OF_VIEW / (FIELD_OF_VIEW - rotZ);
         const projX = rotX * scale + PROJECTION_CENTER_X;
@@ -96,15 +92,14 @@ const SphereAnimation = () => {
         if (!ctx) return;
         ctx.clearRect(0, 0, width, height);
 
-        baseRotationY += 0.001; // Constant auto-rotation speed
+        baseRotationY += 0.001;
 
-        // Smoothly interpolate current rotation towards target rotation
         currentRotationY += (targetRotationY - currentRotationY) * LERP_FACTOR;
         currentRotationX += (targetRotationX - currentRotationX) * LERP_FACTOR;
 
         const finalRotationY = baseRotationY + currentRotationY;
         const finalRotationX = currentRotationX;
-        
+
         const sinY = Math.sin(finalRotationY);
         const cosY = Math.cos(finalRotationY);
         const sinX = Math.sin(finalRotationX);
@@ -113,13 +108,13 @@ const SphereAnimation = () => {
         dots.sort((a, b) => a.z - b.z).forEach(dot => dot.draw(sinY, cosY, sinX, cosX));
         requestAnimationFrame(render);
     }
-    
+
     function onMouseMove(e: MouseEvent) {
         const interactiveRotationY = (e.clientX - PROJECTION_CENTER_X) * 0.0003;
         const interactiveRotationX = (e.clientY - PROJECTION_CENTER_Y) * 0.0003;
-        
-        targetRotationY = interactiveRotationY * 0.7; // 70% of mouse influence
-        targetRotationX = interactiveRotationX * 0.7; // 70% of mouse influence
+
+        targetRotationY = interactiveRotationY * 0.7;
+        targetRotationX = interactiveRotationX * 0.7;
     }
 
     function onResize() {
@@ -194,21 +189,29 @@ export default function Home() {
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
-            {services.map((service) => (
-              <Card key={service.id} className="border-border/50 hover:border-primary/50 transition-colors bg-secondary/30 hover:bg-secondary/60">
-                <CardHeader className="flex flex-row items-center gap-4">
-                  <service.icon className="w-8 h-8 text-primary" />
-                  <CardTitle className="font-headline text-xl">{service.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">{service.description}</p>
-                  <Button variant="link" asChild className="p-0 h-auto text-primary">
-                    <Link href={`/services/${service.slug}`}>
-                      Learn More <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+             {services.map((service) => (
+              <Link href={`/services/${service.slug}`} key={service.id} className="group">
+                <Card className="overflow-hidden h-full flex flex-col bg-secondary/30 hover:bg-secondary/60 border-border/50 hover:border-primary/50 transition-all">
+                   <Image
+                    src={service.imageUrl}
+                    alt={service.title}
+                    width={600}
+                    height={400}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    data-ai-hint={service.imageHint}
+                  />
+                  <CardHeader className="flex flex-row items-center gap-4">
+                    <service.icon className="w-8 h-8 text-primary" />
+                    <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">{service.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-grow flex flex-col">
+                    <p className="text-muted-foreground mb-4 flex-grow">{service.description}</p>
+                    <div className="self-start text-primary font-medium flex items-center group-hover:underline">
+                        Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
@@ -297,3 +300,5 @@ export default function Home() {
     </div>
   );
 }
+
+    

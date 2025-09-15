@@ -7,6 +7,8 @@ export type Service = {
   description: string;
   longDescription: string;
   icon: LucideIcon;
+  imageUrl: string;
+  imageHint: string;
 };
 
 export type Tool = {
@@ -39,3 +41,5 @@ export type CaseStudy = {
   imageHint: string;
   content: string;
 };
+
+    
