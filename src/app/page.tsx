@@ -84,15 +84,22 @@ const SphereAnimation = () => {
       }
     }
 
-    let rotationY = 0.002;
+    let baseRotationY = 0;
+    let rotationY = 0;
     let rotationX = 0;
 
     function render() {
       if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
+
+      baseRotationY += 0.001; // Constant auto-rotation speed
       
-      rotationY = mouse.current.x * 0.0005;
-      rotationX = mouse.current.y * 0.0005;
+      const interactiveRotationY = mouse.current.x * 0.0003;
+      const interactiveRotationX = mouse.current.y * 0.0003;
+
+      rotationY = baseRotationY + interactiveRotationY;
+      rotationX = interactiveRotationX;
+
 
       const sinY = Math.sin(rotationY);
       const cosY = Math.cos(rotationY);
@@ -104,8 +111,8 @@ const SphereAnimation = () => {
     }
     
     function onMouseMove(e: MouseEvent) {
-        mouse.current.x = (e.clientX - PROJECTION_CENTER_X) * 0.5;
-        mouse.current.y = (e.clientY - PROJECTION_CENTER_Y) * 0.5;
+        mouse.current.x = (e.clientX - PROJECTION_CENTER_X) * 0.7; // 70% of mouse influence
+        mouse.current.y = (e.clientY - PROJECTION_CENTER_Y) * 0.7; // 70% of mouse influence
     }
 
     function onResize() {
