@@ -12,7 +12,6 @@ const navLinks = [
   { href: "/services", label: "Services" },
   { href: "/tools", label: "Tools" },
   { href: "/case-studies", label: "Case Studies" },
-  { href: "/dashboard", label: "Dashboard" },
 ];
 
 export default function Header() {
@@ -49,7 +48,10 @@ export default function Header() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
             {/* Can be used for a command menu later */}
           </div>
-          <nav className="flex items-center">
+          <nav className="hidden md:flex items-center space-x-2">
+            <Button variant="ghost" asChild>
+                <Link href="/auth">Login</Link>
+            </Button>
             <Button asChild>
               <Link href="/contact">Request Risk Audit</Link>
             </Button>
@@ -69,7 +71,7 @@ export default function Header() {
               <Image src="/logo.svg" alt="DentiSystems Logo" width={24} height={24} />
               <span className="font-bold font-headline">DentiSystems</span>
             </Link>
-            <div className="flex flex-col space-y-3">
+            <div className="flex flex-col space-y-3 mb-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -84,6 +86,14 @@ export default function Header() {
                   {link.label}
                 </Link>
               ))}
+            </div>
+             <div className="flex flex-col space-y-2">
+                 <Button asChild>
+                    <Link href="/contact">Request Risk Audit</Link>
+                </Button>
+                <Button variant="ghost" asChild>
+                    <Link href="/auth">Login</Link>
+                </Button>
             </div>
           </SheetContent>
         </Sheet>
