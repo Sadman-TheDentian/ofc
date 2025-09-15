@@ -283,8 +283,18 @@ export default function Home() {
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
                 <Link href={`/services/${service.slug}`}>
                   <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all duration-300 rounded-xl group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-2">
+                    <div className="relative h-48 w-full">
+                         <Image
+                          src={service.imageUrl}
+                          alt={service.title}
+                          layout="fill"
+                          objectFit="cover"
+                          className="transition-transform duration-300 group-hover:scale-105"
+                          data-ai-hint={service.imageHint}
+                        />
+                    </div>
                     <CardHeader className="p-6">
-                      <div className="p-4 bg-secondary self-start rounded-lg mb-4">
+                      <div className="p-4 bg-secondary self-start rounded-lg mb-4 mt-[-40px] relative z-10 border-4 border-card">
                         <service.icon className="w-8 h-8 text-primary shrink-0 transition-transform duration-300 group-hover:scale-110" />
                       </div>
                       <CardTitle className="font-headline text-xl">{service.title}</CardTitle>
@@ -326,11 +336,16 @@ export default function Home() {
               {tools.slice(0, 3).map((tool) => (
                 <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
                   <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary/50 transition-colors">
-                    <div className="p-3 bg-secondary rounded-lg">
-                      <tool.icon className="w-6 h-6 text-primary" />
-                    </div>
+                    <Image 
+                      src={tool.imageUrl}
+                      alt={tool.title}
+                      width={64}
+                      height={64}
+                      className="rounded-lg"
+                      data-ai-hint={tool.imageHint}
+                    />
                     <div>
-                      <h3 className="font-headline text-lg font-semibold">{tool.title}</h3>
+                      <h3 className="font-headline text-lg font-semibold group-hover:text-primary transition-colors">{tool.title}</h3>
                       <p className="text-sm text-muted-foreground">{tool.description}</p>
                     </div>
                     <ArrowRight className="ml-auto h-5 w-5 text-muted-foreground shrink-0 transition-transform group-hover:translate-x-1 group-hover:text-primary" />

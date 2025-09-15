@@ -18,6 +18,8 @@ export type Tool = {
   description: string;
   longDescription: string;
   icon: LucideIcon;
+  imageUrl: string;
+  imageHint: string;
   features: {
     free: string[];
     pro: string[];

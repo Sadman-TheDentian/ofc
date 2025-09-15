@@ -58,6 +58,8 @@ export const tools: Tool[] = [
       "Monitor the dark web for mentions of your brand, domains, and employee credentials.",
     longDescription: "DarkCheck continuously scours dark web marketplaces, forums, and paste sites for any signs of your organization's compromised data. Receive real-time alerts when your assets are detected, allowing you to take immediate action.",
     icon: Search,
+    imageUrl: "https://picsum.photos/seed/t1/128/128",
+    imageHint: "abstract security icon",
     features: {
       free: [
         "Monitor 1 domain",
@@ -87,6 +89,8 @@ export const tools: Tool[] = [
       "Assess your organization's susceptibility to phishing attacks with simulated campaigns.",
     longDescription: "PhishRisk allows you to run realistic, automated phishing simulations to test employee awareness. Track open rates, click rates, and data entry to identify vulnerabilities and target training where it's needed most.",
     icon: Fingerprint,
+    imageUrl: "https://picsum.photos/seed/t2/128/128",
+    imageHint: "phishing hook icon",
     features: {
       free: [
         "1 phishing template",
@@ -114,6 +118,8 @@ export const tools: Tool[] = [
       "Check if your passwords have been compromised in known data breaches.",
     longDescription: "PasswordLeaker PRO leverages a massive database of breached credentials to help you determine if your passwords are secure. PRO users get access to our API for automated checks and deeper integrations.",
     icon: KeyRound,
+    imageUrl: "https://picsum.photos/seed/t3/128/128",
+    imageHint: "secure key icon",
     features: {
       free: ["Manual password checks", "Check against public breaches"],
       pro: [
