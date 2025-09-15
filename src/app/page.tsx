@@ -193,9 +193,9 @@ export default function Home() {
           <div className="grid gap-12 md:grid-cols-3">
              {services.map((service, index) => (
               <div key={service.id} className="group relative animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
                 <Link href={`/services/${service.slug}`}>
-                  <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all">
+                  <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all rounded-xl">
                     <CardHeader className="flex flex-row items-center gap-4 p-6">
                       <service.icon className="w-8 h-8 text-primary shrink-0 transition-colors duration-300 group-hover:text-primary" />
                       <CardTitle className="font-headline text-xl transition-colors duration-300 group-hover:text-primary">{service.title}</CardTitle>
@@ -236,7 +236,7 @@ export default function Home() {
             <div className="grid gap-6">
               {tools.slice(0, 3).map((tool) => (
                 <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
-                  <div className="flex items-center gap-4 p-4 rounded-lg hover:bg-secondary/50 transition-colors">
+                  <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary/50 transition-colors">
                     <div className="p-3 bg-secondary rounded-lg">
                       <tool.icon className="w-6 h-6 text-primary" />
                     </div>
@@ -265,8 +265,8 @@ export default function Home() {
           </div>
           <div className="grid gap-8 md:grid-cols-3">
             {caseStudies.slice(0, 3).map((study, index) => (
-              <Link href={`/case-studies`} key={study.id} className="group">
-                <Card className="overflow-hidden h-full flex flex-col bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
+              <Link href={`/case-studies`} key={study.id} className="group animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
+                <Card className="overflow-hidden h-full flex flex-col bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 rounded-xl">
                   <Image
                     src={study.imageUrl}
                     alt={study.title}
