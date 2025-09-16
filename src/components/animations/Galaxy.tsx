@@ -15,94 +15,84 @@ const GalaxyAnimation = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const numParticles = 10000;
+    const numParticles = 1500;
     const particles: Particle[] = [];
-    const galaxyRadius = Math.min(width, height) * 0.8;
-    const galaxyArms = 5;
-    const armTwist = 0.5;
-    const armSpread = 0.4;
-    const coreRadius = 80;
-
-    let rotation = 0;
     
     let mouse = {
         x: width / 2,
         y: height / 2,
-        radius: 150
+        radius: 120
     };
+    
+    const colors = [
+        '#02f840', // brand green
+        '#06b6d4', // cyan
+        '#ffffff',
+        '#94a3b8',
+    ]
 
     class Particle {
       x: number;
       y: number;
-      z: number;
+      vx: number;
+      vy: number;
       size: number;
-      baseColor: string;
+      baseX: number;
+      baseY: number;
+      density: number;
       color: string;
-      projected: { x: number; y: number; scale: number; };
 
       constructor() {
-        const angle = Math.random() * Math.PI * 2 * galaxyArms;
-        const radius = Math.sqrt(Math.random()) * galaxyRadius;
-        const armIndex = Math.floor(angle / (Math.PI * 2));
-        const armAngle = (angle % (Math.PI * 2)) / armTwist;
-        
-        const r = Math.pow(Math.random(), 2) * galaxyRadius;
-
-        this.x = Math.cos(armAngle) * r + (Math.random() - 0.5) * armSpread * r;
-        this.y = Math.sin(armAngle) * r + (Math.random() - 0.5) * armSpread * r;
-        this.z = (Math.random() - 0.5) * 50 * (1 - r/galaxyRadius);
-        
-        this.size = (Math.random() * 1.5 + 0.5) * (1 - r/galaxyRadius + 0.2);
-        
-        const greenValue = Math.floor(150 + Math.random() * 105);
-        this.baseColor = `rgba(2, ${greenValue}, 64, ${Math.random() * 0.5 + 0.5})`;
-        this.color = this.baseColor;
-        this.projected = { x: 0, y: 0, scale: 0 };
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = 0;
+        this.vy = 0;
+        this.size = Math.random() * 2 + 1;
+        this.baseX = this.x;
+        this.baseY = this.y;
+        this.density = (Math.random() * 30) + 1;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
       }
 
-      project() {
-        const rotatedX = this.x * Math.cos(rotation) - this.y * Math.sin(rotation);
-        const rotatedY = this.x * Math.sin(rotation) + this.y * Math.cos(rotation);
-        
-        let dx = rotatedX - (mouse.x - width / 2);
-        let dy = rotatedY - (mouse.y - height / 2);
-        let dist = Math.sqrt(dx * dx + dy * dy);
-        
-        let finalX = rotatedX;
-        let finalY = rotatedY;
-        
-        if (dist < mouse.radius) {
-            const force = (mouse.radius - dist) / mouse.radius;
-            const angle = Math.atan2(dy, dx);
-            finalX += Math.cos(angle) * force * -80 * (this.z / 50 + 1);
-            finalY += Math.sin(angle) * force * -80 * (this.z / 50 + 1);
-        }
+      update() {
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let dist = Math.sqrt(dx*dx + dy*dy);
+        let forceDirectionX = dx / dist;
+        let forceDirectionY = dy / dist;
+        let maxDistance = mouse.radius;
+        let force = (maxDistance - dist) / maxDistance;
+        let directionX = forceDirectionX * force * this.density;
+        let directionY = forceDirectionY * force * this.density;
 
-        const perspective = 1000 / (1000 + this.z);
-        this.projected = {
-            x: finalX * perspective + width / 2,
-            y: finalY * perspective + height / 2,
-            scale: perspective,
-        };
+        if (dist < mouse.radius) {
+            this.x -= directionX;
+            this.y -= directionY;
+        } else {
+            if (this.x !== this.baseX) {
+                let dx = this.x - this.baseX;
+                this.x -= dx/10;
+            }
+            if (this.y !== this.baseY) {
+                let dy = this.y - this.baseY;
+                this.y -= dy/10;
+            }
+        }
       }
 
       draw() {
         if (!ctx) return;
-        this.project();
-
-        if (this.projected.x < 0 || this.projected.x > width || this.projected.y < 0 || this.projected.y > height) return;
-        
-        ctx.beginPath();
-        ctx.arc(this.projected.x, this.projected.y, this.size * this.projected.scale, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
-        ctx.fill();
+        ctx.beginPath();
+        ctx.fillRect(this.x, this.y, this.size, this.size);
       }
     }
 
     function createParticles() {
-      for (let i = 0; i < numParticles; i++) {
-        particles.push(new Particle());
-      }
+        particles.length = 0;
+        for (let i = 0; i < numParticles; i++) {
+            particles.push(new Particle());
+        }
     }
     
     let animationFrameId: number;
@@ -111,11 +101,10 @@ const GalaxyAnimation = () => {
       if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
 
-      rotation += 0.0003;
-      
-      particles.sort((a,b) => a.z - b.z);
-
-      particles.forEach(p => p.draw());
+      particles.forEach(p => {
+          p.update();
+          p.draw();
+      });
 
       animationFrameId = requestAnimationFrame(render);
     }
@@ -129,7 +118,6 @@ const GalaxyAnimation = () => {
         if(canvas){
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
-            particles.length = 0;
             createParticles();
         }
     }
@@ -150,3 +138,4 @@ const GalaxyAnimation = () => {
 };
 
 export default GalaxyAnimation;
+
