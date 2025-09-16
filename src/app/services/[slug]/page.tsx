@@ -1,10 +1,10 @@
+
 import { services } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Metadata } from "next";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 
 type Props = {
@@ -60,7 +60,7 @@ export default function ServiceDetailPage({ params }: Props) {
                     data-ai-hint={service.imageHint}
                 />
             </div>
-            <div className="prose prose-invert max-w-none text-foreground/80">
+            <div className="prose prose-invert max-w-none text-foreground/80 text-lg">
                 <p>{service.longDescription}</p>
             </div>
             <Button asChild size="lg">
@@ -71,11 +71,11 @@ export default function ServiceDetailPage({ params }: Props) {
             <h3 className="font-headline text-xl font-semibold border-l-4 border-primary pl-4">Other Services</h3>
             <div className="space-y-4">
                 {otherServices.map(other => (
-                    <Link href={`/services/${other.slug}`} key={other.id} className="block">
+                    <Link href={`/services/${other.slug}`} key={other.id} className="block group">
                     <Card className="hover:border-primary/50 transition-colors bg-card">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2 font-headline text-lg">
-                                <other.icon className="w-5 h-5 text-primary" />
+                            <CardTitle className="flex items-center gap-3 font-headline text-lg group-hover:text-primary transition-colors">
+                                <other.icon className="w-6 h-6 text-primary" />
                                 {other.title}
                             </CardTitle>
                         </CardHeader>

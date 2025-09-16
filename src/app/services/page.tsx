@@ -1,8 +1,10 @@
+
 import { services } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export default function ServicesPage() {
   return (
@@ -18,24 +20,34 @@ export default function ServicesPage() {
       </div>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {services.map((service, index) => (
-          <Card key={service.id} className="flex flex-col hover:border-primary/50 transition-colors">
-            <CardHeader className="flex flex-row items-center gap-4">
-              <service.icon className="w-10 h-10 text-primary" />
-              <CardTitle className="font-headline text-xl">
-                {service.title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow flex flex-col">
-              <p className="text-muted-foreground flex-grow mb-4">
-                {service.description}
-              </p>
-              <Button variant="link" asChild className="p-0 h-auto self-start">
-                <Link href={`/services/${service.slug}`}>
-                  Learn More <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
+           <Link href={`/services/${service.slug}`} key={service.id} className="group">
+            <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2">
+              <div className="relative h-48 w-full">
+                <Image
+                  src={service.imageUrl}
+                  alt={service.title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="transition-transform duration-300 group-hover:scale-105"
+                  data-ai-hint={service.imageHint}
+                />
+              </div>
+              <CardHeader className="flex flex-row items-center gap-4">
+                <service.icon className="w-10 h-10 text-primary" />
+                <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">
+                  {service.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow flex flex-col">
+                <p className="text-muted-foreground flex-grow mb-4">
+                  {service.description}
+                </p>
+                <div className="self-start text-primary font-semibold flex items-center group-hover:underline">
+                  Learn More <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>
