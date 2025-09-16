@@ -22,7 +22,7 @@ const SphereAnimation = () => {
     let PROJECTION_CENTER_X = width / 2;
     let PROJECTION_CENTER_Y = height / 2;
     let FIELD_OF_VIEW = width * 0.8;
-    const primaryColor = '0, 255, 136'; // #00FF88 in RGB
+    const primaryColor = '6, 182, 212';
 
     let mouse = {
         x: 0,
