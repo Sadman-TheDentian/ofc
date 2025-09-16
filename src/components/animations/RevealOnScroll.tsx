@@ -56,8 +56,8 @@ const RevealOnScroll: React.FC<RevealOnScrollProps> = ({
     >
       <div
         className={cn(
-          'transition-transform duration-1000',
-          isVisible ? 'translate-y-0' : 'translate-y-10'
+          'transition-all duration-1000 transform',
+          isVisible ? 'translate-y-0 scale-100' : 'translate-y-10 scale-95'
         )}
       >
         {children}
