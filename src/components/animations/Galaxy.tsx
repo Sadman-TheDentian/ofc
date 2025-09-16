@@ -24,7 +24,8 @@ const GalaxyAnimation = () => {
     let mouse = {
         x: width / 2,
         y: height / 2,
-        radius: 150
+        radius: 150,
+        interactionRadius: 200,
     };
 
     const colors = [
@@ -48,13 +49,13 @@ const GalaxyAnimation = () => {
       constructor(isDust = false) {
         this.isDust = isDust;
         const angle = Math.random() * Math.PI * 2;
-        const baseRadius = isDust ? Math.random() * width * 0.6 : Math.random() * Math.random() * width * 0.5;
+        const baseRadius = isDust ? Math.random() * width * 0.7 : Math.random() * Math.random() * width * 0.5;
         const spread = isDust ? 1.5 : 1;
         const radius = baseRadius * spread;
         
         this.x = Math.cos(angle) * radius;
         this.y = Math.sin(angle) * radius;
-        this.z = (Math.random() - 0.5) * 2500;
+        this.z = (Math.random() - 0.5) * 3000;
         this.size = isDust ? Math.random() * 0.8 : Math.random() * 2 + 0.5;
         this.color = colors[Math.floor(Math.random() * colors.length)];
         
@@ -110,7 +111,6 @@ const GalaxyAnimation = () => {
       for (let i = 0; i < numDustParticles; i++) {
         particles.push(new Particle(true));
       }
-      // Sort particles by z-index to draw background particles first
       particles.sort((a,b) => a.z - b.z);
     }
 
@@ -126,6 +126,26 @@ const GalaxyAnimation = () => {
         p.draw();
       });
       
+      // Draw lines from cursor to nearby particles
+      ctx.strokeStyle = "rgba(2, 248, 64, 0.2)"; // Faint green
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      particles.forEach(p => {
+          if(!p.isDust) {
+              const dx = mouse.x - p.xProjected;
+              const dy = mouse.y - p.yProjected;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+
+              if (dist < mouse.interactionRadius) {
+                  const opacity = 1 - (dist / mouse.interactionRadius);
+                  ctx.strokeStyle = `rgba(2, 248, 64, ${opacity * 0.2})`;
+                  ctx.moveTo(mouse.x, mouse.y);
+                  ctx.lineTo(p.xProjected, p.yProjected);
+              }
+          }
+      });
+      ctx.stroke();
+
       ctx.globalAlpha = 1;
       animationFrameId = requestAnimationFrame(render);
     }
@@ -141,6 +161,7 @@ const GalaxyAnimation = () => {
             height = canvas.height = window.innerHeight;
             let newCenterX = window.innerWidth / 2;
             let newCenterY = window.innerHeight / 2;
+            createParticles(); // Recreate particles on resize to fit new screen dimensions
         }
     }
 
