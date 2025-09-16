@@ -1,3 +1,4 @@
+
 import { tools } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -50,7 +51,9 @@ export default function ToolDetailPage({ params }: Props) {
     <div className="container py-12 md:py-20">
       <div className="max-w-4xl mx-auto">
         <div className="text-center space-y-4 mb-12">
-          <tool.icon className="w-16 h-16 text-primary mx-auto" />
+          <div className="inline-block p-4 bg-secondary rounded-xl">
+            <tool.icon className="w-12 h-12 text-primary mx-auto" />
+          </div>
           <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
             {tool.title}
           </h1>
@@ -62,9 +65,9 @@ export default function ToolDetailPage({ params }: Props) {
             <CarouselContent>
                 {tool.screenshots.map((ss) => (
                 <CarouselItem key={ss.id}>
-                    <Card className="overflow-hidden">
-                        <CardContent className="p-0">
-                            <Image src={ss.url} alt={ss.alt} width={1200} height={800} className="w-full h-auto object-cover" data-ai-hint={ss.hint} />
+                    <Card className="overflow-hidden border-border/50">
+                        <CardContent className="p-0 aspect-[3/2] relative">
+                            <Image src={ss.url} alt={ss.alt} layout="fill" objectFit="cover" className="w-full h-auto" data-ai-hint={ss.hint} />
                         </CardContent>
                     </Card>
                 </CarouselItem>
@@ -80,7 +83,7 @@ export default function ToolDetailPage({ params }: Props) {
           <h2 className="font-headline text-2xl font-bold text-center mb-8">
             Free vs. PRO
           </h2>
-          <Card>
+          <Card className="bg-card">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -116,15 +119,15 @@ export default function ToolDetailPage({ params }: Props) {
           </Card>
         </div>
 
-        <div className="text-center">
+        <div className="text-center bg-secondary/50 p-8 rounded-xl">
           <h2 className="font-headline text-2xl font-bold text-center mb-4">
             Ready to Upgrade?
           </h2>
           <p className="text-muted-foreground mb-6">
-            Unlock the full potential with a PRO subscription.
+            Unlock the full potential of {tool.title} with a PRO subscription.
           </p>
           <Button size="lg" asChild>
-            <Link href="/dashboard">Go to Dashboard & Upgrade</Link>
+            <Link href="/pricing">View Plans</Link>
           </Button>
         </div>
       </div>

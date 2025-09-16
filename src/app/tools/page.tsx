@@ -1,3 +1,4 @@
+
 import { tools } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,24 +19,24 @@ export default function ToolsPage() {
       </div>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {tools.map((tool, index) => (
-          <Card key={tool.id} className="flex flex-col hover:border-primary/50 transition-colors">
-            <CardHeader className="flex flex-row items-center gap-4">
-              <tool.icon className="w-10 h-10 text-primary" />
-              <CardTitle className="font-headline text-xl">
-                {tool.title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow flex flex-col">
-              <p className="text-muted-foreground flex-grow mb-4">
-                {tool.description}
-              </p>
-              <Button variant="link" asChild className="p-0 h-auto self-start">
-                <Link href={`/tools/${tool.slug}`}>
-                  Explore Tool <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
+           <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
+            <Card className="flex flex-col h-full hover:border-primary/50 transition-colors">
+              <CardHeader className="flex flex-row items-center gap-4">
+                <tool.icon className="w-10 h-10 text-primary" />
+                <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">
+                  {tool.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow flex flex-col">
+                <p className="text-muted-foreground flex-grow mb-4">
+                  {tool.description}
+                </p>
+                <div className="self-start text-primary font-semibold flex items-center group-hover:underline">
+                  Explore Tool <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardContent>
+            </Card>
+           </Link>
         ))}
       </div>
     </div>
