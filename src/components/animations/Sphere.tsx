@@ -22,7 +22,8 @@ const SphereAnimation = () => {
     let PROJECTION_CENTER_X = width / 2;
     let PROJECTION_CENTER_Y = height / 2;
     let FIELD_OF_VIEW = width * 0.8;
-    const primaryColor = '6, 182, 212';
+    const primaryColor = '2, 248, 64'; // #02f840
+    const highlightColor = '6, 182, 212'; // cyan for highlight
 
     let mouse = {
         x: 0,
@@ -96,7 +97,7 @@ const SphereAnimation = () => {
 
         if (opacity > 0) {
             const glow_opacity = Math.min(0.8, opacity);
-            ctx.fillStyle = `rgba(${primaryColor}, ${glow_opacity})`;
+            ctx.fillStyle = `rgba(${highlightColor}, ${glow_opacity})`;
         } else {
             ctx.fillStyle = `rgba(${primaryColor}, 0.2)`;
         }
