@@ -17,7 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { DentiSystemsLogo } from "../icons";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -26,6 +26,8 @@ const navLinks = [
   { href: "/case-studies", label: "Case Studies" },
   { href: "/blog", label: "Blog" },
 ];
+
+const logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlngvrGCuFgj7opXopps9UC96bQ78i89Vb7zwRQE3e4g&s=10";
 
 export default function Header() {
   const pathname = usePathname();
@@ -91,7 +93,7 @@ export default function Header() {
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <DentiSystemsLogo className="h-6 w-6 text-primary" />
+            <Image src={logoUrl} alt="DentiSystems Logo" width={24} height={24} className="h-6 w-6" />
             <span className="hidden font-bold sm:inline-block font-headline">
               DentiSystems
             </span>
@@ -115,7 +117,7 @@ export default function Header() {
         </div>
         <div className="md:hidden">
             <Link href="/" className="mr-6 flex items-center space-x-2">
-              <DentiSystemsLogo className="h-6 w-6 text-primary" />
+               <Image src={logoUrl} alt="DentiSystems Logo" width={24} height={24} className="h-6 w-6" />
               <span className="font-bold sm:inline-block font-headline">
                 DentiSystems
               </span>
@@ -142,7 +144,7 @@ export default function Header() {
             <SheetHeader className="mb-6">
                 <SheetTitle className="sr-only">Menu</SheetTitle>
                  <Link href="/" className="flex items-center space-x-2">
-                    <DentiSystemsLogo className="h-6 w-6 text-primary" />
+                     <Image src={logoUrl} alt="DentiSystems Logo" width={24} height={24} className="h-6 w-6" />
                     <span className="font-bold font-headline">DentiSystems</span>
                 </Link>
             </SheetHeader>

@@ -13,7 +13,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
-import { DentiSystemsLogo } from "@/components/icons";
+import Image from "next/image";
+
 
 const sidebarNavItems = [
   {
@@ -37,6 +38,8 @@ const sidebarNavItems = [
     icon: KeyRound,
   },
 ];
+
+const logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlngvrGCuFgj7opXopps9UC96bQ78i89Vb7zwRQE3e4g&s=10";
 
 export default function DashboardLayout({
   children,
@@ -66,7 +69,7 @@ export default function DashboardLayout({
     <div className="flex min-h-[calc(100vh-57px)]">
       <aside className="hidden md:flex w-64 flex-col border-r bg-card p-4">
         <div className="flex items-center gap-2 mb-8">
-            <DentiSystemsLogo className="h-8 w-8 text-primary" />
+            <Image src={logoUrl} alt="DentiSystems Logo" width={32} height={32} className="h-8 w-8" />
             <span className="font-headline text-lg font-bold">Dashboard</span>
         </div>
         {navContent}
@@ -82,7 +85,7 @@ export default function DashboardLayout({
                 </SheetTrigger>
                 <SheetContent side="left">
                     <div className="flex items-center gap-2 mb-8">
-                        <DentiSystemsLogo className="h-8 w-8 text-primary" />
+                         <Image src={logoUrl} alt="DentiSystems Logo" width={32} height={32} className="h-8 w-8" />
                         <span className="font-headline text-lg font-bold">Dashboard</span>
                     </div>
                     {navContent}
