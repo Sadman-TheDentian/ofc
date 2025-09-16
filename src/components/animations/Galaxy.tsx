@@ -17,14 +17,21 @@ const GalaxyAnimation = () => {
     let particles: Particle[] = [];
     const numParticles = 800;
     const numDustParticles = 2000;
-    const centerX = width / 2;
-    const centerY = height / 2;
+    let centerX = width / 2;
+    let centerY = height / 2;
     let time = 0;
+
+    // Target rotation based on mouse, and current rotation for easing
+    let targetRotationX = 0;
+    let targetRotationY = 0;
+    let currentRotationX = 0;
+    let currentRotationY = 0;
+
 
     let mouse = {
         x: width / 2,
         y: height / 2,
-        radius: 150,
+        radius: 100,
         interactionRadius: 200,
     };
 
@@ -45,6 +52,15 @@ const GalaxyAnimation = () => {
       color: string;
       size: number;
       isDust: boolean;
+      orbitRadius: number;
+      angle: number;
+
+      // For velocity-based interaction
+      vx: number;
+      vy: number;
+      baseX: number;
+      baseY: number;
+      baseZ: number;
       
       constructor(isDust = false) {
         this.isDust = isDust;
@@ -53,44 +69,71 @@ const GalaxyAnimation = () => {
         const spread = isDust ? 1.5 : 1;
         const radius = baseRadius * spread;
         
-        this.x = Math.cos(angle) * radius;
-        this.y = Math.sin(angle) * radius;
-        this.z = (Math.random() - 0.5) * 3000;
+        this.x = this.baseX = Math.cos(angle) * radius;
+        this.y = this.baseY = Math.sin(angle) * radius;
+        this.z = this.baseZ = (Math.random() - 0.5) * 3000;
+        
         this.size = isDust ? Math.random() * 0.8 : Math.random() * 2 + 0.5;
         this.color = colors[Math.floor(Math.random() * colors.length)];
         
         this.xProjected = 0;
         this.yProjected = 0;
         this.scaleProjected = 0;
+        
+        this.orbitRadius = Math.random() * 5;
+        this.angle = Math.random() * Math.PI * 2;
+
+        this.vx = 0;
+        this.vy = 0;
       }
 
       project(time: number) {
+        // Apply inertia
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Apply friction/damping
+        this.vx *= 0.9;
+        this.vy *= 0.9;
+
+        // Gravitational pull back to base position
+        const dxHome = this.baseX - this.x;
+        const dyHome = this.baseY - this.y;
+        this.vx += dxHome * 0.001;
+        this.vy += dyHome * 0.001;
+        
+        // Handle cursor repulsion
+        const dx = this.xProjected - mouse.x;
+        const dy = this.yProjected - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < mouse.radius && !this.isDust) {
+            const force = (mouse.radius - dist) / mouse.radius;
+            this.vx += (dx / dist) * force * 2;
+            this.vy += (dy / dist) * force * 2;
+        }
+
         const rotationSpeed = this.isDust ? 0.00005 : 0.0001;
-        const rotationX = Math.sin(time * rotationSpeed) * 0.5;
-        const rotationY = Math.cos(time * rotationSpeed) * 0.5;
+        
+        const rotationX = Math.sin(time * rotationSpeed) * 0.1 + currentRotationX;
+        const rotationY = Math.cos(time * rotationSpeed) * 0.1 + currentRotationY;
 
-        const rotatedX = this.x * Math.cos(rotationY) - this.z * Math.sin(rotationY);
-        let rotatedZ = this.x * Math.sin(rotationY) + this.z * Math.cos(rotationY);
+        // Individual orbit
+        this.angle += 0.02;
+        const orbitalX = Math.cos(this.angle) * this.orbitRadius;
+        const orbitalY = Math.sin(this.angle) * this.orbitRadius;
 
-        const rotatedY = this.y * Math.cos(rotationX) - rotatedZ * Math.sin(rotationX);
-        rotatedZ = this.y * Math.sin(rotationX) + rotatedZ * Math.cos(rotationX);
+        const rotatedX = (this.x + orbitalX) * Math.cos(rotationY) - this.z * Math.sin(rotationY);
+        let rotatedZ = (this.x + orbitalX) * Math.sin(rotationY) + this.z * Math.cos(rotationY);
+
+        const rotatedY = (this.y + orbitalY) * Math.cos(rotationX) - rotatedZ * Math.sin(rotationX);
+        rotatedZ = (this.y + orbitalY) * Math.sin(rotationX) + rotatedZ * Math.cos(rotationX);
 
         const perspective = 300 / (300 + rotatedZ);
         this.xProjected = (rotatedX * perspective) + centerX;
         this.yProjected = (rotatedY * perspective) + centerY;
-        this.scaleProjected = perspective * this.size;
+        this.scaleProjected = perspective * this.size * (1.5 + Math.sin(this.angle) * 0.5);
 
-        if (!this.isDust) {
-            const dx = mouse.x - this.xProjected;
-            const dy = mouse.y - this.yProjected;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < mouse.radius) {
-                const force = (mouse.radius - dist) / mouse.radius;
-                this.xProjected -= dx * force * 0.1;
-                this.yProjected -= dy * force * 0.1;
-            }
-        }
       }
 
       draw() {
@@ -121,13 +164,18 @@ const GalaxyAnimation = () => {
       ctx.clearRect(0, 0, width, height);
       time += 1;
 
+      // Ease current rotation towards target rotation
+      const easing = 0.05;
+      currentRotationX += (targetRotationX - currentRotationX) * easing;
+      currentRotationY += (targetRotationY - currentRotationY) * easing;
+
       particles.forEach(p => {
         p.project(time);
         p.draw();
       });
       
       // Draw lines from cursor to nearby particles
-      ctx.strokeStyle = "rgba(2, 248, 64, 0.2)"; // Faint green
+      ctx.strokeStyle = "rgba(2, 248, 64, 0.2)";
       ctx.lineWidth = 0.5;
       ctx.beginPath();
       particles.forEach(p => {
@@ -153,15 +201,19 @@ const GalaxyAnimation = () => {
     function onMouseMove(e: MouseEvent) {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
+
+      // Update target rotation based on mouse position from center
+      targetRotationY = (mouse.x - centerX) * 0.0005; // Tilt left/right
+      targetRotationX = (mouse.y - centerY) * -0.0005; // Tilt up/down
     }
 
     function onResize() {
         if(canvas){
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
-            let newCenterX = window.innerWidth / 2;
-            let newCenterY = window.innerHeight / 2;
-            createParticles(); // Recreate particles on resize to fit new screen dimensions
+            centerX = window.innerWidth / 2;
+            centerY = window.innerHeight / 2;
+            createParticles();
         }
     }
 
