@@ -20,15 +20,15 @@ export default function Home() {
         
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6">
-            <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground">
+            <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground animate-fade-in-up">
               Elite Cybersecurity &
               <br />
               Custom Web Engineering
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s'}}>
               High-risk vendor recon, breach monitoring, and secure development that reduces operational risk.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
               <Button size="lg" asChild>
                 <Link href="/contact">Request Risk Audit</Link>
               </Button>
