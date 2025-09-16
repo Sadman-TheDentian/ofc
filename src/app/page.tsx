@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { services, tools, caseStudies } from '@/lib/data';
 import Image from 'next/image';
 import SphereAnimation from '@/components/animations/Sphere';
+import PartnerSlider from '@/components/layout/PartnerSlider';
 
 
 export default function Home() {
@@ -168,6 +169,17 @@ export default function Home() {
                     </Link>
                 </Button>
             </div>
+        </div>
+      </section>
+
+      <section id="partners" className="py-20 md:py-32 border-t border-border/50 bg-background">
+        <div className="container px-4 md:px-6">
+          <div className="text-center space-y-4 mb-16">
+             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+              Powering the World's Most Secure Companies
+            </h2>
+          </div>
+          <PartnerSlider />
         </div>
       </section>
     </div>
