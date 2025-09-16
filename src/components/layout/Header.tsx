@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { useAuth } from "@/lib/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
@@ -18,6 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { DentiSystemsLogo } from "../icons";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -91,7 +91,7 @@ export default function Header() {
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Image src="/logo.svg" alt="DentiSystems Logo" width={24} height={24} />
+            <DentiSystemsLogo className="h-6 w-6 text-primary" />
             <span className="hidden font-bold sm:inline-block font-headline">
               DentiSystems
             </span>
@@ -115,7 +115,7 @@ export default function Header() {
         </div>
         <div className="md:hidden">
             <Link href="/" className="mr-6 flex items-center space-x-2">
-              <Image src="/logo.svg" alt="DentiSystems Logo" width={24} height={24} />
+              <DentiSystemsLogo className="h-6 w-6 text-primary" />
               <span className="font-bold sm:inline-block font-headline">
                 DentiSystems
               </span>
@@ -142,7 +142,7 @@ export default function Header() {
             <SheetHeader className="mb-6">
                 <SheetTitle className="sr-only">Menu</SheetTitle>
                  <Link href="/" className="flex items-center space-x-2">
-                    <Image src="/logo.svg" alt="DentiSystems Logo" width={24} height={24} />
+                    <DentiSystemsLogo className="h-6 w-6 text-primary" />
                     <span className="font-bold font-headline">DentiSystems</span>
                 </Link>
             </SheetHeader>
