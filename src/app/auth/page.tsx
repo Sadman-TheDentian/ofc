@@ -113,7 +113,7 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-200px)] py-12">
+    <div className="container flex items-center justify-center min-h-[calc(100vh-200px)] py-12">
       <Tabs defaultValue="signin" className="w-full max-w-md">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="signin">Sign In</TabsTrigger>
@@ -273,3 +273,5 @@ export default function AuthPage() {
     </div>
   );
 }
+
+    
