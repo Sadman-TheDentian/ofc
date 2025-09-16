@@ -23,7 +23,7 @@ const SphereAnimation = () => {
     let PROJECTION_CENTER_Y = height / 2;
     let FIELD_OF_VIEW = width * 0.8;
     const primaryColor = '2, 248, 64'; // #02f840
-    const highlightColor = '6, 182, 212'; // cyan for highlight
+    const highlightColor = '2, 248, 64'; // #02f840
 
     let mouse = {
         x: 0,
