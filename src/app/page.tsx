@@ -9,6 +9,7 @@ import { services, tools, caseStudies } from '@/lib/data';
 import Image from 'next/image';
 import SphereAnimation from '@/components/animations/Sphere';
 import PartnerSlider from '@/components/layout/PartnerSlider';
+import RevealOnScroll from '@/components/animations/RevealOnScroll';
 
 
 export default function Home() {
@@ -53,35 +54,37 @@ export default function Home() {
           </div>
           <div className="grid gap-8 md:grid-cols-3">
              {services.map((service, index) => (
-              <div key={service.id} className="group relative animate-fade-in-up" style={{animationDelay: `${0.5 + index * 0.2}s`}}>
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
-                <Link href={`/services/${service.slug}`}>
-                  <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all duration-300 rounded-xl group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-2">
-                    <div className="relative h-48 w-full">
-                         <Image
-                          src={service.imageUrl}
-                          alt={service.title}
-                          layout="fill"
-                          objectFit="cover"
-                          className="transition-transform duration-300 group-hover:scale-105"
-                          data-ai-hint={service.imageHint}
-                        />
-                    </div>
-                    <CardHeader className="p-6">
-                      <div className="p-4 bg-secondary self-start rounded-lg mb-4 mt-[-40px] relative z-10 border-4 border-card">
-                        <service.icon className="w-8 h-8 text-primary shrink-0 transition-transform duration-300 group-hover:scale-110" />
+               <RevealOnScroll key={service.id} delay={index * 150}>
+                <div className="group relative">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
+                  <Link href={`/services/${service.slug}`}>
+                    <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all duration-300 rounded-xl group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-2">
+                      <div className="relative h-48 w-full">
+                          <Image
+                            src={service.imageUrl}
+                            alt={service.title}
+                            layout="fill"
+                            objectFit="cover"
+                            className="transition-transform duration-300 group-hover:scale-105"
+                            data-ai-hint={service.imageHint}
+                          />
                       </div>
-                      <CardTitle className="font-headline text-xl">{service.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-6 pt-0 flex-grow flex flex-col">
-                      <p className="text-muted-foreground mb-4 flex-grow">{service.description}</p>
-                      <div className="self-start text-primary font-semibold flex items-center group-hover:underline">
-                          Learn More <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </div>
+                      <CardHeader className="p-6">
+                        <div className="p-4 bg-secondary self-start rounded-lg mb-4 mt-[-40px] relative z-10 border-4 border-card">
+                          <service.icon className="w-8 h-8 text-primary shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                        </div>
+                        <CardTitle className="font-headline text-xl">{service.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="p-6 pt-0 flex-grow flex flex-col">
+                        <p className="text-muted-foreground mb-4 flex-grow">{service.description}</p>
+                        <div className="self-start text-primary font-semibold flex items-center group-hover:underline">
+                            Learn More <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </div>
+              </RevealOnScroll>
             ))}
           </div>
         </div>
@@ -89,40 +92,42 @@ export default function Home() {
 
       <section id="tools" className="py-20 md:py-32 border-t border-border/50 bg-card">
         <div className="container px-4 md:px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-             <div className="space-y-4">
-                <div className="inline-block bg-secondary text-primary px-4 py-1 rounded-full text-sm font-bold">
-                    OUR ARSENAL
-                </div>
-                <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-                  Proprietary Security Tools
-                </h2>
-                <p className="text-muted-foreground md:text-xl">
-                  Explore our suite of tools designed to give you the upper hand in the digital battlefield. From dark web monitoring to phishing simulation.
-                </p>
-                <Button variant="outline" asChild>
-                    <Link href="/tools">
-                        Explore All Tools <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                </Button>
-            </div>
-            <div className="grid gap-6">
-              {tools.slice(0, 3).map((tool) => (
-                <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
-                  <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary/50 transition-colors">
-                    <div className="p-3 bg-secondary rounded-lg">
-                      <tool.icon className="w-6 h-6 text-primary"/>
-                    </div>
-                    <div>
-                      <h3 className="font-headline text-lg font-semibold group-hover:text-primary transition-colors">{tool.title}</h3>
-                      <p className="text-sm text-muted-foreground">{tool.description}</p>
-                    </div>
-                    <ArrowRight className="ml-auto h-5 w-5 text-muted-foreground shrink-0 transition-transform group-hover:translate-x-1 group-hover:text-primary" />
+          <RevealOnScroll>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-4">
+                  <div className="inline-block bg-secondary text-primary px-4 py-1 rounded-full text-sm font-bold">
+                      OUR ARSENAL
                   </div>
-                </Link>
-              ))}
+                  <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+                    Proprietary Security Tools
+                  </h2>
+                  <p className="text-muted-foreground md:text-xl">
+                    Explore our suite of tools designed to give you the upper hand in the digital battlefield. From dark web monitoring to phishing simulation.
+                  </p>
+                  <Button variant="outline" asChild>
+                      <Link href="/tools">
+                          Explore All Tools <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                  </Button>
+              </div>
+              <div className="grid gap-6">
+                {tools.slice(0, 3).map((tool) => (
+                  <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
+                    <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary/50 transition-colors">
+                      <div className="p-3 bg-secondary rounded-lg">
+                        <tool.icon className="w-6 h-6 text-primary"/>
+                      </div>
+                      <div>
+                        <h3 className="font-headline text-lg font-semibold group-hover:text-primary transition-colors">{tool.title}</h3>
+                        <p className="text-sm text-muted-foreground">{tool.description}</p>
+                      </div>
+                      <ArrowRight className="ml-auto h-5 w-5 text-muted-foreground shrink-0 transition-transform group-hover:translate-x-1 group-hover:text-primary" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          </RevealOnScroll>
         </div>
       </section>
 
@@ -137,29 +142,31 @@ export default function Home() {
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
-            {caseStudies.slice(0, 3).map((study) => (
-              <Link href={`/case-studies`} key={study.id} className="group">
-                <Card className="overflow-hidden h-full flex flex-col bg-card border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2">
-                  <Image
-                    src={study.imageUrl}
-                    alt={study.title}
-                    width={600}
-                    height={400}
-                    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                    data-ai-hint={study.imageHint}
-                  />
-                  <CardHeader>
-                    <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
-                      {study.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <p className="text-muted-foreground text-sm">
-                      {study.summary}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
+            {caseStudies.slice(0, 3).map((study, index) => (
+              <RevealOnScroll key={study.id} delay={index * 150}>
+                <Link href={`/case-studies`} className="group">
+                  <Card className="overflow-hidden h-full flex flex-col bg-card border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2">
+                    <Image
+                      src={study.imageUrl}
+                      alt={study.title}
+                      width={600}
+                      height={400}
+                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                      data-ai-hint={study.imageHint}
+                    />
+                    <CardHeader>
+                      <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
+                        {study.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                      <p className="text-muted-foreground text-sm">
+                        {study.summary}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </RevealOnScroll>
             ))}
           </div>
            <div className="text-center mt-12">
