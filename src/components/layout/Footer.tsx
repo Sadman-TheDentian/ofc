@@ -110,7 +110,6 @@ export default function Footer() {
         </div>
         <div className="mt-8 border-t border-border/40 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} DentiSystems. All rights reserved.</p>
-          <p>A Firebase Studio Project.</p>
         </div>
       </div>
     </footer>
