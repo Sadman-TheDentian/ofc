@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -28,7 +29,7 @@ export default function BlogPage() {
               <Image
                 src={featuredPost.imageUrl}
                 alt={featuredPost.title}
-                layout="fill"
+                fill
                 objectFit="cover"
                 className="group-hover:scale-105 transition-transform"
                 data-ai-hint={featuredPost.imageHint}
@@ -71,7 +72,7 @@ export default function BlogPage() {
                 <Image
                   src={post.imageUrl}
                   alt={post.title}
-                  layout="fill"
+                  fill
                   objectFit="cover"
                   className="group-hover:scale-105 transition-transform"
                   data-ai-hint={post.imageHint}

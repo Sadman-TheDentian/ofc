@@ -1,3 +1,4 @@
+
 import { blogPosts } from "@/lib/data";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -63,11 +64,11 @@ export default function BlogPostPage({ params }: Props) {
               </div>
             </div>
           </div>
-          <div className="mb-8 relative h-96">
+          <div className="mb-8 relative aspect-video">
             <Image
               src={post.imageUrl}
               alt={post.title}
-              layout="fill"
+              fill
               objectFit="cover"
               className="rounded-lg shadow-lg"
               data-ai-hint={post.imageHint}
@@ -78,7 +79,7 @@ export default function BlogPostPage({ params }: Props) {
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </article>
-        <aside className="lg:col-span-1 space-y-8">
+        <aside className="lg:col-span-1 space-y-8 lg:sticky top-24 self-start">
              <h3 className="font-headline text-xl font-semibold border-l-4 border-primary pl-4">
                 Recent Posts
             </h3>
@@ -90,7 +91,7 @@ export default function BlogPostPage({ params }: Props) {
                                 <Image 
                                     src={other.imageUrl} 
                                     alt={other.title} 
-                                    layout="fill" 
+                                    fill 
                                     objectFit="cover"
                                     className="rounded-md"
                                     data-ai-hint={other.imageHint}
