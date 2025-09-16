@@ -15,7 +15,7 @@ const GalaxyAnimation = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const numParticles = 1500;
+    const numParticles = 800;
     const particles: Particle[] = [];
     
     let mouse = {

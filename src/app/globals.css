@@ -72,10 +72,6 @@
   html, body {
       background-color: hsl(var(--background));
   }
-
-  .card {
-    @apply bg-gradient-to-br from-card to-card/80;
-  }
 }
 
 @layer utilities {

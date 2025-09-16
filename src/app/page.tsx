@@ -53,18 +53,22 @@ export default function Home() {
           <div className="grid gap-8 md:grid-cols-3">
              {services.map((service, index) => (
                <RevealOnScroll key={service.id} delay={index * 150}>
-                <Link href={`/services/${service.slug}`} className="group block p-6 rounded-lg transition-colors hover:bg-card/50">
-                    <div className="flex items-center gap-6 mb-4">
-                        <div className="p-3 bg-secondary self-start rounded-lg border border-border">
-                          <service.icon className="w-8 h-8 text-primary shrink-0 transition-transform duration-300 group-hover:scale-110" />
-                        </div>
-                        <h3 className="font-headline text-xl flex-1">{service.title}</h3>
-                    </div>
-                    <p className="text-muted-foreground mb-4">{service.description}</p>
-                    <div className="self-start text-primary font-semibold flex items-center group-hover:underline">
-                        Learn More <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </div>
-                </Link>
+                <Card className="h-full flex flex-col bg-gradient-to-br from-card to-card/80">
+                  <CardHeader className="flex flex-row items-center gap-4">
+                     <div className="p-3 bg-secondary rounded-lg border border-border">
+                        <service.icon className="w-8 h-8 text-primary" />
+                     </div>
+                     <CardTitle className="font-headline text-xl">{service.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-grow flex flex-col">
+                    <p className="text-muted-foreground flex-grow mb-4">{service.description}</p>
+                    <Button variant="link" className="p-0 self-start" asChild>
+                        <Link href={`/services/${service.slug}`}>
+                            Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
               </RevealOnScroll>
             ))}
           </div>
@@ -91,7 +95,7 @@ export default function Home() {
                       </Link>
                   </Button>
               </div>
-              <div className="divide-y divide-border/50 rounded-lg border border-border/50">
+              <div className="divide-y divide-border/50 rounded-lg border border-border/50 bg-gradient-to-br from-card to-card/80">
                 {tools.slice(0, 3).map((tool) => (
                   <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
                     <div className="flex items-center gap-4 p-4 transition-colors hover:bg-secondary/30">
@@ -126,7 +130,7 @@ export default function Home() {
             {caseStudies.slice(0, 3).map((study, index) => (
               <RevealOnScroll key={study.id} delay={index * 150}>
                 <Link href={`/case-studies`} className="group">
-                  <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2">
+                  <Card className="overflow-hidden h-full flex flex-col border-border bg-gradient-to-br from-card to-card/80 transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2">
                     <Image
                       src={study.imageUrl}
                       alt={study.title}
