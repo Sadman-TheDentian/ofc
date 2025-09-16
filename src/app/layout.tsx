@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { AuthProvider } from "@/lib/auth";
-import SphereAnimation from "@/components/animations/Sphere";
+import GalaxyAnimation from "@/components/animations/Galaxy";
 
 export const metadata: Metadata = {
   title: "DentiSystems — Elite Cybersecurity & Custom Web Engineering",
@@ -39,7 +39,7 @@ export default function RootLayout({
         )}
         suppressHydrationWarning={true}
       >
-        <SphereAnimation />
+        <GalaxyAnimation />
         <AuthProvider>
           <Header />
           <main className="flex-grow z-10">{children}</main>
