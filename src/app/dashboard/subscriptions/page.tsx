@@ -4,6 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 
 export default function SubscriptionsPage() {
+    const proFeatures = [
+        "Unlimited access to all tools including DarkCheck, PhishRisk, and PasswordLeaker PRO.",
+        "Full API access for integrations and automated workflows.",
+        "Real-time threat alerts and priority support.",
+    ];
+
     return (
         <div>
             <div className="mb-8">
@@ -18,18 +24,12 @@ export default function SubscriptionsPage() {
                         <CardDescription>Your current plan includes:</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                        <div className="flex items-start gap-3">
-                            <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                            <p>Unlimited access to all tools including DarkCheck, PhishRisk, and PasswordLeaker PRO.</p>
-                        </div>
-                        <div className="flex items-start gap-3">
-                            <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                            <p>Full API access for integrations and automated workflows.</p>
-                        </div>
-                        <div className="flex items-start gap-3">
-                            <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                            <p>Real-time threat alerts and priority support.</p>
-                        </div>
+                        {proFeatures.map((feature, index) => (
+                             <div key={index} className="flex items-start gap-3">
+                                <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                                <p>{feature}</p>
+                            </div>
+                        ))}
                     </CardContent>
                     <CardFooter className="flex flex-col items-start">
                         <p className="text-sm font-bold">Billed annually.</p>
