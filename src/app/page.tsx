@@ -53,35 +53,18 @@ export default function Home() {
           <div className="grid gap-8 md:grid-cols-3">
              {services.map((service, index) => (
                <RevealOnScroll key={service.id} delay={index * 150}>
-                <div className="group relative">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
-                  <Link href={`/services/${service.slug}`}>
-                    <Card className="relative overflow-hidden h-full flex flex-col bg-gradient-to-br from-card to-card/80 border-border/50 transition-all duration-300 rounded-xl group-hover:shadow-2xl group-hover:shadow-primary/10 hover:-translate-y-2">
-                      <div className="relative h-48 w-full">
-                          <Image
-                            src={service.imageUrl}
-                            alt={service.title}
-                            layout="fill"
-                            objectFit="cover"
-                            className="transition-transform duration-300 group-hover:scale-105"
-                            data-ai-hint={service.imageHint}
-                          />
-                      </div>
-                      <CardHeader className="p-6">
-                        <div className="p-4 bg-secondary self-start rounded-lg mb-4 mt-[-40px] relative z-10 border-4 border-card">
+                <Link href={`/services/${service.slug}`} className="group block p-6 rounded-lg transition-colors hover:bg-card/50">
+                    <div className="flex items-center gap-6 mb-4">
+                        <div className="p-3 bg-secondary self-start rounded-lg border border-border">
                           <service.icon className="w-8 h-8 text-primary shrink-0 transition-transform duration-300 group-hover:scale-110" />
                         </div>
-                        <CardTitle className="font-headline text-xl">{service.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent className="p-6 pt-0 flex-grow flex flex-col">
-                        <p className="text-muted-foreground mb-4 flex-grow">{service.description}</p>
-                        <div className="self-start text-primary font-semibold flex items-center group-hover:underline">
-                            Learn More <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                </div>
+                        <h3 className="font-headline text-xl flex-1">{service.title}</h3>
+                    </div>
+                    <p className="text-muted-foreground mb-4">{service.description}</p>
+                    <div className="self-start text-primary font-semibold flex items-center group-hover:underline">
+                        Learn More <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </div>
+                </Link>
               </RevealOnScroll>
             ))}
           </div>
@@ -108,10 +91,10 @@ export default function Home() {
                       </Link>
                   </Button>
               </div>
-              <div className="grid gap-6">
+              <div className="divide-y divide-border/50 rounded-lg border border-border/50">
                 {tools.slice(0, 3).map((tool) => (
                   <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
-                    <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-gradient-to-br from-secondary/50 to-secondary/30 transition-colors">
+                    <div className="flex items-center gap-4 p-4 transition-colors hover:bg-secondary/30">
                       <div className="p-3 bg-secondary rounded-lg">
                         <tool.icon className="w-6 h-6 text-primary"/>
                       </div>
@@ -143,7 +126,7 @@ export default function Home() {
             {caseStudies.slice(0, 3).map((study, index) => (
               <RevealOnScroll key={study.id} delay={index * 150}>
                 <Link href={`/case-studies`} className="group">
-                  <Card className="overflow-hidden h-full flex flex-col bg-gradient-to-br from-card to-card/80 border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2">
+                  <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2">
                     <Image
                       src={study.imageUrl}
                       alt={study.title}
