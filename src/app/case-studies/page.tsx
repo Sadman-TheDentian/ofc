@@ -97,15 +97,17 @@ export default function CaseStudiesPage() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filteredCaseStudies.map((study, index) => (
             <Link href="#" key={study.id} className="group">
-              <Card className="overflow-hidden h-full flex flex-col hover:border-primary/50 transition-colors">
-                <Image
-                  src={study.imageUrl}
-                  alt={study.title}
-                  width={600}
-                  height={400}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
-                  data-ai-hint={study.imageHint}
-                />
+              <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2">
+                <div className="relative w-full h-48 object-cover group-hover:scale-105 transition-transform">
+                  <Image
+                    src={study.imageUrl}
+                    alt={study.title}
+                    fill
+                    objectFit="cover"
+                    className="transition-transform duration-300 group-hover:scale-105"
+                    data-ai-hint={study.imageHint}
+                  />
+                </div>
                 <CardHeader>
                   <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
                     {study.title}
