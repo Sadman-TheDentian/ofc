@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Check, ArrowRight } from "lucide-react";
@@ -33,7 +34,7 @@ export default function PricingPage() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20">
-        <Card className="flex flex-col">
+        <Card className="flex flex-col bg-card/50">
           <CardHeader>
             <CardTitle className="font-headline text-2xl">Free</CardTitle>
             <CardDescription>For individuals and small teams getting started with security.</CardDescription>
