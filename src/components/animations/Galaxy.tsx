@@ -41,6 +41,8 @@ const GalaxyAnimation = () => {
       baseY: number;
       density: number;
       color: string;
+      angle: number;
+      orbit: number;
 
       constructor() {
         this.x = Math.random() * width;
@@ -52,6 +54,8 @@ const GalaxyAnimation = () => {
         this.baseY = this.y;
         this.density = (Math.random() * 30) + 1;
         this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.angle = Math.random() * 360;
+        this.orbit = this.size * 0.5;
       }
 
       update() {
@@ -78,13 +82,16 @@ const GalaxyAnimation = () => {
                 this.y -= dy/10;
             }
         }
+        
+        this.angle += 0.02;
       }
 
       draw() {
         if (!ctx) return;
+        const currentSize = this.size + Math.sin(this.angle) * this.orbit;
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.fillRect(this.x, this.y, this.size, this.size);
+        ctx.fillRect(this.x, this.y, currentSize, currentSize);
       }
     }
 
@@ -138,4 +145,3 @@ const GalaxyAnimation = () => {
 };
 
 export default GalaxyAnimation;
-
