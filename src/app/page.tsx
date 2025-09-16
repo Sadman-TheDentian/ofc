@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <section className="relative w-full h-[100vh] min-h-[700px] flex items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 bg-background -z-20"/>
+        <div className="absolute inset-0 -z-20"/>
         <SphereAnimation />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
         
@@ -42,7 +42,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="services" className="py-20 md:py-32 bg-background">
+      <section id="services" className="py-20 md:py-32 bg-transparent">
         <div className="container px-4 md:px-6">
           <div className="text-center space-y-4 mb-16">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
@@ -90,7 +90,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="tools" className="py-20 md:py-32 border-t border-border/50 bg-card">
+      <section id="tools" className="py-20 md:py-32 border-t border-border/50 bg-card/80 backdrop-blur-sm">
         <div className="container px-4 md:px-6">
           <RevealOnScroll>
             <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -131,7 +131,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="case-studies" className="py-20 md:py-32">
+      <section id="case-studies" className="py-20 md:py-32 bg-transparent">
         <div className="container px-4 md:px-6">
           <div className="text-center space-y-4 mb-16">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
@@ -179,7 +179,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="partners" className="py-20 md:py-32 border-t border-border/50 bg-background">
+      <section id="partners" className="py-20 md:py-32 border-t border-border/50 bg-card/80 backdrop-blur-sm">
         <div className="container px-4 md:px-6">
           <div className="text-center space-y-4 mb-16">
              <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">

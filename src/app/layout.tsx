@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { AuthProvider } from "@/lib/auth";
+import GalaxyAnimation from "@/components/animations/Galaxy";
 
 export const metadata: Metadata = {
   title: "DentiSystems — Elite Cybersecurity & Custom Web Engineering",
@@ -34,13 +35,14 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "min-h-screen bg-background font-body antialiased flex flex-col"
+          "min-h-screen bg-transparent font-body antialiased flex flex-col"
         )}
         suppressHydrationWarning={true}
       >
+        <GalaxyAnimation />
         <AuthProvider>
           <Header />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow z-10">{children}</main>
           <Footer />
           <Toaster />
         </AuthProvider>

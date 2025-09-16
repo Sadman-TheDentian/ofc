@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { Github, Twitter, Linkedin } from "lucide-react";
 import Image from "next/image";
@@ -7,7 +8,7 @@ const logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlngvrGCu
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border/40">
+    <footer className="border-t border-border/40 z-10 bg-background/80 backdrop-blur-sm">
       <div className="container py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-2 md:col-span-1">
