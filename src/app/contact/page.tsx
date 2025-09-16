@@ -74,7 +74,7 @@ export default function ContactPage() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-        <Card className="bg-card border-border/50">
+        <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
           <CardHeader>
             <CardTitle className="font-headline">Send us a Message</CardTitle>
             <CardDescription>

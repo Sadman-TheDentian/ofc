@@ -86,7 +86,7 @@ export default function BlogPostPage({ params }: Props) {
             <div className="space-y-6">
                 {otherPosts.map(other => (
                      <Link href={`/blog/${other.slug}`} key={other.id} className="group block">
-                        <div className="flex items-start gap-4">
+                        <Card className="flex items-start gap-4 p-4 bg-gradient-to-br from-card to-card/80 hover:border-primary/50 transition-colors">
                              <div className="w-24 h-16 relative shrink-0">
                                 <Image 
                                     src={other.imageUrl} 
@@ -101,7 +101,7 @@ export default function BlogPostPage({ params }: Props) {
                                 <h4 className="font-semibold leading-tight group-hover:text-primary transition-colors">{other.title}</h4>
                                 <p className="text-xs text-muted-foreground mt-1">{other.date}</p>
                             </div>
-                        </div>
+                        </Card>
                     </Link>
                 ))}
             </div>

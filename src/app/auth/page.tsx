@@ -120,7 +120,7 @@ export default function AuthPage() {
           <TabsTrigger value="signup">Sign Up</TabsTrigger>
         </TabsList>
         <TabsContent value="signin">
-          <Card>
+          <Card className="bg-gradient-to-br from-card to-card/80">
             <CardHeader className="text-center">
               <CardTitle className="font-headline text-2xl">
                 Access Your Dashboard
@@ -195,7 +195,7 @@ export default function AuthPage() {
           </Card>
         </TabsContent>
         <TabsContent value="signup">
-          <Card>
+          <Card className="bg-gradient-to-br from-card to-card/80">
             <CardHeader className="text-center">
               <CardTitle className="font-headline text-2xl">
                 Create an Account

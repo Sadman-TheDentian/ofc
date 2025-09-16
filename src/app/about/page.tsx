@@ -82,7 +82,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div>
-            <Card className="bg-card">
+            <Card className="bg-gradient-to-br from-card to-card/80">
               <CardContent className="p-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center">
@@ -107,7 +107,7 @@ export default function AboutPage() {
         </h2>
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12">
           {teamMembers.map((member, index) => (
-            <Card key={index} className="bg-card border-border/50 text-center">
+            <Card key={index} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center">
               <CardContent className="p-6">
                 <Image
                   src={member.imageUrl}

@@ -58,7 +58,7 @@ export default function Home() {
                 <div className="group relative">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
                   <Link href={`/services/${service.slug}`}>
-                    <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all duration-300 rounded-xl group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-2">
+                    <Card className="relative overflow-hidden h-full flex flex-col bg-gradient-to-br from-card to-card/80 border-border/50 transition-all duration-300 rounded-xl group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-2">
                       <div className="relative h-48 w-full">
                           <Image
                             src={service.imageUrl}
@@ -113,7 +113,7 @@ export default function Home() {
               <div className="grid gap-6">
                 {tools.slice(0, 3).map((tool) => (
                   <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
-                    <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary/50 transition-colors">
+                    <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-gradient-to-br from-secondary/50 to-secondary/30 transition-colors">
                       <div className="p-3 bg-secondary rounded-lg">
                         <tool.icon className="w-6 h-6 text-primary"/>
                       </div>
@@ -145,7 +145,7 @@ export default function Home() {
             {caseStudies.slice(0, 3).map((study, index) => (
               <RevealOnScroll key={study.id} delay={index * 150}>
                 <Link href={`/case-studies`} className="group">
-                  <Card className="overflow-hidden h-full flex flex-col bg-card border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2">
+                  <Card className="overflow-hidden h-full flex flex-col bg-gradient-to-br from-card to-card/80 border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2">
                     <Image
                       src={study.imageUrl}
                       alt={study.title}

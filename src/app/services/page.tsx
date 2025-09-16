@@ -21,7 +21,7 @@ export default function ServicesPage() {
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {services.map((service, index) => (
            <Link href={`/services/${service.slug}`} key={service.id} className="group">
-            <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2">
+            <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2 bg-gradient-to-br from-card to-card/80">
               <div className="relative h-48 w-full">
                 <Image
                   src={service.imageUrl}

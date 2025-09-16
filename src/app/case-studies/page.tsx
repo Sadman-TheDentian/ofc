@@ -55,7 +55,7 @@ export default function CaseStudiesPage() {
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 mb-8 p-4 border border-border rounded-lg bg-card">
+      <div className="flex flex-col md:flex-row gap-4 mb-8 p-4 border border-border rounded-lg bg-gradient-to-br from-card to-card/80">
         <div className="relative flex-grow">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <Input
@@ -97,7 +97,7 @@ export default function CaseStudiesPage() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filteredCaseStudies.map((study, index) => (
             <Link href="#" key={study.id} className="group">
-              <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2">
+              <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2 bg-gradient-to-br from-card to-card/80">
                 <div className="relative w-full h-48 object-cover group-hover:scale-105 transition-transform">
                   <Image
                     src={study.imageUrl}

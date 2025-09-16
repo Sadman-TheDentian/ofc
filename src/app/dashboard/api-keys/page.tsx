@@ -120,7 +120,7 @@ export default function ApiKeysPage() {
         </Button>
       </div>
 
-      <Card>
+      <Card className="bg-gradient-to-br from-card to-card/80">
         <Table>
           <TableHeader>
             <TableRow>
