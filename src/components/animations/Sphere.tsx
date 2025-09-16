@@ -12,26 +12,25 @@ const SphereAnimation = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let width = (canvas.width = canvas.parentElement!.offsetWidth);
-    let height = (canvas.height = canvas.parentElement!.offsetHeight);
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
     let dots: Dot[] = [];
-    const DOTS_AMOUNT = 4000;
-    const DOT_RADIUS = 1;
-    let GLOBE_RADIUS = width * 0.7;
+    const DOTS_AMOUNT = 1500;
+    const DOT_RADIUS = 1.2;
+    let GLOBE_RADIUS = width * 0.4;
     let GLOBE_CENTER_Z = -GLOBE_RADIUS;
     let PROJECTION_CENTER_X = width / 2;
     let PROJECTION_CENTER_Y = height / 2;
     let FIELD_OF_VIEW = width * 0.8;
     const primaryColor = '2, 248, 64'; // #02f840
-    const highlightColor = '2, 248, 64'; // #02f840
 
     let mouse = {
-        x: 0,
-        y: 0,
+        x: width / 2,
+        y: height / 2,
     };
     
     let packets: Packet[] = [];
-    const PACKET_AMOUNT = 200;
+    const PACKET_AMOUNT = 30;
 
     class Dot {
       x: number;
@@ -52,7 +51,7 @@ const SphereAnimation = () => {
 
       project(sinY: number, cosY: number, sinX: number, cosX: number) {
         
-        const mouseRepulsion = 200;
+        const mouseRepulsion = 150;
         const dx = mouse.x - this.projected.x;
         const dy = mouse.y - this.projected.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -63,8 +62,8 @@ const SphereAnimation = () => {
         if (dist < mouseRepulsion) {
           const angle = Math.atan2(dy, dx);
           const force = (mouseRepulsion - dist) / mouseRepulsion;
-          repelX = Math.cos(angle) * force * -20;
-          repelY = Math.sin(angle) * force * -20;
+          repelX = Math.cos(angle) * force * -15;
+          repelY = Math.sin(angle) * force * -15;
         }
 
 
@@ -83,25 +82,14 @@ const SphereAnimation = () => {
       draw(sinY: number, cosY: number, sinX: number, cosX: number) {
         if (!ctx) return;
         this.project(sinY, cosY, sinX, cosX);
-        if (this.projected.x < 0 || this.projected.x > width || this.projected.y < 0 || this.projected.y > height) return;
-
-        const dx = mouse.x - this.projected.x;
-        const dy = mouse.y - this.projected.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const highlightRadius = 150;
-        const opacity = Math.max(0, 1 - distance / highlightRadius);
+        if (this.projected.scale < 0 || this.projected.x < 0 || this.projected.x > width || this.projected.y < 0 || this.projected.y > height) return;
         
         ctx.beginPath();
-        const radius = DOT_RADIUS * this.projected.scale * (1 + opacity * 1.5);
+        const radius = DOT_RADIUS * this.projected.scale;
         ctx.arc(this.projected.x, this.projected.y, radius, 0, 2 * Math.PI, false);
 
-        if (opacity > 0) {
-            const glow_opacity = Math.min(0.8, opacity);
-            ctx.fillStyle = `rgba(${highlightColor}, ${glow_opacity})`;
-        } else {
-            ctx.fillStyle = `rgba(${primaryColor}, 0.2)`;
-        }
-
+        ctx.fillStyle = `rgba(${primaryColor}, ${this.projected.scale * 0.5})`;
+        
         ctx.fill();
       }
     }
@@ -111,14 +99,12 @@ const SphereAnimation = () => {
       to: Dot;
       progress: number;
       speed: number;
-      isThreat: boolean;
 
       constructor() {
           this.from = dots[Math.floor(Math.random() * dots.length)];
           this.to = dots[Math.floor(Math.random() * dots.length)];
           this.progress = 0;
           this.speed = Math.random() * 0.005 + 0.002;
-          this.isThreat = Math.random() < 0.05;
       }
       
       reset() {
@@ -126,7 +112,6 @@ const SphereAnimation = () => {
         this.to = dots[Math.floor(Math.random() * dots.length)];
         this.progress = 0;
         this.speed = Math.random() * 0.005 + 0.002;
-        this.isThreat = Math.random() < 0.05;
       }
 
       move() {
@@ -137,7 +122,7 @@ const SphereAnimation = () => {
       }
 
       draw() {
-          if (!ctx || !this.from || !this.to) {
+          if (!ctx || !this.from || !this.to || this.from.projected.scale < 0 || this.to.projected.scale < 0) {
               if(dots.length > 0) this.reset();
               return;
           }
@@ -146,21 +131,12 @@ const SphereAnimation = () => {
           const currentScale = this.from.projected.scale + (this.to.projected.scale - this.from.projected.scale) * this.progress;
           
           if (currentX < 0 || currentX > width || currentY < 0 || currentY > height || currentScale < 0) {
-              this.reset();
               return;
-          }
-          
-          const dx = mouse.x - currentX;
-          const dy = mouse.y - currentY;
-          const distance = Math.sqrt(dx*dx+dy*dy);
-          
-          if(this.isThreat && distance < 20) {
-              this.isThreat = false;
           }
 
           ctx.beginPath();
-          ctx.arc(currentX, currentY, DOT_RADIUS * 1.5 * currentScale, 0, Math.PI * 2);
-          ctx.fillStyle = this.isThreat ? `rgba(255, 0, 0, 0.8)` : `rgba(${primaryColor}, 0.8)`;
+          ctx.arc(currentX, currentY, DOT_RADIUS * 2 * currentScale, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${primaryColor}, ${Math.min(1, 1 - this.progress)})`;
           ctx.fill();
       }
     }
@@ -179,9 +155,9 @@ const SphereAnimation = () => {
         }
     }
 
-    let targetRotationY = 0.001;
+    let targetRotationY = 0.0005;
     let targetRotationX = 0;
-    let currentRotationY = 0.001;
+    let currentRotationY = 0.0005;
     let currentRotationX = 0;
     const LERP_FACTOR = 0.08;
 
@@ -214,16 +190,13 @@ const SphereAnimation = () => {
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left;
       mouse.y = e.clientY - rect.top;
-      
-      targetRotationY = (mouse.x - PROJECTION_CENTER_X) * 0.0005;
-      targetRotationX = (mouse.y - PROJECTION_CENTER_Y) * 0.0005;
     }
 
     function onResize() {
         if(canvas && canvas.parentElement){
-            width = canvas.width = canvas.parentElement.offsetWidth;
-            height = canvas.height = canvas.parentElement.offsetHeight;
-            GLOBE_RADIUS = width * 0.6;
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            GLOBE_RADIUS = width * 0.4;
             GLOBE_CENTER_Z = -GLOBE_RADIUS;
             PROJECTION_CENTER_X = width / 2;
             PROJECTION_CENTER_Y = height / 2;
@@ -246,7 +219,7 @@ const SphereAnimation = () => {
     }
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full opacity-50" />;
+  return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10 opacity-50" />;
 };
 
 export default SphereAnimation;

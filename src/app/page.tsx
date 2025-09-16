@@ -7,7 +7,6 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { services, tools, caseStudies } from '@/lib/data';
 import Image from 'next/image';
-import SphereAnimation from '@/components/animations/Sphere';
 import PartnerSlider from '@/components/layout/PartnerSlider';
 import RevealOnScroll from '@/components/animations/RevealOnScroll';
 
@@ -17,7 +16,6 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <section className="relative w-full h-[100vh] min-h-[700px] flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 -z-20"/>
-        <SphereAnimation />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
         
         <div className="container relative z-10 px-4 md:px-6">
@@ -58,7 +56,7 @@ export default function Home() {
                 <div className="group relative">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
                   <Link href={`/services/${service.slug}`}>
-                    <Card className="relative overflow-hidden h-full flex flex-col bg-gradient-to-br from-card to-card/80 border-border/50 transition-all duration-300 rounded-xl group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-2">
+                    <Card className="relative overflow-hidden h-full flex flex-col bg-gradient-to-br from-card to-card/80 border-border/50 transition-all duration-300 rounded-xl group-hover:shadow-2xl group-hover:shadow-primary/10 hover:-translate-y-2">
                       <div className="relative h-48 w-full">
                           <Image
                             src={service.imageUrl}
