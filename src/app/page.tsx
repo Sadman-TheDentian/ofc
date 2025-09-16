@@ -52,8 +52,8 @@ export default function Home() {
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
-             {services.map((service) => (
-              <div key={service.id} className="group relative">
+             {services.map((service, index) => (
+              <div key={service.id} className="group relative animate-fade-in-up" style={{animationDelay: `${0.5 + index * 0.2}s`}}>
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
                 <Link href={`/services/${service.slug}`}>
                   <Card className="relative overflow-hidden h-full flex flex-col bg-card border-border/50 transition-all duration-300 rounded-xl group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-2">
