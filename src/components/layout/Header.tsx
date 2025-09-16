@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -139,10 +139,13 @@ export default function Header() {
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="pr-0">
-            <Link href="/" className="mr-6 flex items-center space-x-2 mb-6">
-              <Image src="/logo.svg" alt="DentiSystems Logo" width={24} height={24} />
-              <span className="font-bold font-headline">DentiSystems</span>
-            </Link>
+            <SheetHeader className="mb-6">
+                <SheetTitle className="sr-only">Menu</SheetTitle>
+                 <Link href="/" className="flex items-center space-x-2">
+                    <Image src="/logo.svg" alt="DentiSystems Logo" width={24} height={24} />
+                    <span className="font-bold font-headline">DentiSystems</span>
+                </Link>
+            </SheetHeader>
             <div className="flex flex-col space-y-3 mb-6">
               {navLinks.map((link) => (
                 <Link
