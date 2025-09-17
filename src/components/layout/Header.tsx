@@ -18,16 +18,53 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Image from "next/image";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { services, tools } from "@/lib/data";
+import React from "react";
+
 
 const navLinks = [
-  { href: "/services", label: "Services" },
-  { href: "/tools", label: "Tools" },
   { href: "/pricing", label: "Pricing" },
   { href: "/case-studies", label: "Case Studies" },
   { href: "/blog", label: "Blog" },
 ];
 
 const logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlngvrGCuFgj7opXopps9UC96bQ78i89Vb7zwRQE3e4g&s=10";
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
+
 
 export default function Header() {
   const pathname = usePathname();
@@ -87,6 +124,54 @@ export default function Header() {
       </nav>
     );
   };
+  
+  const DesktopNav = () => (
+     <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Services</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              {services.map((service) => (
+                <ListItem
+                  key={service.title}
+                  title={service.title}
+                  href={`/services/${service.slug}`}
+                >
+                  {service.description}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+               {tools.map((tool) => (
+                <ListItem
+                  key={tool.title}
+                  title={tool.title}
+                  href={`/tools/${tool.slug}`}
+                >
+                  {tool.description}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        {navLinks.map((link) => (
+          <NavigationMenuItem key={link.href}>
+             <Link href={link.href} legacyBehavior passHref>
+                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname.startsWith(link.href) ? "text-primary" : "text-muted-foreground")}>
+                    {link.label}
+                </NavigationMenuLink>
+             </Link>
+          </NavigationMenuItem>
+        ))}
+      </NavigationMenuList>
+    </NavigationMenu>
+  )
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm">
@@ -98,22 +183,9 @@ export default function Header() {
               DentiSystems
             </span>
           </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "transition-colors hover:text-primary",
-                  pathname.startsWith(link.href)
-                    ? "text-primary"
-                    : "text-muted-foreground"
-                )}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="hidden md:block">
+            <DesktopNav />
+          </div>
         </div>
         <div className="md:hidden">
             <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -149,18 +221,18 @@ export default function Header() {
                 </Link>
             </SheetHeader>
             <div className="flex flex-col space-y-3 mb-6">
-              {navLinks.map((link) => (
+              {[...services, ...tools, ...navLinks].map((link) => (
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  key={link.href || link.slug}
+                  href={link.href || (link.slug ? (services.includes(link as any) ? `/services/${link.slug}` : `/tools/${link.slug}`) : '#')}
                   className={cn(
                     "transition-colors hover:text-primary text-lg",
-                    pathname.startsWith(link.href)
+                     (pathname.startsWith(link.href || "") || pathname.includes(link.slug || "---"))
                       ? "text-primary"
                       : "text-muted-foreground"
                   )}
                 >
-                  {link.label}
+                  {link.label || link.title}
                 </Link>
               ))}
             </div>

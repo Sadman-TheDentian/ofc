@@ -75,7 +75,7 @@ export default function ToolDetailPage({ params }: Props) {
                 <CarouselItem key={ss.id}>
                     <Card className="overflow-hidden border-border/50">
                         <CardContent className="p-0 aspect-[3/2] relative">
-                            <Image src={ss.url} alt={ss.alt} layout="fill" objectFit="cover" className="w-full h-auto" data-ai-hint={ss.hint} />
+                            <Image src={ss.url} alt={ss.alt} fill objectFit="cover" className="w-full h-auto" data-ai-hint={ss.hint} />
                         </CardContent>
                     </Card>
                 </CarouselItem>

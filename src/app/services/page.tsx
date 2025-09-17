@@ -26,7 +26,7 @@ export default function ServicesPage() {
                 <Image
                   src={service.imageUrl}
                   alt={service.title}
-                  layout="fill"
+                  fill
                   objectFit="cover"
                   className="transition-transform duration-300 group-hover:scale-105"
                   data-ai-hint={service.imageHint}
