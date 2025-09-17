@@ -22,14 +22,12 @@ const RevealOnScroll: React.FC<RevealOnScrollProps> = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => {
-            setIsVisible(true);
-          }, delay);
+          setIsVisible(true);
         }
       },
       {
         threshold: 0.1,
-        triggerOnce: true,
+        rootMargin: '0px 0px -50px 0px',
       }
     );
 
@@ -43,25 +41,19 @@ const RevealOnScroll: React.FC<RevealOnScrollProps> = ({
         observer.unobserve(currentRef);
       }
     };
-  }, [delay]);
+  }, []);
 
   return (
     <div
       ref={ref}
       className={cn(
-        'transition-opacity duration-1000',
-        isVisible ? 'opacity-100' : 'opacity-0',
+        'opacity-0',
+        isVisible && 'animate-reveal',
         className
       )}
+      style={{ animationDelay: `${delay}ms` }}
     >
-      <div
-        className={cn(
-          'transition-all duration-1000 transform',
-          isVisible ? 'translate-y-0 scale-100' : 'translate-y-10 scale-95'
-        )}
-      >
         {children}
-      </div>
     </div>
   );
 };
