@@ -95,7 +95,7 @@ export default function Home() {
                             <Image
                             src={service.imageUrl}
                             alt={service.title}
-                            layout="fill"
+                            fill
                             objectFit="cover"
                             className="group-hover:scale-105 transition-transform duration-300"
                             data-ai-hint={service.imageHint}
@@ -262,3 +262,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
