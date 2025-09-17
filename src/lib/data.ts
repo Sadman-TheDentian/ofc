@@ -9,8 +9,6 @@ import {
   FileText,
   Scan,
   Shield,
-  FileCheck,
-  Building,
 } from "lucide-react";
 
 export const services: Service[] = [
@@ -126,7 +124,7 @@ export const tools: Tool[] = [
     slug: "leakscan",
     title: "LeakScan",
     description: "Continuously scan public code repositories for accidental secret leaks.",
-    longDescription: "LeakScan integrates with your development lifecycle to automatically scan GitHub, GitLab, and other repositories for hardcoded API keys, passwords, and other secrets before they can be exploited.",
+    longDescription: "LeakScan integrates with your development lifecycle to automatically scan GitHub, GitLab, and other repositories for hardcoded API keys, passwords, and other secrets before they can be exploited by malicious actors.",
     icon: Scan,
     embedCode: `<iframe src="https://drive.google.com/file/d/1BfrjySc6u6c_BDWot3ggbhK47MtfTlNi/preview" width="640" height="480" allow="autoplay"></iframe>`,
     features: {

@@ -87,7 +87,7 @@ export default function DashboardLayout({
                 <SheetContent side="left">
                     <div className="flex items-center gap-2 mb-8">
                          <Image src={logoUrl} alt="DentiSystems Logo" width={32} height={32} className="h-8 w-8" />
-                        <span className="font-headline text-lg font-bold">Dashboard</span>
+                        <span className="font-headline text-lg font-bold">DentiSystems</span>
                     </div>
                     {navContent}
                 </SheetContent>

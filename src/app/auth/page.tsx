@@ -42,6 +42,27 @@ const signInSchema = z.object({
   password: z.string().min(1, { message: "Password is required." }),
 });
 
+const getAuthErrorMessage = (error: FirebaseError) => {
+    switch (error.code) {
+        case 'auth/invalid-email':
+            return 'Invalid email address format.';
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+        case 'auth/invalid-credential':
+            return 'Invalid email or password.';
+        case 'auth/email-already-in-use':
+            return 'An account with this email already exists.';
+        case 'auth/weak-password':
+            return 'Password is too weak. It must be at least 6 characters long.';
+        case 'auth/popup-closed-by-user':
+            return 'Authentication popup was closed. Please try again.';
+        case 'auth/cancelled-popup-request':
+            return 'Multiple login attempts detected. Please try again.';
+        default:
+            return 'An unexpected authentication error occurred. Please try again later.';
+    }
+}
+
 export default function AuthPage() {
   const {
     signInWithGoogle,
@@ -72,7 +93,7 @@ export default function AuthPage() {
       toast({
         variant: "destructive",
         title: "Sign In Failed",
-        description: firebaseError.message || "An unknown error occurred.",
+        description: getAuthErrorMessage(firebaseError),
       });
     } finally {
         setLoading(false);
@@ -88,7 +109,7 @@ export default function AuthPage() {
       toast({
         variant: "destructive",
         title: "Sign Up Failed",
-        description: firebaseError.message || "An unknown error occurred.",
+        description: getAuthErrorMessage(firebaseError),
       });
     } finally {
         setLoading(false);
@@ -105,7 +126,7 @@ export default function AuthPage() {
         toast({
             variant: "destructive",
             title: "Authentication Failed",
-            description: firebaseError.message || "An unknown error occurred.",
+            description: getAuthErrorMessage(firebaseError),
         });
     } finally {
         setSocialLoading(null);
@@ -273,5 +294,3 @@ export default function AuthPage() {
     </div>
   );
 }
-
-    
