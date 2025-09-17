@@ -89,7 +89,7 @@ export default function Home() {
                   className="pl-4 md:basis-1/2 lg:basis-1/3"
                 >
                   <div className="p-1">
-                    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
+                    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group">
                        <CardHeader className="p-0">
                          <div className="relative h-48 w-full">
                             <Image
