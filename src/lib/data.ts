@@ -6,6 +6,9 @@ import {
   Search,
   Fingerprint,
   KeyRound,
+  FileText,
+  Scan,
+  Shield,
   FileCheck,
   Building,
 } from "lucide-react";
@@ -58,8 +61,7 @@ export const tools: Tool[] = [
       "Monitor the dark web for mentions of your brand, domains, and employee credentials.",
     longDescription: "DarkCheck continuously scours dark web marketplaces, forums, and paste sites for any signs of your organization's compromised data. Receive real-time alerts when your assets are detected, allowing you to take immediate action.",
     icon: Search,
-    imageUrl: "https://picsum.photos/seed/t1/128/128",
-    imageHint: "abstract security icon",
+    embedCode: `<iframe src="https://drive.google.com/file/d/1Fkg_YYG0Vzk-nCpw9sbDGbVQ_Cw5W8um/preview" width="640" height="480" allow="autoplay"></iframe>`,
     features: {
       free: [
         "Monitor 1 domain",
@@ -75,11 +77,6 @@ export const tools: Tool[] = [
         "API access",
       ],
     },
-    screenshots: [
-        {id: 1, url: 'https://picsum.photos/seed/ds1/1200/800', alt: 'DarkCheck Dashboard', hint: 'dashboard chart'},
-        {id: 2, url: 'https://picsum.photos/seed/ds2/1200/800', alt: 'DarkCheck Alert Configuration', hint: 'settings form'},
-        {id: 3, url: 'https://picsum.photos/seed/ds3/1200/800', alt: 'DarkCheck Leak Details', hint: 'data table'},
-    ]
   },
   {
     id: 2,
@@ -89,8 +86,7 @@ export const tools: Tool[] = [
       "Assess your organization's susceptibility to phishing attacks with simulated campaigns.",
     longDescription: "PhishRisk allows you to run realistic, automated phishing simulations to test employee awareness. Track open rates, click rates, and data entry to identify vulnerabilities and target training where it's needed most.",
     icon: Fingerprint,
-    imageUrl: "https://picsum.photos/seed/t2/128/128",
-    imageHint: "phishing hook icon",
+    embedCode: `<iframe src="https://drive.google.com/file/d/1rsIUupggFyzBtBZGOAbcclpjdnwgkZX1/preview" width="640" height="480" allow="autoplay"></iframe>`,
     features: {
       free: [
         "1 phishing template",
@@ -105,10 +101,6 @@ export const tools: Tool[] = [
         "Integration with LMS for automated training",
       ],
     },
-    screenshots: [
-        {id: 4, url: 'https://picsum.photos/seed/pr1/1200/800', alt: 'PhishRisk Campaign Builder', hint: 'email editor'},
-        {id: 5, url: 'https://picsum.photos/seed/pr2/1200/800', alt: 'PhishRisk Analytics', hint: 'analytics dashboard'},
-    ]
   },
   {
     id: 3,
@@ -118,8 +110,7 @@ export const tools: Tool[] = [
       "Check if your passwords have been compromised in known data breaches.",
     longDescription: "PasswordLeaker PRO leverages a massive database of breached credentials to help you determine if your passwords are secure. PRO users get access to our API for automated checks and deeper integrations.",
     icon: KeyRound,
-    imageUrl: "https://picsum.photos/seed/t3/128/128",
-    imageHint: "secure key icon",
+    embedCode: `<iframe src="https://drive.google.com/file/d/18er86ICas46zDB8Y4soiohWH1mPq8-wH/preview" width="640" height="480" allow="autoplay"></iframe>`,
     features: {
       free: ["Manual password checks", "Check against public breaches"],
       pro: [
@@ -129,9 +120,45 @@ export const tools: Tool[] = [
         "Priority support",
       ],
     },
-    screenshots: [
-        {id: 6, url: 'https://picsum.photos/seed/pl1/1200/800', alt: 'PasswordLeaker API Usage', hint: 'code interface'},
-    ]
+  },
+   {
+    id: 4,
+    slug: "leakscan",
+    title: "LeakScan",
+    description: "Continuously scan public code repositories for accidental secret leaks.",
+    longDescription: "LeakScan integrates with your development lifecycle to automatically scan GitHub, GitLab, and other repositories for hardcoded API keys, passwords, and other secrets before they can be exploited.",
+    icon: Scan,
+    embedCode: `<iframe src="https://drive.google.com/file/d/1BfrjySc6u6c_BDWot3ggbhK47MtfTlNi/preview" width="640" height="480" allow="autoplay"></iframe>`,
+    features: {
+      free: ["Scan public repositories", "On-demand manual scans", "Email notifications"],
+      pro: ["Scan private repositories", "Automated commit scanning", "CI/CD integration", "Slack & Jira alerts"],
+    },
+  },
+  {
+    id: 5,
+    slug: "autopolicy",
+    title: "AutoPolicy",
+    description: "Generate and manage security policies using AI-powered templates.",
+    longDescription: "AutoPolicy simplifies the complex task of creating and maintaining security policies. Use our AI to generate policies for SOC 2, ISO 27001, and other frameworks, and manage them all in one place.",
+    icon: FileText,
+    embedCode: `<iframe src="https://drive.google.com/file/d/15CVws9chDxxA4M_nTljXtaI58v1kS2Hc/preview" width="640" height="480" allow="autoplay"></iframe>`,
+    features: {
+      free: ["Access to basic policy templates", "Generate 1 policy", "Manual updates"],
+      pro: ["Full access to all compliance frameworks", "Unlimited policy generation", "AI-assisted policy updates", "Version control"],
+    },
+  },
+  {
+    id: 6,
+    slug: "dentiscan",
+    title: "DentiScan",
+    description: "Automated vulnerability scanning for your web applications.",
+    longDescription: "DentiScan provides continuous, automated security scanning for your web apps. It checks for common vulnerabilities like XSS, SQL injection, and insecure configurations, providing actionable reports to your development team.",
+    icon: Shield,
+    embedCode: `<iframe src="https://drive.google.com/file/d/1uWSW2pUmCmq9IC2P2UAZkUmU8tnGkSPv/preview" width="640" height="480" allow="autoplay"></iframe>`,
+    features: {
+      free: ["Monthly scans for 1 web app", "Summary-level reports", "OWASP Top 10 checks"],
+      pro: ["Daily or on-demand scans", "Unlimited web apps", "Detailed vulnerability reports", "Remediation guidance", "API for CI/CD integration"],
+    },
   },
 ];
 

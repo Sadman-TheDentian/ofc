@@ -19,13 +19,12 @@ export type Tool = {
   description: string;
   longDescription: string;
   icon: LucideIcon;
-  imageUrl: string;
-  imageHint: string;
+  embedCode?: string;
   features: {
     free: string[];
     pro: string[];
   };
-  screenshots: {
+  screenshots?: {
     id: number,
     url: string;
     alt: string;

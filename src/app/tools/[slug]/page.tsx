@@ -60,7 +60,15 @@ export default function ToolDetailPage({ params }: Props) {
           <p className="text-xl text-muted-foreground">{tool.longDescription}</p>
         </div>
         
-        {tool.screenshots && tool.screenshots.length > 0 &&
+        {tool.embedCode ? (
+          <div className="mb-16">
+            <Card className="overflow-hidden border-border/50">
+              <CardContent className="p-0 aspect-video relative">
+                 <div className="w-full h-full [&>iframe]:w-full [&>iframe]:h-full" dangerouslySetInnerHTML={{ __html: tool.embedCode }} />
+              </CardContent>
+            </Card>
+          </div>
+        ) : tool.screenshots && tool.screenshots.length > 0 && (
             <Carousel className="w-full max-w-3xl mx-auto mb-16">
             <CarouselContent>
                 {tool.screenshots.map((ss) => (
@@ -76,7 +84,7 @@ export default function ToolDetailPage({ params }: Props) {
             <CarouselPrevious />
             <CarouselNext />
             </Carousel>
-        }
+        )}
 
 
         <div className="mb-16">
