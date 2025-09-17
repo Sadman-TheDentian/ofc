@@ -20,13 +20,13 @@ import {
 import Autoplay from 'embla-carousel-autoplay';
 
 export default function Home() {
-  const plugins = [
+  const autoplayPlugin = useRef(
     Autoplay({
       delay: 4000,
-      stopOnInteraction: true,
+      stopOnInteraction: false,
       stopOnMouseEnter: true,
-    }),
-  ];
+    })
+  );
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -75,7 +75,7 @@ export default function Home() {
             </p>
           </div>
           <Carousel
-            plugins={plugins}
+            plugins={[autoplayPlugin.current]}
             className="w-full"
             opts={{
               align: 'start',
@@ -161,7 +161,7 @@ export default function Home() {
               </div>
               <div className="space-y-4">
                  <Carousel
-                    plugins={plugins}
+                    plugins={[autoplayPlugin.current]}
                     className="w-full"
                     opts={{
                     align: 'start',
