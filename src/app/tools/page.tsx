@@ -20,7 +20,7 @@ export default function ToolsPage() {
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {tools.map((tool, index) => (
            <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
-            <Card className="flex flex-col h-full hover:border-primary/50 transition-colors bg-gradient-to-br from-card to-card/80">
+            <Card className="flex flex-col h-full hover:border-primary/50 transition-colors">
               <CardHeader className="flex flex-row items-center gap-4">
                 <tool.icon className="w-10 h-10 text-primary" />
                 <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">

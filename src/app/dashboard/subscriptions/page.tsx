@@ -18,7 +18,7 @@ export default function SubscriptionsPage() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-                <Card className="border-primary border-2 shadow-lg shadow-primary/10 bg-gradient-to-br from-card to-card/80">
+                <Card className="border-primary border-2 shadow-lg shadow-primary/10">
                     <CardHeader>
                         <CardTitle className="font-headline text-xl">PRO Plan</CardTitle>
                         <CardDescription>Your current plan includes:</CardDescription>
@@ -36,7 +36,7 @@ export default function SubscriptionsPage() {
                         <p className="text-sm text-muted-foreground">Next renewal: December 21, {new Date().getFullYear()}</p>
                     </CardFooter>
                 </Card>
-                 <Card className="bg-gradient-to-br from-card to-card/80">
+                 <Card>
                     <CardHeader>
                         <CardTitle className="font-headline text-xl">Billing Information</CardTitle>
                         <CardDescription>Manage your payment method and view invoices.</CardDescription>

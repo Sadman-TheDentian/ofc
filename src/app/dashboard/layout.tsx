@@ -68,7 +68,7 @@ export default function DashboardLayout({
 
   return (
     <div className="flex min-h-[calc(100vh-57px)]">
-      <aside className="hidden md:flex w-64 flex-col border-r bg-card p-4">
+      <aside className="hidden md:flex w-64 flex-col border-r bg-card/80 backdrop-blur-sm p-4">
         <div className="flex items-center gap-2 mb-8">
             <Image src={logoUrl} alt="DentiSystems Logo" width={32} height={32} className="h-8 w-8" />
             <span className="font-headline text-lg font-bold">Dashboard</span>

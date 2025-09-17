@@ -110,7 +110,7 @@ export default function ThreatMonitorPage() {
           </Form>
         </div>
         <div className="md:col-span-1">
-          <Card className="sticky top-24 bg-gradient-to-br from-card to-card/80">
+          <Card className="sticky top-24">
             <CardHeader>
               <CardTitle>Analysis Result</CardTitle>
             </CardHeader>

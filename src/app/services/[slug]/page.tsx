@@ -72,7 +72,7 @@ export default function ServiceDetailPage({ params }: Props) {
             <div className="space-y-4">
                 {otherServices.map(other => (
                     <Link href={`/services/${other.slug}`} key={other.id} className="block group">
-                    <Card className="hover:border-primary/50 transition-colors bg-gradient-to-br from-card to-card/80">
+                    <Card className="hover:border-primary/50 transition-colors">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-3 font-headline text-lg group-hover:text-primary transition-colors">
                                 <other.icon className="w-6 h-6 text-primary" />

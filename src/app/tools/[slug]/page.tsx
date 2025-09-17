@@ -65,7 +65,7 @@ export default function ToolDetailPage({ params }: Props) {
             <CarouselContent>
                 {tool.screenshots.map((ss) => (
                 <CarouselItem key={ss.id}>
-                    <Card className="overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80">
+                    <Card className="overflow-hidden border-border/50">
                         <CardContent className="p-0 aspect-[3/2] relative">
                             <Image src={ss.url} alt={ss.alt} layout="fill" objectFit="cover" className="w-full h-auto" data-ai-hint={ss.hint} />
                         </CardContent>
@@ -83,7 +83,7 @@ export default function ToolDetailPage({ params }: Props) {
           <h2 className="font-headline text-2xl font-bold text-center mb-8">
             Free vs. PRO
           </h2>
-          <Card className="bg-gradient-to-br from-card to-card/80">
+          <Card>
             <Table>
               <TableHeader>
                 <TableRow>

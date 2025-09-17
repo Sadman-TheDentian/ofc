@@ -53,7 +53,7 @@ export default function Home() {
           <div className="grid gap-8 md:grid-cols-3">
              {services.map((service, index) => (
                <RevealOnScroll key={service.id} delay={index * 150}>
-                <Card className="h-full flex flex-col bg-gradient-to-br from-card to-card/80">
+                <Card className="h-full flex flex-col">
                   <CardHeader className="flex flex-row items-center gap-4">
                      <div className="p-3 bg-secondary rounded-lg border border-border">
                         <service.icon className="w-8 h-8 text-primary" />
@@ -95,7 +95,7 @@ export default function Home() {
                       </Link>
                   </Button>
               </div>
-              <div className="divide-y divide-border/50 rounded-lg border border-border/50 bg-gradient-to-br from-card to-card/80">
+              <div className="divide-y divide-border/50 rounded-lg border border-border/50">
                 {tools.slice(0, 3).map((tool) => (
                   <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
                     <div className="flex items-center gap-4 p-4 transition-colors hover:bg-secondary/30">
@@ -130,7 +130,7 @@ export default function Home() {
             {caseStudies.slice(0, 3).map((study, index) => (
               <RevealOnScroll key={study.id} delay={index * 150}>
                 <Link href={`/case-studies`} className="group">
-                  <Card className="overflow-hidden h-full flex flex-col border-border bg-gradient-to-br from-card to-card/80 transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2">
+                  <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2">
                     <Image
                       src={study.imageUrl}
                       alt={study.title}

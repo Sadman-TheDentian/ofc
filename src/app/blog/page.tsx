@@ -24,7 +24,7 @@ export default function BlogPage() {
       {/* Featured Post */}
       <div className="mb-16">
         <Link href={`/blog/${featuredPost.slug}`} className="group block">
-          <Card className="grid md:grid-cols-2 overflow-hidden hover:border-primary/50 transition-colors bg-gradient-to-br from-card to-card/80">
+          <Card className="grid md:grid-cols-2 overflow-hidden hover:border-primary/50 transition-colors">
             <div className="relative h-64 md:h-auto">
               <Image
                 src={featuredPost.imageUrl}
@@ -67,7 +67,7 @@ export default function BlogPage() {
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {blogPosts.map((post) => (
           <Link href={`/blog/${post.slug}`} key={post.id} className="group">
-            <Card className="h-full flex flex-col overflow-hidden hover:border-primary/50 transition-colors bg-gradient-to-br from-card to-card/80">
+            <Card className="h-full flex flex-col overflow-hidden hover:border-primary/50 transition-colors">
               <div className="relative h-48">
                 <Image
                   src={post.imageUrl}

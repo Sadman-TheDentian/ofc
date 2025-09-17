@@ -69,16 +69,16 @@ export default function ContactPage() {
           Get in Touch
         </h1>
         <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl">
-          Have a question or a project in mind? We&apos;d love to hear from you.
+          Have a question or a project in mind? We'd love to hear from you.
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-        <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
+        <Card className="border-border/50">
           <CardHeader>
             <CardTitle className="font-headline">Send us a Message</CardTitle>
             <CardDescription>
-              Fill out the form and we&apos;ll get back to you as soon as possible.
+              Fill out the form and we'll get back to you as soon as possible.
             </CardDescription>
           </CardHeader>
           <CardContent>
