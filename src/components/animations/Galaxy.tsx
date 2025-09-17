@@ -37,9 +37,7 @@ const GalaxyAnimation = () => {
 
     const colors = [
         '#02f840', // Primary Green
-        '#06b6d4', // Cyan
         '#ffffff', // White
-        '#94a3b8', // Muted Blue-Gray
     ];
 
     class Particle {

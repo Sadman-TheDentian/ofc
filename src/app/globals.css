@@ -5,24 +5,24 @@
 
 @layer base {
   :root {
-    --background: 224 71% 4%; /* #050a14 */
+    --background: 149 71% 4%; /* #05140d */
     --foreground: 210 40% 98%;
-    --card: 224 71% 8%; /* #0d162a */
+    --card: 149 71% 8%; /* #0d2a1c */
     --card-foreground: 210 40% 98%;
-    --popover: 224 71% 4%;
+    --popover: 149 71% 4%;
     --popover-foreground: 210 40% 98%;
     --primary: 149 98% 49%; /* #02f840 */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217 33% 17%; /* #1e293b */
+    --primary-foreground: 149 100% 5%;
+    --secondary: 149 33% 17%; /* #1e3b2e */
     --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
+    --muted: 149 33% 17%;
     --muted-foreground: 215 20% 65%; /* #94a3b8 */
-    --accent: 217 33% 17%;
+    --accent: 149 33% 17%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
-    --border: 217 33% 20%; /* #263143 */
-    --input: 217 33% 20%;
+    --border: 149 33% 20%; /* #264336 */
+    --input: 149 33% 20%;
     --ring: 149 98% 49%; /* #02f840 */
     --radius: 0.75rem;
     --chart-1: 149 98% 49%;
@@ -33,24 +33,24 @@
   }
 
   .dark {
-    --background: 224 71% 4%; /* #050a14 */
+    --background: 149 71% 4%; /* #05140d */
     --foreground: 210 40% 98%;
-    --card: 224 71% 8%; /* #0d162a */
+    --card: 149 71% 8%; /* #0d2a1c */
     --card-foreground: 210 40% 98%;
-    --popover: 224 71% 4%;
+    --popover: 149 71% 4%;
     --popover-foreground: 210 40% 98%;
     --primary: 149 98% 49%; /* #02f840 */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217 33% 17%; /* #1e293b */
+    --primary-foreground: 149 100% 5%;
+    --secondary: 149 33% 17%; /* #1e3b2e */
     --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
+    --muted: 149 33% 17%;
     --muted-foreground: 215 20% 65%; /* #94a3b8 */
-    --accent: 217 33% 17%;
+    --accent: 149 33% 17%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
-    --border: 217 33% 20%; /* #263143 */
-    --input: 217 33% 20%;
+    --border: 149 33% 20%; /* #264336 */
+    --input: 149 33% 20%;
     --ring: 149 98% 49%; /* #02f840 */
     --radius: 0.75rem;
     --chart-1: 149 98% 49%;
@@ -93,7 +93,7 @@
 
   @keyframes scroll {
     to {
-      transform: translate(calc(-50% - 0.5rem));
+      transform: translate(calc(-50% - 2rem));
     }
   }
   .animate-scroll {
