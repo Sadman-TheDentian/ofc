@@ -40,7 +40,7 @@ const sidebarNavItems = [
   },
 ];
 
-const logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlngvrGCuFgj7opXopps9UC96bQ78i89Vb7zwRQE3e4g&s=10";
+const logoUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png";
 
 export default function DashboardLayout({
   children,
@@ -100,5 +100,3 @@ export default function DashboardLayout({
     </div>
   );
 }
-
-    

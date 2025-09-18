@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useAuth } from "@/lib/auth";
 import { ThreadsIcon, TiktokIcon, DiscordIcon, ClutchIcon, ProductHuntIcon, GoodFirmsIcon, CrunchbaseIcon, G2Icon, F6sIcon, WellfoundIcon, TrustpilotIcon, TrustedReviewsIcon } from "@/components/icons/Socials";
 
-const logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlngvrGCuFgj7opXopps9UC96bQ78i89Vb7zwRQE3e4g&s=10";
+const logoUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png";
 
 const socials = [
     { name: "X", href: "https://x.com/dentisystemsofc", icon: Twitter },
@@ -68,6 +68,9 @@ export default function Footer() {
               <li><Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
               <li><Link href="/case-studies" className="text-muted-foreground hover:text-primary transition-colors">Case Studies</Link></li>
               <li><Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
+               {user && (
+                <li><Link href="/dashboard" className="text-muted-foreground hover:text-primary transition-colors">Dashboard</Link></li>
+              )}
             </ul>
           </div>
 
