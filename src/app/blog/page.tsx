@@ -40,7 +40,7 @@ export default async function BlogPage() {
       {featuredPost && (
         <div className="mb-16">
           <Link href={`/blog/${featuredPost.slug}`} className="group block">
-            <Card className="grid md:grid-cols-2 overflow-hidden hover:border-primary/50 transition-colors">
+            <Card className="grid md:grid-cols-2 overflow-hidden hover:border-primary/50 transition-colors bg-gradient-to-br from-card to-card/80 border-border/50">
               <div className="relative h-64 md:h-auto">
                 {featuredPost.mainImage && (
                   <Image
@@ -85,7 +85,7 @@ export default async function BlogPage() {
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {blogPosts.map((post) => (
           <Link href={`/blog/${post.slug}`} key={post._id} className="group">
-            <Card className="h-full flex flex-col overflow-hidden hover:border-primary/50 transition-colors">
+            <Card className="h-full flex flex-col overflow-hidden hover:border-primary/50 transition-colors bg-gradient-to-br from-card to-card/80 border-border/50">
               <div className="relative h-48">
                 {post.mainImage && (
                   <Image

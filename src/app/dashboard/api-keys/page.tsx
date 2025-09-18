@@ -120,7 +120,7 @@ export default function ApiKeysPage() {
         </Button>
       </div>
 
-      <Card>
+      <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
         <Table>
           <TableHeader>
             <TableRow>
@@ -179,7 +179,7 @@ export default function ApiKeysPage() {
         </Table>
       </Card>
 
-      <Card className="mt-8 bg-accent">
+      <Card className="mt-8 bg-gradient-to-br from-accent to-accent/80 border-border/50">
         <CardHeader>
           <CardTitle className="font-headline">API Documentation</CardTitle>
           <CardDescription>

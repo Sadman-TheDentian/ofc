@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useRef } from 'react';
@@ -88,7 +89,7 @@ export default function Home() {
                   className="pl-4 md:basis-1/2 lg:basis-1/3"
                 >
                   <div className="p-1">
-                    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group">
+                    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group bg-gradient-to-br from-card to-card/80 border-border/50">
                        <CardHeader className="p-0">
                          <div className="relative h-48 w-full">
                             <Image
@@ -172,7 +173,7 @@ export default function Home() {
                             <CarouselItem key={tool.id} className="pl-4">
                                 <div className="p-1">
                                 <Link href={`/tools/${tool.slug}`} className="group">
-                                    <Card className="flex items-center gap-4 p-4 transition-colors hover:bg-secondary/30">
+                                    <Card className="flex items-center gap-4 p-4 transition-colors hover:bg-secondary/30 bg-gradient-to-br from-card to-card/80 border-border/50">
                                         <div className="p-2 bg-secondary rounded-lg w-16 h-12 flex items-center justify-center shrink-0">
                                             <Image src={tool.imageUrl} alt={tool.title} width={40} height={40} className="w-auto h-auto max-w-full max-h-full" />
                                         </div>
@@ -213,7 +214,7 @@ export default function Home() {
             {caseStudies.slice(0, 3).map((study, index) => (
               <RevealOnScroll key={study.id} delay={index * 150}>
                 <Link href={`/case-studies`} className="group">
-                  <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2">
+                  <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
                     <Image
                       src={study.imageUrl}
                       alt={study.title}

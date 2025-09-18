@@ -34,7 +34,7 @@ export default function PricingPage() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20">
-        <Card className="flex flex-col">
+        <Card className="flex flex-col bg-gradient-to-br from-card to-card/80 border-border/50">
           <CardHeader>
             <CardTitle className="font-headline text-2xl">Free</CardTitle>
             <CardDescription>For individuals and small teams getting started with security.</CardDescription>
@@ -56,7 +56,7 @@ export default function PricingPage() {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="border-primary border-2 shadow-lg shadow-primary/10 flex flex-col">
+        <Card className="border-primary border-2 shadow-lg shadow-primary/10 flex flex-col bg-gradient-to-br from-card to-card/90">
            <CardHeader>
             <CardTitle className="font-headline text-2xl">PRO</CardTitle>
             <CardDescription>For businesses that need advanced security and full API access.</CardDescription>

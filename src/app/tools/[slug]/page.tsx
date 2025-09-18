@@ -1,3 +1,4 @@
+
 import { tools } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -50,7 +51,7 @@ export default function ToolDetailPage({ params }: Props) {
         </div>
         
         <div className="mb-16">
-          <Card className="overflow-hidden border-border/50">
+          <Card className="overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80">
             <CardContent className="p-0 aspect-[16/9] relative">
                   <Image src={tool.imageUrl} alt={tool.title} fill objectFit="cover" className="w-full h-auto" data-ai-hint={tool.title} />
             </CardContent>

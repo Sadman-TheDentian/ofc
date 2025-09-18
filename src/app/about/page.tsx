@@ -82,7 +82,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div>
-            <Card className="bg-gradient-to-br from-card to-card/80">
+            <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
               <CardContent className="p-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center">
