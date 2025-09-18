@@ -65,7 +65,7 @@ export default function Home() {
 
       <section id="services" className="py-20 md:py-32 bg-transparent">
         <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16">
+          <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               A Unified Security Platform
             </h2>
