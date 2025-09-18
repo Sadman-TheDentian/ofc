@@ -51,8 +51,6 @@ const GalaxyAnimation = () => {
       color: string;
       size: number;
       isDust: boolean;
-      orbitRadius: number;
-      angle: number;
 
       // For velocity-based interaction
       vx: number;
@@ -79,14 +77,11 @@ const GalaxyAnimation = () => {
         this.yProjected = 0;
         this.scaleProjected = 0;
         
-        this.orbitRadius = Math.random() * 5;
-        this.angle = Math.random() * Math.PI * 2;
-
         this.vx = 0;
         this.vy = 0;
       }
 
-      project(time: number) {
+      project() {
         // Apply inertia
         this.x += this.vx;
         this.y += this.vy;
@@ -112,29 +107,19 @@ const GalaxyAnimation = () => {
             this.vy += (dy / dist) * force * 2;
         }
 
-        const rotationSpeed = this.isDust ? 0.00005 : 0.0001;
-        
-        // const rotationX = Math.sin(time * rotationSpeed) * 0.1 + currentRotationX;
-        // const rotationY = Math.cos(time * rotationSpeed) * 0.1 + currentRotationY;
         const rotationX = currentRotationX;
         const rotationY = currentRotationY;
 
-        // Individual orbit
-        this.angle += 0.02;
-        const orbitalX = Math.cos(this.angle) * this.orbitRadius;
-        const orbitalY = Math.sin(this.angle) * this.orbitRadius;
+        const rotatedX = this.x * Math.cos(rotationY) - this.z * Math.sin(rotationY);
+        let rotatedZ = this.x * Math.sin(rotationY) + this.z * Math.cos(rotationY);
 
-        const rotatedX = (this.x + orbitalX) * Math.cos(rotationY) - this.z * Math.sin(rotationY);
-        let rotatedZ = (this.x + orbitalX) * Math.sin(rotationY) + this.z * Math.cos(rotationY);
-
-        const rotatedY = (this.y + orbitalY) * Math.cos(rotationX) - rotatedZ * Math.sin(rotationX);
-        rotatedZ = (this.y + orbitalY) * Math.sin(rotationX) + rotatedZ * Math.cos(rotationX);
+        const rotatedY = this.y * Math.cos(rotationX) - rotatedZ * Math.sin(rotationX);
+        rotatedZ = this.y * Math.sin(rotationX) + rotatedZ * Math.cos(rotationX);
 
         const perspective = 300 / (300 + rotatedZ);
         this.xProjected = (rotatedX * perspective) + centerX;
         this.yProjected = (rotatedY * perspective) + centerY;
-        this.scaleProjected = perspective * this.size * (1.5 + Math.sin(this.angle) * 0.5);
-
+        this.scaleProjected = perspective * this.size;
       }
 
       draw() {
@@ -171,7 +156,7 @@ const GalaxyAnimation = () => {
       currentRotationY += (targetRotationY - currentRotationY) * easing;
 
       particles.forEach(p => {
-        p.project(time);
+        p.project();
         p.draw();
       });
       
