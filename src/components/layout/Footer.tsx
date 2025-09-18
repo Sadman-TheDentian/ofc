@@ -2,11 +2,38 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter, Linkedin, Instagram, Facebook, Youtube } from "lucide-react";
 import Image from "next/image";
 import { useAuth } from "@/lib/auth";
+import { ThreadsIcon, TiktokIcon, DiscordIcon, ClutchIcon, ProductHuntIcon, GoodFirmsIcon, CrunchbaseIcon, G2Icon, F6sIcon, WellfoundIcon, TrustpilotIcon, TrustedReviewsIcon } from "@/components/icons/Socials";
 
 const logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlngvrGCuFgj7opXopps9UC96bQ78i89Vb7zwRQE3e4g&s=10";
+
+const socials = [
+    { name: "X", href: "https://x.com/dentisystemsofc", icon: Twitter },
+    { name: "Instagram", href: "https://www.instagram.com/denti.systems/", icon: Instagram },
+    { name: "LinkedIn", href: "https://www.linkedin.com/company/dentisystems/", icon: Linkedin },
+    { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61573782310257", icon: Facebook },
+    { name: "Threads", href: "https://www.threads.net/@denti.systems", icon: ThreadsIcon },
+    { name: "YouTube", href: "https://www.youtube.com/@denti.systems", icon: Youtube },
+    { name: "TikTok", href: "https://www.tiktok.com/@dentisystems", icon: TiktokIcon },
+];
+
+const companyProfiles = [
+    { name: "Discord", href: "https://discord.gg/bxuDWS9V", icon: DiscordIcon },
+    { name: "Clutch", href: "https://clutch.co/profile/dentisystems", icon: ClutchIcon },
+    { name: "Product Hunt", href: "https://www.producthunt.com/@denti_systems/", icon: ProductHuntIcon },
+    { name: "Goodfirms", href: "https://www.goodfirms.co/company/dentisystems", icon: GoodFirmsIcon },
+    { name: "Crunchbase", href: "https://www.crunchbase.com/organization/dentisystems", icon: CrunchbaseIcon },
+    { name: "G2", href: "https://www.g2.com/products/dentisystems/reviews", icon: G2Icon },
+    { name: "F6S", href: "https://www.f6s.com/dentisystems", icon: F6sIcon },
+    { name: "Wellfound", href: "https://wellfound.com/company/dentisystems", icon: WellfoundIcon },
+];
+
+const reviews = [
+    { name: "Trustpilot", href: "https://www.trustpilot.com/review/denti.systems", icon: TrustpilotIcon },
+    { name: "Trusted Reviews", href: "https://trustedrevie.ws/reviews/denti.systems", icon: TrustedReviewsIcon },
+];
 
 
 export default function Footer() {
@@ -15,8 +42,9 @@ export default function Footer() {
   return (
     <footer className="border-t border-border/40 z-10 bg-background/80 backdrop-blur-sm">
       <div className="container py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div className="col-span-2 md:col-span-1">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          
+          <div className="md:col-span-3">
             <Link href="/" className="flex items-center space-x-2 mb-4">
               <Image src={logoUrl} alt="DentiSystems Logo" width={32} height={32} className="h-8 w-8" />
               <span className="font-bold text-lg font-headline">
@@ -26,97 +54,50 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground">
               Elite Cybersecurity & Custom Web Engineering.
             </p>
+             <p className="text-sm text-muted-foreground mt-4">
+                Contact: <a href="mailto:help@denti.systems" className="text-primary hover:underline">help@denti.systems</a>
+            </p>
           </div>
-          <div>
+          
+          <div className="md:col-span-2">
             <h4 className="font-headline font-medium mb-4">Company</h4>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="/about"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pricing"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
-               {user && (
-                 <li>
-                    <Link
-                    href="/dashboard"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                    Dashboard
+              <li><Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
+              <li><Link href="/services" className="text-muted-foreground hover:text-primary transition-colors">Services</Link></li>
+              <li><Link href="/pricing" className="text-muted-foreground hover:text-primary transition-colors">Pricing</Link></li>
+              <li><Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
+              <li><Link href="/case-studies" className="text-muted-foreground hover:text-primary transition-colors">Case Studies</Link></li>
+              <li><Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
+            </ul>
+          </div>
+
+          <div className="md:col-span-4">
+             <h4 className="font-headline font-medium mb-4">Community & Profiles</h4>
+             <div className="grid grid-cols-2 gap-y-2 text-sm">
+                {[...companyProfiles, ...reviews].map((profile) => (
+                     <Link key={profile.name} href={profile.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                        <profile.icon className="h-4 w-4" />
+                        {profile.name}
                     </Link>
-                 </li>
-                )}
-            </ul>
+                ))}
+             </div>
           </div>
-          <div>
-            <h4 className="font-headline font-medium mb-4">Legal</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="/privacy"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Privacy Policy
+          
+          <div className="md:col-span-3">
+            <h4 className="font-headline font-medium mb-4">Follow Us</h4>
+            <div className="flex flex-wrap gap-4">
+              {socials.map((social) => (
+                <Link key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                    <social.icon className="h-6 w-6" />
+                    <span className="sr-only">{social.name}</span>
                 </Link>
-              </li>
-              <li>
-                <Link
-                  href="/terms"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-headline font-medium mb-4">Connect</h4>
-            <div className="flex space-x-4">
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Github className="h-5 w-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Linkedin className="h-5 w-5" />
-              </Link>
+              ))}
             </div>
+             <h4 className="font-headline font-medium mb-4 mt-8">Legal</h4>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link></li>
+            </ul>
           </div>
         </div>
         <div className="mt-8 border-t border-border/40 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
