@@ -1,14 +1,19 @@
+'use client';
 
-"use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useAuth } from "@/lib/auth";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { Menu } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useAuth } from '@/lib/auth';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,8 +21,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import Image from "next/image";
+} from '../ui/dropdown-menu';
+import Image from 'next/image';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -26,22 +31,22 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { services, tools } from "@/lib/data";
-import React from "react";
-
+} from '@/components/ui/navigation-menu';
+import { services, tools } from '@/lib/data';
+import React from 'react';
 
 const navLinks = [
-  { href: "/pricing", label: "Pricing" },
-  { href: "/case-studies", label: "Case Studies" },
-  { href: "/blog", label: "Blog" },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/case-studies', label: 'Case Studies' },
+  { href: '/blog', label: 'Blog' },
 ];
 
-const logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlngvrGCuFgj7opXopps9UC96bQ78i89Vb7zwRQE3e4g&s=10";
+const logoUrl =
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlngvrGCuFgj7opXopps9UC96bQ78i89Vb7zwRQE3e4g&s=10';
 
 const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'>
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li>
@@ -49,7 +54,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
             className
           )}
           {...props}
@@ -63,8 +68,7 @@ const ListItem = React.forwardRef<
     </li>
   );
 });
-ListItem.displayName = "ListItem";
-
+ListItem.displayName = 'ListItem';
 
 export default function Header() {
   const pathname = usePathname();
@@ -79,9 +83,12 @@ export default function Header() {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
               <Avatar className="h-8 w-8">
-                <AvatarImage src={user.photoURL || undefined} alt={user.displayName || user.email || ""} />
+                <AvatarImage
+                  src={user.photoURL || undefined}
+                  alt={user.displayName || user.email || ''}
+                />
                 <AvatarFallback>
-                  {user.email?.[0].toUpperCase() || "U"}
+                  {user.email?.[0].toUpperCase() || 'U'}
                 </AvatarFallback>
               </Avatar>
             </Button>
@@ -90,7 +97,7 @@ export default function Header() {
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium leading-none">
-                  {user.displayName || "Operator"}
+                  {user.displayName || 'Operator'}
                 </p>
                 <p className="text-xs leading-none text-muted-foreground">
                   {user.email}
@@ -104,10 +111,8 @@ export default function Header() {
             <DropdownMenuItem asChild>
               <Link href="/dashboard/subscriptions">Billing</Link>
             </DropdownMenuItem>
-             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={signOut}>
-              Log out
-            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={signOut}>Log out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -124,15 +129,15 @@ export default function Header() {
       </nav>
     );
   };
-  
+
   const DesktopNav = () => (
-     <NavigationMenu>
+    <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Services</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {services.map((service) => (
+              {services.map(service => (
                 <ListItem
                   key={service.title}
                   title={service.title}
@@ -148,7 +153,7 @@ export default function Header() {
           <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-               {tools.map((tool) => (
+              {tools.map(tool => (
                 <ListItem
                   key={tool.title}
                   title={tool.title}
@@ -160,25 +165,36 @@ export default function Header() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        {navLinks.map((link) => (
+        {navLinks.map(link => (
           <NavigationMenuItem key={link.href}>
-             <Link href={link.href} legacyBehavior passHref>
-                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), pathname.startsWith(link.href) ? "text-primary" : "")}>
-                    {link.label}
-                </NavigationMenuLink>
-             </Link>
+            <Link href={link.href} legacyBehavior passHref>
+              <NavigationMenuLink
+                className={cn(
+                  navigationMenuTriggerStyle(),
+                  pathname.startsWith(link.href) ? 'text-primary' : ''
+                )}
+              >
+                {link.label}
+              </NavigationMenuLink>
+            </Link>
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>
     </NavigationMenu>
-  )
+  );
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm">
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Image src={logoUrl} alt="DentiSystems Logo" width={24} height={24} className="h-6 w-6" />
+            <Image
+              src={logoUrl}
+              alt="DentiSystems Logo"
+              width={24}
+              height={24}
+              className="h-6 w-6"
+            />
             <span className="hidden font-bold sm:inline-block font-headline">
               DentiSystems
             </span>
@@ -188,12 +204,18 @@ export default function Header() {
           </div>
         </div>
         <div className="md:hidden">
-            <Link href="/" className="mr-6 flex items-center space-x-2">
-               <Image src={logoUrl} alt="DentiSystems Logo" width={24} height={24} className="h-6 w-6" />
-              <span className="font-bold sm:inline-block font-headline">
-                DentiSystems
-              </span>
-            </Link>
+          <Link href="/" className="mr-6 flex items-center space-x-2">
+            <Image
+              src={logoUrl}
+              alt="DentiSystems Logo"
+              width={24}
+              height={24}
+              className="h-6 w-6"
+            />
+            <span className="font-bold sm:inline-block font-headline">
+              DentiSystems
+            </span>
+          </Link>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
           <div className="w-full flex-1 md:w-auto md:flex-none">
@@ -214,22 +236,36 @@ export default function Header() {
           </SheetTrigger>
           <SheetContent side="left" className="pr-0">
             <SheetHeader className="mb-6">
-                <SheetTitle className="sr-only">Menu</SheetTitle>
-                 <Link href="/" className="flex items-center space-x-2">
-                     <Image src={logoUrl} alt="DentiSystems Logo" width={24} height={24} className="h-6 w-6" />
-                    <span className="font-bold font-headline">DentiSystems</span>
-                </Link>
+              <SheetTitle className="sr-only">Menu</SheetTitle>
+              <Link href="/" className="flex items-center space-x-2">
+                <Image
+                  src={logoUrl}
+                  alt="DentiSystems Logo"
+                  width={24}
+                  height={24}
+                  className="h-6 w-6"
+                />
+                <span className="font-bold font-headline">DentiSystems</span>
+              </Link>
             </SheetHeader>
             <div className="flex flex-col space-y-3 mb-6">
-              {[...services, ...tools, ...navLinks].map((link) => (
+              {[...services, ...tools, ...navLinks].map(link => (
                 <Link
                   key={link.href || link.slug}
-                  href={link.href || (link.slug ? (services.includes(link as any) ? `/services/${link.slug}` : `/tools/${link.slug}`) : '#')}
+                  href={
+                    link.href ||
+                    (link.slug
+                      ? services.find(s => s.slug === link.slug)
+                        ? `/services/${link.slug}`
+                        : `/tools/${link.slug}`
+                      : '#')
+                  }
                   className={cn(
-                    "transition-colors hover:text-primary text-lg",
-                     (pathname.startsWith(link.href || "") || pathname.includes(link.slug || "---"))
-                      ? "text-primary"
-                      : "text-muted-foreground"
+                    'transition-colors hover:text-primary text-lg',
+                    pathname.startsWith(link.href || '') ||
+                      pathname.includes(link.slug || '---')
+                      ? 'text-primary'
+                      : 'text-muted-foreground'
                   )}
                 >
                   {link.label || link.title}
@@ -237,23 +273,23 @@ export default function Header() {
               ))}
             </div>
             {user ? (
-                 <div className="flex flex-col space-y-2">
-                    <Button asChild>
-                        <Link href="/dashboard">Go to Dashboard</Link>
-                    </Button>
-                    <Button variant="ghost" onClick={signOut}>
-                        Logout
-                    </Button>
-                </div>
+              <div className="flex flex-col space-y-2">
+                <Button asChild>
+                  <Link href="/dashboard">Go to Dashboard</Link>
+                </Button>
+                <Button variant="ghost" onClick={signOut}>
+                  Logout
+                </Button>
+              </div>
             ) : (
-                <div className="flex flex-col space-y-2">
-                    <Button asChild>
-                        <Link href="/contact">Request Risk Audit</Link>
-                    </Button>
-                    <Button variant="ghost" asChild>
-                        <Link href="/auth">Login</Link>
-                    </Button>
-                </div>
+              <div className="flex flex-col space-y-2">
+                <Button asChild>
+                  <Link href="/contact">Request Risk Audit</Link>
+                </Button>
+                <Button variant="ghost" asChild>
+                  <Link href="/auth">Login</Link>
+                </Button>
+              </div>
             )}
           </SheetContent>
         </Sheet>
