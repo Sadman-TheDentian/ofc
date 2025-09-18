@@ -57,14 +57,6 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
-               <li>
-                <Link
-                  href="/dashboard"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Dashboard
-                </Link>
-              </li>
             </ul>
           </div>
           <div>
