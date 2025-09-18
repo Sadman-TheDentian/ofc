@@ -30,7 +30,9 @@ export default function ToolsPage() {
                     />
                 </div>
               <CardHeader className="flex flex-row items-center gap-4">
-                <tool.icon className="w-10 h-10 text-primary" />
+                 <div className="p-2 bg-secondary rounded-lg w-16 h-12 flex items-center justify-center shrink-0">
+                    <Image src={tool.imageUrl} alt={tool.title} width={40} height={40} className="w-auto h-auto max-w-full max-h-full" />
+                </div>
                 <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">
                   {tool.title}
                 </CardTitle>
