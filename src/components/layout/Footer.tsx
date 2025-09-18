@@ -1,12 +1,17 @@
 
+"use client";
+
 import Link from "next/link";
 import { Github, Twitter, Linkedin } from "lucide-react";
 import Image from "next/image";
+import { useAuth } from "@/lib/auth";
 
 const logoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlngvrGCuFgj7opXopps9UC96bQ78i89Vb7zwRQE3e4g&s=10";
 
 
 export default function Footer() {
+  const { user } = useAuth();
+  
   return (
     <footer className="border-t border-border/40 z-10 bg-background/80 backdrop-blur-sm">
       <div className="container py-12">
@@ -57,6 +62,16 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
+               {user && (
+                 <li>
+                    <Link
+                    href="/dashboard"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                    Dashboard
+                    </Link>
+                 </li>
+                )}
             </ul>
           </div>
           <div>

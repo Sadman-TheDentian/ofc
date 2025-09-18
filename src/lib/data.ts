@@ -1,4 +1,4 @@
-import type { Service, Tool, CaseStudy, BlogPost, Author } from "./types";
+import type { Service, Tool } from "./types";
 import {
   ShieldCheck,
   Zap,
@@ -162,82 +162,5 @@ export const tools: Tool[] = [
       free: ["Monthly scans for 1 web app", "Summary-level reports", "OWASP Top 10 checks"],
       pro: ["Daily or on-demand scans", "Unlimited web apps", "Detailed vulnerability reports", "Remediation guidance", "API for CI/CD integration"],
     },
-  },
-];
-
-export const caseStudies: CaseStudy[] = [
-  {
-    id: 1,
-    slug: "fintech-ransomware-resilience",
-    title: "FinTech Firm Boosts Ransomware Resilience by 95%",
-    summary:
-      "We conducted a full-spectrum ransomware resilience assessment for a major FinTech company, identifying critical gaps in their recovery strategy and helping them implement robust, multi-layered defenses.",
-    industry: "FinTech",
-    outcome: "Improved Resilience",
-    imageUrl: "https://picsum.photos/seed/cs1/600/400",
-    imageHint: "server room",
-    content: "Detailed content about the FinTech case study...",
-  },
-  {
-    id: 2,
-    slug: "healthcare-supply-chain-secured",
-    title: "Securing the Supply Chain for a Healthcare Provider",
-    summary:
-      "Our high-risk vendor reconnaissance uncovered significant vulnerabilities in a critical software supplier for a large hospital network, preventing a potential data breach of patient records.",
-    industry: "Healthcare",
-    outcome: "Breach Prevention",
-    imageUrl: "https://picsum.photos/seed/cs2/600/400",
-    imageHint: "hospital corridor",
-    content: "Detailed content about the Healthcare case study...",
-  },
-  {
-    id: 3,
-    slug: "ecommerce-platform-lockdown",
-    title: "E-commerce Platform Lockdown",
-    summary:
-      "Following a security incident, we rebuilt a popular e-commerce site from the ground up with secure development practices, eliminating common vulnerabilities and restoring customer trust.",
-    industry: "E-commerce",
-    outcome: "Secure Development",
-    imageUrl: "https://picsum.photos/seed/cs3/600/400",
-    imageHint: "online shopping",
-    content: "Detailed content about the E-commerce case study...",
-  },
-];
-
-const authors: { [key: string]: Author } = {
-    'alex-chen': {
-        name: "Alex 'Havoc' Chen",
-        imageUrl: "https://picsum.photos/seed/team1/100/100",
-        imageHint: "professional headshot man",
-    },
-    'evelyn-reed': {
-        name: "Dr. Evelyn Reed",
-        imageUrl: "https://picsum.photos/seed/team2/100/100",
-        imageHint: "professional headshot woman",
-    }
-}
-
-export const blogPosts: BlogPost[] = [
-  {
-    id: 1,
-    slug: "the-anatomy-of-a-zero-day-exploit",
-    title: "The Anatomy of a Zero-Day Exploit",
-    excerpt: "A deep dive into how zero-day vulnerabilities are discovered, weaponized, and deployed by threat actors in the wild.",
-    imageUrl: "https://picsum.photos/seed/blog1/800/500",
-    imageHint: "abstract code security",
-    date: "2024-06-15",
-    author: authors['evelyn-reed'],
-    content: `<p>A zero-day exploit is a cyber attack that occurs on the same day a weakness is discovered in software. At that point, it's exploited before a fix becomes available from its creator.</p><p>This article explores the lifecycle of a zero-day vulnerability, from its initial discovery by security researchers or malicious actors to its eventual disclosure and patching. We will analyze recent high-profile examples and discuss the technical mechanisms that make these exploits so potent and difficult to defend against. Understanding the anatomy of these threats is the first step toward building a more resilient security posture.</p><h3>The Discovery Phase</h3><p>Zero-day vulnerabilities can be found by anyone, from independent security researchers to state-sponsored hacking groups. The initial discovery often involves techniques like fuzzing, reverse engineering, and source code analysis. Once a vulnerability is identified, its potential for exploitation is assessed.</p><h3>Weaponization and Deployment</h3><p>After discovery, the vulnerability is weaponized by creating an exploit—a piece of code designed to take advantage of the flaw. This exploit is then packaged into a delivery mechanism, such as a malicious email attachment, a compromised website, or a targeted network intrusion. The goal is to deliver the exploit to the target system and execute it to achieve the attacker's objectives, which could range from data theft to full system control.</p>`,
-  },
-  {
-    id: 2,
-    slug: "securing-your-supply-chain",
-    title: "Why Your Software Supply Chain is Your Weakest Link",
-    excerpt: "Your security is only as strong as your vendors. Learn how to mitigate risks from third-party software and services.",
-    imageUrl: "https://picsum.photos/seed/blog2/800/500",
-    imageHint: "supply chain diagram",
-    date: "2024-05-28",
-    author: authors['alex-chen'],
-    content: `<p>In today's interconnected world, no organization operates in isolation. We rely on a complex web of third-party software, libraries, and services to build and run our applications. While this accelerates development, it also introduces significant security risks.</p><p>A vulnerability in a single open-source library or a breach at one of your SaaS providers can have a cascading effect, compromising your entire system. This is the reality of software supply chain attacks, and they are on the rise.</p><h3>Key Mitigation Strategies</h3><ul><li><strong>Vendor Risk Assessment:</strong> Before integrating any third-party service, conduct a thorough security assessment.</li><li><strong>Software Bill of Materials (SBOM):</strong> Maintain a detailed inventory of all software components and their dependencies.</li><li><strong>Continuous Monitoring:</strong> Use tools to continuously scan for vulnerabilities in your dependencies and receive alerts.</li></ul><p>By taking a proactive approach to supply chain security, you can significantly reduce your attack surface and protect your organization from this growing threat vector.</p>`,
   },
 ];

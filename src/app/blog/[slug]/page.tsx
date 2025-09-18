@@ -1,18 +1,34 @@
 
-import { blogPosts } from "@/lib/data";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Metadata } from "next";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
+import { client, urlFor } from "@/lib/sanity";
+import type { BlogPost } from "@/lib/types";
 
 type Props = {
   params: { slug: string };
 };
 
+async function getPost(slug: string): Promise<BlogPost | null> {
+  const query = `*[_type == "post" && slug.current == $slug][0]{
+    _id,
+    title,
+    "slug": slug.current,
+    mainImage,
+    "author": author->{name, image},
+    publishedAt,
+    excerpt,
+    body
+  }`;
+  const post = await client.fetch(query, { slug });
+  return post;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+  const post = await getPost(params.slug);
 
   if (!post) {
     return {
@@ -26,14 +42,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function BlogPostPage({ params }: Props) {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+export default async function BlogPostPage({ params }: Props) {
+  const post = await getPost(params.slug);
 
   if (!post) {
     notFound();
   }
   
-  const otherPosts = blogPosts.filter(p => p.slug !== params.slug).slice(0, 2);
+  const otherPostsQuery = `*[_type == "post" && slug.current != $slug] | order(publishedAt desc)[0...2]{
+    _id,
+    title,
+    "slug": slug.current,
+    mainImage,
+    publishedAt
+  }`;
+  const otherPosts: BlogPost[] = await client.fetch(otherPostsQuery, { slug: params.slug });
+
+
+  // A basic serializer for Portable Text
+  const PortableText = ({value}: {value: any[]}) => {
+    return (
+        <div className="prose prose-invert max-w-none text-foreground/90 prose-h3:font-headline prose-h3:text-primary prose-a:text-primary prose-strong:text-foreground">
+            {value.map(block => {
+                if (block._type === 'block') {
+                    const Tag = block.style || 'p';
+                    return <Tag key={block._key}>{block.children.map((span: any) => span.text).join('')}</Tag>
+                }
+                return null;
+            })}
+        </div>
+    )
+  }
 
   return (
     <div className="container py-12 md:py-20">
@@ -50,34 +89,32 @@ export default function BlogPostPage({ params }: Props) {
               {post.title}
             </h1>
             <div className="flex items-center gap-4 text-muted-foreground">
-              <Image
-                src={post.author.imageUrl}
-                alt={post.author.name}
-                width={40}
-                height={40}
-                className="rounded-full"
-                data-ai-hint={post.author.imageHint}
-              />
+              {post.author.image && (
+                <Image
+                    src={urlFor(post.author.image).width(40).height(40).url()}
+                    alt={post.author.name}
+                    width={40}
+                    height={40}
+                    className="rounded-full"
+                />
+              )}
               <div>
                 <p className="font-semibold text-foreground">{post.author.name}</p>
-                <p className="text-sm">{post.date}</p>
+                <p className="text-sm">{new Date(post.publishedAt).toLocaleDateString()}</p>
               </div>
             </div>
           </div>
-          <div className="mb-8 relative aspect-video">
-            <Image
-              src={post.imageUrl}
-              alt={post.title}
-              fill
-              objectFit="cover"
-              className="rounded-lg shadow-lg"
-              data-ai-hint={post.imageHint}
-            />
-          </div>
-          <div
-            className="prose prose-invert max-w-none text-foreground/90 prose-h3:font-headline prose-h3:text-primary prose-a:text-primary prose-strong:text-foreground"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          {post.mainImage && (
+            <div className="mb-8 relative aspect-video">
+                <Image
+                src={urlFor(post.mainImage).url()}
+                alt={post.title}
+                fill
+                className="rounded-lg shadow-lg object-cover"
+                />
+            </div>
+          )}
+          {post.body && <PortableText value={post.body} />}
         </article>
         <aside className="lg:col-span-1 space-y-8 lg:sticky top-24 self-start">
              <h3 className="font-headline text-xl font-semibold border-l-4 border-primary pl-4">
@@ -85,21 +122,21 @@ export default function BlogPostPage({ params }: Props) {
             </h3>
             <div className="space-y-6">
                 {otherPosts.map(other => (
-                     <Link href={`/blog/${other.slug}`} key={other.id} className="group block">
+                     <Link href={`/blog/${other.slug}`} key={other._id} className="group block">
                         <Card className="flex items-start gap-4 p-4 hover:border-primary/50 transition-colors">
                              <div className="w-24 h-16 relative shrink-0">
-                                <Image 
-                                    src={other.imageUrl} 
-                                    alt={other.title} 
-                                    fill 
-                                    objectFit="cover"
-                                    className="rounded-md"
-                                    data-ai-hint={other.imageHint}
-                                />
+                                {other.mainImage && (
+                                    <Image 
+                                        src={urlFor(other.mainImage).width(96).height(64).url()}
+                                        alt={other.title} 
+                                        fill 
+                                        className="rounded-md object-cover"
+                                    />
+                                )}
                             </div>
                             <div>
                                 <h4 className="font-semibold leading-tight group-hover:text-primary transition-colors">{other.title}</h4>
-                                <p className="text-xs text-muted-foreground mt-1">{other.date}</p>
+                                <p className="text-xs text-muted-foreground mt-1">{new Date(other.publishedAt).toLocaleDateString()}</p>
                             </div>
                         </Card>
                     </Link>
@@ -112,7 +149,8 @@ export default function BlogPostPage({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
+  const posts = await client.fetch<BlogPost[]>(`*[_type == "post"]{"slug": slug.current}`);
+  return posts.map((post) => ({
     slug: post.slug,
   }));
 }

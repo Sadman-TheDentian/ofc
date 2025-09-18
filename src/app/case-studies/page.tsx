@@ -1,48 +1,45 @@
 
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { caseStudies as allCaseStudies } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Search } from "lucide-react";
-
-const industries = [
-  "All",
-  ...Array.from(new Set(allCaseStudies.map((cs) => cs.industry))),
-];
-const outcomes = [
-  "All",
-  ...Array.from(new Set(allCaseStudies.map((cs) => cs.outcome))),
-];
+import { client, urlFor } from "@/lib/sanity";
+import type { CaseStudy } from "@/lib/types";
 
 export default function CaseStudiesPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [industryFilter, setIndustryFilter] = useState("All");
-  const [outcomeFilter, setOutcomeFilter] = useState("All");
+  const [allCaseStudies, setAllCaseStudies] = useState<CaseStudy[]>([]);
+  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>([]);
 
-  const filteredCaseStudies = useMemo(() => {
-    return allCaseStudies.filter((study) => {
-      const matchesSearch =
-        study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        study.summary.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesIndustry =
-        industryFilter === "All" || study.industry === industryFilter;
-      const matchesOutcome =
-        outcomeFilter === "All" || study.outcome === outcomeFilter;
+  useEffect(() => {
+    const fetchCaseStudies = async () => {
+      const query = `*[_type == "caseStudy"]{
+        _id,
+        title,
+        "slug": slug.current,
+        summary,
+        industry,
+        outcome,
+        mainImage
+      }`;
+      const studies: CaseStudy[] = await client.fetch(query);
+      setAllCaseStudies(studies);
+      setFilteredCaseStudies(studies);
+    };
+    fetchCaseStudies();
+  }, []);
 
-      return matchesSearch && matchesIndustry && matchesOutcome;
-    });
-  }, [searchTerm, industryFilter, outcomeFilter]);
+  useEffect(() => {
+    const results = allCaseStudies.filter((study) =>
+      study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      study.summary.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredCaseStudies(results);
+  }, [searchTerm, allCaseStudies]);
 
   return (
     <div className="container py-12 md:py-20">
@@ -66,49 +63,23 @@ export default function CaseStudiesPage() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <div className="grid grid-cols-2 gap-4 md:flex-grow-0">
-          <Select value={industryFilter} onValueChange={setIndustryFilter}>
-            <SelectTrigger className="w-full md:w-[200px]">
-              <SelectValue placeholder="Filter by Industry" />
-            </SelectTrigger>
-            <SelectContent>
-              {industries.map((industry) => (
-                <SelectItem key={industry} value={industry}>
-                  {industry}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Select value={outcomeFilter} onValueChange={setOutcomeFilter}>
-            <SelectTrigger className="w-full md:w-[200px]">
-              <SelectValue placeholder="Filter by Outcome" />
-            </SelectTrigger>
-            <SelectContent>
-              {outcomes.map((outcome) => (
-                <SelectItem key={outcome} value={outcome}>
-                  {outcome}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
       </div>
 
       {filteredCaseStudies.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {filteredCaseStudies.map((study, index) => (
-            <Link href="#" key={study.id} className="group">
+          {filteredCaseStudies.map((study) => (
+            <Link href="#" key={study._id} className="group">
               <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2">
-                <div className="relative w-full h-48 object-cover group-hover:scale-105 transition-transform">
-                  <Image
-                    src={study.imageUrl}
-                    alt={study.title}
-                    fill
-                    objectFit="cover"
-                    className="transition-transform duration-300 group-hover:scale-105"
-                    data-ai-hint={study.imageHint}
-                  />
-                </div>
+                {study.mainImage && (
+                    <div className="relative w-full h-48 object-cover group-hover:scale-105 transition-transform">
+                        <Image
+                            src={urlFor(study.mainImage).url()}
+                            alt={study.title}
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                    </div>
+                )}
                 <CardHeader>
                   <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
                     {study.title}

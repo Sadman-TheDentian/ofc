@@ -34,33 +34,30 @@ export type Tool = {
 };
 
 export type CaseStudy = {
-  id: number;
+  _id: string;
   slug: string;
   title: string;
   summary: string;
   industry: string;
   outcome: string;
-  imageUrl: string;
-  imageHint: string;
-  content: string;
+  mainImage: any;
+  content: any;
 };
 
 export type Author = {
     name: string;
-    imageUrl: string;
-    imageHint: string;
+    image: any;
 };
 
 export type BlogPost = {
-    id: number;
+    _id: string;
     slug: string;
     title: string;
     excerpt: string;
-    imageUrl: string;
-    imageHint: string;
-    date: string;
+    mainImage: any;
+    publishedAt: string;
     author: Author;
-    content: string;
+    body: any;
 };
 
 export type FirebaseConfig = {

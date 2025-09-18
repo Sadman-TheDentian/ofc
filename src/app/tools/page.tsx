@@ -21,13 +21,13 @@ export default function ToolsPage() {
         {tools.map((tool, index) => (
            <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
             <Card className="flex flex-col h-full hover:border-primary/50 transition-colors overflow-hidden">
-                <div className="relative h-48 w-full bg-secondary">
+                <div className="relative h-48 w-full bg-secondary/30 flex items-center justify-center p-8">
                     <Image
                         src={tool.imageUrl}
                         alt={tool.title}
-                        fill
-                        objectFit="contain"
-                        className="p-8 group-hover:scale-105 transition-transform"
+                        width={200}
+                        height={100}
+                        className="object-contain group-hover:scale-105 transition-transform"
                     />
                 </div>
               <CardHeader className="flex flex-row items-center gap-4">
