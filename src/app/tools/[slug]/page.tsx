@@ -81,3 +81,5 @@ export async function generateStaticParams() {
     slug: tool.slug,
   }));
 }
+
+    
