@@ -114,8 +114,10 @@ const GalaxyAnimation = () => {
 
         const rotationSpeed = this.isDust ? 0.00005 : 0.0001;
         
-        const rotationX = Math.sin(time * rotationSpeed) * 0.1 + currentRotationX;
-        const rotationY = Math.cos(time * rotationSpeed) * 0.1 + currentRotationY;
+        // const rotationX = Math.sin(time * rotationSpeed) * 0.1 + currentRotationX;
+        // const rotationY = Math.cos(time * rotationSpeed) * 0.1 + currentRotationY;
+        const rotationX = currentRotationX;
+        const rotationY = currentRotationY;
 
         // Individual orbit
         this.angle += 0.02;
