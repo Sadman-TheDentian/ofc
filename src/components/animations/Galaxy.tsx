@@ -20,7 +20,6 @@ const GalaxyAnimation = () => {
     const numDustParticles = 2000;
     let centerX = width / 2;
     let centerY = height / 2;
-    let time = 0;
 
     // Target rotation based on mouse, and current rotation for easing
     let targetRotationX = 0;
@@ -52,13 +51,6 @@ const GalaxyAnimation = () => {
       size: number;
       isDust: boolean;
 
-      // For velocity-based interaction
-      vx: number;
-      vy: number;
-      baseX: number;
-      baseY: number;
-      baseZ: number;
-      
       constructor(isDust = false) {
         this.isDust = isDust;
         const angle = Math.random() * Math.PI * 2;
@@ -66,9 +58,9 @@ const GalaxyAnimation = () => {
         const spread = isDust ? 1.5 : 1;
         const radius = baseRadius * spread;
         
-        this.x = this.baseX = Math.cos(angle) * radius;
-        this.y = this.baseY = Math.sin(angle) * radius;
-        this.z = this.baseZ = (Math.random() - 0.5) * 3000;
+        this.x = Math.cos(angle) * radius;
+        this.y = Math.sin(angle) * radius;
+        this.z = (Math.random() - 0.5) * 3000;
         
         this.size = isDust ? Math.random() * 0.8 : Math.random() * 2 + 0.5;
         this.color = colors[Math.floor(Math.random() * colors.length)];
@@ -76,31 +68,9 @@ const GalaxyAnimation = () => {
         this.xProjected = 0;
         this.yProjected = 0;
         this.scaleProjected = 0;
-        
-        this.vx = 0;
-        this.vy = 0;
       }
 
       project() {
-        // Apply inertia
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Apply friction/damping
-        this.vx *= 0.94;
-        this.vy *= 0.94;
-
-        // Handle cursor repulsion
-        const dx = this.xProjected - mouse.x;
-        const dy = this.yProjected - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        
-        if (dist < mouse.radius && !this.isDust) {
-            const force = (mouse.radius - dist) / mouse.radius;
-            this.vx += (dx / dist) * force * 2;
-            this.vy += (dy / dist) * force * 2;
-        }
-
         const rotationX = currentRotationX;
         const rotationY = currentRotationY;
 
@@ -142,8 +112,7 @@ const GalaxyAnimation = () => {
     function render() {
       if(!ctx) return;
       ctx.clearRect(0, 0, width, height);
-      time += 1;
-
+      
       // Ease current rotation towards target rotation
       const easing = 0.05;
       currentRotationX += (targetRotationX - currentRotationX) * easing;
