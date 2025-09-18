@@ -87,15 +87,9 @@ const GalaxyAnimation = () => {
         this.y += this.vy;
 
         // Apply friction/damping
-        this.vx *= 0.9;
-        this.vy *= 0.9;
+        this.vx *= 0.94;
+        this.vy *= 0.94;
 
-        // Gravitational pull back to base position
-        const dxHome = this.baseX - this.x;
-        const dyHome = this.baseY - this.y;
-        this.vx += dxHome * 0.001;
-        this.vy += dyHome * 0.001;
-        
         // Handle cursor repulsion
         const dx = this.xProjected - mouse.x;
         const dy = this.yProjected - mouse.y;
