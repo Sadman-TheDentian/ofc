@@ -35,7 +35,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
 
         <div className="container relative z-10 px-4 md:px-6">
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto space-y-6 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground animate-fade-in-up">
               Elite Cybersecurity &
               <br />
@@ -141,7 +141,7 @@ export default function Home() {
         <div className="container px-4 md:px-6">
           <RevealOnScroll>
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-4">
+              <div className="space-y-4 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
                 <div className="inline-block bg-secondary text-primary px-4 py-1 rounded-full text-sm font-bold">
                   OUR ARSENAL
                 </div>
@@ -201,7 +201,7 @@ export default function Home() {
 
       <section id="case-studies" className="py-20 md:py-32 bg-transparent">
         <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16">
+          <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               Trusted by Industry Leaders
             </h2>
@@ -251,7 +251,7 @@ export default function Home() {
         className="py-20 md:py-32 border-t border-border/50 bg-card/80 backdrop-blur-sm"
       >
         <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16">
+          <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
               Powering the World's Most Secure Companies
             </h2>

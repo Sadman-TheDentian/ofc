@@ -1,3 +1,4 @@
+
 import { tools } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
@@ -7,7 +8,7 @@ import Image from "next/image";
 export default function ToolsPage() {
   return (
     <div className="container py-12 md:py-20">
-      <div className="text-center space-y-4 mb-12">
+      <div className="text-center space-y-4 mb-12 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
         <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
           Our Arsenal
         </h1>

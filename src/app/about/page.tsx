@@ -50,7 +50,7 @@ const stats = [
 export default function AboutPage() {
   return (
     <div className="container py-12 md:py-20">
-      <div className="text-center max-w-3xl mx-auto mb-16">
+      <div className="text-center max-w-3xl mx-auto mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
         <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
           About DentiSystems
         </h1>

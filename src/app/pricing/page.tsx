@@ -24,7 +24,7 @@ const proFeatures = [
 export default function PricingPage() {
   return (
     <div className="container py-12 md:py-20">
-      <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+      <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
         <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
           Find the Right Plan for Your Team
         </h1>
