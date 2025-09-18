@@ -1,45 +1,25 @@
-
-"use client";
-
-import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import { client, urlFor } from "@/lib/sanity";
 import type { CaseStudy } from "@/lib/types";
 
-export default function CaseStudiesPage() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [allCaseStudies, setAllCaseStudies] = useState<CaseStudy[]>([]);
-  const [filteredCaseStudies, setFilteredCaseStudies] = useState<CaseStudy[]>([]);
+async function getCaseStudies(): Promise<CaseStudy[]> {
+  const query = `*[_type == "caseStudy"]{
+    _id,
+    title,
+    "slug": slug.current,
+    summary,
+    industry,
+    outcome,
+    mainImage
+  }`;
+  const studies = await client.fetch(query);
+  return studies;
+}
 
-  useEffect(() => {
-    const fetchCaseStudies = async () => {
-      const query = `*[_type == "caseStudy"]{
-        _id,
-        title,
-        "slug": slug.current,
-        summary,
-        industry,
-        outcome,
-        mainImage
-      }`;
-      const studies: CaseStudy[] = await client.fetch(query);
-      setAllCaseStudies(studies);
-      setFilteredCaseStudies(studies);
-    };
-    fetchCaseStudies();
-  }, []);
-
-  useEffect(() => {
-    const results = allCaseStudies.filter((study) =>
-      study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      study.summary.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredCaseStudies(results);
-  }, [searchTerm, allCaseStudies]);
+export default async function CaseStudiesPage() {
+  const caseStudies = await getCaseStudies();
 
   return (
     <div className="container py-12 md:py-20">
@@ -53,25 +33,13 @@ export default function CaseStudiesPage() {
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 mb-8 p-4 border border-border rounded-lg">
-        <div className="relative flex-grow">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-          <Input
-            placeholder="Search stories..."
-            className="pl-10"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-      </div>
-
-      {filteredCaseStudies.length > 0 ? (
+      {caseStudies.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {filteredCaseStudies.map((study) => (
-            <Link href="#" key={study._id} className="group">
+          {caseStudies.map((study) => (
+            <Link href={`/case-studies/${study.slug}`} key={study._id} className="group">
               <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2">
                 {study.mainImage && (
-                    <div className="relative w-full h-48 object-cover group-hover:scale-105 transition-transform">
+                    <div className="relative w-full h-48 object-cover">
                         <Image
                             src={urlFor(study.mainImage).url()}
                             alt={study.title}
@@ -90,8 +58,8 @@ export default function CaseStudiesPage() {
                     {study.summary}
                   </p>
                   <div className="flex gap-2">
-                    <span className="text-xs font-medium bg-secondary text-secondary-foreground px-2 py-1 rounded-full">{study.industry}</span>
-                    <span className="text-xs font-medium bg-secondary text-secondary-foreground px-2 py-1 rounded-full">{study.outcome}</span>
+                    {study.industry && <span className="text-xs font-medium bg-secondary text-secondary-foreground px-2 py-1 rounded-full">{study.industry}</span>}
+                    {study.outcome && <span className="text-xs font-medium bg-secondary text-secondary-foreground px-2 py-1 rounded-full">{study.outcome}</span>}
                   </div>
                 </CardContent>
               </Card>
@@ -100,8 +68,8 @@ export default function CaseStudiesPage() {
         </div>
       ) : (
         <div className="text-center py-16 border border-dashed rounded-lg">
-          <h3 className="font-headline text-xl font-semibold">No Results Found</h3>
-          <p className="text-muted-foreground mt-2">Try adjusting your search or filters.</p>
+          <h3 className="font-headline text-xl font-semibold">No Case Studies Found</h3>
+          <p className="text-muted-foreground mt-2">Check back soon for updates.</p>
         </div>
       )}
     </div>

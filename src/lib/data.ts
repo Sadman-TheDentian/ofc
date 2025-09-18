@@ -10,6 +10,7 @@ import {
   Scan,
   Shield,
 } from "lucide-react";
+import { PlaceHolderImages } from "./placeholder-images";
 
 export const services: Service[] = [
   {
@@ -21,8 +22,8 @@ export const services: Service[] = [
     longDescription:
       "Our High-Risk Vendor Reconnaissance service provides an in-depth analysis of your third-party ecosystem. We meticulously map out your supply chain, identifying vendors with access to sensitive data and systems. Using a combination of OSINT, dark web monitoring, and proprietary techniques, we assess their security posture, uncovering misconfigurations, leaked credentials, and past breaches. This proactive approach allows you to address supply chain risks before they escalate into costly incidents, ensuring your entire operational pipeline remains secure.",
     icon: ShieldCheck,
-    imageUrl: "https://picsum.photos/seed/s1/800/500",
-    imageHint: "data center security",
+    imageUrl: PlaceHolderImages.find(p => p.id === 's1')?.imageUrl || "https://picsum.photos/seed/s1/800/500",
+    imageHint: PlaceHolderImages.find(p => p.id === 's1')?.imageHint || "data center security",
   },
   {
     id: 2,
@@ -33,8 +34,8 @@ export const services: Service[] = [
     longDescription:
       "DentiSystems' Assurance Services are designed to rigorously test and validate your security controls. Our expert team conducts realistic penetration tests, simulating attacks from sophisticated adversaries to identify exploitable vulnerabilities in your network, applications, and cloud infrastructure. We also provide ransomware resilience assessments, evaluating your ability to withstand and recover from a ransomware attack. Our detailed reports provide actionable recommendations to strengthen your security posture and minimize your attack surface.",
     icon: Zap,
-    imageUrl: "https://picsum.photos/seed/s2/800/500",
-    imageHint: "network infrastructure",
+    imageUrl: PlaceHolderImages.find(p => p.id === 's2')?.imageUrl || "https://picsum.photos/seed/s2/800/500",
+    imageHint: PlaceHolderImages.find(p => p.id === 's2')?.imageHint || "network infrastructure",
   },
   {
     id: 3,
@@ -45,8 +46,8 @@ export const services: Service[] = [
     longDescription:
       "We build high-performance, scalable web applications with a security-first mindset. Our development lifecycle integrates security at every stage, from threat modeling and secure coding practices to continuous security testing and infrastructure hardening. By embedding security into the DNA of your applications, we help you launch products faster without compromising on safety. Whether it's a customer-facing portal or a critical internal tool, we deliver web solutions that are resilient by design, protecting your data and your reputation.",
     icon: Code,
-    imageUrl: "https://picsum.photos/seed/s3/800/500",
-    imageHint: "developer laptop code",
+    imageUrl: PlaceHolderImages.find(p => p.id === 's3')?.imageUrl || "https://picsum.photos/seed/s3/800/500",
+    imageHint: PlaceHolderImages.find(p => p.id === 's3')?.imageHint || "developer laptop code",
   },
 ];
 
@@ -163,4 +164,31 @@ export const tools: Tool[] = [
       pro: ["Daily or on-demand scans", "Unlimited web apps", "Detailed vulnerability reports", "Remediation guidance", "API for CI/CD integration"],
     },
   },
+];
+
+export const caseStudies = [
+    {
+        id: 1,
+        slug: "secure-finance-portal",
+        title: "Securing a Major FinTech Platform",
+        summary: "We overhauled a legacy banking portal, eliminating critical vulnerabilities and achieving a 99.8% reduction in penetration test findings.",
+        imageUrl: PlaceHolderImages.find(p => p.id === 'cs1')?.imageUrl || "https://picsum.photos/seed/cs1/600/400",
+        imageHint: PlaceHolderImages.find(p => p.id === 'cs1')?.imageHint || "server room",
+    },
+    {
+        id: 2,
+        slug: "healthcare-data-lockdown",
+        title: "Healthcare Data Lockdown",
+        summary: "Post-breach, we re-architected a hospital's patient data system, implementing end-to-end encryption and strict access controls to meet HIPAA compliance.",
+        imageUrl: PlaceHolderImages.find(p => p.id === 'cs2')?.imageUrl || "https://picsum.photos/seed/cs2/600/400",
+        imageHint: PlaceHolderImages.find(p => p.id === 'cs2')?.imageHint || "hospital corridor",
+    },
+    {
+        id: 3,
+        slug: "ecommerce-fraud-prevention",
+        title: "eCommerce Fraud Prevention",
+        summary: "For a top online retailer, we developed a custom fraud detection engine that reduced chargebacks by 70% in the first quarter.",
+        imageUrl: PlaceHolderImages.find(p => p.id === 'cs3')?.imageUrl || "https://picsum.photos/seed/cs3/600/400",
+        imageHint: PlaceHolderImages.find(p => p.id === 'cs3')?.imageHint || "online shopping",
+    }
 ];

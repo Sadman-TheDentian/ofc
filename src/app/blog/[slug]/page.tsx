@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
 import { client, urlFor } from "@/lib/sanity";
 import type { BlogPost } from "@/lib/types";
+import { PortableText } from "@portabletext/react";
 
 type Props = {
   params: { slug: string };
@@ -42,6 +43,45 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+const portableTextComponents = {
+  types: {
+    image: ({ value }: { value: any }) => (
+      <div className="relative my-6">
+        <Image 
+          src={urlFor(value).url()} 
+          alt={value.alt || 'Blog post image'} 
+          width={800} 
+          height={600}
+          className="rounded-lg shadow-lg"
+        />
+      </div>
+    ),
+  },
+  block: {
+    h2: ({ children }: any) => <h2 className="text-2xl font-bold font-headline mt-8 mb-4 text-primary">{children}</h2>,
+    h3: ({ children }: any) => <h3 className="text-xl font-bold font-headline mt-6 mb-4 text-primary/90">{children}</h3>,
+    blockquote: ({ children }: any) => <blockquote className="border-l-4 border-primary pl-4 italic my-6 text-muted-foreground">{children}</blockquote>,
+  },
+  list: {
+    bullet: ({ children }: any) => <ul className="list-disc list-inside space-y-2 my-6">{children}</ul>,
+    number: ({ children }: any) => <ol className="list-decimal list-inside space-y-2 my-6">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }: any) => <li>{children}</li>,
+  },
+  marks: {
+    link: ({ children, value }: any) => {
+      const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
+      return (
+        <a href={value.href} rel={rel} className="text-primary hover:underline">
+          {children}
+        </a>
+      )
+    },
+  },
+};
+
+
 export default async function BlogPostPage({ params }: Props) {
   const post = await getPost(params.slug);
 
@@ -57,22 +97,6 @@ export default async function BlogPostPage({ params }: Props) {
     publishedAt
   }`;
   const otherPosts: BlogPost[] = await client.fetch(otherPostsQuery, { slug: params.slug });
-
-
-  // A basic serializer for Portable Text
-  const PortableText = ({value}: {value: any[]}) => {
-    return (
-        <div className="prose prose-invert max-w-none text-foreground/90 prose-h3:font-headline prose-h3:text-primary prose-a:text-primary prose-strong:text-foreground">
-            {value.map(block => {
-                if (block._type === 'block') {
-                    const Tag = block.style || 'p';
-                    return <Tag key={block._key}>{block.children.map((span: any) => span.text).join('')}</Tag>
-                }
-                return null;
-            })}
-        </div>
-    )
-  }
 
   return (
     <div className="container py-12 md:py-20">
@@ -114,7 +138,11 @@ export default async function BlogPostPage({ params }: Props) {
                 />
             </div>
           )}
-          {post.body && <PortableText value={post.body} />}
+          {post.body && (
+            <div className="prose prose-invert max-w-none text-foreground/90">
+                <PortableText value={post.body} components={portableTextComponents} />
+            </div>
+           )}
         </article>
         <aside className="lg:col-span-1 space-y-8 lg:sticky top-24 self-start">
              <h3 className="font-headline text-xl font-semibold border-l-4 border-primary pl-4">
