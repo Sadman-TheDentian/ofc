@@ -1,4 +1,3 @@
-
 import type { Service, Tool, CaseStudy, BlogPost, Author } from "./types";
 import {
   ShieldCheck,
@@ -60,7 +59,8 @@ export const tools: Tool[] = [
       "Monitor the dark web for mentions of your brand, domains, and employee credentials.",
     longDescription: "DarkCheck continuously scours dark web marketplaces, forums, and paste sites for any signs of your organization's compromised data. Receive real-time alerts when your assets are detected, allowing you to take immediate action.",
     icon: Search,
-    embedCode: `<iframe src="https://drive.google.com/file/d/1Fkg_YYG0Vzk-nCpw9sbDGbVQ_Cw5W8um/preview" width="640" height="480" allow="autoplay"></iframe>`,
+    url: "https://darkcheck.denti.systems",
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhP0_bWguZ5wH-zwO9nWFsKIf6oJtiqyUNuF87wE7CBzUEJe7xfDLoYWtUmJaC0p1LSGHfsWkmhSn8-mH5JnYKre-LKkEl9zCC4PSmM89ke2Dg4E14yZejNEd0zGPlo_b09JMSRGBaUC3NnkkjlfU0KtATGbgmiK_PdrcgYisrwITVnOeZ420EUyg92T2w/s320/Darkcheck.png",
     features: {
       free: [
         "Monitor 1 domain",
@@ -85,7 +85,8 @@ export const tools: Tool[] = [
       "Assess your organization's susceptibility to phishing attacks with simulated campaigns.",
     longDescription: "PhishRisk allows you to run realistic, automated phishing simulations to test employee awareness. Track open rates, click rates, and data entry to identify vulnerabilities and target training where it's needed most.",
     icon: Fingerprint,
-    embedCode: `<iframe src="https://drive.google.com/file/d/1rsIUupggFyzBtBZGOAbcclpjdnwgkZX1/preview" width="640" height="480" allow="autoplay"></iframe>`,
+    url: "https://phishrisk.denti.systems",
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjaDT7-W90QmoQPNtx9ZKZd_ZXDzjAx41rprheeshOMZ2k-0c5K4JXPkK5COAWvZcd8FU03p99VJTvBPxOS2aDYWsj3IgZ8c4X6AdS-QxQwIWeXlQ3IWl423Zwl-l7N9Rivm395N3kqigtsfPlxMY_a83BMsFbF3VvlElmmQaZGfBf6C-EM_1Ys71T4t1g/s320/PhishRisk.png",
     features: {
       free: [
         "1 phishing template",
@@ -109,7 +110,8 @@ export const tools: Tool[] = [
       "Check if your passwords have been compromised in known data breaches.",
     longDescription: "PasswordLeaker PRO leverages a massive database of breached credentials to help you determine if your passwords are secure. PRO users get access to our API for automated checks and deeper integrations.",
     icon: KeyRound,
-    embedCode: `<iframe src="https://drive.google.com/file/d/18er86ICas46zDB8Y4soiohWH1mPq8-wH/preview" width="640" height="480" allow="autoplay"></iframe>`,
+    url: "https://passwordleaker.denti.systems",
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7UJYQdyLisohKiFJaPnaq169Y1lxjBcDX1eKBFoA2U8j19vvWaTkwFc0A0lBAqjm7Umf0VcrHsD91aAJz-pFzFDSx8tgm5tdrXYXfFuJpw1JTs8HnFBKc6UHaOlUT5StxqDsrG-6in4FHc0yZKrKGn7k0tVOkZRbTOuwpLvqpYTLzQjXYdzHz9vYJ_jc/s320/PasswordLeaker.png",
     features: {
       free: ["Manual password checks", "Check against public breaches"],
       pro: [
@@ -127,7 +129,7 @@ export const tools: Tool[] = [
     description: "Continuously scan public code repositories for accidental secret leaks.",
     longDescription: "LeakScan integrates with your development lifecycle to automatically scan GitHub, GitLab, and other repositories for hardcoded API keys, passwords, and other secrets before they can be exploited by malicious actors.",
     icon: Scan,
-    embedCode: `<iframe src="https://drive.google.com/file/d/1BfrjySc6u6c_BDWot3ggbhK47MtfTlNi/preview" width="640" height="480" allow="autoplay"></iframe>`,
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHKHiRNvCifFGey2MkZi5URT_W0HnGJjmgv-bASQy7RcXMSLPSedhxIcn_5JCjQWEDAZhQ2XKiPeLzXUbOrmJv8L3y_CSShjw5gGk6KmUZ6jdnLAoMsyY4orfN3SFnebPVdsTer2RmVgQ6YpPxZQS0XWD3Lia-6FgLPq-ItuDQ3uue1amlsRAhFDZKjiE/s320/Leakscan.png",
     features: {
       free: ["Scan public repositories", "On-demand manual scans", "Email notifications"],
       pro: ["Scan private repositories", "Automated commit scanning", "CI/CD integration", "Slack & Jira alerts"],
@@ -140,7 +142,8 @@ export const tools: Tool[] = [
     description: "Generate and manage security policies using AI-powered templates.",
     longDescription: "AutoPolicy simplifies the complex task of creating and maintaining security policies. Use our AI to generate policies for SOC 2, ISO 27001, and other frameworks, and manage them all in one place.",
     icon: FileText,
-    embedCode: `<iframe src="https://drive.google.com/file/d/15CVws9chDxxA4M_nTljXtaI58v1kS2Hc/preview" width="640" height="480" allow="autoplay"></iframe>`,
+    url: "https://autopolicy.denti.systems",
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhK0uWmz1tUjhbMw3A2jYEKltD0eexaMF5nF9ov4oaW2XuLTQMrj0l7X3AUPvM7clmu2ktpFCHE1NgJHB77D2AWrca-sotoF7D7jjG7fNxnUeuNmYx8-RKh7lV_Ki7aLROz4ta7BXdxRvLwEz4-hXGmPMgxbZN3u_frcaH0e9aLcK53PaxpzwD_ioBwlW8/s320/AutoPolicy.png",
     features: {
       free: ["Access to basic policy templates", "Generate 1 policy", "Manual updates"],
       pro: ["Full access to all compliance frameworks", "Unlimited policy generation", "AI-assisted policy updates", "Version control"],
@@ -153,7 +156,8 @@ export const tools: Tool[] = [
     description: "Automated vulnerability scanning for your web applications.",
     longDescription: "DentiScan provides continuous, automated security scanning for your web apps. It checks for common vulnerabilities like XSS, SQL injection, and insecure configurations, providing actionable reports to your development team.",
     icon: Shield,
-    embedCode: `<iframe src="https://drive.google.com/file/d/1uWSW2pUmCmq9IC2P2UAZkUmU8tnGkSPv/preview" width="640" height="480" allow="autoplay"></iframe>`,
+    url: "https://scan.denti.systems",
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
     features: {
       free: ["Monthly scans for 1 web app", "Summary-level reports", "OWASP Top 10 checks"],
       pro: ["Daily or on-demand scans", "Unlimited web apps", "Detailed vulnerability reports", "Remediation guidance", "API for CI/CD integration"],

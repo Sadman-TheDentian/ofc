@@ -1,4 +1,3 @@
-
 import type { LucideIcon } from "lucide-react";
 
 export type Service = {
@@ -19,6 +18,8 @@ export type Tool = {
   description: string;
   longDescription: string;
   icon: LucideIcon;
+  url?: string;
+  imageUrl: string;
   embedCode?: string;
   features: {
     free: string[];

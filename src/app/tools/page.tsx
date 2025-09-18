@@ -1,9 +1,8 @@
-
 import { tools } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export default function ToolsPage() {
   return (
@@ -20,7 +19,16 @@ export default function ToolsPage() {
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {tools.map((tool, index) => (
            <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
-            <Card className="flex flex-col h-full hover:border-primary/50 transition-colors">
+            <Card className="flex flex-col h-full hover:border-primary/50 transition-colors overflow-hidden">
+                <div className="relative h-48 w-full bg-secondary">
+                    <Image
+                        src={tool.imageUrl}
+                        alt={tool.title}
+                        fill
+                        objectFit="contain"
+                        className="p-8 group-hover:scale-105 transition-transform"
+                    />
+                </div>
               <CardHeader className="flex flex-row items-center gap-4">
                 <tool.icon className="w-10 h-10 text-primary" />
                 <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">
