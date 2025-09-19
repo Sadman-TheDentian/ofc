@@ -1,11 +1,8 @@
 
 'use server';
 
-import {
-  scanCodeForVulnerabilities,
-  ScanCodeInput,
-  ScanCodeOutput,
-} from '@/ai/flows/code-vulnerability-scanner';
+import { scanCodeForVulnerabilities } from '@/ai/flows/code-vulnerability-scanner';
+import type { ScanCodeInput, ScanCodeOutput } from '@/ai/flows/code-vulnerability-scanner-types';
 
 export async function analyzeCode(
   input: ScanCodeInput

@@ -11,7 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Loader2, ShieldAlert, ShieldCheck, ShieldHalf } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
-import { ScanCodeInputSchema, type ScanCodeInput, type ScanCodeOutput } from '@/ai/flows/code-vulnerability-scanner';
+import { ScanCodeInputSchema, type ScanCodeInput, type ScanCodeOutput } from '@/ai/flows/code-vulnerability-scanner-types';
 import { analyzeCode } from './actions';
 
 export default function CodeScannerPage() {
