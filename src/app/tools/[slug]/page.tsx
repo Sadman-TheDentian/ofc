@@ -37,12 +37,19 @@ export default function ToolDetailPage({ params }: Props) {
     notFound();
   }
 
+  const screenshots = tool.screenshots && tool.screenshots.length > 0 ? tool.screenshots : [{
+    id: 1,
+    url: tool.imageUrl,
+    alt: tool.title,
+    hint: tool.title,
+  }];
+
   return (
     <div className="container py-12 md:py-20">
       <div className="max-w-4xl mx-auto">
         <div className="text-center space-y-4 mb-12">
           <div className="inline-block p-4 bg-secondary rounded-xl">
-            <tool.icon className="w-12 h-12 text-primary mx-auto" />
+            <Image src={tool.imageUrl} alt={tool.title} width={48} height={48} />
           </div>
           <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
             {tool.title}
@@ -51,11 +58,32 @@ export default function ToolDetailPage({ params }: Props) {
         </div>
         
         <div className="mb-16">
-          <Card className="overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80">
-            <CardContent className="p-0 aspect-[16/9] relative">
-                  <Image src={tool.imageUrl} alt={tool.title} fill objectFit="cover" className="w-full h-auto" data-ai-hint={tool.title} />
-            </CardContent>
-          </Card>
+          <Carousel className="w-full">
+            <CarouselContent>
+              {screenshots.map((screenshot) => (
+                <CarouselItem key={screenshot.id}>
+                  <Card className="overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80">
+                    <CardContent className="p-0 aspect-video relative">
+                      <Image 
+                        src={screenshot.url} 
+                        alt={screenshot.alt} 
+                        fill 
+                        objectFit="cover" 
+                        className="w-full h-auto" 
+                        data-ai-hint={screenshot.hint}
+                      />
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            {screenshots.length > 1 && (
+                <>
+                    <CarouselPrevious className="left-[-50px]" />
+                    <CarouselNext className="right-[-50px]" />
+                </>
+            )}
+          </Carousel>
         </div>
 
         {tool.url && (
@@ -81,5 +109,3 @@ export async function generateStaticParams() {
     slug: tool.slug,
   }));
 }
-
-    

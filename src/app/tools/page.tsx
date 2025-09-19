@@ -18,21 +18,21 @@ export default function ToolsPage() {
         </p>
       </div>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {tools.map((tool, index) => (
+        {tools.map((tool) => (
            <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
             <Card className="flex flex-col h-full hover:border-primary/50 transition-colors overflow-hidden bg-gradient-to-br from-card to-card/80 border-border/50">
-                <div className="relative h-48 w-full bg-secondary/30 flex items-center justify-center p-8">
+                <div className="relative h-48 w-full">
                     <Image
-                        src={tool.imageUrl}
+                        src={tool.screenshots?.[0]?.url || tool.imageUrl}
                         alt={tool.title}
-                        width={200}
-                        height={100}
-                        className="object-contain group-hover:scale-105 transition-transform"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform"
+                        data-ai-hint={tool.screenshots?.[0]?.hint || tool.title}
                     />
                 </div>
               <CardHeader className="flex flex-row items-center gap-4">
-                 <div className="p-2 bg-secondary rounded-lg w-16 h-12 flex items-center justify-center shrink-0">
-                    <Image src={tool.imageUrl} alt={tool.title} width={40} height={40} className="w-auto h-auto max-w-full max-h-full" />
+                 <div className="p-2 bg-secondary rounded-lg flex items-center justify-center shrink-0">
+                    <Image src={tool.imageUrl} alt={`${tool.title} logo`} width={32} height={32} className="h-8 w-8" />
                 </div>
                 <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">
                   {tool.title}
@@ -53,5 +53,3 @@ export default function ToolsPage() {
     </div>
   );
 }
-
-    

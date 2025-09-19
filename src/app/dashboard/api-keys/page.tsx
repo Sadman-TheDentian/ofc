@@ -25,6 +25,7 @@ import {
   PlusCircle,
   Trash2,
   Edit,
+  Loader2,
 } from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {
@@ -43,10 +44,20 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import {useToast} from '@/hooks/use-toast';
+import {Input} from '@/components/ui/input';
+import {Label} from '@/components/ui/label';
 
 type ApiKey = {
-  id: number;
+  id: string;
   name: string;
   key: string;
   created: string;
@@ -55,21 +66,21 @@ type ApiKey = {
 
 const initialApiKeys: ApiKey[] = [
   {
-    id: 1,
+    id: '1',
     name: 'Primary Server Key',
     key: 'ds_prod_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6',
     created: '2023-01-15',
     lastUsed: '2024-05-20',
   },
   {
-    id: 2,
+    id: '2',
     name: 'Staging Environment',
     key: 'ds_test_p6o5n4m3l2k1j0i9h8g7f6e5d4c3b2a1',
     created: '2023-03-10',
     lastUsed: '2024-05-18',
   },
   {
-    id: 3,
+    id: '3',
     name: 'Personal Dev Key',
     key: 'ds_dev_z9y8x7w6v5u4t3s2r1q0p9o8n7m6l5k4',
     created: '2024-02-01',
@@ -80,12 +91,15 @@ const initialApiKeys: ApiKey[] = [
 export default function ApiKeysPage() {
   const [apiKeys, setApiKeys] = useState<ApiKey[]>(initialApiKeys);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const [newKeyName, setNewKeyName] = useState('');
+  const [isCreating, setIsCreating] = useState(false);
   const [keyToDelete, setKeyToDelete] = useState<ApiKey | null>(null);
   const {toast} = useToast();
 
   const handleCopy = (key: string) => {
     navigator.clipboard.writeText(key);
-    toast({title: 'Copied to clipboard!'});
+    toast({title: 'Copied to clipboard!', description: "The API key has been copied."});
   };
 
   const openDeleteDialog = (key: ApiKey) => {
@@ -105,6 +119,39 @@ export default function ApiKeysPage() {
     setKeyToDelete(null);
   };
 
+  const handleCreateKey = () => {
+    if (!newKeyName.trim()) {
+        toast({
+            variant: "destructive",
+            title: "Validation Error",
+            description: "Key name cannot be empty.",
+        });
+        return;
+    }
+    
+    setIsCreating(true);
+    // Simulate API call
+    setTimeout(() => {
+        const newKey = `ds_prod_${[...Array(32)].map(() => Math.random().toString(36)[2]).join('')}`;
+        const newApiKey: ApiKey = {
+            id: new Date().getTime().toString(),
+            name: newKeyName,
+            key: newKey,
+            created: new Date().toISOString().split('T')[0],
+            lastUsed: "Never",
+        };
+
+        setApiKeys(prev => [newApiKey, ...prev]);
+        setIsCreating(false);
+        setCreateDialogOpen(false);
+        setNewKeyName('');
+        toast({
+            title: "API Key Created",
+            description: `A new key named "${newKeyName}" has been successfully created.`,
+        });
+    }, 1000);
+  }
+
   return (
     <div>
       <div className="flex justify-between items-start mb-6">
@@ -114,7 +161,7 @@ export default function ApiKeysPage() {
             Manage API keys for programmatic access to DentiSystems tools.
           </p>
         </div>
-        <Button>
+        <Button onClick={() => setCreateDialogOpen(true)}>
           <PlusCircle className="mr-2 h-4 w-4" />
           Create New Key
         </Button>
@@ -179,7 +226,7 @@ export default function ApiKeysPage() {
         </Table>
       </Card>
 
-      <Card className="mt-8 bg-gradient-to-br from-accent to-accent/80 border-border/50">
+      <Card className="mt-8 bg-gradient-to-br from-accent/50 to-accent/30 border-border/50">
         <CardHeader>
           <CardTitle className="font-headline">API Documentation</CardTitle>
           <CardDescription>
@@ -191,6 +238,8 @@ export default function ApiKeysPage() {
           <Button variant="secondary">Read Docs</Button>
         </CardFooter>
       </Card>
+
+      {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -211,6 +260,39 @@ export default function ApiKeysPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Create Key Dialog */}
+       <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Create a New API Key</DialogTitle>
+            <DialogDescription>
+              Give your new key a descriptive name to help you identify it later.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="key-name" className="text-right">
+                Name
+              </Label>
+              <Input
+                id="key-name"
+                value={newKeyName}
+                onChange={(e) => setNewKeyName(e.target.value)}
+                className="col-span-3"
+                placeholder="e.g. My Production Server"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setCreateDialogOpen(false)} disabled={isCreating}>Cancel</Button>
+            <Button onClick={handleCreateKey} disabled={isCreating}>
+              {isCreating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Create Key
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

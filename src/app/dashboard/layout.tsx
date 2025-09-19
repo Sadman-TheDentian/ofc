@@ -76,8 +76,7 @@ export default function DashboardLayout({
         {navContent}
       </aside>
       <div className="flex-1">
-        <div className="md:hidden border-b p-2 flex items-center justify-between">
-            <h1 className="font-headline text-lg font-bold">Dashboard</h1>
+        <div className="md:hidden border-b p-2 flex items-center justify-end">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                 <SheetTrigger asChild>
                     <Button variant="ghost" size="icon">

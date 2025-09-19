@@ -62,6 +62,10 @@ export const tools: Tool[] = [
     icon: Search,
     url: "https://darkcheck.denti.systems",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhP0_bWguZ5wH-zwO9nWFsKIf6oJtiqyUNuF87wE7CBzUEJe7xfDLoYWtUmJaC0p1LSGHfsWkmhSn8-mH5JnYKre-LKkEl9zCC4PSmM89ke2Dg4E14yZejNEd0zGPlo_b09JMSRGBaUC3NnkkjlfU0KtATGbgmiK_PdrcgYisrwITVnOeZ420EUyg92T2w/s320/Darkcheck.png",
+    screenshots: [
+        { id: 1, url: PlaceHolderImages.find(p => p.id === 'ds1')?.imageUrl || "https://picsum.photos/seed/ds1/1200/800", alt: "DarkCheck Dashboard", hint: "dashboard chart" },
+        { id: 2, url: PlaceHolderImages.find(p => p.id === 'ds2')?.imageUrl || "https://picsum.photos/seed/ds2/1200/800", alt: "DarkCheck Settings", hint: "settings form" },
+    ],
     features: {
       free: [
         "Monitor 1 domain",
@@ -88,6 +92,10 @@ export const tools: Tool[] = [
     icon: Fingerprint,
     url: "https://phishrisk.denti.systems",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjaDT7-W90QmoQPNtx9ZKZd_ZXDzjAx41rprheeshOMZ2k-0c5K4JXPkK5COAWvZcd8FU03p99VJTvBPxOS2aDYWsj3IgZ8c4X6AdS-QxQwIWeXlQ3IWl423Zwl-l7N9Rivm395N3kqigtsfPlxMY_a83BMsFbF3VvlElmmQaZGfBf6C-EM_1Ys71T4t1g/s320/PhishRisk.png",
+     screenshots: [
+        { id: 1, url: PlaceHolderImages.find(p => p.id === 'pr1')?.imageUrl || "https://picsum.photos/seed/pr1/1200/800", alt: "PhishRisk Campaign Editor", hint: "email editor" },
+        { id: 2, url: PlaceHolderImages.find(p => p.id === 'pr2')?.imageUrl || "https://picsum.photos/seed/pr2/1200/800", alt: "PhishRisk Analytics", hint: "analytics dashboard" },
+    ],
     features: {
       free: [
         "1 phishing template",
@@ -113,6 +121,9 @@ export const tools: Tool[] = [
     icon: KeyRound,
     url: "https://passwordleaker.denti.systems",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7UJYQdyLisohKiFJaPnaq169Y1lxjBcDX1eKBFoA2U8j19vvWaTkwFc0A0lBAqjm7Umf0VcrHsD91aAJz-pFzFDSx8tgm5tdrXYXfFuJpw1JTs8HnFBKc6UHaOlUT5StxqDsrG-6in4FHc0yZKrKGn7k0tVOkZRbTOuwpLvqpYTLzQjXYdzHz9vYJ_jc/s320/PasswordLeaker.png",
+     screenshots: [
+        { id: 1, url: PlaceHolderImages.find(p => p.id === 'pl1')?.imageUrl || "https://picsum.photos/seed/pl1/1200/800", alt: "PasswordLeaker PRO Interface", hint: "code interface" },
+    ],
     features: {
       free: ["Manual password checks", "Check against public breaches"],
       pro: [
@@ -131,6 +142,9 @@ export const tools: Tool[] = [
     longDescription: "LeakScan integrates with your development lifecycle to automatically scan GitHub, GitLab, and other repositories for hardcoded API keys, passwords, and other secrets before they can be exploited by malicious actors.",
     icon: Scan,
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHKHiRNvCifFGey2MkZi5URT_W0HnGJjmgv-bASQy7RcXMSLPSedhxIcn_5JCjQWEDAZhQ2XKiPeLzXUbOrmJv8L3y_CSShjw5gGk6KmUZ6jdnLAoMsyY4orfN3SFnebPVdsTer2RmVgQ6YpPxZQS0XWD3Lia-6FgLPq-ItuDQ3uue1amlsRAhFDZKjiE/s320/Leakscan.png",
+     screenshots: [
+        { id: 1, url: PlaceHolderImages.find(p => p.id === 'ds3')?.imageUrl || "https://picsum.photos/seed/ds3/1200/800", alt: "LeakScan results table", hint: "data table" },
+    ],
     features: {
       free: ["Scan public repositories", "On-demand manual scans", "Email notifications"],
       pro: ["Scan private repositories", "Automated commit scanning", "CI/CD integration", "Slack & Jira alerts"],
