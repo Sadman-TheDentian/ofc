@@ -52,13 +52,13 @@ export default function DashboardOverviewPage() {
             <ShieldAlert className="h-4 w-4 text-destructive" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-destructive">1</div>
+            <div className="text-2xl font-bold text-destructive">Automated Scan</div>
             <p className="text-xs text-muted-foreground">
-              New critical alert detected
+              Run AI scan on latest security news.
             </p>
-            <Button variant="link" size="sm" asChild className="p-0 h-auto mt-2">
+            <Button variant="link" size="sm" asChild className="p-0 h-auto mt-2 text-destructive">
               <Link href="/dashboard/threat-monitor">
-                View Alert <ArrowRight className="ml-1 h-3 w-3" />
+                Scan for Threats <ArrowRight className="ml-1 h-3 w-3" />
               </Link>
             </Button>
           </CardContent>
@@ -101,6 +101,7 @@ export default function DashboardOverviewPage() {
                   tickMargin={8}
                   tickFormatter={(value) => value.slice(0, 3)}
                 />
+                <YAxis hide />
                 <ChartTooltip
                   cursor={false}
                   content={<ChartTooltipContent indicator="dot" />}
@@ -168,5 +169,3 @@ export default function DashboardOverviewPage() {
     </div>
   );
 }
-
-    

@@ -1,14 +1,15 @@
 
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import "dotenv/config";
 
 const firebaseConfig = {
-  projectId: "studio-9852301761-76ee4",
-  appId: "1:211779146745:web:e9f9ecac8afa545c76a328",
-  storageBucket: "studio-9852301761-76ee4.firebasestorage.app",
-  apiKey: "AIzaSyAoioWUREDPmwLaZzjFqKzs0hfq_VfzWhM",
-  authDomain: "studio-9852301761-76ee4.firebaseapp.com",
-  messagingSenderId: "211779146745",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
 };
 
 // Initialize Firebase
