@@ -182,5 +182,3 @@ export async function generateStaticParams() {
     slug: post.slug,
   }));
 }
-
-    
