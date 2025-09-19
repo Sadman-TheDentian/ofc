@@ -22,10 +22,12 @@ const GalaxyAnimation = () => {
     let centerY = height / 2;
 
     // Target rotation based on mouse, and current rotation for easing
-    let targetRotationX = 0;
-    let targetRotationY = 0;
+    let targetRotationX = 0.2;
+    let targetRotationY = 0.2;
     let currentRotationX = 0;
     let currentRotationY = 0;
+    let baseRotationX = 0.0001;
+    let baseRotationY = 0.0001;
 
 
     let mouse = {
@@ -78,7 +80,7 @@ const GalaxyAnimation = () => {
         let rotatedZ = this.x * Math.sin(rotationY) + this.z * Math.cos(rotationY);
 
         const rotatedY = this.y * Math.cos(rotationX) - rotatedZ * Math.sin(rotationX);
-        rotatedZ = this.y * Math.sin(rotationX) + rotatedZ * Math.cos(rotationX);
+        rotatedZ = this.y * Math.sin(rotationX) + rotatedZ * cos(rotationX);
 
         const perspective = 300 / (300 + rotatedZ);
         this.xProjected = (rotatedX * perspective) + centerX;
@@ -112,6 +114,9 @@ const GalaxyAnimation = () => {
     function render() {
       if(!ctx) return;
       ctx.clearRect(0, 0, width, height);
+
+      currentRotationX += baseRotationX;
+      currentRotationY += baseRotationY;
       
       // Ease current rotation towards target rotation
       const easing = 0.05;

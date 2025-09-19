@@ -49,6 +49,8 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  const currentPage = sidebarNavItems.find(item => item.href === pathname);
 
   const navContent = (
     <nav className="flex flex-col gap-2">
@@ -76,14 +78,14 @@ export default function DashboardLayout({
         {navContent}
       </aside>
       <div className="flex-1">
-        <div className="md:hidden border-b p-2 flex items-center justify-end">
+        <header className="md:hidden border-b p-2 flex items-center justify-between sticky top-0 bg-background/80 backdrop-blur-sm z-30">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                 <SheetTrigger asChild>
                     <Button variant="ghost" size="icon">
                         <PanelLeft className="h-5 w-5" />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left">
+                <SheetContent side="left" className="p-4">
                     <div className="flex items-center gap-2 mb-8">
                          <Image src={logoUrl} alt="DentiSystems Logo" width={32} height={32} className="h-8 w-8" />
                         <span className="font-headline text-lg font-bold">DentiSystems</span>
@@ -91,7 +93,12 @@ export default function DashboardLayout({
                     {navContent}
                 </SheetContent>
             </Sheet>
-        </div>
+             <h1 className="font-headline text-lg font-bold">
+                {currentPage?.title || 'Dashboard'}
+            </h1>
+            {/* Empty div for spacing */}
+            <div className="w-9 h-9" />
+        </header>
         <div className="p-4 md:p-8">
             {children}
         </div>

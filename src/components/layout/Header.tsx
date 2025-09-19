@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Menu, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/lib/auth';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
@@ -33,6 +33,12 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
 import { services, tools } from '@/lib/data';
 import React from 'react';
 
@@ -74,6 +80,8 @@ ListItem.displayName = 'ListItem';
 export default function Header() {
   const pathname = usePathname();
   const { user, loading, signOut } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
 
   const UserMenu = () => {
     if (loading) return null;
@@ -170,19 +178,30 @@ export default function Header() {
           <NavigationMenuItem key={link.href}>
             <Link href={link.href} legacyBehavior passHref>
               <NavigationMenuLink
-                asChild
                 className={cn(
                   navigationMenuTriggerStyle(),
                   pathname.startsWith(link.href) ? 'text-primary' : ''
                 )}
               >
-                <a>{link.label}</a>
+                {link.label}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>
     </NavigationMenu>
+  );
+  
+  const MobileNavLink = ({ href, children }: { href: string, children: React.ReactNode }) => (
+    <Link
+        href={href}
+        onClick={() => setMobileMenuOpen(false)}
+        className={cn("block py-2 text-muted-foreground transition-colors hover:text-primary pl-8",
+            pathname.startsWith(href) ? 'text-primary' : ''
+        )}
+    >
+        {children}
+    </Link>
   );
 
   return (
@@ -229,7 +248,7 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu */}
-        <Sheet>
+        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" className="md:hidden ml-4">
               <Menu className="h-5 w-5" />
@@ -239,7 +258,7 @@ export default function Header() {
           <SheetContent side="left" className="pr-0">
             <SheetHeader className="mb-6">
               <SheetTitle className="sr-only">Menu</SheetTitle>
-              <Link href="/" className="flex items-center space-x-2">
+              <Link href="/" className="flex items-center space-x-2" onClick={() => setMobileMenuOpen(false)}>
                 <Image
                   src={logoUrl}
                   alt="DentiSystems Logo"
@@ -251,32 +270,48 @@ export default function Header() {
               </Link>
             </SheetHeader>
             <div className="flex flex-col space-y-3 mb-6">
-              {[...services, ...tools, ...navLinks].map(link => (
+                <Accordion type="multiple" className="w-full">
+                    <AccordionItem value="services" className="border-b-0">
+                        <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
+                            Services
+                        </AccordionTrigger>
+                        <AccordionContent>
+                           {services.map(service => (
+                                <MobileNavLink key={service.slug} href={`/services/${service.slug}`}>{service.title}</MobileNavLink>
+                           ))}
+                        </AccordionContent>
+                    </AccordionItem>
+                     <AccordionItem value="tools" className="border-b-0">
+                        <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
+                            Tools
+                        </AccordionTrigger>
+                        <AccordionContent>
+                           {tools.map(tool => (
+                                <MobileNavLink key={tool.slug} href={`/tools/${tool.slug}`}>{tool.title}</MobileNavLink>
+                           ))}
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+                
+               {navLinks.map(link => (
                 <Link
-                  key={link.href || link.slug}
-                  href={
-                    link.href ||
-                    (link.slug
-                      ? services.find(s => s.slug === link.slug)
-                        ? `/services/${link.slug}`
-                        : `/tools/${link.slug}`
-                      : '#')
-                  }
-                  className={cn(
-                    'transition-colors hover:text-primary text-lg',
-                    pathname.startsWith(link.href || '') ||
-                      pathname.includes(link.slug || '---')
-                      ? 'text-primary'
-                      : 'text-muted-foreground'
-                  )}
-                >
-                  {link.label || link.title}
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn(
+                        'transition-colors hover:text-primary text-lg py-2',
+                        pathname.startsWith(link.href)
+                        ? 'text-primary'
+                        : 'text-muted-foreground'
+                    )}
+                    >
+                    {link.label}
                 </Link>
               ))}
             </div>
             {user ? (
               <div className="flex flex-col space-y-2">
-                <Button asChild>
+                <Button asChild onClick={() => setMobileMenuOpen(false)}>
                   <Link href="/dashboard">Go to Dashboard</Link>
                 </Button>
                 <Button variant="ghost" onClick={signOut}>
@@ -285,10 +320,10 @@ export default function Header() {
               </div>
             ) : (
               <div className="flex flex-col space-y-2">
-                <Button asChild>
+                <Button asChild onClick={() => setMobileMenuOpen(false)}>
                   <Link href="/contact">Request Risk Audit</Link>
                 </Button>
-                <Button variant="ghost" asChild>
+                <Button variant="ghost" asChild onClick={() => setMobileMenuOpen(false)}>
                   <Link href="/auth">Login</Link>
                 </Button>
               </div>
