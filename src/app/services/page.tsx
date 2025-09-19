@@ -32,8 +32,7 @@ export default function ServicesPage() {
                   data-ai-hint={service.imageHint}
                 />
               </div>
-              <CardHeader className="flex flex-row items-center gap-4">
-                <service.icon className="w-10 h-10 text-primary" />
+              <CardHeader>
                 <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">
                   {service.title}
                 </CardTitle>
@@ -53,3 +52,5 @@ export default function ServicesPage() {
     </div>
   );
 }
+
+    

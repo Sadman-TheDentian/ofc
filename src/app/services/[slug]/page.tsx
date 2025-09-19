@@ -39,7 +39,6 @@ export default function ServiceDetailPage({ params }: Props) {
     <div className="container py-12 md:py-20">
         <div className="mb-12">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-6">
-                <service.icon className="w-12 h-12 text-primary shrink-0" />
                 <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
                 {service.title}
                 </h1>
@@ -74,8 +73,7 @@ export default function ServiceDetailPage({ params }: Props) {
                     <Link href={`/services/${other.slug}`} key={other.id} className="block group">
                     <Card className="hover:border-primary/50 transition-colors bg-gradient-to-br from-card to-card/80 border-border/50">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-3 font-headline text-lg group-hover:text-primary transition-colors">
-                                <other.icon className="w-6 h-6 text-primary" />
+                            <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
                                 {other.title}
                             </CardTitle>
                         </CardHeader>
@@ -94,3 +92,5 @@ export async function generateStaticParams() {
     slug: service.slug,
   }));
 }
+
+    

@@ -103,12 +103,9 @@ export default function Home() {
                         </div>
                       </CardHeader>
                       <CardContent className="flex-grow flex flex-col p-6">
-                         <div className="flex items-center gap-4 mb-4">
-                            <service.icon className="w-8 h-8 text-primary shrink-0" />
-                            <CardTitle className="font-headline text-xl">
-                                {service.title}
-                            </CardTitle>
-                        </div>
+                         <CardTitle className="font-headline text-xl mb-4">
+                            {service.title}
+                         </CardTitle>
                         <p className="text-muted-foreground flex-grow mb-4">
                           {service.description}
                         </p>
@@ -262,3 +259,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
