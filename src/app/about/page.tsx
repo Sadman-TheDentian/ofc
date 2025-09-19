@@ -7,25 +7,32 @@ import Link from "next/link";
 
 const teamMembers = [
   {
-    name: "Alex 'Havoc' Chen",
-    title: "Founder & Lead Security Architect",
-    bio: "With over 15 years in offensive security, Alex has led red team operations against Fortune 500 companies. He founded DentiSystems to bring proactive, attacker-mindset security to the enterprise world.",
+    name: "MD Sadman Shovik",
+    title: "Chief Executive Officer",
+    bio: "Visionary leader driving the company's mission to redefine cybersecurity and deliver unparalleled value to our clients and partners.",
     imageUrl: "https://picsum.photos/seed/team1/400/400",
-    imageHint: "professional headshot man",
+    imageHint: "professional headshot ceo",
   },
   {
-    name: "Dr. Evelyn Reed",
-    title: "Head of R&D",
-    bio: "A PhD in cryptography and machine learning, Evelyn architects our proprietary AI models for threat detection and analysis, pushing the boundaries of predictive security.",
+    name: "MD Shahriar Ahmed",
+    title: "Chief Operating Officer",
+    bio: "Orchestrating operational excellence and ensuring the seamless delivery of our cutting-edge security services and solutions.",
     imageUrl: "https://picsum.photos/seed/team2/400/400",
-    imageHint: "professional headshot woman",
+    imageHint: "professional headshot coo",
   },
   {
-    name: "Marcus 'Forge' Bell",
-    title: "Principal Web Engineer",
-    bio: "Marcus is a full-stack virtuoso who specializes in building resilient, scalable, and secure web infrastructures. He ensures every line of code is a fortress.",
+    name: "Monutosh Paul",
+    title: "Chief Technology Officer",
+    bio: "Architecting the next generation of security technology, from our AI-powered platforms to our secure development frameworks.",
     imageUrl: "https://picsum.photos/seed/team3/400/400",
-    imageHint: "professional headshot man tech",
+    imageHint: "professional headshot cto",
+  },
+  {
+    name: "MD Sajidur Rahman",
+    title: "Chief Sales Officer",
+    bio: "Forging strategic partnerships and leading our sales division to bring DentiSystems' solutions to organizations worldwide.",
+    imageUrl: "https://picsum.photos/seed/team4/400/400",
+    imageHint: "professional headshot sales",
   },
 ];
 
@@ -105,7 +112,7 @@ export default function AboutPage() {
         <h2 className="font-headline text-3xl font-bold tracking-tighter mb-12">
           Meet the Experts
         </h2>
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mb-12">
           {teamMembers.map((member, index) => (
             <Card key={index} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center">
               <CardContent className="p-6">
