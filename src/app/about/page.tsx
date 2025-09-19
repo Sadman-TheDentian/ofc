@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Users, BarChart, Shield, Target } from "lucide-react";
@@ -76,7 +75,6 @@ export default function AboutPage() {
             <p className="text-muted-foreground">
               In a world of escalating digital threats, passive defense is no
               longer enough. Our mission is to provide organizations with an
-
               attacker&apos;s advantage. We combine deep offensive security expertise
               with secure development practices to build digital experiences
               that are not just functional, but fundamentally resilient.

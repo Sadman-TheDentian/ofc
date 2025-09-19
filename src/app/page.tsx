@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useRef } from 'react';
@@ -166,7 +165,7 @@ export default function Home() {
                     }}
                  >
                     <CarouselContent className="-ml-4">
-                        {tools.slice(0, 3).map((tool) => (
+                        {tools.map((tool) => (
                             <CarouselItem key={tool.id} className="pl-4">
                                 <div className="p-1">
                                 <Link href={`/tools/${tool.slug}`} className="group">
@@ -259,5 +258,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
