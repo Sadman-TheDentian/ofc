@@ -1,3 +1,4 @@
+
 import type { Service, Tool } from "./types";
 import {
   ShieldCheck,
@@ -9,6 +10,7 @@ import {
   FileText,
   Scan,
   Shield,
+  ShieldHalf,
 } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
@@ -143,7 +145,7 @@ export const tools: Tool[] = [
     icon: Scan,
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHKHiRNvCifFGey2MkZi5URT_W0HnGJjmgv-bASQy7RcXMSLPSedhxIcn_5JCjQWEDAZhQ2XKiPeLzXUbOrmJv8L3y_CSShjw5gGk6KmUZ6jdnLAoMsyY4orfN3SFnebPVdsTer2RmVgQ6YpPxZQS0XWD3Lia-6FgLPq-ItuDQ3uue1amlsRAhFDZKjiE/s320/Leakscan.png",
      screenshots: [
-        { id: 1, url: PlaceHolderImages.find(p => p.id === 'ds3')?.imageUrl || "https://picsum.photos/seed/ds3/1200/800", alt: "LeakScan results table", hint: "data table" },
+        { id: 1, url: PlaceHolderImages.find(p => p.id === 'ls1')?.imageUrl || "https://picsum.photos/seed/ls1/1200/800", alt: "LeakScan results table", hint: "data table" },
     ],
     features: {
       free: ["Scan public repositories", "On-demand manual scans", "Email notifications"],
@@ -173,11 +175,31 @@ export const tools: Tool[] = [
     icon: Shield,
     url: "https://scan.denti.systems",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
+    screenshots: [
+        { id: 1, url: PlaceHolderImages.find(p => p.id === 'ds1')?.imageUrl || "https://picsum.photos/seed/ds1/1200/800", alt: "DentiScan Dashboard", hint: "dashboard chart" },
+    ],
     features: {
       free: ["Monthly scans for 1 web app", "Summary-level reports", "OWASP Top 10 checks"],
       pro: ["Daily or on-demand scans", "Unlimited web apps", "Detailed vulnerability reports", "Remediation guidance", "API for CI/CD integration"],
     },
   },
+  {
+    id: 7,
+    slug: "code-scanner",
+    title: "Code Vulnerability Scanner",
+    description: "Use AI to analyze code snippets for common security vulnerabilities.",
+    longDescription: "Our AI-powered Code Vulnerability Scanner allows developers to quickly check their code for issues like SQL Injection, XSS, and more. Get instant feedback and suggestions for remediation directly in your workflow.",
+    icon: ShieldHalf,
+    url: "/tools/code-scanner",
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
+    screenshots: [
+        { id: 1, url: PlaceHolderImages.find(p => p.id === 'cvs1')?.imageUrl || "https://picsum.photos/seed/cvs1/1200/800", alt: "Code scanner interface", hint: "code editor" },
+    ],
+    features: {
+      free: ["Scan up to 50 snippets per day", "Detects OWASP Top 10 vulnerabilities"],
+      pro: ["Unlimited scans via UI and API", "Broader range of vulnerability checks", "CI/CD integration options"],
+    },
+  }
 ];
 
 export const caseStudies = [

@@ -1,3 +1,4 @@
+
 {
   "placeholderImages": [
     {
@@ -31,12 +32,6 @@
       "imageHint": "settings form"
     },
     {
-      "id": "ds3",
-      "description": "A data table with rows of information",
-      "imageUrl": "https://picsum.photos/seed/ds3/1200/800",
-      "imageHint": "data table"
-    },
-    {
       "id": "pr1",
       "description": "A user interface for editing an email",
       "imageUrl": "https://picsum.photos/seed/pr1/1200/800",
@@ -55,21 +50,33 @@
       "imageHint": "code interface"
     },
     {
+      "id": "ls1",
+      "description": "A data table with rows of information",
+      "imageUrl": "https://picsum.photos/seed/ls1/1200/800",
+      "imageHint": "data table"
+    },
+    {
+      "id": "cvs1",
+      "description": "A code editor interface",
+      "imageUrl": "https://picsum.photos/seed/cvs1/1200/800",
+      "imageHint": "code editor"
+    },
+    {
       "id": "s1",
       "description": "A secure data center aisle with server racks",
-      "imageUrl": "https://picsum.photos/seed/s1/600/400",
+      "imageUrl": "https://picsum.photos/seed/s1/800/500",
       "imageHint": "data center security"
     },
     {
       "id": "s2",
       "description": "Abstract glowing lines representing network infrastructure",
-      "imageUrl": "https://picsum.photos/seed/s2/600/400",
+      "imageUrl": "https://picsum.photos/seed/s2/800/500",
       "imageHint": "network infrastructure"
     },
     {
       "id": "s3",
       "description": "A developer's laptop screen showing lines of code in an editor",
-      "imageUrl": "https://picsum.photos/seed/s3/600/400",
+      "imageUrl": "https://picsum.photos/seed/s3/800/500",
       "imageHint": "developer laptop code"
     }
   ]
