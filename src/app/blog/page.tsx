@@ -34,6 +34,6 @@ export default async function BlogPage() {
           </li>
         ))}
       </ul>
-    </main>
+    </div>
   );
 }
