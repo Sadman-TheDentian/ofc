@@ -8,7 +8,7 @@ const POSTS_QUERY = `*[
   && defined(slug.current)
 ]|order(publishedAt desc)[0...12]{_id, title, slug, publishedAt}`;
 
-const options = { next: { revalidate: 30 } };
+const options = { next: { revalidate: 30 } }; // Revalidate every 30 seconds
 
 export default async function BlogPage() {
   const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);

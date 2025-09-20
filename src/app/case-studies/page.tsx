@@ -14,7 +14,7 @@ function urlFor(source: any) {
 }
 
 async function getCaseStudies(): Promise<CaseStudy[]> {
-  const query = `*[_type == "caseStudy"] {
+  const query = `*[_type == "caseStudy" && defined(slug.current)] {
     _id,
     title,
     "slug": slug.current,

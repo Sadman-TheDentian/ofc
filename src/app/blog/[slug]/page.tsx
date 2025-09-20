@@ -14,7 +14,7 @@ const urlFor = (source: SanityImageSource) =>
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 
-const options = { next: { revalidate: 30 } };
+const options = { next: { revalidate: 30 } }; // Revalidate every 30 seconds
 
 export default async function PostPage({
   params,
@@ -22,8 +22,8 @@ export default async function PostPage({
   params: { slug: string };
 }) {
   const post = await client.fetch<SanityDocument>(POST_QUERY, params, options);
-  const postImageUrl = post.image
-    ? urlFor(post.image)?.width(800).height(450).url()
+  const postImageUrl = post.mainImage
+    ? urlFor(post.mainImage)?.width(800).height(450).url()
     : null;
 
   return (
@@ -55,6 +55,6 @@ export default async function PostPage({
 }
 
 export async function generateStaticParams() {
-  const posts = await client.fetch<SanityDocument[]>(`*[_type == "post"]{"slug": slug.current}`);
-  return posts.map(post => ({ slug: post.slug.current }));
+  const posts = await client.fetch<SanityDocument[]>(`*[_type == "post" && defined(slug.current)]{"slug": slug.current}`);
+  return posts.map(post => ({ slug: post.slug }));
 }
