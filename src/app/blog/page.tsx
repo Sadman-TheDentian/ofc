@@ -1,38 +1,17 @@
 
 import Link from "next/link";
-import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { type SanityDocument } from "next-sanity";
 import { client } from "@/lib/sanity";
-import type { BlogPost } from "@/lib/types";
-import imageUrlBuilder from '@sanity/image-url'
 
-const builder = imageUrlBuilder(client)
+const POSTS_QUERY = `*[
+  _type == "post"
+  && defined(slug.current)
+]|order(publishedAt desc)[0...12]{_id, title, slug, publishedAt}`;
 
-function urlFor(source: any) {
-  return builder.image(source)
-}
-
-
-async function getBlogPosts(): Promise<BlogPost[]> {
-    const query = `*[_type == "post"] | order(publishedAt desc) {
-        _id,
-        title,
-        "slug": slug.current,
-        excerpt,
-        mainImage,
-        publishedAt,
-        author->{
-            name
-        }
-    }`;
-    const data = await client.fetch(query);
-    return data;
-}
-
+const options = { next: { revalidate: 30 } };
 
 export default async function BlogPage() {
-  const posts = await getBlogPosts();
+  const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);
 
   return (
     <div className="container py-12 md:py-20">
@@ -44,45 +23,17 @@ export default async function BlogPage() {
           Insights on cybersecurity, web engineering, and the evolving threat landscape.
         </p>
       </div>
-      
-      {posts && posts.length > 0 ? (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map(post => (
-                <Link key={post._id} href={`/blog/${post.slug}`} className="group">
-                    <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
-                        {post.mainImage && (
-                            <div className="relative h-56 w-full">
-                                <Image 
-                                    src={urlFor(post.mainImage).width(800).height(600).url()}
-                                    alt={post.title}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform"
-                                />
-                            </div>
-                        )}
-                        <CardHeader>
-                            <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">{post.title}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="flex-grow flex flex-col">
-                            <p className="text-muted-foreground text-sm flex-grow">{post.excerpt}</p>
-                            <div className="flex items-center justify-between mt-4">
-                                <Badge variant="outline">{new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</Badge>
-                                <p className="text-xs text-muted-foreground">by {post.author.name}</p>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </Link>
-            ))}
-        </div>
-      ) : (
-        <div className="text-center py-16 border border-dashed rounded-lg">
-          <h3 className="font-headline text-xl font-semibold">No Blog Posts Found</h3>
-          <p className="text-muted-foreground mt-2">Content is being managed in Sanity.io. Publish new posts in the Studio.</p>
-           <Button asChild variant="secondary" className="mt-4">
-                <Link href="/studio">Go to Studio</Link>
-           </Button>
-        </div>
-      )}
-    </div>
+
+      <ul className="max-w-3xl mx-auto flex flex-col gap-y-8">
+        {posts.map((post) => (
+          <li className="group" key={post._id}>
+            <Link href={`/blog/${post.slug.current}`}>
+              <h2 className="text-2xl font-semibold font-headline text-primary group-hover:underline">{post.title}</h2>
+              <p className="text-muted-foreground mt-1">{new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </main>
   );
 }

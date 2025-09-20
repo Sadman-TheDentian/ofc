@@ -1,109 +1,60 @@
 
+import { PortableText, type SanityDocument } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/lib/sanity";
-import type { BlogPost } from "@/lib/types";
-import { notFound } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
-import imageUrlBuilder from '@sanity/image-url'
-import { PortableText } from '@portabletext/react'
-import { Badge } from "@/components/ui/badge";
 
-const builder = imageUrlBuilder(client)
+const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 
-function urlFor(source: any) {
-  return builder.image(source)
-}
+const { projectId, dataset } = client.config();
+const urlFor = (source: SanityImageSource) =>
+  projectId && dataset
+    ? imageUrlBuilder({ projectId, dataset }).image(source)
+    : null;
 
-async function getBlogPost(slug: string): Promise<BlogPost> {
-    const query = `*[_type == "post" && slug.current == $slug][0] {
-        _id,
-        title,
-        "slug": slug.current,
-        excerpt,
-        mainImage,
-        publishedAt,
-        body,
-        author->{
-            name,
-            image
-        }
-    }`;
-    const post = await client.fetch(query, { slug });
-    return post;
-}
+const options = { next: { revalidate: 30 } };
 
-const ptComponents = {
-  types: {
-    image: ({ value }: { value: any }) => {
-      if (!value?.asset?._ref) {
-        return null
-      }
-      return (
-        <div className="relative my-8">
-            <Image
-                src={urlFor(value).width(1200).height(800).fit('max').auto('format').url()}
-                width={1200}
-                height={800}
-                alt={value.alt || ' '}
-                loading="lazy"
-                className="rounded-lg"
-            />
-        </div>
-      )
-    }
-  }
-}
-
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = await getBlogPost(params.slug);
-
-  if (!post) {
-    notFound();
-  }
+export default async function PostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const post = await client.fetch<SanityDocument>(POST_QUERY, params, options);
+  const postImageUrl = post.image
+    ? urlFor(post.image)?.width(800).height(450).url()
+    : null;
 
   return (
-    <article className="container py-12 md:py-20">
-        <div className="max-w-3xl mx-auto">
-            <header className="text-center mb-12">
-                 <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl mb-4">
-                    {post.title}
-                </h1>
-                <div className="flex justify-center items-center gap-4 text-muted-foreground">
-                    {post.author.image && (
-                         <Image 
-                            src={urlFor(post.author.image).width(40).height(40).url()}
-                            alt={post.author.name}
-                            width={40}
-                            height={40}
-                            className="rounded-full"
-                        />
-                    )}
-                    <span>By {post.author.name}</span>
-                    <span>&bull;</span>
-                     <time dateTime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-                </div>
-            </header>
-            
-            {post.mainImage && (
-                <div className="relative h-96 w-full mb-12">
-                    <Image 
-                        src={urlFor(post.mainImage).width(1200).height(800).url()}
-                        alt={post.title}
-                        fill
-                        className="object-cover rounded-xl shadow-lg"
-                        priority
-                    />
-                </div>
-            )}
+    <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-8">
+      <Link href="/blog" className="text-primary hover:underline">
+        ← Back to posts
+      </Link>
+      <article>
+        <h1 className="text-4xl font-bold font-headline mb-4">{post.title}</h1>
+        <p className="text-muted-foreground mb-8">Published: {new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
 
-            <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
-                 <PortableText value={post.body} components={ptComponents} />
+        {postImageUrl && (
+            <div className="relative w-full aspect-video mb-8">
+                <Image
+                    src={postImageUrl}
+                    alt={post.title}
+                    fill
+                    className="rounded-xl object-cover"
+                />
             </div>
+        )}
+        
+        <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
+          {Array.isArray(post.body) && <PortableText value={post.body} />}
         </div>
-    </article>
+      </article>
+    </main>
   );
 }
 
 export async function generateStaticParams() {
-  const posts = await client.fetch<BlogPost[]>(`*[_type == "post"]{"slug": slug.current}`);
-  return posts.map(post => ({ slug: post.slug }));
+  const posts = await client.fetch<SanityDocument[]>(`*[_type == "post"]{"slug": slug.current}`);
+  return posts.map(post => ({ slug: post.slug.current }));
 }
