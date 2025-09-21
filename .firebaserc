@@ -1,5 +1,26 @@
 {
   "projects": {
     "default": "dentisystems-web-2563348-a6782"
+  },
+  "targets": {
+    "dentisystems-web-2563348-a6782": {
+      "hosting": {
+        "portal": [
+          "denti-systems"
+        ],
+        "darkcheck": [
+          "darkcheck-denti-systems"
+        ],
+        "leakscan": [
+          "leakscan-denti-systems"
+        ],
+        "phishrisk": [
+          "phishrisk-denti-systems"
+        ],
+        "passwordleaker": [
+          "passwordleaker-denti-systems"
+        ]
+      }
+    }
   }
 }
