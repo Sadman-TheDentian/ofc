@@ -12,43 +12,19 @@
     },
     {
       "target": "darkcheck",
-      "public": ".next",
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+      "public": "tools/darkcheck"
     },
     {
       "target": "leakscan",
-      "public": ".next",
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+      "public": "tools/leakscan"
     },
     {
       "target": "phishrisk",
-      "public": ".next",
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+      "public": "tools/phishrisk"
     },
     {
       "target": "passwordleaker",
-      "public": ".next",
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+      "public": "tools/passwordleaker"
     }
   ]
 }
