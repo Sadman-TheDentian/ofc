@@ -69,7 +69,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <AuthGuard>
-        <BrowserRouter>
+        <BrowserRouter basename="/tools/leakscan">
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />

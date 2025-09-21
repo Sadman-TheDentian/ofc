@@ -74,7 +74,7 @@ const App = () => (
       <Sonner />
       <Analytics />
       <AuthGuard>
-        <BrowserRouter>
+        <BrowserRouter basename="/tools/darkcheck">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/check" element={<Check />} />

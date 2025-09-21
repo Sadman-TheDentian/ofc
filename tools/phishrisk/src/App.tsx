@@ -72,7 +72,7 @@ const App = () => (
       <Sonner />
       <Analytics />
       <AuthGuard>
-        <BrowserRouter>
+        <BrowserRouter basename="/tools/phishrisk">
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/result/:id" element={<Result />} />

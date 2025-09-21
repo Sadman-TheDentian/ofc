@@ -72,7 +72,7 @@ const App = () => (
       <Sonner />
       <AuthProvider>
         <AuthGuard>
-          <BrowserRouter>
+          <BrowserRouter basename="/tools/passwordleaker">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
