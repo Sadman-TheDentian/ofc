@@ -1,4 +1,3 @@
-
 const Recommendations = ({score}:{score:number}) => {
   const highRisk = [
     "Change your password and enable 2FA immediately.",

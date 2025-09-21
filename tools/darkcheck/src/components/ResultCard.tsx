@@ -1,4 +1,3 @@
-
 import { AlertTriangle, CheckCircle, Globe, Calendar, Users, Database } from 'lucide-react';
 import type { BreachResult } from '@/lib/breachCheck';
 

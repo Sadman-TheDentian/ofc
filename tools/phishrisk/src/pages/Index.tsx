@@ -1,4 +1,3 @@
-
 import NeonHeader from "@/components/NeonHeader";
 import NeonFooter from "@/components/NeonFooter";
 import ScanForm from "@/components/ScanForm";

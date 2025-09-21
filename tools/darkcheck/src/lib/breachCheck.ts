@@ -1,4 +1,3 @@
-
 import { isValidEmail } from './utils';
 
 export interface BreachDetails {
