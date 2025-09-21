@@ -1,3 +1,4 @@
+
 import { tools } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
@@ -18,21 +19,18 @@ export default function ToolsPage() {
       </div>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {tools.map((tool) => (
-           <Link href={`/tools/${tool.slug}`} key={tool.id} className="group">
+           <Link href={tool.url || `/tools/${tool.slug}`} key={tool.id} className="group">
             <Card className="flex flex-col h-full hover:border-primary/50 transition-colors overflow-hidden bg-gradient-to-br from-card to-card/80 border-border/50">
-                <div className="relative h-48 w-full">
+                <div className="relative h-48 w-full bg-secondary/30 flex items-center justify-center p-8">
                     <Image
-                        src={tool.screenshots?.[0]?.url || tool.imageUrl}
+                        src={tool.imageUrl}
                         alt={tool.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform"
-                        data-ai-hint={tool.screenshots?.[0]?.hint || tool.title}
+                        width={120}
+                        height={120}
+                        className="object-contain group-hover:scale-105 transition-transform"
                     />
                 </div>
               <CardHeader className="flex flex-row items-center gap-4">
-                 <div className="p-2 bg-secondary rounded-lg flex items-center justify-center shrink-0">
-                    <Image src={tool.imageUrl} alt={`${tool.title} logo`} width={32} height={32} className="h-8 w-8" />
-                </div>
                 <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">
                   {tool.title}
                 </CardTitle>
