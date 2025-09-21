@@ -58,6 +58,8 @@ const getAuthErrorMessage = (error: FirebaseError) => {
             return 'Authentication popup was closed. Please try again.';
         case 'auth/cancelled-popup-request':
             return 'Multiple login attempts detected. Please try again.';
+        case 'auth/invalid-api-key':
+             return 'Authentication failed: Invalid API Key. Please contact support.';
         default:
             return 'An unexpected authentication error occurred. Please try again later.';
     }
