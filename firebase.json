@@ -13,7 +13,7 @@
     },
     {
       "target": "darkcheck",
-      "public": "build/darkcheck",
+      "public": "tools/darkcheck/build",
       "rewrites": [
         {
           "source": "**",
@@ -23,7 +23,7 @@
     },
     {
       "target": "leakscan",
-      "public": "build/leakscan",
+      "public": "tools/leakscan/build",
       "rewrites": [
         {
           "source": "**",
@@ -33,7 +33,7 @@
     },
     {
       "target": "phishrisk",
-      "public": "build/phishrisk",
+      "public": "tools/phishrisk/build",
       "rewrites": [
         {
           "source": "**",
@@ -43,7 +43,7 @@
     },
     {
       "target": "passwordleaker",
-      "public": "build/passwordleaker",
+      "public": "tools/passwordleaker/build",
       "rewrites": [
         {
           "source": "**",

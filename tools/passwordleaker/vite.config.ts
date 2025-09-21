@@ -8,7 +8,7 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   base: '/',
   build: {
-    outDir: '../../build/passwordleaker',
+    outDir: 'build',
     emptyOutDir: true,
   },
   server: {

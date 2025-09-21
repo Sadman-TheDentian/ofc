@@ -8,7 +8,7 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   base: '/',
   build: {
-    outDir: '../../build/phishrisk',
+    outDir: 'build',
     emptyOutDir: true,
   },
   server: {

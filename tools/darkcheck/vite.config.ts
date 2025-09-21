@@ -8,7 +8,7 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   base: '/',
   build: {
-    outDir: '../../build/darkcheck',
+    outDir: 'build',
     emptyOutDir: true,
   },
   server: {
