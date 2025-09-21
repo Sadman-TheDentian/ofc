@@ -13,30 +13,76 @@ import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import ActivatePro from "./pages/ActivatePro";
 import NotFound from "./pages/NotFound";
+import { useState, useEffect } from 'react';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { auth } from './lib/auth';
+import { Loader2, ShieldOff } from 'lucide-react';
 
 const queryClient = new QueryClient();
+
+const AuthGuard = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
+        <Loader2 className="h-12 w-12 animate-spin text-green-400 mb-4" />
+        <p className="text-gray-400">Verifying authentication...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+       <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center text-center p-4">
+        <ShieldOff className="h-16 w-16 text-red-500 mx-auto mb-6" />
+        <h1 className="text-3xl font-bold text-red-400 mb-4">Access Denied</h1>
+        <p className="text-gray-300 max-w-md mb-8">
+          You must be logged in to use Password Leaker. Please sign in or create an account on our main website to access this tool.
+        </p>
+        <a href="https://dentisystems.com/auth" target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-3 rounded-lg bg-green-600 text-white font-semibold">
+          Login on DentiSystems
+        </a>
+      </div>
+    );
+  }
+
+  return <>{children}</>;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
         <AuthProvider>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/activate-pro" element={<ActivatePro />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Layout>
+          <AuthGuard>
+            <BrowserRouter>
+              <Layout>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/pricing" element={<Pricing />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/activate-pro" element={<ActivatePro />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Layout>
+            </BrowserRouter>
+          </AuthGuard>
         </AuthProvider>
-      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
