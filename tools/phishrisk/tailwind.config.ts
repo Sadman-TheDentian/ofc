@@ -25,7 +25,7 @@ export default {
       },
       colors: {
         neon: "#00FF66",
-        "cyber-bg": "#111622",
+        "cyber-bg": "#0d1117",
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -33,15 +33,27 @@ export default {
         foreground: 'hsl(var(--foreground))',
         primary: {
           DEFAULT: "#00FF66",
-          foreground: "#111622",
+          foreground: "#0d1117",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))"
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))"
+        },
+        muted: {
+          DEFAULT: "#262e39",
+          foreground: "#bdffc9"
         },
         accent: {
           DEFAULT: "#1e293b",
           foreground: "#00FF66"
         },
-        muted: {
-          DEFAULT: "#262e39",
-          foreground: "#bdffc9"
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))"
         },
         card: {
           DEFAULT: "#181d22",

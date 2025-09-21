@@ -1,13 +1,15 @@
 
 import React from 'react';
-import Layout from '@/components/Layout';
 import { Shield, Target, Zap, Users } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import NeonHeader from '@/components/NeonHeader';
+import NeonFooter from '@/components/NeonFooter';
 
 const About = () => {
   return (
-    <Layout>
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
+      <NeonHeader />
+      <main className="flex-grow container mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -133,8 +135,9 @@ const About = () => {
             </p>
           </div>
         </div>
-      </div>
-    </Layout>
+      </main>
+      <NeonFooter />
+    </div>
   );
 };
 

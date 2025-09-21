@@ -24,3 +24,27 @@ a {
 ::-webkit-scrollbar {
   background: #131926;
 }
+
+.neon-text {
+    @apply text-neon;
+}
+
+.neon-glow {
+    box-shadow: 0 0 5px #00FF66, 0 0 15px #00FF66, 0 0 30px #00FF66;
+}
+
+.cyber-card {
+    @apply bg-card/80 neon-glow rounded-2xl p-8;
+}
+
+.cyber-button {
+    @apply bg-neon text-cyber-bg font-bold py-3 px-8 rounded-lg uppercase tracking-wider shadow-xl hover:scale-105 neon-glow transition-all;
+}
+
+.cyber-input {
+    @apply w-full bg-cyber-bg border-2 neon-border rounded px-3 py-2 text-white focus:outline-none;
+}
+
+.neon-border {
+    border-color: #00FF66;
+}

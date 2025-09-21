@@ -1,14 +1,16 @@
 
 import React from 'react';
-import Layout from '@/components/Layout';
 import DomainScanner from '@/components/DomainScanner';
 import { Shield, Search, AlertTriangle, Github, Lock, Server, Globe, FileText } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import NeonHeader from '@/components/NeonHeader';
+import NeonFooter from '@/components/NeonFooter';
 
 const Index = () => {
   return (
-    <Layout>
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
+      <NeonHeader />
+      <main className="flex-grow container mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
@@ -151,8 +153,9 @@ const Index = () => {
             <span>✓ Mobile responsive</span>
           </div>
         </div>
-      </div>
-    </Layout>
+      </main>
+      <NeonFooter />
+    </div>
   );
 };
 
