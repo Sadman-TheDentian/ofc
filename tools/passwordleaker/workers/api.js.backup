@@ -1,0 +1,14 @@
+// Backup of original api.js before production updates
+// This file serves as a reference for the original implementation
+// Use this if you need to rollback changes
+
+// The original api.js file has been updated with:
+// 1. Root route '/' returning {"status":"ok"}  
+// 2. /api/check endpoint now accepts POST with password instead of GET with hash
+// 3. /api/status endpoint for checking PRO status by email
+// 4. Enabled Coinbase webhook signature verification
+// 5. Consistent JSON response format with {success: true, data: ...}
+// 6. Production-ready error handling and logging
+
+// If you need the original implementation, restore from git history or use:
+// git checkout HEAD~1 -- workers/api.js

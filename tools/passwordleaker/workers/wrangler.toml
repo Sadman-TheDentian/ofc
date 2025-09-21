@@ -1,0 +1,36 @@
+
+name = "password-leaker-api"
+main = "api.js"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Development environment (default)
+[env.development]
+name = "password-leaker-api-dev"
+vars = { ENVIRONMENT = "development" }
+
+# Staging environment
+[env.staging]
+name = "password-leaker-api-staging"
+vars = { ENVIRONMENT = "staging" }
+
+# Production environment
+[env.production]
+name = "password-leaker-api"
+vars = { ENVIRONMENT = "production" }
+
+# Required secrets (set using wrangler secret put):
+# NEON_DB_URL - PostgreSQL connection string for NeonDB
+# JWT_SECRET - Secret key for JWT token signing (minimum 256 bits)
+# COINBASE_COMMERCE_API_KEY - Coinbase Commerce API key for payment processing
+# COINBASE_COMMERCE_WEBHOOK_SECRET - Coinbase Commerce webhook secret for signature verification
+
+# Rate limiting and performance settings
+[limits]
+cpu_ms = 30000
+# wrangler.toml (wrangler v3.88.0^)
+[observability.logs]
+enabled = true
+
+
+

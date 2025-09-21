@@ -12,19 +12,19 @@
     },
     {
       "target": "darkcheck",
-      "public": "tools/darkcheck"
+      "public": "tools/darkcheck/dist"
     },
     {
       "target": "leakscan",
-      "public": "tools/leakscan"
+      "public": "tools/leakscan/dist"
     },
     {
       "target": "phishrisk",
-      "public": "tools/phishrisk"
+      "public": "tools/phishrisk/dist"
     },
     {
       "target": "passwordleaker",
-      "public": "tools/passwordleaker"
+      "public": "tools/passwordleaker/dist"
     }
   ]
 }

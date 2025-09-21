@@ -1,0 +1,26 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-cyber-bg text-white font-mono;
+  min-height: 100vh;
+}
+a {
+  @apply text-blue-400 hover:text-blue-300;
+  transition: color 0.2s;
+}
+
+/* Custom background color */
+.bg-cyber-bg {
+  background-color: #0d1117;
+}
+
+/* Existing scrollbar and border styles */
+::-webkit-scrollbar-thumb {
+  background: #2b6cb0; /* A matching blue */
+}
+::-webkit-scrollbar {
+  background: #131926;
+}
