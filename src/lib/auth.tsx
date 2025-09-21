@@ -11,9 +11,11 @@ import {
   signOut as firebaseSignOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  UserCredential,
 } from "firebase/auth";
 import { auth } from "./firebase";
 import { useRouter } from "next/navigation";
+import { createUserProfile } from "./firestore";
 
 type AuthContextType = {
   user: User | null;
@@ -40,16 +42,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     return () => unsubscribe();
   }, []);
-
-  const handleAuthRedirect = () => {
+  
+  const handleSuccessfulAuth = async (userCredential: UserCredential) => {
+    const isNewUser = userCredential.user.metadata.creationTime === userCredential.user.metadata.lastSignInTime;
+    if (isNewUser) {
+        await createUserProfile(userCredential.user);
+    }
     router.push("/dashboard");
   };
-  
+
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      handleAuthRedirect();
+      const result = await signInWithPopup(auth, provider);
+      await handleSuccessfulAuth(result);
     } catch (error) {
       console.error("Error signing in with Google:", error);
       throw error;
@@ -59,8 +65,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signInWithGithub = async () => {
     const provider = new GithubAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      handleAuthRedirect();
+      const result = await signInWithPopup(auth, provider);
+      await handleSuccessfulAuth(result);
     } catch (error) {
       console.error("Error signing in with Github:", error);
       throw error;
@@ -70,7 +76,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signUpWithEmail = async (email: string, pass: string) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-        handleAuthRedirect();
+        await handleSuccessfulAuth(userCredential);
         return userCredential;
     } catch (error) {
         console.error("Error signing up with email:", error);
@@ -81,14 +87,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signInWithEmail = async (email: string, pass: string) => {
      try {
         const userCredential = await signInWithEmailAndPassword(auth, email, pass);
-        handleAuthRedirect();
+        router.push("/dashboard");
         return userCredential;
     } catch (error) {
         console.error("Error signing in with email:", error);
         throw error;
     }
   }
-
 
   const signOut = async () => {
     try {
