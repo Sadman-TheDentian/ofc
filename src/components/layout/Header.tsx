@@ -166,7 +166,7 @@ export default function Header() {
                 <ListItem
                   key={tool.title}
                   title={tool.title}
-                  href={`/tools/${tool.slug}`}
+                  href={tool.url || `/tools/${tool.slug}`}
                 >
                   {tool.description}
                 </ListItem>
@@ -176,7 +176,7 @@ export default function Header() {
         </NavigationMenuItem>
         {navLinks.map(link => (
           <NavigationMenuItem key={link.href}>
-            <Link href={link.href} passHref legacyBehavior={false} >
+            <Link href={link.href} legacyBehavior={false} passHref>
               <NavigationMenuLink
                 active={pathname.startsWith(link.href)}
                 className={navigationMenuTriggerStyle()}
@@ -285,7 +285,7 @@ export default function Header() {
                         </AccordionTrigger>
                         <AccordionContent>
                            {tools.map(tool => (
-                                <MobileNavLink key={tool.slug} href={`/tools/${tool.slug}`}>{tool.title}</MobileNavLink>
+                                <MobileNavLink key={tool.slug} href={tool.url || `/tools/${tool.slug}`}>{tool.title}</MobileNavLink>
                            ))}
                         </AccordionContent>
                     </AccordionItem>

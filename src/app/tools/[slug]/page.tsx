@@ -37,12 +37,7 @@ export default function ToolDetailPage({ params }: Props) {
     notFound();
   }
 
-  const screenshots = tool.screenshots && tool.screenshots.length > 0 ? tool.screenshots : [{
-    id: 1,
-    url: tool.imageUrl,
-    alt: tool.title,
-    hint: tool.title,
-  }];
+  const screenshots = tool.screenshots && tool.screenshots.length > 0 ? tool.screenshots : [];
 
   const productSchema = {
     "@context": "https://schema.org",
@@ -95,34 +90,35 @@ export default function ToolDetailPage({ params }: Props) {
           <p className="text-xl text-muted-foreground">{tool.longDescription}</p>
         </div>
         
-        <div className="mb-16">
-          <Carousel className="w-full">
-            <CarouselContent>
-              {screenshots.map((screenshot) => (
-                <CarouselItem key={screenshot.id}>
-                  <Card className="overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80">
-                    <CardContent className="p-0 aspect-video relative">
-                      <Image 
-                        src={screenshot.url} 
-                        alt={screenshot.alt} 
-                        fill 
-                        objectFit="cover" 
-                        className="w-full h-auto" 
-                        data-ai-hint={screenshot.hint}
-                      />
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            {screenshots.length > 1 && (
-                <>
-                    <CarouselPrevious className="left-[-50px]" />
-                    <CarouselNext className="right-[-50px]" />
-                </>
-            )}
-          </Carousel>
-        </div>
+        {screenshots.length > 0 && (
+            <div className="mb-16">
+            <Carousel className="w-full">
+                <CarouselContent>
+                {screenshots.map((screenshot) => (
+                    <CarouselItem key={screenshot.id}>
+                    <Card className="overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80">
+                        <CardContent className="p-0 aspect-video relative">
+                        <Image 
+                            src={screenshot.url} 
+                            alt={screenshot.alt} 
+                            fill 
+                            className="object-cover w-full h-auto" 
+                            data-ai-hint={screenshot.hint}
+                        />
+                        </CardContent>
+                    </Card>
+                    </CarouselItem>
+                ))}
+                </CarouselContent>
+                {screenshots.length > 1 && (
+                    <>
+                        <CarouselPrevious className="left-[-50px]" />
+                        <CarouselNext className="right-[-50px]" />
+                    </>
+                )}
+            </Carousel>
+            </div>
+        )}
 
         {tool.url && (
             <div className="text-center bg-secondary/50 p-8 rounded-xl">
