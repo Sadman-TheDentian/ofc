@@ -120,18 +120,35 @@ export default function ToolDetailPage({ params }: Props) {
             </div>
         )}
 
-        {tool.url && (
-            <div className="text-center bg-secondary/50 p-8 rounded-xl">
-            <h2 className="font-headline text-2xl font-bold text-center mb-4">
-                Launch {tool.title}
-            </h2>
-            <p className="text-muted-foreground mb-6">
-                Click the button below to access the tool.
-            </p>
-            <Button size="lg" asChild>
-                <Link href={tool.url} target="_blank" rel="noopener noreferrer">Launch Tool</Link>
-            </Button>
+        {tool.url ? (
+           <div className="text-center bg-secondary/50 p-8 rounded-xl">
+                <h2 className="font-headline text-2xl font-bold text-center mb-4">
+                    Access This Tool
+                </h2>
+                <p className="text-muted-foreground mb-6">
+                    This tool is part of our standalone collection. An account is required to ensure a secure and integrated experience across all DentiSystems services.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Button size="lg" asChild>
+                        <Link href="/auth">Login to Access</Link>
+                    </Button>
+                     <Button size="lg" variant="outline" asChild>
+                        <Link href={tool.url} target="_blank" rel="noopener noreferrer">Proceed to Tool</Link>
+                    </Button>
+                </div>
             </div>
+        ): (
+             <div className="text-center bg-secondary/50 p-8 rounded-xl">
+                 <h2 className="font-headline text-2xl font-bold text-center mb-4">
+                    This tool is available on-site
+                </h2>
+                <p className="text-muted-foreground mb-6">
+                   Click the button below to go to the tool's page.
+                </p>
+                 <Button size="lg" asChild>
+                    <Link href={`/tools/${tool.slug}`}>Go to {tool.title}</Link>
+                </Button>
+             </div>
         )}
       </div>
     </div>

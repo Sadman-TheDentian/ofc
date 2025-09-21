@@ -4,5 +4,6 @@ config();
 
 import '@/ai/flows/ai-powered-threat-monitoring.ts';
 import '@/ai/flows/code-vulnerability-scanner.ts';
+import '@/ai/flows/code-leak-detector.ts';
 
     
