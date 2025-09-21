@@ -119,7 +119,7 @@ export default function AboutPage() {
                   alt={member.name}
                   width={120}
                   height={120}
-                  className="rounded-full mx-auto mb-4 border-2 border-primary/50 object-cover"
+                  className="rounded-full mx-auto mb-4 border-2 border-primary/50 object-cover w-32 h-32"
                   data-ai-hint={member.imageHint}
                 />
                 <h3 className="font-headline text-xl font-semibold">
