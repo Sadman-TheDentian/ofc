@@ -176,7 +176,7 @@ export default function Header() {
         </NavigationMenuItem>
         {navLinks.map(link => (
           <NavigationMenuItem key={link.href}>
-            <Link href={link.href} legacyBehavior={false} passHref>
+            <Link href={link.href} legacyBehavior passHref>
               <NavigationMenuLink
                 active={pathname.startsWith(link.href)}
                 className={navigationMenuTriggerStyle()}
