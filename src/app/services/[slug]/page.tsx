@@ -34,9 +34,28 @@ export default function ServiceDetailPage({ params }: Props) {
   }
 
   const otherServices = services.filter(s => s.slug !== params.slug);
+  
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": service.title,
+    "name": service.title,
+    "description": service.longDescription,
+    "provider": {
+      "@type": "Organization",
+      "name": "DentiSystems"
+    },
+    "image": service.imageUrl,
+    "url": `https://www.denti.systems/services/${service.slug}`
+  };
+
 
   return (
     <div className="container py-12 md:py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
         <div className="mb-12">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-6">
                 <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">

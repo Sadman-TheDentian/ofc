@@ -44,8 +44,46 @@ export default function ToolDetailPage({ params }: Props) {
     hint: tool.title,
   }];
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": tool.title,
+    "description": tool.longDescription,
+    "brand": {
+      "@type": "Organization",
+      "name": "DentiSystems"
+    },
+    "image": tool.imageUrl,
+    "url": tool.url || `https://www.denti.systems/tools/${tool.slug}`,
+    "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "0.00",
+        "priceSpecification": [
+            {
+                "@type": "UnitPriceSpecification",
+                "price": "0.00",
+                "priceCurrency": "USD",
+                "name": "Free Tier"
+            },
+            {
+                "@type": "UnitPriceSpecification",
+                "price": "99.00",
+                "priceCurrency": "USD",
+                "billingIncrement": "1",
+                "unitText": "MONTH",
+                "name": "PRO Plan"
+            }
+        ]
+    }
+  };
+
   return (
     <div className="container py-12 md:py-20">
+       <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       <div className="max-w-4xl mx-auto">
         <div className="text-center space-y-4 mb-12">
           <div className="inline-block p-4 bg-secondary rounded-xl">

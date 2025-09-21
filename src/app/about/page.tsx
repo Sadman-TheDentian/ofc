@@ -53,9 +53,31 @@ const stats = [
   },
 ];
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "DentiSystems",
+  "url": "https://www.denti.systems",
+  "employee": teamMembers.map(member => ({
+    "@type": "Person",
+    "name": member.name,
+    "jobTitle": member.title,
+    "image": member.imageUrl,
+    "description": member.bio,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "DentiSystems"
+    }
+  }))
+};
+
 export default function AboutPage() {
   return (
     <div className="container py-12 md:py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
       <div className="text-center max-w-3xl mx-auto mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
         <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
           About DentiSystems
