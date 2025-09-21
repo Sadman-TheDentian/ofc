@@ -46,7 +46,7 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
     return (
        <div className="min-h-screen bg-cyber-bg text-white flex flex-col items-center justify-center text-center p-4">
         <NeonHeader/>
-        <main className="flex-grow flex items-center justify-center">
+        <main className="flex-grow flex flex-col items-center justify-center">
         <ShieldOff className="h-16 w-16 text-red-500 mx-auto mb-6" />
         <h1 className="text-3xl font-bold text-red-400 mb-4">Access Denied</h1>
         <p className="text-gray-300 max-w-md mb-8">
@@ -72,7 +72,7 @@ const App = () => (
       <Sonner />
       <Analytics />
       <AuthGuard>
-        <BrowserRouter basename="/">
+        <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/result/:id" element={<Result />} />

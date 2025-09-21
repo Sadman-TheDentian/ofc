@@ -13,19 +13,43 @@
     },
     {
       "target": "darkcheck",
-      "public": "tools/darkcheck/dist"
+      "public": "tools/darkcheck/dist",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     },
     {
       "target": "leakscan",
-      "public": "tools/leakscan/dist"
+      "public": "tools/leakscan/dist",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     },
     {
       "target": "phishrisk",
-      "public": "tools/phishrisk/dist"
+      "public": "tools/phishrisk/dist",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     },
     {
       "target": "passwordleaker",
-      "public": "tools/passwordleaker/dist"
+      "public": "tools/passwordleaker/dist",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     }
   ]
 }

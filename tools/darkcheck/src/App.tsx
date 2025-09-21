@@ -69,7 +69,7 @@ const App = () => (
       <Sonner />
       <Analytics />
       <AuthGuard>
-        <BrowserRouter basename="/">
+        <BrowserRouter>
           <Layout>
             <Routes>
               <Route path="/" element={<Home />} />

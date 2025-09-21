@@ -64,7 +64,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <AuthGuard>
-        <BrowserRouter basename="/">
+        <BrowserRouter>
           <Layout>
             <Routes>
               <Route path="/" element={<Index />} />
