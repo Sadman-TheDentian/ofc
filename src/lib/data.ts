@@ -1,4 +1,3 @@
-
 import type { Service, Tool } from "./types";
 import {
   ShieldCheck,
@@ -228,5 +227,3 @@ export const caseStudies = [
         imageHint: PlaceHolderImages.find(p => p.id === 'cs3')?.imageHint || "online shopping",
     }
 ];
-
-    

@@ -1,4 +1,3 @@
-
 'use server';
 
 import { scanCodeForVulnerabilities } from '@/ai/flows/code-vulnerability-scanner';
