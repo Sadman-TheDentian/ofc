@@ -1,10 +1,10 @@
 
-import NeonHeader from "@/components/NeonHeader";
+import GlobalHeader from "@/components/GlobalHeader";
 import NeonFooter from "@/components/NeonFooter";
 
 const HowItWorks = () => (
   <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
-    <NeonHeader />
+    <GlobalHeader />
     <main className="flex-grow">
       <section className="max-w-2xl mx-auto mt-10 mb-12 bg-card/80 neon-glow rounded-2xl p-8">
         <h1 className="text-3xl neon-text font-bold mb-4">How Phishing Risk is Calculated</h1>

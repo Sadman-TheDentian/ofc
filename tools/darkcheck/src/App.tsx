@@ -37,7 +37,7 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-cyber-bg text-white flex flex-col items-center justify-center">
+      <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
         <GlobalHeader />
         <main className="flex-grow flex flex-col items-center justify-center">
           <Loader2 className="h-12 w-12 animate-spin text-blue-500 mb-4" />

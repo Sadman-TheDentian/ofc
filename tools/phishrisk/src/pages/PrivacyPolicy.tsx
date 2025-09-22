@@ -1,10 +1,10 @@
 
-import NeonHeader from "@/components/NeonHeader";
+import GlobalHeader from "@/components/GlobalHeader";
 import NeonFooter from "@/components/NeonFooter";
 
 const PrivacyPolicy = () => (
   <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
-    <NeonHeader />
+    <GlobalHeader />
     <main className="flex-grow">
       <section className="max-w-xl mx-auto mt-14 mb-12 bg-card/80 neon-glow rounded-2xl p-8">
         <h1 className="text-2xl neon-text font-bold mb-3">Privacy Policy</h1>

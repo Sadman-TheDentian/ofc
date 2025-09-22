@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import NeonHeader from '@/components/NeonHeader';
+import GlobalHeader from '@/components/GlobalHeader';
 import NeonFooter from '@/components/NeonFooter';
 
 const Contact = () => {
@@ -33,7 +33,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
-    <NeonHeader />
+    <GlobalHeader />
     <main className="flex-grow container mx-auto px-4 py-8">
       {/* Hero Section */}
       <div className="text-center mb-12">

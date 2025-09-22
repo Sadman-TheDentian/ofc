@@ -1,10 +1,11 @@
-import NeonHeader from "@/components/NeonHeader";
+
+import GlobalHeader from "@/components/GlobalHeader";
 import NeonFooter from "@/components/NeonFooter";
 import ScanForm from "@/components/ScanForm";
 
 const Index = () => (
   <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
-    <NeonHeader />
+    <GlobalHeader />
     <main className="flex-grow flex flex-col items-center justify-center select-none">
       <section className="text-center my-8 animate-fade-in px-4">
         <h1 className="text-5xl font-bold leading-tight text-white mb-3">PhishRisk Score</h1>

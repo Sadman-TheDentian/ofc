@@ -1,5 +1,5 @@
 
-import NeonHeader from "@/components/NeonHeader";
+import GlobalHeader from "@/components/GlobalHeader";
 import NeonFooter from "@/components/NeonFooter";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
@@ -22,7 +22,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
-      <NeonHeader />
+      <GlobalHeader />
       <main className="flex-grow flex flex-col items-center">
         <section className="w-full max-w-lg mx-auto mt-14 bg-card/80 neon-glow rounded-2xl p-8">
           <h1 className="text-2xl neon-text font-bold mb-5">Contact / Feedback</h1>

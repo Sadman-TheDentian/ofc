@@ -1,4 +1,5 @@
-import NeonHeader from "@/components/NeonHeader";
+
+import GlobalHeader from "@/components/GlobalHeader";
 import NeonFooter from "@/components/NeonFooter";
 import ResultCard from "@/components/ResultCard";
 import Recommendations from "@/components/Recommendations";
@@ -55,7 +56,7 @@ const Result = () => {
 
   return (
     <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
-      <NeonHeader />
+      <GlobalHeader />
       <main className="flex-grow flex flex-col items-center pb-8 animate-fade-in">
         <ResultCard result={result} />
         <Recommendations score={result.score}/>

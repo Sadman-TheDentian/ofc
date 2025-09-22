@@ -2,6 +2,7 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import NeonFooter from "@/components/NeonFooter";
+import GlobalHeader from "@/components/GlobalHeader";
 
 const NotFound = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen bg-cyber-bg flex flex-col">
+      <GlobalHeader />
       <main className="flex-grow flex items-center justify-center">
         <div className="text-center">
           <h1 className="neon-text text-7xl font-bold mb-2">404</h1>
