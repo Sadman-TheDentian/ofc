@@ -6,9 +6,9 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/',
+  base: '/tools/passwordleaker/',
   build: {
-    outDir: 'build',
+    outDir: '../../public/tools/passwordleaker',
     emptyOutDir: true,
   },
   server: {

@@ -3,48 +3,24 @@
   "hosting": [
     {
       "target": "portal",
-      "public": ".next",
+      "public": "public",
       "rewrites": [
         {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
-      "target": "darkcheck",
-      "public": "tools/darkcheck/build",
-      "rewrites": [
+          "source": "/tools/darkcheck{,/**}",
+          "destination": "/tools/darkcheck/index.html"
+        },
         {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
-      "target": "leakscan",
-      "public": "tools/leakscan/build",
-      "rewrites": [
+          "source": "/tools/leakscan{,/**}",
+          "destination": "/tools/leakscan/index.html"
+        },
         {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
-      "target": "phishrisk",
-      "public": "tools/phishrisk/build",
-      "rewrites": [
+          "source": "/tools/phishrisk{,/**}",
+          "destination": "/tools/phishrisk/index.html"
+        },
         {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
-      "target": "passwordleaker",
-      "public": "tools/passwordleaker/build",
-      "rewrites": [
+          "source": "/tools/passwordleaker{,/**}",
+          "destination": "/tools/passwordleaker/index.html"
+        },
         {
           "source": "**",
           "destination": "/index.html"

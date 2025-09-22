@@ -6,9 +6,9 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/',
+  base: '/tools/phishrisk/',
   build: {
-    outDir: 'build',
+    outDir: '../../public/tools/phishrisk',
     emptyOutDir: true,
   },
   server: {
