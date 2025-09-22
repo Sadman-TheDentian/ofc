@@ -7,8 +7,9 @@
     "dev": "next dev --turbopack -p 9002",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
-    "build:tools": "cd tools/darkcheck && npm install && npm run build && cd ../.. && cd tools/leakscan && npm install && npm run build && cd ../.. && cd tools/phishrisk && npm install && npm run build && cd ../.. && cd tools/passwordleaker && npm install && npm run build && cd ../..",
-    "build": "npm run build:tools && next build",
+    "prebuild": "cd tools/darkcheck && npm install && cd ../.. && cd tools/leakscan && npm install && cd ../.. && cd tools/phishrisk && npm install && cd ../.. && cd tools/passwordleaker && npm install && cd ../..",
+    "build:tools": "npm run build --prefix tools/darkcheck & npm run build --prefix tools/leakscan & npm run build --prefix tools/phishrisk & npm run build --prefix tools/passwordleaker",
+    "build": "npm run prebuild && npm run build:tools && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
