@@ -98,26 +98,16 @@ export const tools: Tool[] = [
   },
   {
     id: 5,
-    slug: "autopolicy",
-    title: "AutoPolicy",
-    description: "Generate and manage security policies using AI-powered templates.",
-    longDescription: "AutoPolicy simplifies the complex task of creating and maintaining security policies. Use our AI to generate policies for SOC 2, ISO 27001, and other frameworks, and manage them all in one place.",
-    icon: FileText,
-    url: "/tools/autopolicy",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhK0uWmz1tUjhbMw3A2jYEKltD0eexaMF5nF9ov4oaW2XuLTQMrj0l7X3AUPvM7clmu2ktpFCHE1NgJHB77D2AWrca-sotoF7D7jjG7fNxnUeuNmYx8-RKh7lV_Ki7aLROz4ta7BXdxRvLwEz4-hXGmPMgxbZN3u_frcaH0e9aLcK53PaxpzwD_ioBwlW8/s320/AutoPolicy.png",
-  },
-  {
-    id: 6,
-    slug: "dentiscan",
-    title: "DentiScan",
-    description: "Automated vulnerability scanning for your web applications.",
-    longDescription: "Our AI-powered vulnerability scanner, DentiScan, continuously probes your web applications for common security flaws like SQL Injection, XSS, and misconfigurations, providing actionable reports to help you secure your assets.",
-    icon: Shield,
-    url: "/tools/dentiscan",
+    slug: "code-leak-detector",
+    title: "AI Code Leak Detector",
+    description: "Use AI to analyze code snippets for hardcoded secrets.",
+    longDescription: "Our AI-powered Code Leak Detector allows developers to quickly check their code for secrets like API keys and passwords. Get instant feedback and suggestions for remediation.",
+    icon: KeyRound,
+    url: "/tools/code-leak-detector",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
   },
    {
-    id: 7,
+    id: 6,
     slug: "code-scanner",
     title: "Code Vulnerability Scanner",
     description: "Use AI to analyze code snippets for common security vulnerabilities.",
@@ -154,3 +144,4 @@ export const caseStudies = [
         imageHint: "online shopping",
     }
 ];
+
