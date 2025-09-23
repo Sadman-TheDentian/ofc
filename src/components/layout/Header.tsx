@@ -176,7 +176,7 @@ export default function Header() {
         </NavigationMenuItem>
         {navLinks.map(link => (
           <NavigationMenuItem key={link.href}>
-            <Link href={link.href} legacyBehavior={false}>
+            <Link href={link.href} legacyBehavior passHref>
               <NavigationMenuLink
                 active={pathname.startsWith(link.href)}
                 className={navigationMenuTriggerStyle()}
@@ -270,7 +270,7 @@ export default function Header() {
             <div className="flex flex-col space-y-3 mb-6">
                 <Accordion type="multiple" className="w-full">
                     <AccordionItem value="services" className="border-b-0">
-                        <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
+                        <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]&gt;svg]:text-primary">
                             Services
                         </AccordionTrigger>
                         <AccordionContent>
@@ -280,7 +280,7 @@ export default function Header() {
                         </AccordionContent>
                     </AccordionItem>
                      <AccordionItem value="tools" className="border-b-0">
-                        <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
+                        <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]&gt;svg]:text-primary">
                             Tools
                         </AccordionTrigger>
                         <AccordionContent>
