@@ -26,12 +26,4 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  experimental: {
-    renderBuiltUrl(filename, { hostType }) {
-      if (hostType === 'js' || hostType === 'css') {
-        return { relative: true }
-      }
-      return filename
-    }
-  }
 }));
