@@ -53,6 +53,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/userinfo.profile');
+    provider.addScope('https://www.googleapis.com/auth/userinfo.email');
     try {
       const result = await signInWithPopup(auth, provider);
       await handleSuccessfulAuth(result);
