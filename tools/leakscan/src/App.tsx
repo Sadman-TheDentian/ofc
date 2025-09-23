@@ -54,7 +54,7 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
         <p className="text-gray-300 max-w-md mb-8">
           You must be logged in to use LeakScan. Please sign in or create an account on our main website to access this tool.
         </p>
-        <a href="https://dentisystems.com/auth" target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-3 rounded-lg bg-blue-600 text-white font-semibold">
+        <a href="/auth" className="inline-block px-8 py-3 rounded-lg bg-blue-600 text-white font-semibold">
           Login on DentiSystems
         </a>
         </main>

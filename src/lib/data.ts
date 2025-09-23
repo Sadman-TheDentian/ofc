@@ -115,7 +115,7 @@ export const tools: Tool[] = [
   },
   {
     id: 3,
-    slug: "passwordleaker-pro",
+    slug: "passwordleaker",
     title: "PasswordLeaker PRO",
     description:
       "Check if your passwords have been compromised in known data breaches.",
