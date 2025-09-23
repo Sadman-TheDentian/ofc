@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -176,7 +175,7 @@ export default function Header() {
         </NavigationMenuItem>
         {navLinks.map(link => (
           <NavigationMenuItem key={link.href}>
-            <Link href={link.href} passHref>
+            <Link href={link.href} legacyBehavior passHref>
               <NavigationMenuLink
                 active={pathname.startsWith(link.href)}
                 className={navigationMenuTriggerStyle()}

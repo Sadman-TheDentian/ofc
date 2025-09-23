@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useRef } from 'react';
@@ -169,7 +168,7 @@ export default function Home() {
                         {tools.map((tool) => (
                             <CarouselItem key={tool.id} className="pl-4">
                                 <div className="p-1">
-                                <Link href={`/tools/${tool.slug}`} className="group">
+                                <Link href={tool.url || `/tools/${tool.slug}`} className="group">
                                     <Card className="flex items-center gap-4 p-4 transition-colors hover:bg-secondary/30 bg-gradient-to-br from-card to-card/80 border-border/50">
                                         <div className="p-2 bg-secondary rounded-lg w-16 h-12 flex items-center justify-center shrink-0">
                                             <Image src={tool.imageUrl} alt={tool.title} width={40} height={40} className="w-auto h-auto max-w-full max-h-full" />
