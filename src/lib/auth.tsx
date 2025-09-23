@@ -29,6 +29,9 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,30 +55,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const socialSignIn = async (provider: GoogleAuthProvider | GithubAuthProvider) => {
-    const result = await signInWithPopup(auth, provider);
-    await handleSuccessfulAuth(result);
+    try {
+        const result = await signInWithPopup(auth, provider);
+        await handleSuccessfulAuth(result);
+    } catch (error) {
+        console.error(`Error signing in with ${provider.providerId}:`, error);
+        throw error;
+    }
   }
 
   const signInWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/userinfo.profile');
-    provider.addScope('https://www.googleapis.com/auth/userinfo.email');
-    try {
-      await socialSignIn(provider);
-    } catch (error) {
-      console.error("Error signing in with Google:", error);
-      throw error;
-    }
+    await socialSignIn(googleProvider);
   };
 
   const signInWithGithub = async () => {
-    const provider = new GithubAuthProvider();
-    try {
-      await socialSignIn(provider);
-    } catch (error) {
-      console.error("Error signing in with Github:", error);
-      throw error;
-    }
+    await socialSignIn(githubProvider);
   };
 
   const signUpWithEmail = async (email: string, pass: string) => {
@@ -92,7 +86,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signInWithEmail = async (email: string, pass: string) => {
      try {
         const userCredential = await signInWithEmailAndPassword(auth, email, pass);
-        router.push("/dashboard");
+        await handleSuccessfulAuth(userCredential);
         return userCredential;
     } catch (error) {
         console.error("Error signing in with email:", error);
