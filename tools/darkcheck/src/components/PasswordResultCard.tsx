@@ -1,3 +1,4 @@
+
 import { AlertTriangle, CheckCircle, Shield, Eye } from 'lucide-react';
 import type { PasswordResult } from '@/lib/breachCheck';
 
@@ -18,7 +19,6 @@ const PasswordResultCard = ({ result }: PasswordResultCardProps) => {
               </h3>
               <p className="text-destructive/90 mb-4">{result.message}</p>
               
-              {/* Risk Level Indicator */}
               {result.riskLevel && (
                 <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium mb-4 ${
                   result.riskLevel === 'critical' ? 'bg-red-900/50 text-red-200 border border-red-700' :
@@ -30,7 +30,6 @@ const PasswordResultCard = ({ result }: PasswordResultCardProps) => {
                 </div>
               )}
 
-              {/* Exposure Details */}
               {result.exposureCount && (
                 <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-lg">
                   <div className="flex items-center space-x-2 mb-2">
@@ -62,7 +61,7 @@ const PasswordResultCard = ({ result }: PasswordResultCardProps) => {
           <div className="flex items-center space-x-3">
             <CheckCircle className="h-6 w-6 text-primary" />
             <div>
-              <h3 className="text-lg font-semibold neon-text mb-2">
+              <h3 className="text-lg font-semibold text-primary mb-2">
                 Password Secure!
               </h3>
               <p className="text-primary/90">{result.message}</p>
@@ -73,7 +72,7 @@ const PasswordResultCard = ({ result }: PasswordResultCardProps) => {
               <div className="mt-4 p-3 bg-primary/10 border border-primary/20 rounded-lg">
                 <div className="flex items-center space-x-2 mb-2">
                   <Shield className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium neon-text">Security Tips</span>
+                  <span className="text-sm font-medium text-primary">Security Tips</span>
                 </div>
                 <ul className="text-xs text-primary/80 space-y-1">
                   <li>• Keep using unique passwords for each account</li>
@@ -91,3 +90,5 @@ const PasswordResultCard = ({ result }: PasswordResultCardProps) => {
 };
 
 export default PasswordResultCard;
+
+    

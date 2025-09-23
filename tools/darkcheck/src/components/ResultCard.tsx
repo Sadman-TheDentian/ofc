@@ -1,3 +1,4 @@
+
 import { AlertTriangle, CheckCircle, Globe, Calendar, Users, Database } from 'lucide-react';
 import type { BreachResult } from '@/lib/breachCheck';
 
@@ -18,7 +19,6 @@ const ResultCard = ({ result }: ResultCardProps) => {
               </h3>
               <p className="text-destructive/90 mb-4">{result.message}</p>
               
-              {/* Risk Level Indicator */}
               {result.riskLevel && (
                 <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium mb-4 ${
                   result.riskLevel === 'critical' ? 'bg-red-900/50 text-red-200 border border-red-700' :
@@ -30,7 +30,6 @@ const ResultCard = ({ result }: ResultCardProps) => {
                 </div>
               )}
 
-              {/* Dark Web Findings */}
               {result.darkWebFindings && (
                 <div className="mb-4 p-3 bg-red-900/20 border border-red-700 rounded-lg">
                   <div className="flex items-center space-x-2">
@@ -43,7 +42,7 @@ const ResultCard = ({ result }: ResultCardProps) => {
                 </div>
               )}
               
-              {result.breaches && (
+              {result.breaches && result.breaches.length > 0 && (
                 <div>
                   <h4 className="font-medium mb-3 text-destructive flex items-center space-x-2">
                     <Database className="h-4 w-4" />
@@ -70,7 +69,7 @@ const ResultCard = ({ result }: ResultCardProps) => {
                           </div>
                         </div>
                         
-                        <p className="text-xs text-destructive/70 mb-2">{breach.Description}</p>
+                        <div className="text-xs text-destructive/70 mb-2" dangerouslySetInnerHTML={{ __html: breach.Description }} />
                         
                         <div className="flex flex-wrap gap-1">
                           {breach.DataClasses.map((dataClass, idx) => (
@@ -105,7 +104,7 @@ const ResultCard = ({ result }: ResultCardProps) => {
           <div className="flex items-center space-x-3">
             <CheckCircle className="h-6 w-6 text-primary" />
             <div>
-              <h3 className="text-lg font-semibold neon-text mb-2">
+              <h3 className="text-lg font-semibold text-primary mb-2">
                 All Clear!
               </h3>
               <p className="text-primary/90">{result.message}</p>
@@ -121,3 +120,5 @@ const ResultCard = ({ result }: ResultCardProps) => {
 };
 
 export default ResultCard;
+
+    
