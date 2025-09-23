@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -46,21 +45,30 @@ const getAuthErrorMessage = (error: FirebaseError) => {
     switch (error.code) {
         case 'auth/invalid-email':
             return 'Invalid email address format.';
+        case 'auth/user-disabled':
+            return 'This user account has been disabled.';
         case 'auth/user-not-found':
         case 'auth/wrong-password':
         case 'auth/invalid-credential':
-            return 'Invalid email or password.';
+            return 'Invalid email or password. Please check your credentials and try again.';
         case 'auth/email-already-in-use':
-            return 'An account with this email already exists.';
+            return 'An account with this email address already exists. Please sign in instead.';
         case 'auth/weak-password':
-            return 'Password is too weak. It must be at least 6 characters long.';
+            return 'The password is too weak. It must be at least 6 characters long.';
+        case 'auth/operation-not-allowed':
+            return 'This sign-in method is not enabled. Please contact support.';
         case 'auth/popup-closed-by-user':
-            return 'Authentication popup was closed. Please try again.';
+            return 'The authentication popup was closed before completing the sign-in. Please try again.';
         case 'auth/cancelled-popup-request':
-            return 'Multiple login attempts detected. Please try again.';
+            return 'Multiple login attempts detected. Please complete one before trying another.';
+        case 'auth/popup-blocked':
+            return 'Authentication popup was blocked by the browser. Please allow popups for this site.';
         case 'auth/invalid-api-key':
              return 'Authentication failed: Invalid API Key. Please contact support.';
+        case 'auth/network-request-failed':
+            return 'A network error occurred. Please check your internet connection and try again.';
         default:
+            console.error('Unhandled Firebase Auth Error:', error);
             return 'An unexpected authentication error occurred. Please try again later.';
     }
 }
