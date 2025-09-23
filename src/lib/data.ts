@@ -62,6 +62,7 @@ export const tools: Tool[] = [
       "Monitor the dark web for mentions of your brand, domains, and employee credentials.",
     longDescription: "DarkCheck continuously scours dark web marketplaces, forums, and paste sites for any signs of your organization's compromised data. Receive real-time alerts when your assets are detected, allowing you to take immediate action.",
     icon: Search,
+    url: "/tools/darkcheck",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhP0_bWguZ5wH-zwO9nWFsKIf6oJtiqyUNuF87wE7CBzUEJe7xfDLoYWtUmJaC0p1LSGHfsWkmhSn8-mH5JnYKre-LKkEl9zCC4PSmM89ke2Dg4E14yZejNEd0zGPlo_b09JMSRGBaUC3NnkkjlfU0KtATGbgmiK_PdrcgYisrwITVnOeZ420EUyg92T2w/s320/Darkcheck.png",
     screenshots: [
         { id: 1, url: PlaceHolderImages.find(p => p.id === 'ds1')?.imageUrl || "https://picsum.photos/seed/ds1/1200/800", alt: "DarkCheck Dashboard", hint: "dashboard chart" },
@@ -91,6 +92,7 @@ export const tools: Tool[] = [
       "Assess your organization's susceptibility to phishing attacks with simulated campaigns.",
     longDescription: "PhishRisk allows you to run realistic, automated phishing simulations to test employee awareness. Track open rates, click rates, and data entry to identify vulnerabilities and target training where it's needed most.",
     icon: Fingerprint,
+    url: "/tools/phishrisk",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjaDT7-W90QmoQPNtx9ZKZd_ZXDzjAx41rprheeshOMZ2k-0c5K4JXPkK5COAWvZcd8FU03p99VJTvBPxOS2aDYWsj3IgZ8c4X6AdS-QxQwIWeXlQ3IWl423Zwl-l7N9Rivm395N3kqigtsfPlxMY_a83BMsFbF3VvlElmmQaZGfBf6C-EM_1Ys71T4t1g/s320/PhishRisk.png",
      screenshots: [
         { id: 1, url: PlaceHolderImages.find(p => p.id === 'pr1')?.imageUrl || "https://picsum.photos/seed/pr1/1200/800", alt: "PhishRisk Campaign Editor", hint: "email editor" },
@@ -141,6 +143,7 @@ export const tools: Tool[] = [
     description: "Continuously scan public code repositories for accidental secret leaks.",
     longDescription: "LeakScan integrates with your development lifecycle to automatically scan GitHub, GitLab, and other repositories for hardcoded API keys, passwords, and other secrets before they can be exploited by malicious actors.",
     icon: Scan,
+    url: "/tools/leakscan",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHKHiRNvCifFGey2MkZi5URT_W0HnGJjmgv-bASQy7RcXMSLPSedhxIcn_5JCjQWEDAZhQ2XKiPeLzXUbOrmJv8L3y_CSShjw5gGk6KmUZ6jdnLAoMsyY4orfN3SFnebPVdsTer2RmVgQ6YpPxZQS0XWD3Lia-6FgLPq-ItuDQ3uue1amlsRAhFDZKjiE/s320/Leakscan.png",
      screenshots: [
         { id: 1, url: PlaceHolderImages.find(p => p.id === 'ls1')?.imageUrl || "https://picsum.photos/seed/ls1/1200/800", alt: "LeakScan results table", hint: "data table" },
@@ -157,7 +160,7 @@ export const tools: Tool[] = [
     description: "Generate and manage security policies using AI-powered templates.",
     longDescription: "AutoPolicy simplifies the complex task of creating and maintaining security policies. Use our AI to generate policies for SOC 2, ISO 27001, and other frameworks, and manage them all in one place.",
     icon: FileText,
-    url: "https://autopolicy.denti.systems",
+    url: "/tools/autopolicy",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhK0uWmz1tUjhbMw3A2jYEKltD0eexaMF5nF9ov4oaW2XuLTQMrj0l7X3AUPvM7clmu2ktpFCHE1NgJHB77D2AWrca-sotoF7D7jjG7fNxnUeuNmYx8-RKh7lV_Ki7aLROz4ta7BXdxRvLwEz4-hXGmPMgxbZN3u_frcaH0e9aLcK53PaxpzwD_ioBwlW8/s320/AutoPolicy.png",
     features: {
       free: ["Access to basic policy templates", "Generate 1 policy", "Manual updates"],

@@ -1,31 +1,28 @@
 
 {
-  "hosting": [
-    {
-      "target": "portal",
-      "public": "public",
-      "rewrites": [
-        {
-          "source": "/tools/darkcheck/**",
-          "destination": "/tools/darkcheck/index.html"
-        },
-        {
-          "source": "/tools/leakscan/**",
-          "destination": "/tools/leakscan/index.html"
-        },
-        {
-          "source": "/tools/phishrisk/**",
-          "destination": "/tools/phishrisk/index.html"
-        },
-        {
-          "source": "/tools/passwordleaker/**",
-          "destination": "/tools/passwordleaker/index.html"
-        },
-        {
-          "source": "**",
-          "function": "next-server"
-        }
-      ]
-    }
-  ]
+  "hosting": {
+    "public": "public",
+    "rewrites": [
+      {
+        "source": "/tools/darkcheck/**",
+        "destination": "/tools/darkcheck/index.html"
+      },
+      {
+        "source": "/tools/leakscan/**",
+        "destination": "/tools/leakscan/index.html"
+      },
+      {
+        "source": "/tools/phishrisk/**",
+        "destination": "/tools/phishrisk/index.html"
+      },
+      {
+        "source": "/tools/passwordleaker/**",
+        "destination": "/tools/passwordleaker/index.html"
+      },
+      {
+        "source": "**",
+        "function": "next-server"
+      }
+    ]
+  }
 }
