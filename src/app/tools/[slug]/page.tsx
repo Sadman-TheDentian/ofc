@@ -37,7 +37,6 @@ export default function ToolDetailPage({ params }: Props) {
     notFound();
   }
 
-  // If the tool is 'leakscan', embed the standalone tool directly.
   if (tool.slug === 'leakscan') {
     return (
         <div className="w-full h-[calc(100vh-57px)]">
