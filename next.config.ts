@@ -12,19 +12,19 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: '/tools/darkcheck',
+        source: '/tools/darkcheck/:path*',
         destination: '/tools/darkcheck/index.html',
       },
       {
-        source: '/tools/leakscan',
+        source: '/tools/leakscan/:path*',
         destination: '/tools/leakscan/index.html',
       },
       {
-        source: '/tools/phishrisk',
+        source: '/tools/phishrisk/:path*',
         destination: '/tools/phishrisk/index.html',
       },
       {
-        source: '/tools/passwordleaker',
+        source: '/tools/passwordleaker/:path*',
         destination: '/tools/passwordleaker/index.html',
       },
     ];
