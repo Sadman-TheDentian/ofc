@@ -183,23 +183,6 @@ export const tools: Tool[] = [
       free: ["Scan up to 50 snippets per day", "Detects OWASP Top 10 vulnerabilities"],
       pro: ["Unlimited scans via UI and API", "Broader range of vulnerability checks", "CI/CD integration options"],
     },
-  },
-  {
-    id: 7,
-    slug: "code-leak-detector",
-    title: "AI Code Leak Detector",
-    description: "Use AI to analyze code snippets for hardcoded secrets.",
-    longDescription: "Our AI-powered Code Leak Detector allows developers to quickly check their code for accidentally hardcoded secrets like API keys and passwords.",
-    icon: KeyRound,
-    url: "/tools/code-leak-detector",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
-    screenshots: [
-        { id: 1, url: PlaceHolderImages.find(p => p.id === 'cld1')?.imageUrl || "https://picsum.photos/seed/cld1/1200/800", alt: "Code leak detector interface", hint: "code editor" },
-    ],
-    features: {
-      free: ["Scan up to 50 snippets per day", "Detects common secret patterns"],
-      pro: ["Unlimited scans via UI and API", "Broader range of secret detection", "CI/CD integration options"],
-    },
   }
 ];
 
