@@ -1,83 +1,88 @@
-
 {
   "placeholderImages": [
     {
       "id": "cs1",
-      "description": "A server room with glowing lights",
-      "imageUrl": "https://picsum.photos/seed/cs1/600/400",
+      "description": "A secure, glowing server room representing financial data security",
+      "imageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c2VydmVyJTIwcm9vbXxlbnwwfHx8fDE3NTg1ODY1MjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "server room"
     },
     {
       "id": "cs2",
-      "description": "A modern, empty hospital corridor",
-      "imageUrl": "https://picsum.photos/seed/cs2/600/400",
+      "description": "A modern, sterile hospital corridor representing healthcare data privacy",
+      "imageUrl": "https://images.unsplash.com/photo-1485848395967-65dff62dc35b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8aG9zcGl0YWwlMjBjb3JyaWRvcnxlbnwwfHx8fDE3NTg2MDQ4MTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "hospital corridor"
     },
     {
       "id": "cs3",
-      "description": "A person using a laptop for online shopping",
-      "imageUrl": "https://picsum.photos/seed/cs3/600/400",
+      "description": "A stylized interface showing online shopping transaction security",
+      "imageUrl": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvbmxpbmUlMjBzaG9wcGluZ3xlbnwwfHx8fDE3NTg2MDk0Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "online shopping"
     },
     {
       "id": "ds1",
-      "description": "A dashboard with charts and graphs",
-      "imageUrl": "https://picsum.photos/seed/ds1/1200/800",
+      "description": "A dashboard with charts and graphs for security monitoring",
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkYXNoYm9hcmQlMjBjaGFydHxlbnwwfHx8fDE3NTg1ODk3MzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "dashboard chart"
     },
     {
       "id": "ds2",
-      "description": "A settings page with form fields",
-      "imageUrl": "https://picsum.photos/seed/ds2/1200/800",
+      "description": "A settings page with form fields for configuring security alerts",
+      "imageUrl": "https://images.unsplash.com/photo-1655012325191-cce51f22e234?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZXR0aW5ncyUyMGZvcm18ZW58MHx8fHwxNzU4NjI5MDk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "settings form"
     },
     {
       "id": "pr1",
-      "description": "A user interface for editing an email",
-      "imageUrl": "https://picsum.photos/seed/pr1/1200/800",
+      "description": "A user interface for editing an email campaign for phishing simulation",
+      "imageUrl": "https://images.unsplash.com/photo-1626185880892-e71ea99c5471?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxlbWFpbCUyMGVkaXRvcnxlbnwwfHx8fDE3NTg2MjkwOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "email editor"
     },
     {
       "id": "pr2",
-      "description": "An analytics dashboard with various charts",
-      "imageUrl": "https://picsum.photos/seed/pr2/1200/800",
+      "description": "An analytics dashboard displaying phishing campaign results with various charts",
+      "imageUrl": "https://images.unsplash.com/photo-1556155092-490a1ba16284?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhbmFseXRpY3MlMjBkYXNoYm9hcmR8ZW58MHx8fHwxNzU4NjA2Mjc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "analytics dashboard"
     },
     {
       "id": "pl1",
-      "description": "A computer screen showing lines of code",
-      "imageUrl": "https://picsum.photos/seed/pl1/1200/800",
+      "description": "A computer screen showing lines of code in a modern code editor",
+      "imageUrl": "https://images.unsplash.com/photo-1585229259226-5055154a3647?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjb2RlJTIwaW50ZXJmYWNlfGVufDB8fHx8MTc1ODU5NzMwNnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "code interface"
     },
     {
       "id": "ls1",
-      "description": "A data table with rows of information",
-      "imageUrl": "https://picsum.photos/seed/ls1/1200/800",
+      "description": "A data table with rows of information related to code repository scans",
+      "imageUrl": "https://images.unsplash.com/photo-1647365368632-90028b7faa23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkYXRhJTIwdGFibGV8ZW58MHx8fHwxNzU4NjI5MDk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "data table"
     },
     {
       "id": "cvs1",
-      "description": "A code editor interface",
-      "imageUrl": "https://picsum.photos/seed/cvs1/1200/800",
+      "description": "A code editor interface showing a code snippet being analyzed",
+      "imageUrl": "https://images.unsplash.com/photo-1590130382404-36dcbb666a3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb2RlJTIwZWRpdG9yfGVufDB8fHx8MTc1ODYwMTIxMnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "code editor"
     },
     {
       "id": "s1",
-      "description": "A secure data center aisle with server racks",
-      "imageUrl": "https://picsum.photos/seed/s1/800/500",
-      "imageHint": "data center security"
+      "description": "A secure data center aisle with glowing server racks",
+      "imageUrl": "https://images.unsplash.com/photo-1580106815433-a5b1d1d53d85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkYXRhJTIwY2VudGVyfGVufDB8fHx8MTc1ODU5MzI0NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "data center"
     },
     {
       "id": "s2",
-      "description": "Abstract glowing lines representing network infrastructure",
-      "imageUrl": "https://picsum.photos/seed/s2/800/500",
+      "description": "Abstract glowing lines representing secure network infrastructure",
+      "imageUrl": "https://images.unsplash.com/photo-1700463108455-956c595bc97b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxuZXR3b3JrJTIwaW5mcmFzdHJ1Y3R1cmV8ZW58MHx8fHwxNzU4NjI5MDk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "network infrastructure"
     },
     {
       "id": "s3",
-      "description": "A developer's laptop screen showing lines of code in an editor",
-      "imageUrl": "https://picsum.photos/seed/s3/800/500",
-      "imageHint": "developer laptop code"
+      "description": "A developer's laptop screen showing lines of secure code in an editor",
+      "imageUrl": "https://images.unsplash.com/photo-1592933517664-ef7151097c5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZWN1cmUlMjBjb2RlfGVufDB8fHx8MTc1ODYyOTA5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "secure code"
+    },
+    {
+      "id": "cld1",
+      "description": "A code editor showing an alert for a detected secret",
+      "imageUrl": "https://images.unsplash.com/photo-1564865878688-9a244444042a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb2RlJTIwZWRpdG9yJTIwYWxlcnR8ZW58MHx8fHwxNzU4NjI5MDk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "code editor alert"
     }
   ]
 }
