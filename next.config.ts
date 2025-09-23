@@ -44,6 +44,42 @@ const nextConfig: NextConfig = {
       }
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/tools/darkcheck',
+        destination: '/tools/darkcheck/index.html',
+      },
+      {
+        source: '/tools/darkcheck/:path*',
+        destination: '/tools/darkcheck/index.html',
+      },
+      {
+        source: '/tools/leakscan',
+        destination: '/tools/leakscan/index.html',
+      },
+      {
+        source: '/tools/leakscan/:path*',
+        destination: '/tools/leakscan/index.html',
+      },
+      {
+        source: '/tools/phishrisk',
+        destination: '/tools/phishrisk/index.html',
+      },
+      {
+        source: '/tools/phishrisk/:path*',
+        destination: '/tools/phishrisk/index.html',
+      },
+      {
+        source: '/tools/passwordleaker',
+        destination: '/tools/passwordleaker/index.html',
+      },
+       {
+        source: '/tools/passwordleaker/:path*',
+        destination: '/tools/passwordleaker/index.html',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
