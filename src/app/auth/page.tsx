@@ -132,6 +132,7 @@ export default function AuthPage() {
         if(provider === 'google') await signInWithGoogle();
         if(provider === 'github') await signInWithGithub();
     } catch (error) {
+       console.error(`Social login error (${provider}):`, error);
        const firebaseError = error as FirebaseError;
         toast({
             variant: "destructive",
