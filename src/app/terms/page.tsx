@@ -15,7 +15,7 @@ export default function TermsOfServicePage() {
         <div className="prose prose-invert max-w-none text-foreground/90 prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
           <h2>1. Agreement to Terms</h2>
           <p>
-            By using the services, you agree to be bound by these Terms. If you
+            By using our website and any of our tools or services (collectively, the "Services"), you agree to be bound by these Terms. If you
             don’t agree to be bound by these Terms, do not use the Services.
             If you are accessing and using the Services on behalf of a company
             (such as your employer) or other legal entity, you represent and
@@ -45,8 +45,13 @@ export default function TermsOfServicePage() {
             purchase via the Services, you must be 18 years or older and capable
             of forming a binding contract.
           </p>
+          
+          <h2>5. Use of Our Tools</h2>
+          <p>
+            Our tools are provided for informational and security assessment purposes. You agree not to use our tools for any illegal or malicious activities. Any misuse of our services may result in a ban from our platform. We are not responsible for any damages caused by the use or misuse of our tools.
+          </p>
 
-          <h2>5. Content Ownership</h2>
+          <h2>6. Content Ownership</h2>
           <p>
             We do not claim any ownership rights in any User Content and
             nothing in these Terms will be deemed to restrict any rights that
@@ -56,7 +61,7 @@ export default function TermsOfServicePage() {
             including all associated intellectual property rights.
           </p>
 
-          <h2>6. General Prohibitions</h2>
+          <h2>7. General Prohibitions</h2>
           <p>You agree not to do any of the following:</p>
           <ul>
             <li>
@@ -78,11 +83,11 @@ export default function TermsOfServicePage() {
             <li>
               Attempt to probe, scan or test the vulnerability of any
               DentiSystems system or network or breach any security or
-              authentication measures.
+              authentication measures, outside of the intended use of our security scanning tools.
             </li>
           </ul>
 
-           <h2>7. Contact Information</h2>
+           <h2>8. Contact Information</h2>
           <p>
             If you have any questions about these Terms or the Services, please
             contact us at:

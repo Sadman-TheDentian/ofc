@@ -18,12 +18,9 @@ export default function PrivacyPolicyPage() {
             DentiSystems ("we," "our," or "us") is committed to protecting your
             privacy. This Privacy Policy explains how we collect, use,
             disclose, and safeguard your information when you visit our website
-            [Your Website URL], including any other media form, media channel,
-            mobile website, or mobile application related or connected thereto
-            (collectively, the "Site"). Please read this privacy policy
-            carefully. If you do not agree with the terms of this privacy
-y, do
-            not access the site.
+            and use our tools (collectively, the "Services"). Please read this privacy policy
+            carefully. If you do not agree with the terms of this privacy policy,
+            do not access the site.
           </p>
 
           <h2>2. Collection of Your Information</h2>
@@ -33,19 +30,16 @@ y, do
           </p>
           <p>
             <strong>Personal Data:</strong> Personally identifiable information,
-            such as your name, shipping address, email address, and telephone
-            number, and demographic information, such as your age, gender,
-            hometown, and interests, that you voluntarily give to us when you
+            such as your name, email address, and payment information that you voluntarily give to us when you
             register with the Site or when you choose to participate in various
-            activities related to the Site, such as online chat and message
-            boards.
+            activities related to the Site, such as using our PRO tools.
           </p>
           <p>
             <strong>Derivative Data:</strong> Information our servers
             automatically collect when you access the Site, such as your IP
             address, your browser type, your operating system, your access
             times, and the pages you have viewed directly before and after
-            accessing the Site.
+            accessing the Site. For our security tools, we do not log or store the queries you make.
           </p>
 
           <h2>3. Use of Your Information</h2>
@@ -60,7 +54,7 @@ y, do
               Email you regarding your account or order.
             </li>
             <li>
-              Enable user-to-user communications.
+              Fulfill and manage purchases, orders, payments, and other transactions related to the Site.
             </li>
             <li>
               Generate a personal profile about you to make future visits to the
@@ -69,6 +63,9 @@ y, do
              <li>
               Monitor and analyze usage and trends to improve your experience with
               the Site.
+            </li>
+             <li>
+              Notify you of updates to the Services.
             </li>
           </ul>
 
@@ -88,7 +85,7 @@ y, do
           <p>
             <strong>Third-Party Service Providers:</strong> We may share your
             information with third parties that perform services for us or on
-            our behalf, including payment processing, data analysis, email
+            our behalf, including payment processing (e.g., Stripe), data analysis, email
             delivery, hosting services, customer service, and marketing
             assistance.
           </p>

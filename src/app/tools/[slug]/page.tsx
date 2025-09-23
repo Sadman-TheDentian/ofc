@@ -132,7 +132,7 @@ export default function ToolDetailPage({ params }: Props) {
                     <Link href="/auth">Login to Access</Link>
                 </Button>
                   <Button size="lg" variant="outline" asChild>
-                    <Link href={`/tools/${tool.slug}`}>Proceed to Tool</Link>
+                    <Link href={tool.url || '#'}>Proceed to Tool</Link>
                 </Button>
             </div>
         </div>
