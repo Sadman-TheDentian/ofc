@@ -51,13 +51,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     router.push("/dashboard");
   };
 
+  const socialSignIn = async (provider: GoogleAuthProvider | GithubAuthProvider) => {
+    const result = await signInWithPopup(auth, provider);
+    await handleSuccessfulAuth(result);
+  }
+
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/userinfo.profile');
     provider.addScope('https://www.googleapis.com/auth/userinfo.email');
     try {
-      const result = await signInWithPopup(auth, provider);
-      await handleSuccessfulAuth(result);
+      await socialSignIn(provider);
     } catch (error) {
       console.error("Error signing in with Google:", error);
       throw error;
@@ -67,8 +71,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signInWithGithub = async () => {
     const provider = new GithubAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      await handleSuccessfulAuth(result);
+      await socialSignIn(provider);
     } catch (error) {
       console.error("Error signing in with Github:", error);
       throw error;

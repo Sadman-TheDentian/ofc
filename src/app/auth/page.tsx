@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -195,7 +196,7 @@ export default function AuthPage() {
                   />
                 </CardContent>
                 <CardFooter className="flex flex-col gap-4">
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full" disabled={loading || !!socialLoading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Sign In
                   </Button>
@@ -214,11 +215,11 @@ export default function AuthPage() {
                 </div>
               </div>
               <div className="w-full grid grid-cols-2 gap-4">
-                <Button variant="outline" onClick={() => handleSocialLogin('github')} disabled={!!socialLoading}>
+                <Button variant="outline" onClick={() => handleSocialLogin('github')} disabled={!!socialLoading || loading}>
                   {socialLoading === 'github' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Github className="mr-2 h-4 w-4" />}
                   GitHub
                 </Button>
-                <Button variant="outline" onClick={() => handleSocialLogin('google')} disabled={!!socialLoading}>
+                <Button variant="outline" onClick={() => handleSocialLogin('google')} disabled={!!socialLoading || loading}>
                    {socialLoading === 'google' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Chrome className="mr-2 h-4 w-4" />}
                   Google
                 </Button>
@@ -270,7 +271,7 @@ export default function AuthPage() {
                   />
                 </CardContent>
                 <CardFooter className="flex flex-col gap-4">
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full" disabled={loading || !!socialLoading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Sign Up
                   </Button>
@@ -289,11 +290,11 @@ export default function AuthPage() {
                 </div>
               </div>
               <div className="w-full grid grid-cols-2 gap-4">
-                <Button variant="outline" onClick={() => handleSocialLogin('github')} disabled={!!socialLoading}>
+                <Button variant="outline" onClick={() => handleSocialLogin('github')} disabled={!!socialLoading || loading}>
                   {socialLoading === 'github' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Github className="mr-2 h-4 w-4" />}
                   GitHub
                 </Button>
-                <Button variant="outline" onClick={() => handleSocialLogin('google')} disabled={!!socialLoading}>
+                <Button variant="outline" onClick={() => handleSocialLogin('google')} disabled={!!socialLoading || loading}>
                    {socialLoading === 'google' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Chrome className="mr-2 h-4 w-4" />}
                   Google
                 </Button>
