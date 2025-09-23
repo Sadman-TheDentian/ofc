@@ -37,6 +37,19 @@ export default function ToolDetailPage({ params }: Props) {
     notFound();
   }
 
+  // If the tool is 'leakscan', embed the standalone tool directly.
+  if (tool.slug === 'leakscan') {
+    return (
+        <div className="w-full h-[calc(100vh-57px)]">
+            <iframe 
+                src="/tools/leakscan/" 
+                className="w-full h-full border-0"
+                title="LeakScan Tool"
+            />
+        </div>
+    );
+  }
+
   const screenshots = tool.screenshots && tool.screenshots.length > 0 ? tool.screenshots : [];
 
   const productSchema = {
