@@ -9,6 +9,26 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/tools/darkcheck',
+        destination: '/tools/darkcheck/index.html',
+      },
+      {
+        source: '/tools/leakscan',
+        destination: '/tools/leakscan/index.html',
+      },
+      {
+        source: '/tools/phishrisk',
+        destination: '/tools/phishrisk/index.html',
+      },
+      {
+        source: '/tools/passwordleaker',
+        destination: '/tools/passwordleaker/index.html',
+      },
+    ];
+  },
   images: {
     unoptimized: true,
     remotePatterns: [
