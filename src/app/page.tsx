@@ -36,7 +36,7 @@ export default function Home() {
 
         <div className="container relative z-10 px-4 md:px-6">
           <div 
-            className="max-w-4xl mx-auto space-y-6 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50 animate-fade-in-up"
+            className="max-w-4xl mx-auto space-y-6 bg-black/25 p-8 rounded-xl animate-fade-in-up"
           >
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground whitespace-pre-line">
               Elite Cybersecurity &
