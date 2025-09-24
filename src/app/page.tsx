@@ -20,9 +20,17 @@ import {
 import Autoplay from 'embla-carousel-autoplay';
 
 export default function Home() {
-  const autoplayPlugin = useRef(
+  const servicesAutoplayPlugin = useRef(
     Autoplay({
       delay: 4000,
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
+    })
+  );
+
+  const toolsAutoplayPlugin = useRef(
+    Autoplay({
+      delay: 5000,
       stopOnInteraction: false,
       stopOnMouseEnter: true,
     })
@@ -35,9 +43,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
 
         <div className="container relative z-10 px-4 md:px-6">
-          <div 
-            className="max-w-4xl mx-auto space-y-6 animate-fade-in-up"
-          >
+          <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up">
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground whitespace-pre-line">
               Elite Cybersecurity &
               Custom Web Engineering
@@ -74,7 +80,7 @@ export default function Home() {
             </p>
           </div>
           <Carousel
-            plugins={[autoplayPlugin.current]}
+            plugins={[servicesAutoplayPlugin.current]}
             className="w-full"
             opts={{
               align: 'start',
@@ -157,7 +163,7 @@ export default function Home() {
               </div>
               <div className="space-y-4">
                  <Carousel
-                    plugins={[autoplayPlugin.current]}
+                    plugins={[toolsAutoplayPlugin.current]}
                     className="w-full"
                     opts={{
                     align: 'start',
