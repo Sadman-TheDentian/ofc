@@ -6,6 +6,7 @@ import { Github, Twitter, Linkedin, Instagram, Facebook, Youtube } from "lucide-
 import Image from "next/image";
 import { useAuth } from "@/lib/auth";
 import { ThreadsIcon, TiktokIcon, DiscordIcon, ClutchIcon, ProductHuntIcon, GoodFirmsIcon, CrunchbaseIcon, G2Icon, F6sIcon, WellfoundIcon, TrustpilotIcon, TrustedReviewsIcon } from "@/components/icons/Socials";
+import { useState, useEffect } from "react";
 
 const logoUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png";
 
@@ -38,6 +39,11 @@ const reviews = [
 
 export default function Footer() {
   const { user } = useAuth();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   
   return (
     <footer className="border-t border-border/40 z-10 bg-background/80 backdrop-blur-sm">
@@ -105,19 +111,21 @@ export default function Footer() {
         </div>
         <div className="mt-8 border-t border-border/40 pt-8 flex flex-col gap-8 md:flex-row justify-between items-center text-sm text-muted-foreground">
           {/* TrustBox widget - Review Collector */}
-          <div 
-            className="trustpilot-widget" 
-            data-locale="en-US" 
-            data-template-id="5419b6a8b0d04a076446a9ad" 
-            data-businessunit-id="67d29a402aa368cdff23342e" 
-            data-style-height="24px" 
-            data-style-width="100%"
-            data-theme="dark"
-          >
-            <a href="https://www.trustpilot.com/review/denti.systems" target="_blank" rel="noopener">Trustpilot</a>
-          </div>
+          {isClient && (
+            <div 
+              className="trustpilot-widget" 
+              data-locale="en-US" 
+              data-template-id="5419b6a8b0d04a076446a9ad" 
+              data-businessunit-id="67d29a402aa368cdff23342e" 
+              data-style-height="24px" 
+              data-style-width="100%"
+              data-theme="dark"
+            >
+              <a href="https://www.trustpilot.com/review/denti.systems" target="_blank" rel="noopener">Trustpilot</a>
+            </div>
+          )}
           {/* End TrustBox widget */}
-          <p className="flex-shrink-0">&copy; {new Date().getFullYear()} DentiSystems. All rights reserved.</p>
+          {isClient && <p className="flex-shrink-0">&copy; {new Date().getFullYear()} DentiSystems. All rights reserved.</p>}
         </div>
       </div>
     </footer>
