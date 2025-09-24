@@ -1,4 +1,3 @@
-
 {
   "name": "nextn",
   "version": "0.1.0",
@@ -7,13 +6,7 @@
     "dev": "next dev --turbopack -p 9002",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
-    "prebuild": "cd tools/darkcheck && npm install && cd ../.. && cd tools/leakscan && npm install && cd ../.. && cd tools/phishrisk && npm install && cd ../.. && cd tools/passwordleaker && npm install && cd ../..",
-    "build:darkcheck": "cd tools/darkcheck && npm run build",
-    "build:leakscan": "cd tools/leakscan && npm run build",
-    "build:phishrisk": "cd tools/phishrisk && npm run build",
-    "build:passwordleaker": "cd tools/passwordleaker && npm run build",
-    "build:tools": "npm run build:darkcheck && npm run build:leakscan && npm run build:phishrisk && npm run build:passwordleaker",
-    "build": "npm run prebuild && npm run build:tools && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
