@@ -110,14 +110,14 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-border/40 pt-8 flex flex-col gap-8 md:flex-row justify-between items-center text-sm text-muted-foreground">
-          {/* TrustBox widget - Review Collector */}
+          {/* TrustBox widget - Micro Star */}
           {isClient && (
-            <div 
-              className="trustpilot-widget" 
-              data-locale="en-US" 
-              data-template-id="5419b6a8b0d04a076446a9ad" 
-              data-businessunit-id="67d29a402aa368cdff23342e" 
-              data-style-height="24px" 
+            <div
+              className="trustpilot-widget"
+              data-locale="en-US"
+              data-template-id="54e6e6b90d53a601b46d5def"
+              data-businessunit-id="67d29a402aa368cdff23342e"
+              data-style-height="24px"
               data-style-width="100%"
               data-theme="dark"
             >
