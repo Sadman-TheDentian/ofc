@@ -16,8 +16,9 @@ const LogoLoader = () => {
         xmlns="http://www.w3.org/2000/svg" 
         className="transform-gpu"
       >
+        {/* Corrected path to match the DentiSystems logo */}
         <path
-          d="M12 2L2 7l10 5 10-5L12 2zm0 0v10l-5 2.5V7L12 2zM12 12v10l5-2.5V9.5L12 12z"
+          d="M12 2L2 7v10l10 5 10-5V7L12 2zM7 9l5 2.5V19l-5-2.5V9zm10 7.5L12 19V11.5L17 9v7.5zM12 4.5l7.5 3.75L12 12 4.5 8.25 12 4.5z"
           stroke="hsl(var(--primary))"
           strokeWidth="0.5"
           fill="none"
