@@ -18,7 +18,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
-import LogoLoader from '@/components/animations/LogoLoader';
+import HackerTextAnimation from '@/components/animations/HackerTextAnimation';
 
 export default function Home() {
   const autoplayPlugin = useRef(
@@ -29,50 +29,36 @@ export default function Home() {
     })
   );
 
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2800); // Duration of the loader animation
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div className="flex flex-col min-h-screen">
-      <section className="relative w-full h-[100vh] min-h-[700px] flex items-center justify-center text-center overflow-hidden">
+       <section className="relative w-full h-[100vh] min-h-[700px] flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 -z-20" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
 
         <div className="container relative z-10 px-4 md:px-6">
-          {loading && <LogoLoader />}
-
-          {!loading && (
-             <div 
-              className="max-w-4xl mx-auto space-y-6 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50"
-              style={{animation: 'content-fade-in 1s ease-out forwards'}}
+          <div 
+            className="max-w-4xl mx-auto space-y-6 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50"
+          >
+            <HackerTextAnimation />
+            <p
+              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up"
+               style={{ animationDelay: '1.5s' }}
             >
-              <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground">
-                Elite Cybersecurity &amp;<br/>Custom Web Engineering
-              </h1>
-              <p
-                className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
-              >
-                High-risk vendor recon, breach monitoring, and secure development
-                that reduces operational risk.
-              </p>
-              <div
-                className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
-              >
-                <Button size="lg" asChild>
-                  <Link href="/contact">Request Risk Audit</Link>
-                </Button>
-                <Button size="lg" variant="secondary" asChild>
-                  <Link href="/services">Explore Services</Link>
-                </Button>
-              </div>
+              High-risk vendor recon, breach monitoring, and secure development
+              that reduces operational risk.
+            </p>
+            <div
+              className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in-up"
+               style={{ animationDelay: '1.7s' }}
+            >
+              <Button size="lg" asChild>
+                <Link href="/contact">Request Risk Audit</Link>
+              </Button>
+              <Button size="lg" variant="secondary" asChild>
+                <Link href="/services">Explore Services</Link>
+              </Button>
             </div>
-          )}
+          </div>
         </div>
       </section>
 
