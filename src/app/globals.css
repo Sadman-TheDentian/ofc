@@ -149,50 +149,30 @@
     animation: reveal 0.8s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
   }
 
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
+  @keyframes logo-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 
-  @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: hsl(var(--primary)); }
+  @keyframes logo-fade-out {
+    to {
+      opacity: 0;
+      transform: scale(0.8);
+    }
   }
-
-  .animate-typing {
-    overflow: hidden;
-    white-space: nowrap;
-    animation: typing 2.5s steps(40, end);
-    animation-fill-mode: forwards;
-  }
-  .animate-typing-delayed {
-    overflow: hidden;
-    white-space: nowrap;
-    animation: typing 2.5s steps(40, end) 2.5s;
-    animation-fill-mode: forwards;
-    width: 0;
-  }
-
-  .typewriter-line {
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-  }
-
-  .typewriter-line.line-1 {
-      width: 0;
-      border-right: .15em solid hsl(var(--primary));
-      animation:
-          typing 2s steps(20, end) forwards,
-          blink-caret .75s step-end 3;
-  }
-
-  .typewriter-line.line-2 {
-      width: 0;
-      border-right: .15em solid hsl(var(--primary));
-      animation:
-          typing 2.5s steps(24, end) 2s forwards,
-          blink-caret .75s step-end infinite;
-      animation-delay: 2s;
+  
+  @keyframes content-fade-in {
+      from {
+          opacity: 0;
+          transform: translateY(20px);
+      }
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
   }
 }
