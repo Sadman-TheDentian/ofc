@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
@@ -20,6 +20,12 @@ import {
 import Autoplay from 'embla-carousel-autoplay';
 
 export default function Home() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const servicesAutoplayPlugin = useRef(
     Autoplay({
       delay: 4000,
@@ -248,9 +254,24 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="reviews" className="py-20 md:py-32 border-t border-border/50 bg-card/80 backdrop-blur-sm">
+        <div className="container px-4 md:px-6">
+           <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
+            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+              What Our Clients Say
+            </h2>
+          </div>
+          {isClient && (
+             <div className="trustpilot-widget" data-locale="en-US" data-template-id="539ad0ffdec7e10e686debd7" data-businessunit-id="67d29a402aa368cdff23342e" data-style-height="350px" data-style-width="100%" data-theme="dark">
+              <a href="https://www.trustpilot.com/review/denti.systems" target="_blank" rel="noopener">Trustpilot</a>
+            </div>
+          )}
+        </div>
+      </section>
+
       <section
         id="partners"
-        className="py-20 md:py-32 border-t border-border/50 bg-card/80 backdrop-blur-sm"
+        className="py-20 md:py-32 border-t border-border/50 bg-background"
       >
         <div className="container px-4 md:px-6">
           <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
@@ -264,3 +285,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
