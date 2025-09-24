@@ -23,7 +23,7 @@ export const services: Service[] = [
     longDescription:
       "Our High-Risk Vendor Reconnaissance service provides an in-depth analysis of your third-party ecosystem. We meticulously map out your supply chain, identifying vendors with access to sensitive data and systems. Using a combination of OSINT, dark web monitoring, and proprietary techniques, we assess their security posture, uncovering misconfigurations, leaked credentials, and past breaches. This proactive approach allows you to address supply chain risks before they escalate into costly incidents, ensuring your entire operational pipeline remains secure.",
     icon: ShieldCheck,
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh324KmPNaKjDhjZaWXwH1-X2vkErtPT7tvlQa8d-NWZEg1bcA095ZtjmYSRFNcxwNwO_Dpf-swxdu7XyyXXDy81dd9yIAL-0Ph-TzOvacPUVwyVr69Kst8OjnXyBNL0ttTG3pg1G5n_6TdVEMFFsVKmO_gXbPqeIPjpcVQSIFNzeser8uk5zTaKNbANs0/s1600/ransom.png",
+    imageUrl: "https://picsum.photos/seed/s1/800/500",
     imageHint: "data security",
   },
   {
@@ -35,7 +35,7 @@ export const services: Service[] = [
     longDescription:
       "DentiSystems' Assurance Services are designed to rigorously test and validate your security controls. Our expert team conducts realistic penetration tests, simulating attacks from sophisticated adversaries to identify exploitable vulnerabilities in your network, applications, and cloud infrastructure. We also provide ransomware resilience assessments, evaluating your ability to withstand and recover from a ransomware attack. Our detailed reports provide actionable recommendations to strengthen your security posture and minimize your attack surface.",
     icon: Zap,
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhWmOT710CTvKRBdPJ3yMqY1uPKiN9sh1Nmr2hxzbMpQkWJvkvR06PNf6ZYotzextg2l8Y_EBBL2PnQcftXmlwhkZwWNof_OR6buRO5FwAxS1ajmpdN4LUtRCji3c4ZP5sr_c33A1MlvqJxIM6zNvV0hlbvPp6EeN6io8CU84j43yAqlND8vsJWBGCM67o/s1600/24%20%207.png",
+    imageUrl: "https://picsum.photos/seed/s2/800/500",
     imageHint: "network infrastructure",
   },
   {
@@ -47,7 +47,7 @@ export const services: Service[] = [
     longDescription:
       "We build high-performance, scalable web applications with a security-first mindset. Our development lifecycle integrates security at every stage, from threat modeling and secure coding practices to continuous security testing and infrastructure hardening. By embedding security into the DNA of your applications, we help you launch products faster without compromising on safety. Whether it's a customer-facing portal or a critical internal tool, we deliver web solutions that are resilient by design, protecting your data and your reputation.",
     icon: Code,
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjoFTi4NxKqeyaUZdfImayD1Q1y-sZ8XmFv5hZkzoY-7RHjDpm_L_K-Oib9h19Ke1Y3XoCU9j9VKpEn_Rtggap5MLg6k7q54igMO4hQ0eOsStuiNvzZ0rSYk-OCGIZr1RmyQQIdypnCy7pqrYmSfHbF73R2JhwzZImgqIRWiXv0Vrdr58BZ-7VMICvo3KM/s1600/web%20develop%20(1).png",
+    imageUrl: "https://picsum.photos/seed/s3/800/500",
     imageHint: "developer laptop code",
   },
 ];
@@ -144,4 +144,3 @@ export const caseStudies = [
         imageHint: "online shopping",
     }
 ];
-
