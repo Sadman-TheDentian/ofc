@@ -38,7 +38,7 @@ const GalaxyAnimation = () => {
     };
 
     const colors = [
-        '#00FF88', // Primary Green
+        '#02f840', // Primary Green
         '#ffffff', // White
     ];
 
@@ -129,7 +129,7 @@ const GalaxyAnimation = () => {
       });
       
       // Draw lines from cursor to nearby particles
-      ctx.strokeStyle = "rgba(0, 255, 136, 0.2)";
+      ctx.strokeStyle = "rgba(2, 248, 64, 0.2)";
       ctx.lineWidth = 0.5;
       ctx.beginPath();
       particles.forEach(p => {
@@ -140,7 +140,7 @@ const GalaxyAnimation = () => {
 
               if (dist < mouse.interactionRadius) {
                   const opacity = 1 - (dist / mouse.interactionRadius);
-                  ctx.strokeStyle = `rgba(0, 255, 136, ${opacity * 0.2})`;
+                  ctx.strokeStyle = `rgba(2, 248, 64, ${opacity * 0.2})`;
                   ctx.moveTo(mouse.x, mouse.y);
                   ctx.lineTo(p.xProjected, p.yProjected);
               }
