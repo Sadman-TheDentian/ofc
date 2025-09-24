@@ -80,7 +80,7 @@ const GalaxyAnimation = () => {
         let rotatedZ = this.x * Math.sin(rotationY) + this.z * Math.cos(rotationY);
 
         const rotatedY = this.y * Math.cos(rotationX) - rotatedZ * Math.sin(rotationX);
-        rotatedZ = this.y * Math.sin(rotationX) + rotatedZ * 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xMiAxTCwyIDdsNSA0djhsMTAtMTBWMWwtMyAzbC0yLTJMMTIgMW0wIDJsMyAzbC0zIDN2MGE0LjggNC44IDAgMCAxIDQgM2wtMSAyYy0yLTItNi0xLTYgMy41QzkgMjEgMTIgMjEgMTIgMjFzMyAwIDMtMi41YzAtMi4yLTEuNC0zLjYtMy00VjlsMy0zWiIvPjwvc3ZnPg==';
+        rotatedZ = this.y * Math.sin(rotationX) + rotatedZ * Math.cos(rotationX);
 
         const perspective = 300 / (300 + rotatedZ);
         this.xProjected = (rotatedX * perspective) + centerX;
