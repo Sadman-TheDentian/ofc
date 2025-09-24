@@ -108,11 +108,11 @@ export default function Footer() {
           <div 
             className="trustpilot-widget" 
             data-locale="en-US" 
-            data-template-id="56278e9abfbbba0bdcd568bc" 
+            data-template-id="5419b6a8b0d04a076446a9ad" 
             data-businessunit-id="67d29a402aa368cdff23342e" 
-            data-style-height="52px" 
-            data-style-width="100%" 
-            data-token="f691e2a9-ff9e-467c-9126-8880d891a900"
+            data-style-height="24px" 
+            data-style-width="100%"
+            data-theme="dark"
           >
             <a href="https://www.trustpilot.com/review/denti.systems" target="_blank" rel="noopener">Trustpilot</a>
           </div>
