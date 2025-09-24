@@ -13,19 +13,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-// Simulated news fetching flow
-const fetchSecurityNews = ai.defineFlow(
-  {
-    name: 'fetchSecurityNews',
-    outputSchema: z.string(),
-  },
-  async () => {
-    // In a real-world scenario, this would fetch news from an API
-    // (e.g., NewsAPI, a specialized threat intel feed).
-    // For this demo, we'll return a pre-defined news article that
-    // mentions our target organization.
-    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-    return `Title: Major SaaS Provider "ConnectSphere" Reports Data Breach, User Passwords and API Keys Exposed
+const securityNewsArticle = `Title: Major SaaS Provider "ConnectSphere" Reports Data Breach, User Passwords and API Keys Exposed
 
 Date: October 26, 2023
 
@@ -34,9 +22,6 @@ A popular software-as-a-service (SaaS) provider, ConnectSphere, has confirmed a 
 The compromised data includes user email addresses, salted and hashed passwords, and, for a subset of users, active API keys. ConnectSphere's initial investigation reveals that the attacker exploited a previously unknown vulnerability in a third-party library used by their platform.
 
 ConnectSphere is forcing a password reset for all users and has invalidated all exposed API keys. The company is urging its customers, especially those who reuse passwords across different services, to change their credentials on other platforms immediately. Security teams at companies using ConnectSphere are advised to audit their systems for any unusual activity related to the exposed API keys. DentiSystems is a known user of ConnectSphere for internal project tracking.`;
-  }
-);
-
 
 const AIPoweredThreatMonitoringInputSchema = z.object({
   organizationName: z
@@ -92,16 +77,15 @@ const aiPoweredThreatMonitoringFlow = ai.defineFlow(
     outputSchema: AIPoweredThreatMonitoringOutputSchema,
   },
   async input => {
-    // 1. Fetch the latest security news
-    const securityNews = await fetchSecurityNews();
+    // In a real app, this would fetch from an external API. For this demo, we use a fixed article.
+    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+    const securityNews = securityNewsArticle;
 
-    // 2. Analyze the news for threats
     const {output} = await prompt({
       organizationName: input.organizationName,
       securityNews: securityNews
     });
     
-    // 3. Return the combined result
     return {
       ...output!,
       sourceNews: securityNews,

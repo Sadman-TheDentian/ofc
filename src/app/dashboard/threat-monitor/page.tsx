@@ -111,7 +111,7 @@ export default function ThreatMonitorPage() {
               )}
               {result?.sourceNews ? (
                 <div className="prose prose-sm prose-invert max-w-none text-muted-foreground bg-secondary/30 p-4 rounded-md max-h-80 overflow-auto">
-                    <pre className="whitespace-pre-wrap font-mono text-xs">{result.sourceNews}</pre>
+                    <div className="whitespace-pre-wrap font-mono text-xs">{result.sourceNews}</div>
                 </div>
               ) : (
                  !isLoading && <p className="text-muted-foreground text-center p-8">Source material will be displayed here after analysis.</p>
