@@ -11,7 +11,7 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 135 98% 48%;
+    --primary: 135 94% 45%;
     --primary-foreground: 135 98% 10%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -23,13 +23,13 @@
     --destructive-foreground: 0 0% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 135 98% 49%;
+    --ring: 135 94% 45%;
     --radius: 0.75rem;
-    --chart-1: 135 98% 49%;
-    --chart-2: 135 88% 59%;
-    --chart-3: 135 78% 69%;
-    --chart-4: 135 68% 79%;
-    --chart-5: 135 58% 89%;
+    --chart-1: 135 94% 45%;
+    --chart-2: 135 84% 55%;
+    --chart-3: 135 74% 65%;
+    --chart-4: 135 64% 75%;
+    --chart-5: 135 54% 85%;
   }
 
   .dark {
@@ -39,7 +39,7 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 135 98% 48%;
+    --primary: 135 94% 45%;
     --primary-foreground: 135 98% 10%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -51,13 +51,13 @@
     --destructive-foreground: 0 0% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 135 98% 49%;
+    --ring: 135 94% 45%;
     --radius: 0.75rem;
-    --chart-1: 135 98% 49%;
-    --chart-2: 135 88% 59%;
-    --chart-3: 135 78% 69%;
-    --chart-4: 135 68% 79%;
-    --chart-5: 135 58% 89%;
+    --chart-1: 135 94% 45%;
+    --chart-2: 135 84% 55%;
+    --chart-3: 135 74% 65%;
+    --chart-4: 135 64% 75%;
+    --chart-5: 135 54% 85%;
   }
 }
 
@@ -147,5 +147,52 @@
 
   .animate-reveal {
     animation: reveal 0.8s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+  }
+
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: hsl(var(--primary)); }
+  }
+
+  .animate-typing {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2.5s steps(40, end);
+    animation-fill-mode: forwards;
+  }
+  .animate-typing-delayed {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2.5s steps(40, end) 2.5s;
+    animation-fill-mode: forwards;
+    width: 0;
+  }
+
+  .typewriter-line {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+  }
+
+  .typewriter-line.line-1 {
+      width: 0;
+      border-right: .15em solid hsl(var(--primary));
+      animation:
+          typing 2s steps(20, end) forwards,
+          blink-caret .75s step-end 3;
+  }
+
+  .typewriter-line.line-2 {
+      width: 0;
+      border-right: .15em solid hsl(var(--primary));
+      animation:
+          typing 2.5s steps(24, end) 2s forwards,
+          blink-caret .75s step-end infinite;
+      animation-delay: 2s;
   }
 }
