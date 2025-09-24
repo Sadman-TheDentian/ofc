@@ -103,8 +103,21 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-8 border-t border-border/40 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} DentiSystems. All rights reserved.</p>
+        <div className="mt-8 border-t border-border/40 pt-8 flex flex-col gap-8 md:flex-row justify-between items-center text-sm text-muted-foreground">
+          {/* TrustBox widget - Review Collector */}
+          <div 
+            className="trustpilot-widget" 
+            data-locale="en-US" 
+            data-template-id="56278e9abfbbba0bdcd568bc" 
+            data-businessunit-id="67d29a402aa368cdff23342e" 
+            data-style-height="52px" 
+            data-style-width="100%" 
+            data-token="f691e2a9-ff9e-467c-9126-8880d891a900"
+          >
+            <a href="https://www.trustpilot.com/review/denti.systems" target="_blank" rel="noopener">Trustpilot</a>
+          </div>
+          {/* End TrustBox widget */}
+          <p className="flex-shrink-0">&copy; {new Date().getFullYear()} DentiSystems. All rights reserved.</p>
         </div>
       </div>
     </footer>
