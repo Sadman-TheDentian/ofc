@@ -112,8 +112,8 @@ export default function ToolDetailPage({ params }: Props) {
                 </CarouselContent>
                 {screenshots.length > 1 && (
                     <>
-                        <CarouselPrevious className="left-[-50px]" />
-                        <CarouselNext className="right-[-50px]" />
+                        <CarouselPrevious className="hidden md:flex -left-12" />
+                        <CarouselNext className="hidden md:flex -right-12" />
                     </>
                 )}
             </Carousel>
@@ -146,3 +146,5 @@ export async function generateStaticParams() {
     slug: tool.slug,
   }));
 }
+
+    

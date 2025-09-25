@@ -20,11 +20,9 @@ export default function ToolsPage() {
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {tools.map((tool) => (
            <Link 
-              href={tool.url || `/tools/${tool.slug}`} 
+              href={`/tools/${tool.slug}`} 
               key={tool.id} 
               className="group" 
-              target={tool.url?.startsWith('http') ? '_blank' : '_self'} 
-              rel={tool.url?.startsWith('http') ? 'noopener noreferrer' : ''}
             >
             <Card className="flex flex-col h-full hover:border-primary/50 transition-colors overflow-hidden bg-gradient-to-br from-card to-card/80 border-border/50">
                 <div className="relative h-48 w-full bg-secondary/30 flex items-center justify-center p-8">
@@ -56,3 +54,5 @@ export default function ToolsPage() {
     </div>
   );
 }
+
+    

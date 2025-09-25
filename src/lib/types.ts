@@ -70,3 +70,5 @@ export type FirebaseConfig = {
     appId: string;
     measurementId?: string;
 };
+
+    

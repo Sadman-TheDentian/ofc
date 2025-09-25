@@ -226,21 +226,21 @@ export const blogPosts = [
         title: "Deconstructing the Latest Social Engineering Scams",
         author: "Jane Doe, Principal Researcher",
         url: "/blog/post-1",
-        imageUrl: "https://picsum.photos/seed/b1/600/400",
+        imageUrl: "https://images.unsplash.com/photo-1555949963-ff9898a73a73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjB0aGlua2luZyUyMHNlY3VyaXR5fGVufDB8fHx8MTc1ODYwMzgyOHww&ixlib=rb-4.1.0&q=80&w=1080",
         imageHint: "person thinking security"
     },
     {
         title: "Securing Your Cloud: Beyond the Basics",
         author: "John Smith, Cloud Security Expert",
         url: "/blog/post-2",
-        imageUrl: "https://picsum.photos/seed/b2/600/400",
+        imageUrl: "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWN1cmUlMjBjbG91ZCUyMGRhdGF8ZW58MHx8fHwxNzU4NjAzODI4fDA&ixlib=rb-4.1.0&q=80&w=1080",
         imageHint: "secure cloud data"
     },
      {
         title: "The Future of Zero Trust Architecture",
         author: "Alex Johnson, Network Architect",
         url: "/blog/post-3",
-        imageUrl: "https://picsum.photos/seed/b3/600/400",
+        imageUrl: "https://images.unsplash.com/photo-1518434779774-d94213f80c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxuZXR3b3JrJTIwYXJjaGl0ZWN0dXJlJTIwZGlhZ3JhbXxlbnwwfHx8fDE3NTg2MDM4MTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
         imageHint: "network architecture diagram"
     },
 ];
