@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,6 +14,8 @@ import Privacy from "./pages/Privacy";
 import Result from "./pages/Result";
 import NotFound from "./pages/NotFound";
 import SecurityProtection from "./components/SecurityProtection";
+import GlobalHeader from "./components/GlobalHeader";
+import NeonFooter from "./components/NeonFooter";
 
 const queryClient = new QueryClient();
 
@@ -24,16 +27,22 @@ const App = () => (
       <Analytics />
       <SecurityProtection />
       <BrowserRouter basename="/tools/darkcheck">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/check" element={<Check />} />
-            <Route path="/tools" element={<Tools />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/result" element={<Result />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
+            <GlobalHeader />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/check" element={<Check />} />
+                <Route path="/tools" element={<Tools />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/result" element={<Result />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <NeonFooter />
+          </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

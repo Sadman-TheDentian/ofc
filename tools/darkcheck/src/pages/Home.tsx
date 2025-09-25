@@ -1,13 +1,10 @@
 
 import { Link } from 'react-router-dom';
 import { Zap, Lock, Shield, ArrowRight, CheckCircle } from 'lucide-react';
-import GlobalHeader from '@/components/GlobalHeader';
-import NeonFooter from '@/components/NeonFooter';
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
-      <GlobalHeader />
+    <div>
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="py-20 px-4 text-center">
@@ -140,11 +137,8 @@ const Home = () => {
           </div>
         </section>
       </main>
-      <NeonFooter />
     </div>
   );
 };
 
 export default Home;
-
-    

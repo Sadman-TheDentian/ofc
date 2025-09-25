@@ -55,18 +55,14 @@ const Result = () => {
   const result = useMemo(() => mockRiskResult(id ?? "", type, value), [id, type, value]);
 
   return (
-    <div className="min-h-screen bg-cyber-bg text-white flex flex-col">
-      <GlobalHeader />
-      <main className="flex-grow flex flex-col items-center pb-8 animate-fade-in">
+      <div className="flex-grow flex flex-col items-center pb-8 animate-fade-in">
         <ResultCard result={result} />
         <Recommendations score={result.score}/>
         <ShareResult result={result} />
         <div className="mt-8 text-center">
           <Link to="/" className="underline neon-text hover:opacity-80">Scan another email or domain ⭢</Link>
         </div>
-      </main>
-      <NeonFooter />
-    </div>
+      </div>
   );
 };
 
