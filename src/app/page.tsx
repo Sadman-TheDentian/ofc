@@ -18,16 +18,22 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import React from 'react';
 
 
 export default function Home() {
-  const plugins = useRef([
-    Autoplay({
-      delay: 5000,
-      stopOnInteraction: true,
-      stopOnMouseEnter: true,
-    }),
-  ]);
+  const productsPlugin = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true })
+  );
+  const advisoriesPlugin = React.useRef(
+    Autoplay({ delay: 5500, stopOnInteraction: true, stopOnMouseEnter: true })
+  );
+  const blogPlugin = React.useRef(
+    Autoplay({ delay: 6000, stopOnInteraction: true, stopOnMouseEnter: true })
+  );
+  const caseStudiesPlugin = React.useRef(
+    Autoplay({ delay: 6500, stopOnInteraction: true, stopOnMouseEnter: true })
+  );
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -92,7 +98,7 @@ export default function Home() {
           </div>
            <Carousel
               opts={{ align: 'start', loop: true }}
-              plugins={plugins.current}
+              plugins={[productsPlugin.current]}
               className="w-full max-w-6xl mx-auto"
             >
               <CarouselContent className="-ml-4">
@@ -158,7 +164,7 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-8">
                  <div className='space-y-4'>
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
-                     <Carousel opts={{ align: 'start', loop: true }} plugins={plugins.current} className="w-full">
+                     <Carousel opts={{ align: 'start', loop: true }} plugins={[advisoriesPlugin.current]} className="w-full">
                        <CarouselContent>
                           {securityAdvisories.map(advisory => (
                             <CarouselItem key={advisory.id}>
@@ -183,7 +189,7 @@ export default function Home() {
                 </div>
                  <div className='space-y-4'>
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
-                      <Carousel opts={{ align: 'start', loop: true }} plugins={plugins.current} className="w-full">
+                      <Carousel opts={{ align: 'start', loop: true }} plugins={[blogPlugin.current]} className="w-full">
                          <CarouselContent>
                           {blogPosts.slice(0,2).map(post => (
                             <CarouselItem key={post.title}>
@@ -227,7 +233,7 @@ export default function Home() {
           </div>
           <Carousel
               opts={{ align: 'start', loop: true }}
-              plugins={plugins.current}
+              plugins={[caseStudiesPlugin.current]}
               className="w-full max-w-6xl mx-auto"
             >
               <CarouselContent className="-ml-4">
