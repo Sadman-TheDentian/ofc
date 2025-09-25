@@ -5,8 +5,17 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/lib/sanity";
 import Link from "next/link";
 import Image from "next/image";
+import { Author } from "@/lib/types";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
+const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
+  ...,
+  author->{
+    _id,
+    name,
+    image
+  }
+}`;
 
 const { projectId, dataset } = client.config();
 const urlFor = (source: SanityImageSource) =>
@@ -21,10 +30,12 @@ export default async function PostPage({
 }: {
   params: { slug: string };
 }) {
-  const post = await client.fetch<SanityDocument>(POST_QUERY, params, options);
+  const post = await client.fetch<SanityDocument & { author?: Author }>(POST_QUERY, params, options);
   const postImageUrl = post.mainImage
     ? urlFor(post.mainImage)?.width(800).height(450).url()
     : null;
+    
+  const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.width(40).height(40).url() : null;
 
   return (
     <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-8">
@@ -33,7 +44,21 @@ export default async function PostPage({
       </Link>
       <article>
         <h1 className="text-4xl font-bold font-headline mb-4">{post.title}</h1>
-        <p className="text-muted-foreground mb-8">Published: {new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+        <div className="flex items-center gap-4 mb-8">
+            {post.author && (
+                <div className="flex items-center gap-3">
+                    <Avatar>
+                        {authorImageUrl && <AvatarImage src={authorImageUrl} alt={post.author.name} />}
+                        <AvatarFallback>{post.author.name?.charAt(0) || 'A'}</AvatarFallback>
+                    </Avatar>
+                    <span className="font-medium text-muted-foreground">{post.author.name}</span>
+                </div>
+            )}
+            <p className="text-muted-foreground">
+                {new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+        </div>
+
 
         {postImageUrl && (
             <div className="relative w-full aspect-video mb-8">
