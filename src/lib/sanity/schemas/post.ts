@@ -1,3 +1,4 @@
+
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
@@ -33,8 +34,7 @@ export default defineType({
     defineField({
       name: 'body',
       title: 'Body',
-      type: 'array',
-      of: [{type: 'block'}],
+      type: 'blockContent',
     }),
     defineField({
       name: 'author',
