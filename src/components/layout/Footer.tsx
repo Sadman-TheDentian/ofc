@@ -13,16 +13,16 @@ const logoUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwh
 
 const footerLinks = {
     Products: [
-        { title: "Network Security", href: "/products/network-security"},
+        { title: "Firewall Solutions", href: "/products/firewall-solutions"},
         { title: "Cloud Security", href: "/products/cloud-security"},
         { title: "Endpoint Protection", href: "/products/endpoint-protection"},
         { title: "Threat Intelligence", href: "/threat-intelligence"},
     ],
     Resources: [
-        { title: "Threat Reports", href: "/resources"},
-        { title: "White Papers", href: "/resources"},
+        { title: "Threat Reports", href: "/threat-reports"},
+        { title: "White Papers", href: "/white-papers"},
         { title: "Blog", href: "/blog"},
-        { title: "Webinars", href: "/resources"},
+        { title: "Webinars", href: "/webinars"},
         { title: "Documentation", href: "/docs"},
     ],
     Company: [

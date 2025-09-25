@@ -174,15 +174,15 @@ export default function Header() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {Object.entries(solutions).map(([category, items]) => (
                 <li key={category}>
                    <NavigationMenuLink asChild>
-                     <h3 className="text-sm font-medium leading-none px-3 py-2 text-muted-foreground">{category}</h3>
+                     <h3 className="text-sm font-medium leading-none px-3 py-2 text-muted-foreground">{category.replace(/([A-Z])/g, ' $1').trim()}</h3>
                   </NavigationMenuLink>
                    <ul className="flex flex-col">
                     {items.map((item) => (
-                      <ListItem key={item} href={`/solutions/${item.toLowerCase().replace(/\s+/g, '-')}`} title={item}>
+                      <ListItem key={item} href={`/solutions/${category.toLowerCase().replace(/\s+/g, '-')}/${item.toLowerCase().replace(/\s+/g, '-')}`} title={item}>
                          {/* Add short descriptions later */}
                       </ListItem>
                     ))}
@@ -314,8 +314,13 @@ export default function Header() {
                             Solutions
                         </AccordionTrigger>
                         <AccordionContent>
-                           {Object.values(solutions).flat().map(item => (
-                                <MobileNavLink key={item} href={`/solutions/${item.toLowerCase().replace(/\s+/g, '-')}`}>{item}</MobileNavLink>
+                           {Object.entries(solutions).map(([category, items]) => (
+                                <React.Fragment key={category}>
+                                     <h4 className="pl-8 pt-2 text-sm font-semibold text-muted-foreground/80">{category.replace(/([A-Z])/g, ' $1').trim()}</h4>
+                                     {items.map(item => (
+                                         <MobileNavLink key={item} href={`/solutions/${category.toLowerCase().replace(/\s+/g, '-')}/${item.toLowerCase().replace(/\s+/g, '-')}`}>{item}</MobileNavLink>
+                                     ))}
+                                </React.Fragment>
                            ))}
                         </AccordionContent>
                     </AccordionItem>
