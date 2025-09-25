@@ -71,7 +71,7 @@ export const tools: Tool[] = [
       "Monitor the dark web for mentions of your brand, domains, and employee credentials.",
     longDescription: "DarkCheck continuously scours dark web marketplaces, forums, and paste sites for any signs of your organization's compromised data. Receive real-time alerts when your assets are detected, allowing you to take immediate action.",
     icon: Search,
-    url: "https://darkcheck.dentisystems.com",
+    url: "/tools/darkcheck",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhP0_bWguZ5wH-zwO9nWFsKIf6oJtiqyUNuF87wE7CBzUEJe7xfDLoYWtUmJaC0p1LSGHfsWkmhSn8-mH5JnYKre-LKkEl9zCC4PSmM89ke2Dg4E14yZejNEd0zGPlo_b09JMSRGBaUC3NnkkjlfU0KtATGbgmiK_PdrcgYisrwITVnOeZ420EUyg92T2w/s320/Darkcheck.png",
     screenshots: [
       { id: 1, url: 'https://picsum.photos/seed/ds1/1200/800', alt: 'DarkCheck dashboard showing breach statistics', hint: 'dashboard chart' },
@@ -86,7 +86,7 @@ export const tools: Tool[] = [
       "Assess your organization's susceptibility to phishing attacks with simulated campaigns.",
     longDescription: "PhishRisk allows you to run realistic, automated phishing simulations to test employee awareness. Track open rates, click rates, and data entry to identify vulnerabilities and target training where it's needed most.",
     icon: Fingerprint,
-    url: "https://phishrisk.dentisystems.com",
+    url: "/tools/phishrisk",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjaDT7-W90QmoQPNtx9ZKZd_ZXDzjAx41rprheeshOMZ2k-0c5K4JXPkK5COAWvZcd8FU03p99VJTvBPxOS2aDYWsj3IgZ8c4X6AdS-QxQwIWeXlQ3IWl423Zwl-l7N9Rivm395N3kqigtsfPlxMY_a83BMsFbF3VvlElmmQaZGfBf6C-EM_1Ys71T4t1g/s320/PhishRisk.png",
     screenshots: [
         { id: 1, url: 'https://picsum.photos/seed/pr1/1200/800', alt: 'PhishRisk campaign editor', hint: 'email editor' },
@@ -101,7 +101,7 @@ export const tools: Tool[] = [
       "Check if your passwords have been compromised in known data breaches.",
     longDescription: "PasswordLeaker PRO leverages a massive database of breached credentials to help you determine if your passwords are secure. PRO users get access to our API for automated checks and deeper integrations.",
     icon: KeyRound,
-    url: "https://passwordleaker.dentisystems.com",
+    url: "/tools/passwordleaker",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7UJYQdyLisohKiFJaPnaq169Y1lxjBcDX1eKBFoA2U8j19vvWaTkwFc0A0lBAqjm7Umf0VcrHsD91aAJz-pFzFDSx8tgm5tdrXYXfFuJpw1JTs8HnFBKc6UHaOlUT5StxqDsrG-6in4FHc0yZKrKGn7k0tVOkZRbTOuwpLvqpYTLzQjXYdzHz9vYJ_jc/s320/PasswordLeaker.png",
     screenshots: [
         { id: 1, url: 'https://picsum.photos/seed/pl1/1200/800', alt: 'PasswordLeaker PRO interface', hint: 'code interface' },
@@ -114,7 +114,7 @@ export const tools: Tool[] = [
     description: "Continuously scan public code repositories for accidental secret leaks.",
     longDescription: "LeakScan integrates with your development lifecycle to automatically scan GitHub, GitLab, and other repositories for hardcoded API keys, passwords, and other secrets before they can be exploited by malicious actors.",
     icon: Scan,
-    url: "https://leakscan.dentisystems.com",
+    url: "/tools/leakscan",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHKHiRNvCifFGey2MkZi5URT_W0HnGJjmgv-bASQy7RcXMSLPSedhxIcn_5JCjQWEDAZhQ2XKiPeLzXUbOrmJv8L3y_CSShjw5gGk6KmUZ6jdnLAoMsyY4orfN3SFnebPVdsTer2RmVgQ6YpPxZQS0XWD3Lia-6FgLPq-ItuDQ3uue1amlsRAhFDZKjiE/s320/Leakscan.png",
     screenshots: [
         { id: 1, url: 'https://picsum.photos/seed/ls1/1200/800', alt: 'LeakScan results table', hint: 'data table' }

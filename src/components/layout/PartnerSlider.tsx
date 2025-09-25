@@ -1,4 +1,3 @@
-
 import { partners } from "@/lib/partners";
 import { cn } from "@/lib/utils";
 
