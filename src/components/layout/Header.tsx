@@ -192,12 +192,12 @@ export default function Header() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-         <NavigationMenuItem>
-            <Link href="/tools" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Tools
-                </NavigationMenuLink>
-            </Link>
+        <NavigationMenuItem>
+          <Link href="/tools" legacyBehavior={false} passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Tools
+            </NavigationMenuLink>
+          </Link>
         </NavigationMenuItem>
          <NavigationMenuItem>
           <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
