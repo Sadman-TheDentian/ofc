@@ -15,8 +15,7 @@ import {
 } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase';
-import { createUserProfile } from './firestore';
-import type { Firestore } from 'firebase/firestore';
+import { createUserInDatabase } from '@/app/auth/actions';
 
 type AuthContextType = {
   user: User | null;
@@ -34,7 +33,7 @@ const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { auth, firestore } = useFirebase();
+  const { auth } = useFirebase();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -43,7 +42,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (!auth) {
       setLoading(true);
       return;
-    };
+    }
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
@@ -52,12 +51,24 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return () => unsubscribe();
   }, [auth]);
 
-  const handleSuccessfulAuth = async (userCredential: UserCredential, db: Firestore) => {
+  const handleSuccessfulAuth = async (userCredential: UserCredential) => {
     const isNewUser =
       userCredential.user.metadata.creationTime ===
       userCredential.user.metadata.lastSignInTime;
+      
     if (isNewUser) {
-      await createUserProfile(db, userCredential.user);
+      try {
+        await createUserInDatabase({
+          uid: userCredential.user.uid,
+          email: userCredential.user.email,
+          displayName: userCredential.user.displayName,
+          photoURL: userCredential.user.photoURL,
+        });
+      } catch (error) {
+          // Even if DB write fails, the auth user is created.
+          // Log the error but proceed to dashboard.
+          console.error("Failed to create user profile in database:", error);
+      }
     }
     router.push('/dashboard');
   };
@@ -65,10 +76,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const socialSignIn = async (
     provider: GoogleAuthProvider | GithubAuthProvider
   ) => {
-    if (!auth || !firestore) throw new Error("Firebase services not available");
+    if (!auth) throw new Error("Firebase services not available");
     try {
       const result = await signInWithPopup(auth, provider);
-      await handleSuccessfulAuth(result, firestore);
+      await handleSuccessfulAuth(result);
     } catch (error) {
       console.error(`Error signing in with ${provider.providerId}:`, error);
       throw error;
@@ -84,14 +95,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signUpWithEmail = async (email: string, pass: string) => {
-    if (!auth || !firestore) throw new Error("Firebase services not available");
+    if (!auth) throw new Error("Firebase services not available");
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         pass
       );
-      await handleSuccessfulAuth(userCredential, firestore);
+      await handleSuccessfulAuth(userCredential);
       return userCredential;
     } catch (error) {
       console.error('Error signing up with email:', error);
@@ -100,14 +111,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signInWithEmail = async (email: string, pass: string) => {
-    if (!auth || !firestore) throw new Error("Firebase services not available");
+    if (!auth) throw new Error("Firebase services not available");
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         pass
       );
-      await handleSuccessfulAuth(userCredential, firestore);
+      // Don't call handleSuccessfulAuth on sign-in, profile should exist
+      router.push('/dashboard');
       return userCredential;
     } catch (error) {
       console.error('Error signing in with email:', error);
