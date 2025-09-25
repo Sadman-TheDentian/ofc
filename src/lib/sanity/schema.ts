@@ -1,3 +1,4 @@
+
 import { type SchemaTypeDefinition } from 'sanity'
 
 import author from './schemas/author'

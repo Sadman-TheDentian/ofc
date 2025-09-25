@@ -36,7 +36,7 @@ export type Tool = {
 
 export type CaseStudy = {
   _id: string;
-  slug: string;
+  slug: { current: string };
   title: string;
   summary: string;
   industry: string;
