@@ -1,3 +1,4 @@
+
 import type { Service, Tool } from "./types";
 import {
   ShieldCheck,
@@ -9,6 +10,8 @@ import {
   Scan,
   ShieldHalf,
   Siren,
+  Cloud,
+  Monitor,
 } from "lucide-react";
 
 export const services: Service[] = [
@@ -174,3 +177,72 @@ export const caseStudies = [
         imageHint: "online shopping",
     }
 ];
+
+export const productShowcase = [
+    {
+        icon: ShieldCheck,
+        title: "Network Security",
+        description: "Advanced firewall and threat prevention.",
+        features: ["Deep Packet Inspection", "Intrusion Prevention", "SSL Decryption"],
+        cta: "Learn More"
+    },
+    {
+        icon: Cloud,
+        title: "Cloud Security",
+        description: "Protect multi-cloud environments.",
+        features: ["Cloud Firewall", "Container Security", "CSPM"],
+        cta: "Learn More"
+    },
+    {
+        icon: Monitor,
+        title: "Endpoint Protection",
+        description: "Next-gen EDR and mobile security.",
+        features: ["Behavioral Analysis", "Threat Hunting", "Mobile Defense"],
+        cta: "Learn More"
+    }
+];
+
+export const securityAdvisories = [
+    {
+        id: "DS-2024-003",
+        title: "Critical RCE in 'ConnectSphere' Library",
+        severity: "Critical",
+        severityColor: "bg-destructive",
+        date: "Oct 26, 2024",
+        description: "A remote code execution vulnerability has been discovered in a popular third-party library used by the 'ConnectSphere' SaaS platform."
+    },
+    {
+        id: "DS-2024-002",
+        title: "Active Exploitation of 'DataWeave' Framework",
+        severity: "High",
+        severityColor: "bg-orange-500",
+        date: "Oct 22, 2024",
+        description: "Threat actors are actively exploiting a zero-day vulnerability in the 'DataWeave' enterprise data framework."
+    },
+];
+
+export const blogPosts = [
+    {
+        title: "Deconstructing the Latest Social Engineering Scams",
+        author: "Jane Doe, Principal Researcher",
+        url: "/blog/post-1",
+        imageUrl: "https://picsum.photos/seed/b1/600/400",
+        imageHint: "person thinking security"
+    },
+    {
+        title: "Securing Your Cloud: Beyond the Basics",
+        author: "John Smith, Cloud Security Expert",
+        url: "/blog/post-2",
+        imageUrl: "https://picsum.photos/seed/b2/600/400",
+        imageHint: "secure cloud data"
+    },
+     {
+        title: "The Future of Zero Trust Architecture",
+        author: "Alex Johnson, Network Architect",
+        url: "/blog/post-3",
+        imageUrl: "https://picsum.photos/seed/b3/600/400",
+        imageHint: "network architecture diagram"
+    },
+];
+
+    

@@ -1,12 +1,12 @@
 
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, BrainCircuit, CheckCircle, Fingerprint, ShieldCheck, Zap, Cloud, Monitor } from 'lucide-react';
+import { ArrowRight, BrainCircuit, CheckCircle, Fingerprint, ShieldCheck, Siren } from 'lucide-react';
 import Link from 'next/link';
-import { services, tools, caseStudies } from '@/lib/data';
+import { caseStudies, productShowcase, securityAdvisories, blogPosts } from '@/lib/data';
 import Image from 'next/image';
 import PartnerSlider from '@/components/layout/PartnerSlider';
 import RevealOnScroll from '@/components/animations/RevealOnScroll';
@@ -19,46 +19,8 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 
-const productShowcase = [
-    {
-        icon: ShieldCheck,
-        title: "Network Security",
-        description: "Advanced firewall and threat prevention.",
-        features: ["Deep Packet Inspection", "Intrusion Prevention", "SSL Decryption"],
-        cta: "Learn More"
-    },
-    {
-        icon: Cloud,
-        title: "Cloud Security",
-        description: "Protect multi-cloud environments.",
-        features: ["Cloud Firewall", "Container Security", "CSPM"],
-        cta: "Learn More"
-    },
-    {
-        icon: Monitor,
-        title: "Endpoint Protection",
-        description: "Next-gen EDR and mobile security.",
-        features: ["Behavioral Analysis", "Threat Hunting", "Mobile Defense"],
-        cta: "Learn More"
-    }
-];
-
 
 export default function Home() {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const servicesAutoplayPlugin = useRef(
-    Autoplay({
-      delay: 4000,
-      stopOnInteraction: false,
-      stopOnMouseEnter: true,
-    })
-  );
-
   const toolsAutoplayPlugin = useRef(
     Autoplay({
       delay: 5000,
@@ -125,8 +87,7 @@ export default function Home() {
               A Unified Security Platform
             </h2>
             <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl">
-              From proactive defense to incident response, our services create a
-              resilient security posture for your organization.
+              From proactive defense to incident response, our platform provides a resilient security posture for your organization.
             </p>
           </div>
            <div className="grid md:grid-cols-3 gap-8">
@@ -142,7 +103,7 @@ export default function Home() {
                          </CardTitle>
                       </CardHeader>
                       <CardContent className="flex-grow flex flex-col p-6 pt-0">
-                         <p className="text-muted-foreground flex-grow mb-4">
+                         <p className="text-muted-foreground flex-grow mb-4 text-sm">
                           {product.description}
                         </p>
                         <ul className="space-y-2 text-sm text-muted-foreground mb-6">
@@ -172,67 +133,62 @@ export default function Home() {
       </section>
 
       <section
-        id="tools"
+        id="threat-intelligence"
         className="py-20 md:py-32 border-t border-border/50 bg-card/80 backdrop-blur-sm"
       >
         <div className="container px-4 md:px-6">
-          <RevealOnScroll>
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-4 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
-                <div className="inline-block bg-secondary text-primary px-4 py-1 rounded-full text-sm font-bold">
-                  OUR ARSENAL
-                </div>
+           <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
                 <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-                  Proprietary Security Tools
+                  Latest Threat Intelligence
                 </h2>
-                <p className="text-muted-foreground md:text-xl">
-                  Explore our suite of tools designed to give you the upper
-                  hand in the digital battlefield. From dark web monitoring to
-                  phishing simulation.
+                <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl">
+                  Stay ahead of adversaries with real-time alerts and research from the front lines of cybersecurity.
                 </p>
-                <Button variant="outline" asChild>
-                  <Link href="/tools">
-                    Explore All Tools <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-              <div className="space-y-4">
-                 <Carousel
-                    plugins={[toolsAutoplayPlugin.current]}
-                    className="w-full"
-                    opts={{
-                    align: 'start',
-                    loop: true,
-                    }}
-                 >
-                    <CarouselContent className="-ml-4">
-                        {tools.map((tool) => (
-                            <CarouselItem key={tool.id} className="pl-4">
-                                <div className="p-1">
-                                <Link href={tool.url || `/tools/${tool.slug}`} className="group">
-                                    <Card className="flex items-center gap-4 p-4 transition-colors hover:bg-secondary/30 bg-gradient-to-br from-card to-card/80 border-border/50">
-                                        <div className="p-2 bg-secondary rounded-lg w-16 h-12 flex items-center justify-center shrink-0">
-                                            <Image src={tool.imageUrl} alt={tool.title} width={40} height={40} className="w-auto h-auto max-w-full max-h-full" />
-                                        </div>
-                                        <div>
-                                            <h3 className="font-headline text-lg font-semibold group-hover:text-primary transition-colors">
-                                            {tool.title}
-                                            </h3>
-                                            <p className="text-sm text-muted-foreground">
-                                            {tool.description}
-                                            </p>
-                                        </div>
-                                        <ArrowRight className="ml-auto h-5 w-5 text-muted-foreground shrink-0 transition-transform group-hover:translate-x-1 group-hover:text-primary" />
-                                    </Card>
-                                </Link>
-                                </div>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                 </Carousel>
-              </div>
             </div>
-          </RevealOnScroll>
+            <div className="grid md:grid-cols-2 gap-8">
+                <div className='space-y-4'>
+                    <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
+                     {securityAdvisories.map(advisory => (
+                        <Card key={advisory.id} className="bg-gradient-to-br from-card to-card/80 border-border/50 hover:border-primary/50 transition-colors">
+                            <CardHeader>
+                                <div className="flex justify-between items-start">
+                                    <div>
+                                        <CardTitle className="font-headline text-lg">{advisory.title}</CardTitle>
+                                        <p className='text-muted-foreground text-sm'>{advisory.id} • {advisory.date}</p>
+                                    </div>
+                                    <div className={`text-xs font-bold uppercase px-3 py-1 rounded-full text-white ${advisory.severityColor}`}>{advisory.severity}</div>
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground text-sm">{advisory.description}</p>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+                 <div className='space-y-4'>
+                    <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
+                      {blogPosts.slice(0,2).map(post => (
+                        <Link href={post.url} key={post.title} className="group block">
+                            <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
+                                <div className="flex flex-col md:flex-row">
+                                    <div className="relative h-40 md:h-auto md:w-48 flex-shrink-0">
+                                        <Image src={post.imageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" data-ai-hint={post.imageHint} />
+                                    </div>
+                                    <div className="p-6">
+                                        <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
+                                        <p className="text-xs text-muted-foreground mt-2">{post.author}</p>
+                                    </div>
+                                </div>
+                            </Card>
+                        </Link>
+                    ))}
+                </div>
+            </div>
+             <div className="text-center mt-12">
+                <Button asChild size="lg" variant="secondary">
+                    <Link href="/threat-intelligence">Visit Threat Intelligence Center</Link>
+                </Button>
+            </div>
         </div>
       </section>
 
@@ -299,3 +255,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
