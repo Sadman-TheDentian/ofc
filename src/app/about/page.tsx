@@ -1,27 +1,18 @@
 
+'use client';
+
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Users, BarChart, Shield, Award, Handshake, BrainCircuit } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Users, Award, Handshake, BrainCircuit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { TeamMembers } from "@/lib/placeholder-images";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
 
-const stats = [
-  {
-    icon: BarChart,
-    value: "1.2M+",
-    label: "Threats Analyzed",
-  },
-  {
-    icon: Shield,
-    value: "99.8%",
-    label: "Ransomware Resilience",
-  },
-  {
-    icon: Users,
-    value: "150+",
-    label: "Enterprises Secured",
-  },
+const statsData = [
+  { name: 'Threats Analyzed', value: 1200000, label: "1.2M+" },
+  { name: 'Ransomware Resilience', value: 99.8, label: "99.8%" },
+  { name: 'Enterprises Secured', value: 150, label: "150+" },
 ];
 
 const values = [
@@ -40,7 +31,21 @@ const values = [
         title: "Innovation",
         description: "The threat landscape is always evolving, and so are we. We are committed to continuous research and development to stay ahead of adversaries."
     }
-]
+];
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-card/80 p-2 border border-border/50 rounded-lg">
+        <p className="font-bold text-primary">{`${label}`}</p>
+        <p className="text-sm text-foreground">{`Value: ${payload[0].value.toLocaleString()}${label === 'Ransomware Resilience' ? '%' : ''}`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
 
 export default function AboutPage() {
   return (
@@ -57,7 +62,7 @@ export default function AboutPage() {
 
       <section className="mb-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
+          <Card className="bg-gradient-to-br from-card to-card/80 border-border/50 p-6 space-y-6">
             <h2 className="font-headline text-2xl font-bold border-l-4 border-primary pl-4">
               Our Mission
             </h2>
@@ -74,34 +79,33 @@ export default function AboutPage() {
               risk, ensuring your operations, data, and reputation are secure
               from the ground up.
             </p>
-          </div>
-          <div>
-            <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
-              <CardContent className="p-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center">
-                    <stat.icon className="h-10 w-10 text-primary mx-auto mb-3" />
-                    <p className="text-3xl font-bold text-primary">
-                      {stat.value}
-                    </p>
-                    <p className="text-muted-foreground text-sm">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
+          </Card>
+          <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
+             <CardHeader>
+                <CardTitle>By the Numbers</CardTitle>
+                <CardDescription>Our track record of success.</CardDescription>
+             </CardHeader>
+              <CardContent>
+                 <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={statsData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                        <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--secondary))'}} />
+                        <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                </ResponsiveContainer>
               </CardContent>
             </Card>
-          </div>
         </div>
       </section>
 
       <section className="mb-20">
         <h2 className="font-headline text-3xl font-bold tracking-tighter text-center mb-12">
-            Our Values
+            Our Core Values
         </h2>
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {values.map((value) => (
-                <Card key={value.title} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center p-6">
+                <Card key={value.title} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10">
                      <value.icon className="h-10 w-10 text-primary mx-auto mb-4" />
                      <h3 className="font-headline text-xl font-semibold mb-2">{value.title}</h3>
                      <p className="text-muted-foreground text-sm">{value.description}</p>
