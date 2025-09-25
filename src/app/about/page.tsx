@@ -1,40 +1,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Users, BarChart, Shield, Target, Award, Handshake, BrainCircuit } from "lucide-react";
+import { Users, BarChart, Shield, Award, Handshake, BrainCircuit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-const teamMembers = [
-  {
-    name: "MD Sadman Shovik",
-    title: "Chief Executive Officer",
-    bio: "Visionary leader driving the company's mission to redefine cybersecurity and deliver unparalleled value to our clients and partners.",
-    imageUrl: "https://picsum.photos/seed/ceo/200/200",
-    imageHint: "professional headshot ceo",
-  },
-  {
-    name: "MD Shahriar Ahmed",
-    title: "Chief Operating Officer",
-    bio: "Orchestrating operational excellence and ensuring the seamless delivery of our cutting-edge security services and solutions.",
-    imageUrl: "https://picsum.photos/seed/coo/200/200",
-    imageHint: "professional headshot coo",
-  },
-  {
-    name: "Monutosh Paul",
-    title: "Chief Technology Officer",
-    bio: "Architecting the next generation of security technology, from our AI-powered platforms to our secure development frameworks.",
-    imageUrl: "https://picsum.photos/seed/cto/200/200",
-    imageHint: "professional headshot cto",
-  },
-  {
-    name: "MD Sajidur Rahman",
-    title: "Chief Sales Officer",
-    bio: "Forging strategic partnerships and leading our sales division to bring DentiSystems' solutions to organizations worldwide.",
-    imageUrl: "https://picsum.photos/seed/cso/200/200",
-    imageHint: "professional headshot sales",
-  },
-];
+import { TeamMembers } from "@/lib/placeholder-images";
 
 const stats = [
   {
@@ -145,7 +115,7 @@ export default function AboutPage() {
           Meet the Experts
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mb-12">
-          {teamMembers.map((member, index) => (
+          {TeamMembers.map((member, index) => (
             <Card key={index} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center">
               <CardContent className="p-6">
                 <Image

@@ -1,3 +1,4 @@
+
 import data from './placeholder-images.json';
 
 export type ImagePlaceholder = {
@@ -7,4 +8,14 @@ export type ImagePlaceholder = {
   imageHint: string;
 };
 
+export type TeamMember = {
+    id: string;
+    name: string;
+    title: string;
+    bio: string;
+    imageUrl: string;
+    imageHint: string;
+}
+
 export const PlaceHolderImages: ImagePlaceholder[] = data.placeholderImages;
+export const TeamMembers: TeamMember[] = data.teamMembers;
