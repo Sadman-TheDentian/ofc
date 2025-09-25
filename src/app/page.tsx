@@ -1,9 +1,10 @@
+
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, BrainCircuit, CheckCircle, Fingerprint, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { services, tools, caseStudies } from '@/lib/data';
 import Image from 'next/image';
@@ -50,24 +51,43 @@ export default function Home() {
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground whitespace-pre-line">
-              Elite Cybersecurity &
-              Custom Web Engineering
+              AI-Powered Cybersecurity for Modern Threats
             </h1>
             <p
               className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
             >
-              High-risk vendor recon, breach monitoring, and secure development
-              that reduces operational risk.
+              Advanced threat detection and prevention for enterprises.
             </p>
-            <div
-              className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
-            >
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button size="lg" asChild>
-                <Link href="/contact">Request Risk Audit</Link>
+                <Link href="/contact">Schedule Demo</Link>
               </Button>
               <Button size="lg" variant="secondary" asChild>
-                <Link href="/services">Explore Services</Link>
+                <Link href="/threat-intelligence">View Threat Report</Link>
               </Button>
+            </div>
+             <div className="pt-8 flex flex-col items-center gap-6">
+                <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm font-medium text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                        <BrainCircuit className="h-4 w-4 text-primary" />
+                        <span>Real-time Threat Intelligence</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Fingerprint className="h-4 w-4 text-primary" />
+                        <span>Zero Trust Architecture</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <ShieldCheck className="h-4 w-4 text-primary" />
+                        <span>Cloud-Native Security</span>
+                    </div>
+                </div>
+                 <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground/80">
+                    <span>Gartner Recognized</span>
+                    <span className="hidden md:inline">•</span>
+                    <span>ISO 27001 Certified</span>
+                    <span className="hidden md:inline">•</span>
+                    <span>1000+ Enterprises Protected</span>
+                </div>
             </div>
           </div>
         </div>
