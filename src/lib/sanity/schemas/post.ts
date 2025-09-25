@@ -20,6 +20,14 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'excerpt',
+      title: 'Excerpt',
+      description: 'A short summary of the post (around 150 characters). Used for previews.',
+      type: 'text',
+      rows: 3,
+      validation: (rule) => rule.max(200),
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',
@@ -30,6 +38,9 @@ export default defineType({
       name: 'mainImage',
       title: 'Image',
       type: 'image',
+      options: {
+        hotspot: true,
+      },
     }),
     defineField({
       name: 'body',
@@ -41,12 +52,6 @@ export default defineType({
       title: 'Author',
       type: 'reference',
       to: {type: 'author'},
-    }),
-    defineField({
-      name: 'excerpt',
-      title: 'Excerpt',
-      type: 'text',
-      rows: 4
     }),
   ],
   preview: {
