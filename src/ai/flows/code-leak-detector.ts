@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview A code leak detector AI agent.
@@ -42,9 +41,9 @@ const prompt = ai.definePrompt({
 For each leak you find, provide the type of secret, the line number, and the secret itself.
 
 Code to analyze:
-\'\'\'
+'''
 {{{code}}}
-\'\'\'`,
+'''`,
 });
 
 const codeLeakDetectorFlow = ai.defineFlow(

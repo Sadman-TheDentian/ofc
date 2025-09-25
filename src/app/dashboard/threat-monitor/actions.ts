@@ -1,4 +1,3 @@
-
 "use server";
 
 import {
@@ -22,5 +21,3 @@ export async function analyzeThreats(
     };
   }
 }
-
-    
