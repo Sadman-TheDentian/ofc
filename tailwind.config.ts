@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -20,7 +19,16 @@ export default {
       fontFamily: {
         body: ["Manrope", "sans-serif"],
         headline: ["Space Grotesk", "sans-serif"],
-        code: ["monospace"],
+        mono: [
+          'Menlo',
+          'Monaco',
+          'Lucida Console',
+          'Liberation Mono',
+          'DejaVu Sans Mono',
+          'Bitstream Vera Sans Mono',
+          'Courier New',
+          'monospace',
+        ],
       },
       colors: {
         background: "hsl(var(--background))",

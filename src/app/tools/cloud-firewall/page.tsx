@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -33,10 +32,9 @@ export default function CloudFirewallPage() {
   const [newRule, setNewRule] = useState({ action: 'Allow' as 'Allow' | 'Deny', port: '', protocol: 'TCP' as 'TCP' | 'UDP', source: '0.0.0.0/0' });
   const [isGenerating, setIsGenerating] = useState(false);
   
-  // Get user plan from the user object, default to 'free' if not available
   // @ts-ignore
   const userPlan = user?.plan || 'free';
-
+  const isPro = userPlan === 'pro';
 
   const addRule = () => {
     if (!newRule.port) {
@@ -52,6 +50,10 @@ export default function CloudFirewallPage() {
   };
   
   const handleGenerate = async () => {
+      if (!isPro) {
+          toast({ variant: 'destructive', title: 'Upgrade Required', description: 'This is a PRO feature.' });
+          return;
+      }
       if (!serverIP) {
           toast({ variant: 'destructive', title: 'Error', description: 'Server IP or Domain is required.'});
           return;
@@ -94,30 +96,6 @@ export default function CloudFirewallPage() {
     );
   }
   
-  if (userPlan !== 'pro') {
-    return (
-       <div className="container py-12 md:py-20">
-            <div className="max-w-3xl mx-auto text-center space-y-6 bg-secondary/30 p-8 rounded-xl border border-border">
-                <Crown className="h-12 w-12 text-primary mx-auto" />
-                <h1 className="font-headline text-2xl font-bold tracking-tighter sm:text-3xl">
-                    PRO Feature Locked
-                </h1>
-                <p className="text-xl text-muted-foreground">
-                    The Cloud Firewall Lite tool is available exclusively to PRO subscribers. Upgrade your plan to generate and manage firewall configurations.
-                </p>
-                <div className="flex gap-4 justify-center">
-                    <Button asChild size="lg">
-                        <Link href="/pricing">Upgrade to PRO</Link>
-                    </Button>
-                    <Button asChild variant="secondary" size="lg">
-                        <Link href="/dashboard">Go to Dashboard</Link>
-                    </Button>
-                </div>
-            </div>
-        </div>
-    )
-  }
-
   return (
     <div className="container py-12 md:py-20">
       <div className="text-center max-w-3xl mx-auto mb-12">
@@ -127,8 +105,28 @@ export default function CloudFirewallPage() {
           Generate `ufw` (Uncomplicated Firewall) rules for your servers quickly.
         </p>
       </div>
+      
+      {!isPro && (
+         <div className="max-w-3xl mx-auto text-center space-y-6 bg-secondary/30 p-8 rounded-xl border border-primary/50 mb-12">
+            <Crown className="h-12 w-12 text-primary mx-auto" />
+            <h1 className="font-headline text-2xl font-bold tracking-tighter sm:text-3xl">
+                PRO Feature Locked
+            </h1>
+            <p className="text-xl text-muted-foreground">
+                The Cloud Firewall Lite tool is available exclusively to PRO subscribers. Upgrade your plan to generate and manage firewall configurations.
+            </p>
+            <div className="flex gap-4 justify-center">
+                <Button asChild size="lg">
+                    <Link href="/pricing">Upgrade to PRO</Link>
+                </Button>
+                <Button asChild variant="secondary" size="lg">
+                    <Link href="/dashboard">Go to Dashboard</Link>
+                </Button>
+            </div>
+        </div>
+      )}
 
-      <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      <div className={`grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto ${!isPro ? 'opacity-50 pointer-events-none' : ''}`}>
         <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
           <CardHeader>
             <CardTitle>Rule Generator</CardTitle>
@@ -137,20 +135,20 @@ export default function CloudFirewallPage() {
           <CardContent className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="server-ip">Server IP or Domain</Label>
-              <Input id="server-ip" placeholder="e.g., 192.168.1.1 or my-server.com" value={serverIP} onChange={(e) => setServerIP(e.target.value)} />
+              <Input id="server-ip" placeholder="e.g., 192.168.1.1 or my-server.com" value={serverIP} onChange={(e) => setServerIP(e.target.value)} disabled={!isPro} />
             </div>
             
             <div className="border bg-secondary/30 rounded-lg p-4 space-y-4">
               <h4 className="font-semibold">Add New Rule</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Select value={newRule.action} onValueChange={(v) => setNewRule({...newRule, action: v as 'Allow' | 'Deny' })}>
+                <Select value={newRule.action} onValueChange={(v) => setNewRule({...newRule, action: v as 'Allow' | 'Deny' })} disabled={!isPro}>
                   <SelectTrigger><SelectValue placeholder="Action" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Allow">Allow</SelectItem>
                     <SelectItem value="Deny">Deny</SelectItem>
                   </SelectContent>
                 </Select>
-                 <Select value={newRule.protocol} onValueChange={(v) => setNewRule({...newRule, protocol: v as 'TCP' | 'UDP' })}>
+                 <Select value={newRule.protocol} onValueChange={(v) => setNewRule({...newRule, protocol: v as 'TCP' | 'UDP' })} disabled={!isPro}>
                   <SelectTrigger><SelectValue placeholder="Protocol" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="TCP">TCP</SelectItem>
@@ -159,16 +157,16 @@ export default function CloudFirewallPage() {
                 </Select>
               </div>
                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <Input placeholder="Port (e.g., 22, 443)" value={newRule.port} onChange={(e) => setNewRule({...newRule, port: e.target.value})} />
-                  <Input placeholder="Source (e.g., 0.0.0.0/0)" value={newRule.source} onChange={(e) => setNewRule({...newRule, source: e.target.value})} />
+                  <Input placeholder="Port (e.g., 22, 443)" value={newRule.port} onChange={(e) => setNewRule({...newRule, port: e.target.value})} disabled={!isPro}/>
+                  <Input placeholder="Source (e.g., 0.0.0.0/0)" value={newRule.source} onChange={(e) => setNewRule({...newRule, source: e.target.value})} disabled={!isPro}/>
               </div>
-              <Button onClick={addRule} className="w-full">
+              <Button onClick={addRule} className="w-full" disabled={!isPro}>
                 <Plus className="mr-2 h-4 w-4" /> Add Rule
               </Button>
             </div>
           </CardContent>
           <CardFooter>
-            <Button size="lg" className="w-full" onClick={handleGenerate} disabled={isGenerating}>
+            <Button size="lg" className="w-full" onClick={handleGenerate} disabled={isGenerating || !isPro}>
               {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               Generate Firewall Config
             </Button>
@@ -200,7 +198,7 @@ export default function CloudFirewallPage() {
                       <TableCell>{rule.protocol}</TableCell>
                       <TableCell>{rule.source}</TableCell>
                       <TableCell>
-                        <Button variant="ghost" size="icon" onClick={() => removeRule(rule.id)}>
+                        <Button variant="ghost" size="icon" onClick={() => removeRule(rule.id)} disabled={!isPro}>
                           <Trash2 className="h-4 w-4 text-destructive" />
                         </Button>
                       </TableCell>

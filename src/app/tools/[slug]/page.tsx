@@ -1,4 +1,3 @@
-
 import { tools } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -10,6 +9,8 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import React from "react";
+import Autoplay from "embla-carousel-autoplay";
 
 type Props = {
   params: { slug: string };
@@ -32,6 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function ToolDetailPage({ params }: Props) {
   const tool = tools.find((t) => t.slug === params.slug);
+  const autoplayPlugin = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
+  );
 
   if (!tool) {
     notFound();
@@ -92,7 +96,11 @@ export default function ToolDetailPage({ params }: Props) {
         
         {screenshots.length > 0 && (
             <div className="mb-16">
-            <Carousel className="w-full">
+            <Carousel 
+              plugins={[autoplayPlugin.current]}
+              className="w-full"
+              opts={{ loop: true }}
+            >
                 <CarouselContent>
                 {screenshots.map((screenshot) => (
                     <CarouselItem key={screenshot.id}>
@@ -146,5 +154,3 @@ export async function generateStaticParams() {
     slug: tool.slug,
   }));
 }
-
-    

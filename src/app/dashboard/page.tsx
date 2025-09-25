@@ -8,7 +8,7 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ShieldCheck, Zap, ArrowRight, ShieldAlert } from 'lucide-react';
+import { ShieldCheck, Zap, ArrowRight, ShieldAlert, Loader2, Newspaper } from 'lucide-react';
 import Link from 'next/link';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 import {
@@ -17,6 +17,11 @@ import {
   ChartTooltipContent,
   ChartConfig,
 } from '@/components/ui/chart';
+import { useState }from 'react';
+import { analyzeThreats } from './threat-monitor/actions';
+import { AIPoweredThreatMonitoringOutput } from '@/ai/flows/ai-powered-threat-monitoring';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+
 
 const chartData = [
   { month: 'Jan', requests: 1860 },
@@ -35,6 +40,17 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export default function DashboardOverviewPage() {
+  const [threatResult, setThreatResult] = useState<AIPoweredThreatMonitoringOutput | null>(null);
+  const [isThreatLoading, setIsThreatLoading] = useState(false);
+
+  const handleThreatAnalysis = async () => {
+    setIsThreatLoading(true);
+    setThreatResult(null);
+    const result = await analyzeThreats({ organizationName: "DentiSystems" });
+    setThreatResult(result);
+    setIsThreatLoading(false);
+  }
+
   return (
     <div>
       <h1 className="font-headline text-2xl font-bold mb-4">
@@ -45,21 +61,57 @@ export default function DashboardOverviewPage() {
       </p>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
-        <Card className="bg-destructive/30 border border-destructive">
+        <Card className="bg-destructive/10 border-destructive/50 flex flex-col">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Active Threats</CardTitle>
             <ShieldAlert className="h-4 w-4 text-destructive" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-destructive">Automated Scan</div>
-            <p className="text-xs text-muted-foreground">
-              Run AI scan on latest security news.
-            </p>
-            <Button variant="link" size="sm" asChild className="p-0 h-auto mt-2 text-destructive">
-              <Link href="/dashboard/threat-monitor">
-                Scan for Threats <ArrowRight className="ml-1 h-3 w-3" />
-              </Link>
-            </Button>
+          <CardContent className="flex-grow flex flex-col justify-between">
+            {!threatResult && !isThreatLoading && (
+              <>
+                <div className="flex-grow">
+                  <div className="text-2xl font-bold text-destructive">Automated Scan</div>
+                  <p className="text-xs text-muted-foreground">
+                    Run AI scan on latest security news.
+                  </p>
+                </div>
+                <Button variant="destructive" size="sm" onClick={handleThreatAnalysis} className="w-full">
+                  <ShieldAlert className="mr-2 h-4 w-4" />
+                  Scan for Threats
+                </Button>
+              </>
+            )}
+             {isThreatLoading && (
+                <div className="flex flex-col items-center justify-center text-center text-muted-foreground p-8 flex-grow">
+                  <Loader2 className="h-8 w-8 animate-spin mb-4 text-primary" />
+                  <p className="font-semibold">AI Agent is running...</p>
+                  <p className="text-sm">Fetching and analyzing security news.</p>
+                </div>
+              )}
+              {threatResult && (
+                <div className='flex flex-col gap-4'>
+                  {threatResult.threatDetected ? (
+                     <Alert variant="destructive">
+                      <ShieldAlert className="h-4 w-4" />
+                      <AlertTitle className="font-headline">Threat Detected!</AlertTitle>
+                      <AlertDescription>
+                        {threatResult.alertMessage}
+                      </AlertDescription>
+                    </Alert>
+                  ) : (
+                    <Alert>
+                      <ShieldCheck className="h-4 w-4" />
+                      <AlertTitle className="font-headline text-primary">No Immediate Threat Detected</AlertTitle>
+                      <AlertDescription>
+                        The scan did not find any immediate threats to DentiSystems.
+                      </AlertDescription>
+                    </Alert>
+                  )}
+                  <Button variant="secondary" size="sm" onClick={() => setThreatResult(null)} className="w-full">
+                    Scan Again
+                  </Button>
+                </div>
+              )}
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
@@ -72,6 +124,11 @@ export default function DashboardOverviewPage() {
             <p className="text-xs text-muted-foreground">
               All tools and API access unlocked.
             </p>
+             <Button variant="link" size="sm" asChild className="p-0 h-auto mt-2">
+              <Link href="/dashboard/subscriptions">
+                Manage Subscription <ArrowRight className="ml-1 h-3 w-3" />
+              </Link>
+            </Button>
           </CardContent>
         </Card>
         <Card className="lg:col-span-1 bg-gradient-to-br from-card to-card/80 border-border/50">
@@ -123,13 +180,13 @@ export default function DashboardOverviewPage() {
             <Card className="hover:border-primary/50 transition-colors h-full bg-gradient-to-br from-card to-card/80 border-border/50">
               <CardHeader>
                 <CardTitle className="text-base font-semibold flex items-center gap-2">
-                  <ShieldAlert className="h-5 w-5 text-primary" />
-                  AI Threat Monitor
+                  <Newspaper className="h-5 w-5 text-primary" />
+                  Threat Intel Feed
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Analyze news for organizational threats.
+                  Review detailed threat analysis reports.
                 </p>
               </CardContent>
             </Card>

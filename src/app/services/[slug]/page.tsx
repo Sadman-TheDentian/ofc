@@ -1,4 +1,3 @@
-
 import { services } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -52,33 +51,34 @@ export default function ServiceDetailPage({ params }: Props) {
 
   return (
     <div className="container py-12 md:py-20">
-      <script
+       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
-        <div className="mb-12">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-6">
-                <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-                {service.title}
-                </h1>
-            </div>
-             <p className="text-xl text-muted-foreground md:w-2/3">
-              {service.description}
-            </p>
-        </div>
-      <div className="grid lg:grid-cols-3 gap-12">
-        <div className="lg:col-span-2 space-y-8">
-            <div>
+        <div className="relative mb-12 overflow-hidden rounded-xl">
+             <div className="relative h-64 md:h-96 w-full">
                 <Image 
                     src={service.imageUrl} 
                     alt={service.title} 
-                    width={800} 
-                    height={500} 
-                    className="rounded-lg shadow-lg object-cover w-full"
+                    fill
+                    className="object-cover w-full h-full"
                     data-ai-hint={service.imageHint}
+                    priority
                 />
+                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
             </div>
+             <div className="absolute bottom-0 left-0 p-8">
+                <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl text-white">
+                {service.title}
+                </h1>
+            </div>
+        </div>
+      <div className="grid lg:grid-cols-3 gap-12">
+        <div className="lg:col-span-2 space-y-8">
             <div className="prose prose-invert max-w-none text-foreground/80 text-lg">
+                 <p className="text-xl text-muted-foreground md:w-2/3">
+                    {service.description}
+                </p>
                 <p>{service.longDescription}</p>
             </div>
             <Button asChild size="lg">
