@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, BrainCircuit, Fingerprint, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
-import { caseStudies, services, securityAdvisories, blogPosts } from '@/lib/data';
+import { services } from '@/lib/data';
 import Image from 'next/image';
 import PartnerSlider from '@/components/layout/PartnerSlider';
 import RevealOnScroll from '@/components/animations/RevealOnScroll';
@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
 import React from 'react';
+import { caseStudies, securityAdvisories, blogPosts } from '@/lib/data';
 
 
 export default function Home() {
