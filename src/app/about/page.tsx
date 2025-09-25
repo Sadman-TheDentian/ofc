@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Award, Handshake, BrainCircuit, FileText, BarChart } from "lucide-react";
+import { Users, Award, Handshake, BrainCircuit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { TeamMembers } from "@/lib/placeholder-images";
@@ -44,19 +44,22 @@ const values = [
 
 const resources = [
     {
-        icon: FileText,
         title: "Whitepaper: The Anatomy of a Zero-Day Exploit",
-        description: "A deep dive into how zero-day vulnerabilities are discovered, weaponized, and deployed by advanced persistent threat actors."
+        description: "A deep dive into how zero-day vulnerabilities are discovered, weaponized, and deployed by advanced persistent threat actors.",
+        imageUrl: "https://picsum.photos/seed/res1/600/400",
+        imageHint: "abstract code security"
     },
     {
-        icon: BarChart,
         title: "Report: 2024 Global Threat Landscape",
-        description: "Our annual report analyzing the year's most significant cyber threats, attack vectors, and defensive trends across industries."
+        description: "Our annual report analyzing the year's most significant cyber threats, attack vectors, and defensive trends across industries.",
+        imageUrl: "https://picsum.photos/seed/res2/600/400",
+        imageHint: "digital world map"
     },
     {
-        icon: FileText,
         title: "Guide: Building a Resilient Security Culture",
-        description: "Actionable steps for fostering a security-first mindset within your organization to combat social engineering and insider threats."
+        description: "Actionable steps for fostering a security-first mindset within your organization to combat social engineering and insider threats.",
+        imageUrl: "https://picsum.photos/seed/res3/600/400",
+        imageHint: "team collaboration security"
     }
 ]
 
@@ -172,17 +175,26 @@ export default function AboutPage() {
         >
             <CarouselContent className="-ml-4">
                 {resources.map((resource) => (
-                    <CarouselItem key={resource.title} className="pl-4 md:basis-1/2">
-                        <div className="p-1 h-full">
-                            <Card className="bg-gradient-to-br from-card to-card/80 border-border/50 p-6 flex items-start gap-6 h-full">
-                                <resource.icon className="h-10 w-10 text-primary mt-1 flex-shrink-0" />
-                                <div>
-                                    <h3 className="font-headline text-xl font-semibold mb-2">{resource.title}</h3>
-                                    <p className="text-muted-foreground text-sm mb-4">{resource.description}</p>
-                                    <Button variant="link" className="p-0">Read More</Button>
+                    <CarouselItem key={resource.title} className="pl-4 md:basis-1/2 group">
+                        <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
+                            <CardHeader className="p-0">
+                                <div className="relative h-48 w-full">
+                                    <Image
+                                        src={resource.imageUrl}
+                                        alt={resource.title}
+                                        fill
+                                        objectFit="cover"
+                                        className="group-hover:scale-105 transition-transform duration-300"
+                                        data-ai-hint={resource.imageHint}
+                                    />
                                 </div>
-                            </Card>
-                        </div>
+                            </CardHeader>
+                            <CardContent className="p-6 flex-grow flex flex-col">
+                                <h3 className="font-headline text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{resource.title}</h3>
+                                <p className="text-muted-foreground text-sm mb-4 flex-grow">{resource.description}</p>
+                                <Button variant="link" className="p-0 self-start">Read More</Button>
+                            </CardContent>
+                        </Card>
                     </CarouselItem>
                 ))}
             </CarouselContent>
