@@ -49,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <link rel="icon" href={logoUrl} type="image/png" />
+        <link rel="icon" href={logoUrl} type="image/png" sizes="any" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
