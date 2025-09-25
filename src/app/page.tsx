@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useRef } from 'react';
@@ -45,7 +44,7 @@ export default function Home() {
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
             <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground whitespace-pre-line">
-              AI-Powered Cybersecurity for Modern Threats
+              Elite Cybersecurity & Custom Web Engineering
             </h1>
             <p
               className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
