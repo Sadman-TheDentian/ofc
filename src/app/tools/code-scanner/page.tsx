@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -59,88 +60,91 @@ app.listen(3000);`,
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-        <Card className="md:col-span-1 bg-gradient-to-br from-card to-card/80 border-border/50">
-          <CardHeader>
-            <CardTitle>Code Input</CardTitle>
-            <CardDescription>Enter the code you want to analyze.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                  control={form.control}
-                  name="code"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="sr-only">Code Snippet</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Enter your code snippet here..."
-                          className="min-h-[300px] font-mono text-xs"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Analyzing...
-                    </>
-                  ) : (
-                    "Scan Code"
-                  )}
-                </Button>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
-
-        <Card className="md:col-span-1 bg-gradient-to-br from-card to-card/80 border-border/50">
-          <CardHeader>
-            <CardTitle>Analysis Results</CardTitle>
-            <CardDescription>Vulnerabilities identified by the AI will appear here.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {isLoading && (
-              <div className="flex flex-col items-center justify-center text-center text-muted-foreground p-8">
-                <Loader2 className="h-8 w-8 animate-spin mb-4 text-primary" />
-                <p className="font-semibold">AI agent is analyzing the code...</p>
-              </div>
-            )}
-            {result && (
-              <div>
-                {result.vulnerabilities.length === 0 ? (
-                  <Alert>
-                    <ShieldCheck className="h-4 w-4" />
-                    <AlertTitle className="text-primary">No Vulnerabilities Found</AlertTitle>
-                    <AlertDescription>
-                      The AI agent did not find any common vulnerabilities in the provided code snippet.
-                    </AlertDescription>
-                  </Alert>
-                ) : (
-                  <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
-                    {result.vulnerabilities.map((vuln, index) => (
-                      <Alert key={index} variant={vuln.vulnerability === 'Analysis Failed' ? "destructive" : "default"}>
-                        <ShieldAlert className="h-4 w-4" />
-                        <AlertTitle>{vuln.vulnerability} (Line: {vuln.line})</AlertTitle>
-                        <AlertDescription>{vuln.suggestion}</AlertDescription>
-                      </Alert>
-                    ))}
-                  </div>
+        <div className="md:col-span-2 lg:col-span-1">
+            <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
+            <CardHeader>
+                <CardTitle>Code Input</CardTitle>
+                <CardDescription>Enter the code you want to analyze.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <FormField
+                    control={form.control}
+                    name="code"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel className="sr-only">Code Snippet</FormLabel>
+                        <FormControl>
+                            <Textarea
+                            placeholder="Enter your code snippet here..."
+                            className="min-h-[300px] font-mono text-xs"
+                            {...field}
+                            />
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+                    {isLoading ? (
+                        <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Analyzing...
+                        </>
+                    ) : (
+                        "Scan Code"
+                    )}
+                    </Button>
+                </form>
+                </Form>
+            </CardContent>
+            </Card>
+        </div>
+        <div className="md:col-span-2 lg:col-span-1">
+            <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
+            <CardHeader>
+                <CardTitle>Analysis Results</CardTitle>
+                <CardDescription>Vulnerabilities identified by the AI will appear here.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                {isLoading && (
+                <div className="flex flex-col items-center justify-center text-center text-muted-foreground p-8">
+                    <Loader2 className="h-8 w-8 animate-spin mb-4 text-primary" />
+                    <p className="font-semibold">AI agent is analyzing the code...</p>
+                </div>
                 )}
-              </div>
-            )}
-            {!isLoading && !result && (
-              <div className="text-center text-muted-foreground p-8">
-                <p>Results will be displayed here after analysis.</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                {result && (
+                <div>
+                    {result.vulnerabilities.length === 0 ? (
+                    <Alert>
+                        <ShieldCheck className="h-4 w-4" />
+                        <AlertTitle className="text-primary">No Vulnerabilities Found</AlertTitle>
+                        <AlertDescription>
+                        The AI agent did not find any common vulnerabilities in the provided code snippet.
+                        </AlertDescription>
+                    </Alert>
+                    ) : (
+                    <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+                        {result.vulnerabilities.map((vuln, index) => (
+                        <Alert key={index} variant={vuln.vulnerability === 'Analysis Failed' ? "destructive" : "default"}>
+                            <ShieldAlert className="h-4 w-4" />
+                            <AlertTitle>{vuln.vulnerability} (Line: {vuln.line})</AlertTitle>
+                            <AlertDescription>{vuln.suggestion}</AlertDescription>
+                        </Alert>
+                        ))}
+                    </div>
+                    )}
+                </div>
+                )}
+                {!isLoading && !result && (
+                <div className="text-center text-muted-foreground p-8">
+                    <p>Results will be displayed here after analysis.</p>
+                </div>
+                )}
+            </CardContent>
+            </Card>
+        </div>
       </div>
     </div>
   );

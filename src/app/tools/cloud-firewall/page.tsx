@@ -138,7 +138,7 @@ export default function CloudFirewallPage() {
             
             <div className="border bg-secondary/30 rounded-lg p-4 space-y-4">
               <h4 className="font-semibold">Add New Rule</h4>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Select value={newRule.action} onValueChange={(v) => setNewRule({...newRule, action: v as 'Allow' | 'Deny' })}>
                   <SelectTrigger><SelectValue placeholder="Action" /></SelectTrigger>
                   <SelectContent>
@@ -154,7 +154,7 @@ export default function CloudFirewallPage() {
                   </SelectContent>
                 </Select>
               </div>
-               <div className="grid grid-cols-2 gap-4">
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <Input placeholder="Port (e.g., 22, 443)" value={newRule.port} onChange={(e) => setNewRule({...newRule, port: e.target.value})} />
                   <Input placeholder="Source (e.g., 0.0.0.0/0)" value={newRule.source} onChange={(e) => setNewRule({...newRule, source: e.target.value})} />
               </div>
@@ -177,7 +177,7 @@ export default function CloudFirewallPage() {
             <CardDescription>{rules.length} rules defined.</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="border rounded-lg max-h-96 overflow-y-auto">
+            <div className="border rounded-lg max-h-96 overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>

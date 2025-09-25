@@ -1,3 +1,4 @@
+
 'use client';
 
 import {useState} from 'react';
@@ -167,62 +168,64 @@ export default function ApiKeysPage() {
       </div>
 
       <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Key</TableHead>
-              <TableHead>Created</TableHead>
-              <TableHead>Last Used</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {apiKeys.map(apiKey => (
-              <TableRow key={apiKey.id}>
-                <TableCell className="font-medium">{apiKey.name}</TableCell>
-                <TableCell className="font-mono text-sm">
-                  {apiKey.key.slice(0, 8)}••••••••••••••••
-                  {apiKey.key.slice(-4)}
-                </TableCell>
-                <TableCell>{apiKey.created}</TableCell>
-                <TableCell>
-                  {apiKey.lastUsed === 'Never' ? (
-                    <Badge variant="outline">Never</Badge>
-                  ) : (
-                    apiKey.lastUsed
-                  )}
-                </TableCell>
-                <TableCell className="text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => handleCopy(apiKey.key)}>
-                        <Copy className="mr-2 h-4 w-4" />
-                        Copy Key
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Edit className="mr-2 h-4 w-4" />
-                        Edit Name
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="text-destructive"
-                        onClick={() => openDeleteDialog(apiKey)}
-                      >
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <div className="overflow-x-auto">
+            <Table>
+            <TableHeader>
+                <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Key</TableHead>
+                <TableHead>Created</TableHead>
+                <TableHead>Last Used</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {apiKeys.map(apiKey => (
+                <TableRow key={apiKey.id}>
+                    <TableCell className="font-medium whitespace-nowrap">{apiKey.name}</TableCell>
+                    <TableCell className="font-mono text-sm">
+                    {apiKey.key.slice(0, 8)}••••••••••••••••
+                    {apiKey.key.slice(-4)}
+                    </TableCell>
+                    <TableCell className="whitespace-nowrap">{apiKey.created}</TableCell>
+                    <TableCell>
+                    {apiKey.lastUsed === 'Never' ? (
+                        <Badge variant="outline">Never</Badge>
+                    ) : (
+                        apiKey.lastUsed
+                    )}
+                    </TableCell>
+                    <TableCell className="text-right">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                            <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => handleCopy(apiKey.key)}>
+                            <Copy className="mr-2 h-4 w-4" />
+                            Copy Key
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <Edit className="mr-2 h-4 w-4" />
+                            Edit Name
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="text-destructive"
+                            onClick={() => openDeleteDialog(apiKey)}
+                        >
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            Delete
+                        </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                    </TableCell>
+                </TableRow>
+                ))}
+            </TableBody>
+            </Table>
+        </div>
       </Card>
 
       <Card className="mt-8 bg-gradient-to-br from-accent/50 to-accent/30 border-border/50">
