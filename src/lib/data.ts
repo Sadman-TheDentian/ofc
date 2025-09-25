@@ -10,6 +10,7 @@ import {
   Scan,
   ShieldHalf,
   Siren,
+  Shield,
 } from "lucide-react";
 
 export const services: Service[] = [
@@ -145,6 +146,20 @@ export const tools: Tool[] = [
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
     screenshots: [
         { id: 1, url: 'https://picsum.photos/seed/cvs1/1200/800', alt: 'AI Code Vulnerability Scanner interface', hint: 'code editor' }
+    ]
+  },
+  {
+    id: 7,
+    slug: "cloud-firewall",
+    title: "Cloud Firewall Lite",
+    description: "Generate `ufw` (Uncomplicated Firewall) rules for your servers quickly.",
+    longDescription: "A premium tool to generate and manage firewall configurations for your cloud servers. Define rules, generate scripts, and secure your infrastructure in minutes. This tool is available exclusively to PRO subscribers.",
+    icon: Shield,
+    url: "/tools/cloud-firewall",
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhv9e9pB3k-A9PjM5d9hA2b8r-F-g2G7hJ6T5yY6c5b4rX9cK3v2ZzX8eW5jB0p1N2l3kR8hJ7s6t5Y4wI9U2aX3v0sF4rE2b1oX3jA1sG5t4rY2b0c1kHjGf/s320/Firewall.png",
+    screenshots: [
+        { id: 1, url: 'https://picsum.photos/seed/cf1/1200/800', alt: 'Cloud Firewall rule generator interface', hint: 'dashboard form' },
+        { id: 2, url: 'https://picsum.photos/seed/cf2/1200/800', alt: 'Generated firewall configuration script', hint: 'code block script' }
     ]
   }
 ];
