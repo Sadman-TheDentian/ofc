@@ -4,7 +4,7 @@
 import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, BrainCircuit, Fingerprint, ShieldCheck } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { services } from '@/lib/data';
 import Image from 'next/image';
@@ -59,29 +59,6 @@ export default function Home() {
               <Button size="lg" variant="secondary" asChild>
                 <Link href="/threat-intelligence">View Threat Report</Link>
               </Button>
-            </div>
-             <div className="pt-8 flex flex-col items-center gap-6">
-                <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm font-medium text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                        <BrainCircuit className="h-4 w-4 text-primary" />
-                        <span>Real-time Threat Intelligence</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <Fingerprint className="h-4 w-4 text-primary" />
-                        <span>Zero Trust Architecture</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <ShieldCheck className="h-4 w-4 text-primary" />
-                        <span>Cloud-Native Security</span>
-                    </div>
-                </div>
-                 <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground/80">
-                    <span>Gartner Recognized</span>
-                    <span className="hidden md:inline">•</span>
-                    <span>ISO 27001 Certified</span>
-                    <span className="hidden md:inline">•</span>
-                    <span>1000+ Enterprises Protected</span>
-                </div>
             </div>
           </div>
         </div>
