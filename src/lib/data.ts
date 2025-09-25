@@ -1,4 +1,3 @@
-
 import type { Service, Tool } from "./types";
 import {
   ShieldCheck,
@@ -244,5 +243,3 @@ export const blogPosts = [
         imageHint: "network architecture diagram"
     },
 ];
-
-    
