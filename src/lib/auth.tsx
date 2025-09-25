@@ -15,7 +15,7 @@ import {
 } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase';
-import { createUserInDatabase } from '@/app/auth/actions';
+import { createUserProfile } from '@/lib/firestore';
 
 type AuthContextType = {
   user: User | null;
@@ -33,7 +33,7 @@ const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { auth } = useFirebase();
+  const { auth, firestore } = useFirebase();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       
     if (isNewUser) {
       try {
-        await createUserInDatabase({
+        await createUserProfile(firestore, {
           uid: userCredential.user.uid,
           email: userCredential.user.email,
           displayName: userCredential.user.displayName,
