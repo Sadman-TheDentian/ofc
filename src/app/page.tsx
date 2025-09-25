@@ -21,13 +21,13 @@ import Autoplay from 'embla-carousel-autoplay';
 
 
 export default function Home() {
-  const toolsAutoplayPlugin = useRef(
+  const plugins = useRef([
     Autoplay({
       delay: 5000,
-      stopOnInteraction: false,
+      stopOnInteraction: true,
       stopOnMouseEnter: true,
-    })
-  );
+    }),
+  ]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -90,45 +90,55 @@ export default function Home() {
               From proactive defense to incident response, our platform provides a resilient security posture for your organization.
             </p>
           </div>
-           <div className="grid md:grid-cols-3 gap-8">
-              {productShowcase.map((product, index) => (
-                <RevealOnScroll key={index} delay={index * 150}>
-                  <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group bg-gradient-to-br from-card to-card/80 border-border/50">
-                      <CardHeader className="flex flex-row items-center gap-4">
-                        <div className="p-3 bg-secondary rounded-lg">
-                            <product.icon className="h-6 w-6 text-primary" />
-                        </div>
-                         <CardTitle className="font-headline text-xl">
-                            {product.title}
-                         </CardTitle>
-                      </CardHeader>
-                      <CardContent className="flex-grow flex flex-col p-6 pt-0">
-                         <p className="text-muted-foreground flex-grow mb-4 text-sm">
-                          {product.description}
-                        </p>
-                        <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                            {product.features.map(feature => (
-                                <li key={feature} className="flex items-center gap-2">
-                                    <CheckCircle className="h-4 w-4 text-primary" />
-                                    <span>{feature}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <Button
-                          variant="outline"
-                          className="w-full mt-auto"
-                          asChild
-                        >
-                          <Link href="#">
-                            {product.cta}{' '}
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Link>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                </RevealOnScroll>
-              ))}
-          </div>
+           <Carousel
+              opts={{ align: 'start', loop: true }}
+              plugins={plugins.current}
+              className="w-full max-w-6xl mx-auto"
+            >
+              <CarouselContent className="-ml-4">
+                {productShowcase.map((product, index) => (
+                  <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <RevealOnScroll delay={index * 150}>
+                      <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group bg-gradient-to-br from-card to-card/80 border-border/50">
+                          <CardHeader className="flex flex-row items-center gap-4">
+                            <div className="p-3 bg-secondary rounded-lg">
+                                <product.icon className="h-6 w-6 text-primary" />
+                            </div>
+                             <CardTitle className="font-headline text-xl">
+                                {product.title}
+                             </CardTitle>
+                          </CardHeader>
+                          <CardContent className="flex-grow flex flex-col p-6 pt-0">
+                             <p className="text-muted-foreground flex-grow mb-4 text-sm">
+                              {product.description}
+                            </p>
+                            <ul className="space-y-2 text-sm text-muted-foreground mb-6">
+                                {product.features.map(feature => (
+                                    <li key={feature} className="flex items-center gap-2">
+                                        <CheckCircle className="h-4 w-4 text-primary" />
+                                        <span>{feature}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                            <Button
+                              variant="outline"
+                              className="w-full mt-auto"
+                              asChild
+                            >
+                              <Link href="#">
+                                {product.cta}{' '}
+                                <ArrowRight className="ml-2 h-4 w-4" />
+                              </Link>
+                            </Button>
+                          </CardContent>
+                        </Card>
+                    </RevealOnScroll>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden lg:flex" />
+              <CarouselNext className="hidden lg:flex" />
+            </Carousel>
         </div>
       </section>
 
@@ -146,42 +156,54 @@ export default function Home() {
                 </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
-                <div className='space-y-4'>
+                 <div className='space-y-4'>
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
-                     {securityAdvisories.map(advisory => (
-                        <Card key={advisory.id} className="bg-gradient-to-br from-card to-card/80 border-border/50 hover:border-primary/50 transition-colors">
-                            <CardHeader>
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <CardTitle className="font-headline text-lg">{advisory.title}</CardTitle>
-                                        <p className='text-muted-foreground text-sm'>{advisory.id} • {advisory.date}</p>
-                                    </div>
-                                    <div className={`text-xs font-bold uppercase px-3 py-1 rounded-full text-white ${advisory.severityColor}`}>{advisory.severity}</div>
-                                </div>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-muted-foreground text-sm">{advisory.description}</p>
-                            </CardContent>
-                        </Card>
-                    ))}
+                     <Carousel opts={{ align: 'start', loop: true }} plugins={plugins.current} className="w-full">
+                       <CarouselContent>
+                          {securityAdvisories.map(advisory => (
+                            <CarouselItem key={advisory.id}>
+                                <Card className="bg-gradient-to-br from-card to-card/80 border-border/50 hover:border-primary/50 transition-colors">
+                                    <CardHeader>
+                                        <div className="flex justify-between items-start">
+                                            <div>
+                                                <CardTitle className="font-headline text-lg">{advisory.title}</CardTitle>
+                                                <p className='text-muted-foreground text-sm'>{advisory.id} • {advisory.date}</p>
+                                            </div>
+                                            <div className={`text-xs font-bold uppercase px-3 py-1 rounded-full text-white ${advisory.severityColor}`}>{advisory.severity}</div>
+                                        </div>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <p className="text-muted-foreground text-sm">{advisory.description}</p>
+                                    </CardContent>
+                                </Card>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                     </Carousel>
                 </div>
                  <div className='space-y-4'>
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
-                      {blogPosts.slice(0,2).map(post => (
-                        <Link href={post.url} key={post.title} className="group block">
-                            <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
-                                <div className="flex flex-col md:flex-row">
-                                    <div className="relative h-40 md:h-auto md:w-48 flex-shrink-0">
-                                        <Image src={post.imageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" data-ai-hint={post.imageHint} />
-                                    </div>
-                                    <div className="p-6">
-                                        <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
-                                        <p className="text-xs text-muted-foreground mt-2">{post.author}</p>
-                                    </div>
-                                </div>
-                            </Card>
-                        </Link>
-                    ))}
+                      <Carousel opts={{ align: 'start', loop: true }} plugins={plugins.current} className="w-full">
+                         <CarouselContent>
+                          {blogPosts.slice(0,2).map(post => (
+                            <CarouselItem key={post.title}>
+                                <Link href={post.url} className="group block">
+                                    <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
+                                        <div className="flex flex-col md:flex-row">
+                                            <div className="relative h-40 md:h-auto md:w-48 flex-shrink-0">
+                                                <Image src={post.imageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" data-ai-hint={post.imageHint} />
+                                            </div>
+                                            <div className="p-6">
+                                                <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
+                                                <p className="text-xs text-muted-foreground mt-2">{post.author}</p>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                </Link>
+                              </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                      </Carousel>
                 </div>
             </div>
              <div className="text-center mt-12">
@@ -203,34 +225,44 @@ export default function Home() {
               fortify their digital defenses.
             </p>
           </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            {caseStudies.slice(0, 3).map((study, index) => (
-              <RevealOnScroll key={study.id} delay={index * 150}>
-                <Link href={`/case-studies`} className="group">
-                  <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
-                    <Image
-                      src={study.imageUrl}
-                      alt={study.title}
-                      width={600}
-                      height={400}
-                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                      data-ai-hint={study.imageHint}
-                    />
-                    <CardHeader>
-                      <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
-                        {study.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex-grow">
-                      <p className="text-muted-foreground text-sm">
-                        {study.summary}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </RevealOnScroll>
-            ))}
-          </div>
+          <Carousel
+              opts={{ align: 'start', loop: true }}
+              plugins={plugins.current}
+              className="w-full max-w-6xl mx-auto"
+            >
+              <CarouselContent className="-ml-4">
+              {caseStudies.slice(0, 3).map((study, index) => (
+                <CarouselItem key={study.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <RevealOnScroll delay={index * 150}>
+                    <Link href={`/case-studies`} className="group">
+                      <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
+                        <Image
+                          src={study.imageUrl}
+                          alt={study.title}
+                          width={600}
+                          height={400}
+                          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                          data-ai-hint={study.imageHint}
+                        />
+                        <CardHeader>
+                          <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
+                            {study.title}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="flex-grow">
+                          <p className="text-muted-foreground text-sm">
+                            {study.summary}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </RevealOnScroll>
+                </CarouselItem>
+              ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden lg:flex" />
+              <CarouselNext className="hidden lg:flex" />
+          </Carousel>
           <div className="text-center mt-12">
             <Button asChild size="lg">
               <Link href="/case-studies">View All Case Studies</Link>

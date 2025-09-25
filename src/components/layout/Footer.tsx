@@ -17,6 +17,7 @@ const footerLinks = {
         { title: "Cloud Security", href: "/products/cloud-security"},
         { title: "Endpoint Protection", href: "/products/endpoint-protection"},
         { title: "Threat Intelligence", href: "/threat-intelligence"},
+        { title: "Our Tools", href: "/tools"},
     ],
     Resources: [
         { title: "Threat Reports", href: "/threat-reports"},

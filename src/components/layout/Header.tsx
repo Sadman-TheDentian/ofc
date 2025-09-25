@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { Menu, ChevronDown } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/lib/auth';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
@@ -193,6 +193,13 @@ export default function Header() {
           </NavigationMenuContent>
         </NavigationMenuItem>
          <NavigationMenuItem>
+            <Link href="/tools" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Tools
+                </NavigationMenuLink>
+            </Link>
+        </NavigationMenuItem>
+         <NavigationMenuItem>
           <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
           <NavigationMenuContent>
              <ul className="grid w-[200px] gap-3 p-4 md:w-[250px]">
@@ -345,6 +352,15 @@ export default function Header() {
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
+                 <Link
+                    href="/tools"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn("text-lg text-muted-foreground transition-colors hover:text-primary pl-4 py-2",
+                        pathname === "/tools" ? 'text-primary' : ''
+                    )}
+                >
+                    Tools
+                </Link>
             </div>
             {user ? (
               <div className="flex flex-col space-y-2">
