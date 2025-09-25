@@ -8,6 +8,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { TeamMembers } from "@/lib/placeholder-images";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from "recharts";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import Autoplay from "embla-carousel-autoplay";
+import React from "react";
 
 const statsData = [
   { subject: 'Threats Analyzed', value: 120, fullMark: 150, displayValue: "1.2M+" },
@@ -43,6 +52,11 @@ const resources = [
         icon: BarChart,
         title: "Report: 2024 Global Threat Landscape",
         description: "Our annual report analyzing the year's most significant cyber threats, attack vectors, and defensive trends across industries."
+    },
+    {
+        icon: FileText,
+        title: "Guide: Building a Resilient Security Culture",
+        description: "Actionable steps for fostering a security-first mindset within your organization to combat social engineering and insider threats."
     }
 ]
 
@@ -62,6 +76,13 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 
 export default function AboutPage() {
+    const resourcesAutoplayPlugin = React.useRef(
+        Autoplay({
+          delay: 4000,
+          stopOnInteraction: true,
+          stopOnMouseEnter: true,
+        })
+    );
   return (
     <div className="container py-12 md:py-20">
       <div className="text-center max-w-3xl mx-auto mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
@@ -141,18 +162,33 @@ export default function AboutPage() {
         <h2 className="font-headline text-3xl font-bold tracking-tighter text-center mb-12">
             From Our Research Desk
         </h2>
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {resources.map((resource) => (
-                <Card key={resource.title} className="bg-gradient-to-br from-card to-card/80 border-border/50 p-6 flex items-start gap-6">
-                    <resource.icon className="h-10 w-10 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                         <h3 className="font-headline text-xl font-semibold mb-2">{resource.title}</h3>
-                         <p className="text-muted-foreground text-sm mb-4">{resource.description}</p>
-                         <Button variant="link" className="p-0">Read More</Button>
-                    </div>
-                </Card>
-            ))}
-        </div>
+        <Carousel
+            plugins={[resourcesAutoplayPlugin.current]}
+            className="w-full max-w-5xl mx-auto"
+            opts={{
+                align: 'start',
+                loop: true,
+            }}
+        >
+            <CarouselContent className="-ml-4">
+                {resources.map((resource) => (
+                    <CarouselItem key={resource.title} className="pl-4 md:basis-1/2">
+                        <div className="p-1 h-full">
+                            <Card className="bg-gradient-to-br from-card to-card/80 border-border/50 p-6 flex items-start gap-6 h-full">
+                                <resource.icon className="h-10 w-10 text-primary mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-headline text-xl font-semibold mb-2">{resource.title}</h3>
+                                    <p className="text-muted-foreground text-sm mb-4">{resource.description}</p>
+                                    <Button variant="link" className="p-0">Read More</Button>
+                                </div>
+                            </Card>
+                        </div>
+                    </CarouselItem>
+                ))}
+            </CarouselContent>
+             <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+        </Carousel>
       </section>
 
       <section className="text-center">
@@ -193,4 +229,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
