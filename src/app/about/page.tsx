@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Users, BarChart, Shield, Target } from "lucide-react";
+import { Users, BarChart, Shield, Target, Award, Handshake, BrainCircuit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -54,6 +54,24 @@ const stats = [
   },
 ];
 
+const values = [
+    {
+        icon: Award,
+        title: "Expertise",
+        description: "Our team comprises industry veterans with decades of combined experience in offensive security, threat intelligence, and secure software development."
+    },
+    {
+        icon: Handshake,
+        title: "Integrity",
+        description: "We operate with the highest ethical standards, prioritizing our clients' trust and confidentiality above all else. Your security is our bond."
+    },
+    {
+        icon: BrainCircuit,
+        title: "Innovation",
+        description: "The threat landscape is always evolving, and so are we. We are committed to continuous research and development to stay ahead of adversaries."
+    }
+]
+
 export default function AboutPage() {
   return (
     <div className="container py-12 md:py-20">
@@ -104,6 +122,21 @@ export default function AboutPage() {
               </CardContent>
             </Card>
           </div>
+        </div>
+      </section>
+
+      <section className="mb-20">
+        <h2 className="font-headline text-3xl font-bold tracking-tighter text-center mb-12">
+            Our Values
+        </h2>
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {values.map((value) => (
+                <Card key={value.title} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center p-6">
+                     <value.icon className="h-10 w-10 text-primary mx-auto mb-4" />
+                     <h3 className="font-headline text-xl font-semibold mb-2">{value.title}</h3>
+                     <p className="text-muted-foreground text-sm">{value.description}</p>
+                </Card>
+            ))}
         </div>
       </section>
 
