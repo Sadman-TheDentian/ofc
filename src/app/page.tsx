@@ -4,7 +4,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, BrainCircuit, CheckCircle, Fingerprint, ShieldCheck } from 'lucide-react';
+import { ArrowRight, BrainCircuit, CheckCircle, Fingerprint, ShieldCheck, Zap, Cloud, Monitor } from 'lucide-react';
 import Link from 'next/link';
 import { services, tools, caseStudies } from '@/lib/data';
 import Image from 'next/image';
@@ -18,6 +18,31 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+
+const productShowcase = [
+    {
+        icon: ShieldCheck,
+        title: "Network Security",
+        description: "Advanced firewall and threat prevention.",
+        features: ["Deep Packet Inspection", "Intrusion Prevention", "SSL Decryption"],
+        cta: "Learn More"
+    },
+    {
+        icon: Cloud,
+        title: "Cloud Security",
+        description: "Protect multi-cloud environments.",
+        features: ["Cloud Firewall", "Container Security", "CSPM"],
+        cta: "Learn More"
+    },
+    {
+        icon: Monitor,
+        title: "Endpoint Protection",
+        description: "Next-gen EDR and mobile security.",
+        features: ["Behavioral Analysis", "Threat Hunting", "Mobile Defense"],
+        cta: "Learn More"
+    }
+];
+
 
 export default function Home() {
   const [isClient, setIsClient] = useState(false);
@@ -104,60 +129,45 @@ export default function Home() {
               resilient security posture for your organization.
             </p>
           </div>
-          <Carousel
-            plugins={[servicesAutoplayPlugin.current]}
-            className="w-full"
-            opts={{
-              align: 'start',
-              loop: true,
-            }}
-          >
-            <CarouselContent className="-ml-4">
-              {services.map((service, index) => (
-                <CarouselItem
-                  key={service.id}
-                  className="pl-4 md:basis-1/2 lg:basis-1/3"
-                >
-                  <div className="p-1">
-                    <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group bg-gradient-to-br from-card to-card/80 border-border/50">
-                       <CardHeader className="p-0">
-                         <div className="relative h-48 w-full">
-                            <Image
-                            src={service.imageUrl}
-                            alt={service.title}
-                            fill
-                            style={{objectFit: "cover"}}
-                            className="group-hover:scale-105 transition-transform duration-300"
-                            data-ai-hint={service.imageHint}
-                            />
+           <div className="grid md:grid-cols-3 gap-8">
+              {productShowcase.map((product, index) => (
+                <RevealOnScroll key={index} delay={index * 150}>
+                  <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group bg-gradient-to-br from-card to-card/80 border-border/50">
+                      <CardHeader className="flex flex-row items-center gap-4">
+                        <div className="p-3 bg-secondary rounded-lg">
+                            <product.icon className="h-6 w-6 text-primary" />
                         </div>
-                      </CardHeader>
-                      <CardContent className="flex-grow flex flex-col p-6">
-                         <CardTitle className="font-headline text-xl mb-4">
-                            {service.title}
+                         <CardTitle className="font-headline text-xl">
+                            {product.title}
                          </CardTitle>
-                        <p className="text-muted-foreground flex-grow mb-4">
-                          {service.description}
+                      </CardHeader>
+                      <CardContent className="flex-grow flex flex-col p-6 pt-0">
+                         <p className="text-muted-foreground flex-grow mb-4">
+                          {product.description}
                         </p>
+                        <ul className="space-y-2 text-sm text-muted-foreground mb-6">
+                            {product.features.map(feature => (
+                                <li key={feature} className="flex items-center gap-2">
+                                    <CheckCircle className="h-4 w-4 text-primary" />
+                                    <span>{feature}</span>
+                                </li>
+                            ))}
+                        </ul>
                         <Button
-                          variant="link"
-                          className="p-0 self-start"
+                          variant="outline"
+                          className="w-full mt-auto"
                           asChild
                         >
-                          <Link href={`/services/${service.slug}`}>
-                            Learn More{' '}
+                          <Link href="#">
+                            {product.cta}{' '}
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </Link>
                         </Button>
                       </CardContent>
                     </Card>
-                  </div>
-                </CarouselItem>
+                </RevealOnScroll>
               ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-          </Carousel>
+          </div>
         </div>
       </section>
 
