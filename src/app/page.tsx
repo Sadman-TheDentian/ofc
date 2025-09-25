@@ -4,7 +4,7 @@
 import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, ShieldCheck, Zap, Code, Siren } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { services } from '@/lib/data';
 import Image from 'next/image';
@@ -35,7 +35,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-       <section className="relative w-full h-[100vh] min-h-[700px] flex items-center justify-center text-center overflow-hidden">
+       <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 -z-20" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
 
@@ -117,7 +117,7 @@ export default function Home() {
 
       <section
         id="threat-intelligence"
-        className="py-20 md:py-32 border-t border-border/50 bg-card/80 backdrop-blur-sm"
+        className="py-20 md:py-32 border-y border-border/50 bg-card/80 backdrop-blur-sm"
       >
         <div className="container px-4 md:px-6">
            <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">

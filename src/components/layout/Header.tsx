@@ -163,7 +163,7 @@ export default function Header() {
                   <ul className="flex flex-col">
                     {items.map((item) => (
                       <ListItem key={item} href={`/tools/${item.toLowerCase().replace(/\s+/g, '-')}`} title={item}>
-                        {/* Add short descriptions later */}
+                        {tools.find(t => t.title.toLowerCase() === item.toLowerCase())?.description}
                       </ListItem>
                     ))}
                   </ul>
@@ -194,16 +194,11 @@ export default function Header() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {tools.filter(tool => tool.slug !== 'cloud-firewall').map((tool) => (
-                <ListItem key={tool.title} href={`${tool.url}`} title={tool.title}>
-                  {tool.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
+          <Link href="/tools" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Tools
+            </NavigationMenuLink>
+          </Link>
         </NavigationMenuItem>
          <NavigationMenuItem>
           <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
@@ -317,7 +312,7 @@ export default function Header() {
                             Products
                         </AccordionTrigger>
                         <AccordionContent>
-                           {Object.values(products).flat().map(item => (
+                           {[...Object.values(products).flat(), ...tools.map(t => t.title)].map(item => (
                                 <MobileNavLink key={item} href={`/tools/${item.toLowerCase().replace(/\s+/g, '-')}`}>{item}</MobileNavLink>
                            ))}
                         </AccordionContent>
@@ -358,15 +353,6 @@ export default function Header() {
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
-                 <Link
-                    href="/tools"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={cn("text-lg text-muted-foreground transition-colors hover:text-primary pl-4 py-2",
-                        pathname === "/tools" ? 'text-primary' : ''
-                    )}
-                >
-                    Tools
-                </Link>
             </div>
             {user ? (
               <div className="flex flex-col space-y-2">
