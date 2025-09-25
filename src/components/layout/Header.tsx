@@ -72,7 +72,7 @@ const ListItem = React.forwardRef<
 ListItem.displayName = 'ListItem';
 
 const products = {
-    "Network Security": ["Firewall Solutions", "Threat Prevention", "Network Monitoring"],
+    "Network Security": ["Firewall Solutions", "Threat Prevention", "Network Monitoring", "Cloud Firewall"],
     "Cloud Security": ["Cloud Firewall", "Container Security", "Cloud Compliance"],
     "Endpoint Protection": ["EDR Solutions", "Mobile Security", "Device Management"]
 };
@@ -198,7 +198,7 @@ export default function Header() {
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {tools.map((tool) => (
-                <ListItem key={tool.title} href={`/tools/${tool.slug}`} title={tool.title}>
+                <ListItem key={tool.title} href={`${tool.url}`} title={tool.title}>
                   {tool.description}
                 </ListItem>
               ))}
