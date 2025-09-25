@@ -7,6 +7,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { AuthProvider } from "@/lib/auth";
 import GalaxyAnimation from "@/components/animations/Galaxy";
+import { FirebaseClientProvider } from "@/firebase/client-provider";
 
 export const metadata: Metadata = {
   title: "DentiSystems — Elite Cybersecurity & Custom Web Engineering",
@@ -67,12 +68,14 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <GalaxyAnimation />
-        <AuthProvider>
-          <Header />
-          <main className="flex-grow z-10">{children}</main>
-          <Footer />
-          <Toaster />
-        </AuthProvider>
+        <FirebaseClientProvider>
+          <AuthProvider>
+            <Header />
+            <main className="flex-grow z-10">{children}</main>
+            <Footer />
+            <Toaster />
+          </AuthProvider>
+        </FirebaseClientProvider>
       </body>
     </html>
   );
