@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,12 +8,6 @@ import About from "./pages/About";
 import Tools from "./pages/Tools";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import { useState, useEffect } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth } from './lib/auth';
-import { Loader2, ShieldOff } from 'lucide-react';
-import GlobalHeader from './components/GlobalHeader';
-import NeonFooter from './components/NeonFooter';
 
 const queryClient = new QueryClient();
 
@@ -37,5 +30,3 @@ const App = () => (
 );
 
 export default App;
-
-    

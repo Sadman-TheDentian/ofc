@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
@@ -107,7 +106,7 @@ export default function Home() {
                             src={service.imageUrl}
                             alt={service.title}
                             fill
-                            objectFit="cover"
+                            style={{objectFit: "cover"}}
                             className="group-hover:scale-105 transition-transform duration-300"
                             data-ai-hint={service.imageHint}
                             />
