@@ -16,6 +16,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase';
 import { createUserProfile } from './firestore';
+import type { Firestore } from 'firebase/firestore';
 
 type AuthContextType = {
   user: User | null;
@@ -33,7 +34,7 @@ const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { auth } = useFirebase();
+  const { auth, firestore } = useFirebase();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -51,12 +52,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return () => unsubscribe();
   }, [auth]);
 
-  const handleSuccessfulAuth = async (userCredential: UserCredential) => {
+  const handleSuccessfulAuth = async (userCredential: UserCredential, db: Firestore) => {
     const isNewUser =
       userCredential.user.metadata.creationTime ===
       userCredential.user.metadata.lastSignInTime;
     if (isNewUser) {
-      await createUserProfile(userCredential.user);
+      await createUserProfile(db, userCredential.user);
     }
     router.push('/dashboard');
   };
@@ -64,10 +65,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const socialSignIn = async (
     provider: GoogleAuthProvider | GithubAuthProvider
   ) => {
-    if (!auth) throw new Error("Auth service not available");
+    if (!auth || !firestore) throw new Error("Firebase services not available");
     try {
       const result = await signInWithPopup(auth, provider);
-      await handleSuccessfulAuth(result);
+      await handleSuccessfulAuth(result, firestore);
     } catch (error) {
       console.error(`Error signing in with ${provider.providerId}:`, error);
       throw error;
@@ -83,14 +84,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signUpWithEmail = async (email: string, pass: string) => {
-    if (!auth) throw new Error("Auth service not available");
+    if (!auth || !firestore) throw new Error("Firebase services not available");
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         pass
       );
-      await handleSuccessfulAuth(userCredential);
+      await handleSuccessfulAuth(userCredential, firestore);
       return userCredential;
     } catch (error) {
       console.error('Error signing up with email:', error);
@@ -99,14 +100,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signInWithEmail = async (email: string, pass: string) => {
-    if (!auth) throw new Error("Auth service not available");
+    if (!auth || !firestore) throw new Error("Firebase services not available");
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         pass
       );
-      await handleSuccessfulAuth(userCredential);
+      await handleSuccessfulAuth(userCredential, firestore);
       return userCredential;
     } catch (error) {
       console.error('Error signing in with email:', error);

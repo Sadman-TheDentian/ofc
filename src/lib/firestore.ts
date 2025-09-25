@@ -1,13 +1,11 @@
 
-import { doc, setDoc, serverTimestamp } from "firebase/firestore"; 
+import { doc, setDoc, serverTimestamp, type Firestore } from "firebase/firestore"; 
 import { User } from "firebase/auth";
-import { initializeFirebase } from "@/firebase";
 
-export async function createUserProfile(user: User) {
+export async function createUserProfile(db: Firestore, user: User) {
   if (!user) return;
-  const { firestore } = initializeFirebase();
 
-  const userRef = doc(firestore, "users", user.uid);
+  const userRef = doc(db, "users", user.uid);
 
   try {
     await setDoc(userRef, {
