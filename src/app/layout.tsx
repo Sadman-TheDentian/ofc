@@ -9,6 +9,10 @@ import { AuthProvider } from "@/lib/auth";
 import GalaxyAnimation from "@/components/animations/Galaxy";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
 
+const logoUrl =
+  'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png';
+
+
 export const metadata: Metadata = {
   title: "DentiSystems — Elite Cybersecurity & Custom Web Engineering",
   description:
@@ -45,6 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        <link rel="icon" href={logoUrl} type="image/png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
