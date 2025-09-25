@@ -7,12 +7,12 @@ import { Users, Award, Handshake, BrainCircuit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { TeamMembers } from "@/lib/placeholder-images";
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from "recharts";
 
 const statsData = [
-  { name: 'Threats Analyzed', value: 1200000, label: "1.2M+" },
-  { name: 'Ransomware Resilience', value: 99.8, label: "99.8%" },
-  { name: 'Enterprises Secured', value: 150, label: "150+" },
+  { subject: 'Threats Analyzed', value: 120, fullMark: 150, displayValue: "1.2M+" },
+  { subject: 'Enterprises Secured', value: 100, fullMark: 150, displayValue: "150+" },
+  { subject: 'Ransomware Resilience', value: 99.8, fullMark: 100, displayValue: "99.8%" },
 ];
 
 const values = [
@@ -35,10 +35,11 @@ const values = [
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
+    const data = payload[0].payload;
     return (
       <div className="bg-card/80 p-2 border border-border/50 rounded-lg">
-        <p className="font-bold text-primary">{`${label}`}</p>
-        <p className="text-sm text-foreground">{`Value: ${payload[0].value.toLocaleString()}${label === 'Ransomware Resilience' ? '%' : ''}`}</p>
+        <p className="font-bold text-primary">{`${data.subject}`}</p>
+        <p className="text-sm text-foreground">{`Value: ${data.displayValue}`}</p>
       </div>
     );
   }
@@ -83,16 +84,23 @@ export default function AboutPage() {
           <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
              <CardHeader>
                 <CardTitle>By the Numbers</CardTitle>
-                <CardDescription>Our track record of success.</CardDescription>
+                <CardDescription>A testament to our impact and expertise.</CardDescription>
              </CardHeader>
               <CardContent>
                  <ResponsiveContainer width="100%" height={250}>
-                    <BarChart data={statsData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                        <Tooltip content={<CustomTooltip />} cursor={{fill: 'hsl(var(--secondary))'}} />
-                        <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                    </BarChart>
+                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={statsData}>
+                        <defs>
+                            <radialGradient id="radarGradient">
+                                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
+                                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1}/>
+                            </radialGradient>
+                        </defs>
+                        <PolarGrid stroke="hsl(var(--border) / 0.5)" />
+                        <PolarAngleAxis dataKey="subject" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} />
+                        <PolarRadiusAxis angle={30} domain={[0, 150]} tick={false} axisLine={false} />
+                        <Radar name="DentiSystems" dataKey="value" stroke="hsl(var(--primary))" fill="url(#radarGradient)" fillOpacity={0.8} />
+                        <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1, strokeDasharray: "3 3" }} />
+                    </RadarChart>
                 </ResponsiveContainer>
               </CardContent>
             </Card>
