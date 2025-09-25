@@ -32,6 +32,11 @@ export default function CloudFirewallPage() {
   const [rules, setRules] = useState<Rule[]>([]);
   const [newRule, setNewRule] = useState({ action: 'Allow' as 'Allow' | 'Deny', port: '', protocol: 'TCP' as 'TCP' | 'UDP', source: '0.0.0.0/0' });
   const [isGenerating, setIsGenerating] = useState(false);
+  
+  // Get user plan from the user object, default to 'free' if not available
+  // @ts-ignore
+  const userPlan = user?.plan || 'free';
+
 
   const addRule = () => {
     if (!newRule.port) {
@@ -89,8 +94,7 @@ export default function CloudFirewallPage() {
     );
   }
   
-    // @ts-ignore - plan property is not on the user type by default
-  if (user?.plan !== 'pro') {
+  if (userPlan !== 'pro') {
     return (
        <div className="container py-12 md:py-20">
             <div className="max-w-3xl mx-auto text-center space-y-6 bg-secondary/30 p-8 rounded-xl border border-border">

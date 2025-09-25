@@ -28,6 +28,7 @@ export async function generateFirewallConfig(
     return { success: false, message: 'Authentication required.' };
   }
 
+  // Use the centralized initializeFirebase function
   const { firestore } = initializeFirebase();
 
   const { serverIP, rules } = data;

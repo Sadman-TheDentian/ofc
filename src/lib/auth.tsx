@@ -14,8 +14,8 @@ import {
   UserCredential,
 } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import { useFirebase } from '@/firebase';
-import { createUserInDatabase } from '@/app/auth/actions';
+import { useFirebase } from '@/firebase'; // Use the central Firebase hook
+import { addDoc, collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 type AuthContextType = {
   user: User | null;
@@ -33,7 +33,7 @@ const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { auth } = useFirebase();
+  const { auth, firestore } = useFirebase(); // Get auth and firestore from the central provider
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -43,32 +43,49 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(true);
       return;
     }
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+       if (user) {
+        // Here you could fetch additional user profile data from Firestore
+        // For now, we'll just set the basic user object
+        setUser(user);
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
 
     return () => unsubscribe();
   }, [auth]);
 
+  const createUserInDatabase = async (user: User) => {
+    if (!firestore) {
+      console.error("Firestore instance not available");
+      throw new Error("Database service is not configured.");
+    }
+    try {
+      await setDoc(doc(firestore, "users", user.uid), {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        plan: 'free', // All new users start on the free plan
+        createdAt: serverTimestamp(),
+      }, { merge: true });
+    } catch (error) {
+       console.error("Error creating user profile in Firestore:", error);
+       // We don't re-throw here because the auth user is already created.
+       // The app can function, but we should log this failure.
+    }
+  };
+
   const handleSuccessfulAuth = async (userCredential: UserCredential) => {
+    const user = userCredential.user;
     const isNewUser =
       userCredential.user.metadata.creationTime ===
       userCredential.user.metadata.lastSignInTime;
       
     if (isNewUser) {
-      try {
-        await createUserInDatabase({
-          uid: userCredential.user.uid,
-          email: userCredential.user.email,
-          displayName: userCredential.user.displayName,
-          photoURL: userCredential.user.photoURL,
-        });
-      } catch (error) {
-          // Even if DB write fails, the auth user is created.
-          // Log the error but proceed to dashboard.
-          console.error("Failed to create user profile in database:", error);
-      }
+      await createUserInDatabase(user);
     }
     router.push('/dashboard');
   };
@@ -118,7 +135,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         email,
         pass
       );
-      // Don't call handleSuccessfulAuth on sign-in, profile should exist
       router.push('/dashboard');
       return userCredential;
     } catch (error) {

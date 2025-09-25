@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "DentiSystems — Elite Cybersecurity & Custom Web Engineering",
   description:
     "High-risk vendor recon, breach monitoring, and secure web development that reduces operational risk.",
+  icons: {
+    icon: logoUrl,
+  }
 };
 
 const organizationSchema = {
@@ -49,7 +52,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <link rel="icon" href={logoUrl} type="image/png" sizes="any" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
