@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Award, Handshake, BrainCircuit } from "lucide-react";
+import { Users, Award, Handshake, BrainCircuit, FileText, BarChart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { TeamMembers } from "@/lib/placeholder-images";
@@ -32,6 +32,19 @@ const values = [
         description: "The threat landscape is always evolving, and so are we. We are committed to continuous research and development to stay ahead of adversaries."
     }
 ];
+
+const resources = [
+    {
+        icon: FileText,
+        title: "Whitepaper: The Anatomy of a Zero-Day Exploit",
+        description: "A deep dive into how zero-day vulnerabilities are discovered, weaponized, and deployed by advanced persistent threat actors."
+    },
+    {
+        icon: BarChart,
+        title: "Report: 2024 Global Threat Landscape",
+        description: "Our annual report analyzing the year's most significant cyber threats, attack vectors, and defensive trends across industries."
+    }
+]
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
@@ -106,17 +119,37 @@ export default function AboutPage() {
             </Card>
         </div>
       </section>
-
+      
       <section className="mb-20">
         <h2 className="font-headline text-3xl font-bold tracking-tighter text-center mb-12">
             Our Core Values
         </h2>
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {values.map((value) => (
-                <Card key={value.title} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10">
-                     <value.icon className="h-10 w-10 text-primary mx-auto mb-4" />
+                <Card key={value.title} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
+                     <div className="mb-4 inline-block p-3 bg-secondary rounded-full">
+                        <value.icon className="h-8 w-8 text-primary" />
+                     </div>
                      <h3 className="font-headline text-xl font-semibold mb-2">{value.title}</h3>
                      <p className="text-muted-foreground text-sm">{value.description}</p>
+                </Card>
+            ))}
+        </div>
+      </section>
+      
+       <section className="mb-20">
+        <h2 className="font-headline text-3xl font-bold tracking-tighter text-center mb-12">
+            From Our Research Desk
+        </h2>
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {resources.map((resource) => (
+                <Card key={resource.title} className="bg-gradient-to-br from-card to-card/80 border-border/50 p-6 flex items-start gap-6">
+                    <resource.icon className="h-10 w-10 text-primary mt-1 flex-shrink-0" />
+                    <div>
+                         <h3 className="font-headline text-xl font-semibold mb-2">{resource.title}</h3>
+                         <p className="text-muted-foreground text-sm mb-4">{resource.description}</p>
+                         <Button variant="link" className="p-0">Read More</Button>
+                    </div>
                 </Card>
             ))}
         </div>
@@ -160,3 +193,4 @@ export default function AboutPage() {
     </div>
   );
 }
+
