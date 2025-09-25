@@ -22,7 +22,7 @@ export type Tool = {
   url?: string;
   imageUrl: string;
   embedCode?: string;
-  features: {
+  features?: {
     free: string[];
     pro: string[];
   };

@@ -9,6 +9,7 @@ import {
   KeyRound,
   Scan,
   ShieldHalf,
+  Siren,
 } from "lucide-react";
 
 export const services: Service[] = [
@@ -47,6 +48,18 @@ export const services: Service[] = [
     icon: Code,
     imageUrl: "https://picsum.photos/seed/s3/800/500",
     imageHint: "developer laptop code",
+  },
+  {
+    id: 4,
+    slug: "incident-response-forensics",
+    title: "Incident Response & Forensics",
+    description:
+      "Rapid response to security breaches to minimize damage, recover data, and identify the root cause.",
+    longDescription:
+      "When a security incident occurs, time is critical. Our Incident Response & Forensics team provides rapid, expert assistance to contain the threat, eradicate the attacker's presence, and restore your systems to normal. We conduct detailed digital forensic investigations to understand the attack vector, determine the extent of the breach, and gather evidence for legal action. Our goal is to not only resolve the immediate crisis but also to provide you with the insights needed to prevent future incidents.",
+    icon: Siren,
+    imageUrl: "https://picsum.photos/seed/s4/800/500",
+    imageHint: "emergency server room",
   },
 ];
 
