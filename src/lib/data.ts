@@ -149,33 +149,6 @@ export const tools: Tool[] = [
   }
 ];
 
-export const caseStudies = [
-    {
-        id: 1,
-        slug: "secure-finance-portal",
-        title: "Securing a Major FinTech Platform",
-        summary: "We overhauled a legacy banking portal, eliminating critical vulnerabilities and achieving a 99.8% reduction in penetration test findings.",
-        imageUrl: "https://picsum.photos/seed/cs1/600/400",
-        imageHint: "server room",
-    },
-    {
-        id: 2,
-        slug: "healthcare-data-lockdown",
-        title: "Healthcare Data Lockdown",
-        summary: "Post-breach, we re-architected a hospital's patient data system, implementing end-to-end encryption and strict access controls to meet HIPAA compliance.",
-        imageUrl: "https://picsum.photos/seed/cs2/600/400",
-        imageHint: "hospital corridor",
-    },
-    {
-        id: 3,
-        slug: "ecommerce-fraud-prevention",
-        title: "eCommerce Fraud Prevention",
-        summary: "For a top online retailer, we developed a custom fraud detection engine that reduced chargebacks by 70% in the first quarter.",
-        imageUrl: "https://picsum.photos/seed/cs3/600/400",
-        imageHint: "online shopping",
-    }
-];
-
 export const securityAdvisories = [
     {
         id: "DS-2024-003",

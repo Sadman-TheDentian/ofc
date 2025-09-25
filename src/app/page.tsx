@@ -1,9 +1,10 @@
+
 'use client';
 
 import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Zap, Code, Siren } from 'lucide-react';
 import Link from 'next/link';
 import { services } from '@/lib/data';
 import Image from 'next/image';
@@ -18,7 +19,7 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
 import React from 'react';
-import { caseStudies, securityAdvisories, blogPosts } from '@/lib/data';
+import { securityAdvisories, blogPosts } from '@/lib/data';
 
 
 export default function Home() {
@@ -30,9 +31,6 @@ export default function Home() {
   );
   const blogPlugin = React.useRef(
      Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true })
-  );
-  const caseStudiesPlugin = React.useRef(
-    Autoplay({ delay: 6500, stopOnInteraction: true, stopOnMouseEnter: true })
   );
 
   return (
@@ -200,45 +198,7 @@ export default function Home() {
               fortify their digital defenses.
             </p>
           </div>
-          <Carousel
-              opts={{ align: 'start', loop: true }}
-              plugins={[caseStudiesPlugin.current]}
-              className="w-full max-w-6xl mx-auto"
-            >
-              <CarouselContent className="-ml-4">
-              {caseStudies.slice(0, 3).map((study, index) => (
-                <CarouselItem key={study.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <RevealOnScroll delay={index * 150}>
-                    <Link href={`/case-studies`} className="group">
-                      <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
-                        <Image
-                          src={study.imageUrl}
-                          alt={study.title}
-                          width={600}
-                          height={400}
-                          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                          data-ai-hint={study.imageHint}
-                        />
-                        <CardHeader>
-                          <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
-                            {study.title}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent className="flex-grow">
-                          <p className="text-muted-foreground text-sm">
-                            {study.summary}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  </RevealOnScroll>
-                </CarouselItem>
-              ))}
-              </CarouselContent>
-              <CarouselPrevious className="hidden lg:flex" />
-              <CarouselNext className="hidden lg:flex" />
-          </Carousel>
-          <div className="text-center mt-12">
+          <div className="text-center">
             <Button asChild size="lg">
               <Link href="/case-studies">View All Case Studies</Link>
             </Button>
