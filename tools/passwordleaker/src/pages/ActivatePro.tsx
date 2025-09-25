@@ -16,6 +16,12 @@ const ActivatePro = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  useEffect(() => {
+    if (user?.email) {
+      setEmail(user.email);
+    }
+  }, [user]);
+
   const handleActivation = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -40,8 +46,10 @@ const ActivatePro = () => {
     try {
       setIsLoading(true);
       
-      // First authenticate with the email
-      await login(email);
+      // Authenticate with the email if not already logged in
+      if (!user || user.email !== email) {
+        await login(email);
+      }
       
       // Create a payment charge
       const result = await apiService.createPaymentCharge();
@@ -49,20 +57,14 @@ const ActivatePro = () => {
       if (result.success && result.charge) {
         toast({
           title: 'Payment Required',
-          description: 'Redirecting to payment page...',
+          description: 'Redirecting to secure payment page...',
         });
         
         // Redirect to Coinbase Commerce hosted checkout
-        window.open(result.charge.hosted_url, '_blank');
+        window.location.href = result.charge.hosted_url;
         
-        // Show success message and redirect to dashboard
-        setTimeout(() => {
-          setIsSuccess(true);
-          toast({
-            title: 'Payment Started',
-            description: 'Complete your payment in the new tab. Your PRO features will be activated automatically.',
-          });
-        }, 1000);
+      } else {
+        throw new Error(result.error || 'Failed to create payment charge');
       }
     } catch (error) {
       console.error('Payment initiation error:', error);
@@ -71,7 +73,6 @@ const ActivatePro = () => {
         description: error instanceof Error ? error.message : 'Failed to initiate payment. Please try again.',
         variant: 'destructive'
       });
-    } finally {
       setIsLoading(false);
     }
   };
@@ -81,7 +82,7 @@ const ActivatePro = () => {
   };
 
   const handleContactSupport = () => {
-    window.open('https://denti.systems/contact', '_blank');
+    window.open('https://dentisystems.com/contact', '_blank');
   };
 
   if (isSuccess) {
@@ -93,9 +94,6 @@ const ActivatePro = () => {
           <p className="text-gray-300 mb-6">
             Your account has been upgraded to PRO. You now have access to unlimited password checks and monitoring features.
           </p>
-          <div className="animate-pulse text-sm text-gray-400 mb-4">
-            Redirecting to dashboard...
-          </div>
           <button
             onClick={() => navigate('/dashboard')}
             className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition-colors"
@@ -141,7 +139,7 @@ const ActivatePro = () => {
               disabled={isLoading}
             />
             <p className="text-xs text-gray-400 mt-2">
-              This will be your account email for PRO features
+              This will be your account email for PRO features.
             </p>
           </div>
 
@@ -153,12 +151,12 @@ const ActivatePro = () => {
             {isLoading ? (
               <>
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                Activating PRO...
+                Initializing Secure Payment...
               </>
             ) : (
               <>
                 <CreditCard className="h-5 w-5" />
-                Start Payment Process
+                Proceed to Payment
               </>
             )}
           </button>
@@ -183,17 +181,18 @@ const ActivatePro = () => {
             </div>
           </div>
 
-          {!user && (
-            <div className="bg-green-600/10 border border-green-500/20 rounded-lg p-4">
-              <h4 className="font-semibold text-green-400 mb-2">New Customer?</h4>
-              <p className="text-sm text-gray-300 mb-3">
-                Purchase Password Leaker PRO to get unlimited password checks and monitoring with cryptocurrency.
-              </p>
-              <p className="text-xs text-gray-400">
-                Secure payment via Coinbase Commerce - Bitcoin, Ethereum, and more accepted
-              </p>
-            </div>
-          )}
+          <div className="bg-green-600/10 border border-green-500/20 rounded-lg p-4">
+            <h4 className="font-semibold text-green-400 mb-2">PRO Plan Includes:</h4>
+            <ul className="text-sm text-gray-300 space-y-1">
+                <li>✓ Unlimited Password Checks</li>
+                <li>✓ Continuous Monitoring & Alerts</li>
+                <li>✓ Detailed Breach Source Info</li>
+                <li>✓ Priority Support</li>
+            </ul>
+            <p className="text-xs text-gray-400 mt-3">
+              Secure payment via Coinbase Commerce - Bitcoin, Ethereum, and more accepted.
+            </p>
+          </div>
         </div>
 
         <div className="mt-6 text-center">
