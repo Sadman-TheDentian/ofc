@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -38,14 +39,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { services, tools } from '@/lib/data';
 import React from 'react';
-
-const navLinks = [
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/case-studies', label: 'Case Studies' },
-  { href: '/blog', label: 'Blog' },
-];
 
 const logoUrl =
   'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png';
@@ -75,6 +69,21 @@ const ListItem = React.forwardRef<
   );
 });
 ListItem.displayName = 'ListItem';
+
+const products = {
+    "Network Security": ["Firewall Solutions", "Threat Prevention", "Network Monitoring"],
+    "Cloud Security": ["Cloud Firewall", "Container Security", "Cloud Compliance"],
+    "Endpoint Protection": ["EDR Solutions", "Mobile Security", "Device Management"]
+};
+
+const solutions = {
+    "By Industry": ["Financial Services", "Healthcare", "Government", "Retail"],
+    "By Use Case": ["Zero Trust Architecture", "Compliance", "Threat Intelligence"]
+};
+
+const resources = ["Threat Reports", "White Papers", "Blog", "Webinars"];
+const partners = ["Partner Program", "Become a Partner", "Partner Portal"];
+
 
 export default function Header() {
   const pathname = usePathname();
@@ -129,10 +138,10 @@ export default function Header() {
     return (
       <nav className="hidden md:flex items-center space-x-2">
         <Button variant="ghost" asChild>
-          <Link href="/auth">Login</Link>
+          <Link href="/pricing">Free Trial</Link>
         </Button>
         <Button asChild>
-          <Link href="/contact">Request Risk Audit</Link>
+          <Link href="/contact">Contact Sales</Link>
         </Button>
       </nav>
     );
@@ -141,47 +150,72 @@ export default function Header() {
   const DesktopNav = () => (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Services</NavigationMenuTrigger>
+         <NavigationMenuItem>
+          <NavigationMenuTrigger>Products</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {services.map(service => (
-                <ListItem
-                  key={service.title}
-                  title={service.title}
-                  href={`/services/${service.slug}`}
-                >
-                  {service.description}
-                </ListItem>
+            <ul className="grid w-[600px] gap-3 p-4 md:w-[700px] md:grid-cols-3 lg:w-[800px]">
+              {Object.entries(products).map(([category, items]) => (
+                <li key={category}>
+                  <NavigationMenuLink asChild>
+                     <h3 className="text-sm font-medium leading-none px-3 py-2 text-muted-foreground">{category}</h3>
+                  </NavigationMenuLink>
+                  <ul className="flex flex-col">
+                    {items.map((item) => (
+                      <ListItem key={item} href={`/products/${item.toLowerCase().replace(/\s+/g, '-')}`} title={item}>
+                        {/* Add short descriptions later */}
+                      </ListItem>
+                    ))}
+                  </ul>
+                </li>
               ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {tools.map(tool => (
-                <ListItem
-                  key={tool.title}
-                  title={tool.title}
-                  href={tool.url || `/tools/${tool.slug}`}
-                >
-                  {tool.description}
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+              {Object.entries(solutions).map(([category, items]) => (
+                <li key={category}>
+                   <NavigationMenuLink asChild>
+                     <h3 className="text-sm font-medium leading-none px-3 py-2 text-muted-foreground">{category}</h3>
+                  </NavigationMenuLink>
+                   <ul className="flex flex-col">
+                    {items.map((item) => (
+                      <ListItem key={item} href={`/solutions/${item.toLowerCase().replace(/\s+/g, '-')}`} title={item}>
+                         {/* Add short descriptions later */}
+                      </ListItem>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+         <NavigationMenuItem>
+          <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+          <NavigationMenuContent>
+             <ul className="grid w-[200px] gap-3 p-4 md:w-[250px]">
+              {resources.map((item) => (
+                <ListItem key={item} href={`/${item.toLowerCase().replace(/\s+/g, '-')}`} title={item}>
+                  {/* Add short descriptions later */}
                 </ListItem>
               ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        {navLinks.map(link => (
-          <NavigationMenuItem key={link.href}>
-            <NavigationMenuLink asChild active={pathname.startsWith(link.href)} className={navigationMenuTriggerStyle()}>
-              <Link href={link.href}>
-                {link.label}
-              </Link>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-        ))}
+         <NavigationMenuItem>
+          <NavigationMenuTrigger>Partners</NavigationMenuTrigger>
+          <NavigationMenuContent>
+             <ul className="grid w-[200px] gap-3 p-4 md:w-[250px]">
+              {partners.map((item) => (
+                <ListItem key={item} href={`/partners/${item.toLowerCase().replace(/\s+/g, '-')}`} title={item}>
+                  {/* Add short descriptions later */}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );
@@ -265,43 +299,47 @@ export default function Header() {
             </SheetHeader>
             <div className="flex flex-col space-y-3 mb-6">
                 <Accordion type="multiple" className="w-full">
-                    <AccordionItem value="services" className="border-b-0">
+                    <AccordionItem value="products" className="border-b-0">
                         <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
-                            Services
+                            Products
                         </AccordionTrigger>
                         <AccordionContent>
-                           {services.map(service => (
-                                <MobileNavLink key={service.slug} href={`/services/${service.slug}`}>{service.title}</MobileNavLink>
+                           {Object.values(products).flat().map(item => (
+                                <MobileNavLink key={item} href={`/products/${item.toLowerCase().replace(/\s+/g, '-')}`}>{item}</MobileNavLink>
                            ))}
                         </AccordionContent>
                     </AccordionItem>
-                     <AccordionItem value="tools" className="border-b-0">
+                    <AccordionItem value="solutions" className="border-b-0">
                         <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
-                            Tools
+                            Solutions
                         </AccordionTrigger>
                         <AccordionContent>
-                           {tools.map(tool => (
-                                <MobileNavLink key={tool.slug} href={tool.url || `/tools/${tool.slug}`}>{tool.title}</MobileNavLink>
+                           {Object.values(solutions).flat().map(item => (
+                                <MobileNavLink key={item} href={`/solutions/${item.toLowerCase().replace(/\s+/g, '-')}`}>{item}</MobileNavLink>
+                           ))}
+                        </AccordionContent>
+                    </AccordionItem>
+                     <AccordionItem value="resources" className="border-b-0">
+                        <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
+                           Resources
+                        </AccordionTrigger>
+                        <AccordionContent>
+                           {resources.map(item => (
+                                <MobileNavLink key={item} href={`/${item.toLowerCase().replace(/\s+/g, '-')}`}>{item}</MobileNavLink>
+                           ))}
+                        </AccordionContent>
+                    </AccordionItem>
+                      <AccordionItem value="partners" className="border-b-0">
+                        <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
+                           Partners
+                        </AccordionTrigger>
+                        <AccordionContent>
+                           {partners.map(item => (
+                                <MobileNavLink key={item} href={`/partners/${item.toLowerCase().replace(/\s+/g, '-')}`}>{item}</MobileNavLink>
                            ))}
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
-                
-               {navLinks.map(link => (
-                <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={cn(
-                        'transition-colors hover:text-primary text-lg py-2',
-                        pathname.startsWith(link.href)
-                        ? 'text-primary'
-                        : 'text-muted-foreground'
-                    )}
-                    >
-                    {link.label}
-                </Link>
-              ))}
             </div>
             {user ? (
               <div className="flex flex-col space-y-2">
@@ -314,11 +352,11 @@ export default function Header() {
               </div>
             ) : (
               <div className="flex flex-col space-y-2">
-                <Button asChild onClick={() => setMobileMenuOpen(false)}>
-                  <Link href="/contact">Request Risk Audit</Link>
+                 <Button asChild onClick={() => setMobileMenuOpen(false)}>
+                  <Link href="/pricing">Free Trial</Link>
                 </Button>
                 <Button variant="ghost" asChild onClick={() => setMobileMenuOpen(false)}>
-                  <Link href="/auth">Login</Link>
+                  <Link href="/contact">Contact Sales</Link>
                 </Button>
               </div>
             )}
@@ -328,3 +366,4 @@ export default function Header() {
     </header>
   );
 }
+
