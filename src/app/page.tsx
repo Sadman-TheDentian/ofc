@@ -4,9 +4,9 @@
 import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, BrainCircuit, CheckCircle, Fingerprint, ShieldCheck, Siren } from 'lucide-react';
+import { ArrowRight, BrainCircuit, Fingerprint, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
-import { caseStudies, productShowcase, securityAdvisories, blogPosts } from '@/lib/data';
+import { caseStudies, services, securityAdvisories, blogPosts } from '@/lib/data';
 import Image from 'next/image';
 import PartnerSlider from '@/components/layout/PartnerSlider';
 import RevealOnScroll from '@/components/animations/RevealOnScroll';
@@ -26,10 +26,10 @@ export default function Home() {
     Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true })
   );
   const advisoriesPlugin = React.useRef(
-    Autoplay({ delay: 5500, stopOnInteraction: true, stopOnMouseEnter: true })
+    Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })
   );
   const blogPlugin = React.useRef(
-    Autoplay({ delay: 6000, stopOnInteraction: true, stopOnMouseEnter: true })
+     Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true })
   );
   const caseStudiesPlugin = React.useRef(
     Autoplay({ delay: 6500, stopOnInteraction: true, stopOnMouseEnter: true })
@@ -90,10 +90,10 @@ export default function Home() {
         <div className="container px-4 md:px-6">
           <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-              A Unified Security Platform
+              Our Core Services
             </h2>
             <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl">
-              From proactive defense to incident response, our platform provides a resilient security posture for your organization.
+              From proactive defense to incident response, our services provide a resilient security posture for your organization.
             </p>
           </div>
            <Carousel
@@ -102,37 +102,29 @@ export default function Home() {
               className="w-full max-w-6xl mx-auto"
             >
               <CarouselContent className="-ml-4">
-                {productShowcase.map((product, index) => (
+                {services.map((service, index) => (
                   <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                     <RevealOnScroll delay={index * 150}>
                       <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group bg-gradient-to-br from-card to-card/80 border-border/50">
-                          <CardHeader className="flex flex-row items-center gap-4">
+                          <CardHeader className="flex flex-row items-center gap-4 p-6">
                             <div className="p-3 bg-secondary rounded-lg">
-                                <product.icon className="h-6 w-6 text-primary" />
+                                <service.icon className="h-6 w-6 text-primary" />
                             </div>
                              <CardTitle className="font-headline text-xl">
-                                {product.title}
+                                {service.title}
                              </CardTitle>
                           </CardHeader>
                           <CardContent className="flex-grow flex flex-col p-6 pt-0">
                              <p className="text-muted-foreground flex-grow mb-4 text-sm">
-                              {product.description}
+                              {service.description}
                             </p>
-                            <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                                {product.features.map(feature => (
-                                    <li key={feature} className="flex items-center gap-2">
-                                        <CheckCircle className="h-4 w-4 text-primary" />
-                                        <span>{feature}</span>
-                                    </li>
-                                ))}
-                            </ul>
                             <Button
                               variant="outline"
                               className="w-full mt-auto"
                               asChild
                             >
-                              <Link href="#">
-                                {product.cta}{' '}
+                              <Link href={`/services/${service.slug}`}>
+                                Learn More{' '}
                                 <ArrowRight className="ml-2 h-4 w-4" />
                               </Link>
                             </Button>

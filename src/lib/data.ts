@@ -1,3 +1,4 @@
+
 import type { Service, Tool } from "./types";
 import {
   ShieldCheck,
@@ -9,8 +10,6 @@ import {
   Scan,
   ShieldHalf,
   Siren,
-  Cloud,
-  Monitor,
 } from "lucide-react";
 
 export const services: Service[] = [
@@ -174,30 +173,6 @@ export const caseStudies = [
         summary: "For a top online retailer, we developed a custom fraud detection engine that reduced chargebacks by 70% in the first quarter.",
         imageUrl: "https://picsum.photos/seed/cs3/600/400",
         imageHint: "online shopping",
-    }
-];
-
-export const productShowcase = [
-    {
-        icon: ShieldCheck,
-        title: "Network Security",
-        description: "Advanced firewall and threat prevention.",
-        features: ["Deep Packet Inspection", "Intrusion Prevention", "SSL Decryption"],
-        cta: "Learn More"
-    },
-    {
-        icon: Cloud,
-        title: "Cloud Security",
-        description: "Protect multi-cloud environments.",
-        features: ["Cloud Firewall", "Container Security", "CSPM"],
-        cta: "Learn More"
-    },
-    {
-        icon: Monitor,
-        title: "Endpoint Protection",
-        description: "Next-gen EDR and mobile security.",
-        features: ["Behavioral Analysis", "Threat Hunting", "Mobile Defense"],
-        cta: "Learn More"
     }
 ];
 
