@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState, type ReactNode } from 'react';
@@ -27,9 +28,9 @@ export function FirebaseClientProvider({
     setFirebase(firebaseInstances);
   }, []);
 
-  // if the firebase instances are not available, don't render anything
-  // you can also render a loading indicator
   if (!firebase) {
+    // You can render a loading indicator here if you want.
+    // Returning null will prevent children from rendering until Firebase is ready.
     return null;
   }
 

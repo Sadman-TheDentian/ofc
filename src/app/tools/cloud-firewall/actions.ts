@@ -2,7 +2,7 @@
 'use server';
 
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { initializeFirebase } from '@/firebase'; // Corrected import
+import { initializeFirebase } from '@/firebase';
 
 interface Rule {
   action: 'Allow' | 'Deny';
