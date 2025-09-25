@@ -17,5 +17,4 @@ export type TeamMember = {
     imageHint: string;
 }
 
-export const PlaceHolderImages: ImagePlaceholder[] = data.placeholderImages;
 export const TeamMembers: TeamMember[] = data.teamMembers;

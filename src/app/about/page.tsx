@@ -208,8 +208,8 @@ export default function AboutPage() {
           Meet the Experts
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mb-12">
-          {TeamMembers.map((member, index) => (
-            <Card key={index} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center">
+          {TeamMembers.map((member) => (
+            <Card key={member.id} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center">
               <CardContent className="p-6">
                 <Image
                   src={member.imageUrl}
