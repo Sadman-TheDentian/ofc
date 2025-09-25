@@ -124,7 +124,7 @@ export default function AboutPage() {
                 <CardDescription>A testament to our impact and expertise.</CardDescription>
              </CardHeader>
               <CardContent>
-                 <ResponsiveContainer width="100%" height={250}>
+                 <ResponsiveContainer width="100%" height={350}>
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={statsData}>
                         <defs>
                             <radialGradient id="radarGradient">
@@ -183,7 +183,7 @@ export default function AboutPage() {
                                         src={resource.imageUrl}
                                         alt={resource.title}
                                         fill
-                                        objectFit="cover"
+                                        style={{objectFit: "cover"}}
                                         className="group-hover:scale-105 transition-transform duration-300"
                                         data-ai-hint={resource.imageHint}
                                     />

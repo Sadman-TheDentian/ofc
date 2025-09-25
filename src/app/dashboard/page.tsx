@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -19,12 +20,12 @@ import {
 } from '@/components/ui/chart';
 
 const chartData = [
-  { month: 'Jan', requests: 186 },
-  { month: 'Feb', requests: 305 },
-  { month: 'Mar', requests: 237 },
-  { month: 'Apr', requests: 73 },
-  { month: 'May', requests: 209 },
-  { month: 'Jun', requests: 214 },
+  { month: 'Jan', requests: 1860 },
+  { month: 'Feb', requests: 3050 },
+  { month: 'Mar', requests: 2370 },
+  { month: 'Apr', requests: 1273 },
+  { month: 'May', requests: 2009 },
+  { month: 'Jun', requests: 2140 },
 ];
 
 const chartConfig = {
@@ -78,7 +79,7 @@ export default function DashboardOverviewPage() {
           <CardHeader>
             <CardTitle>API Usage</CardTitle>
             <CardDescription>
-              1,250 / 10,000 requests used this month
+              {chartData.reduce((acc, item) => acc + item.requests, 0).toLocaleString()} / 10,000 requests used this month
             </CardDescription>
           </CardHeader>
           <CardContent className="h-[120px] w-full p-0">
@@ -159,6 +160,20 @@ export default function DashboardOverviewPage() {
               <CardContent>
                 <p className="text-sm text-muted-foreground">
                   Generate or revoke API credentials.
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
+          <Link href="/tools/code-scanner">
+             <Card className="hover:border-primary/50 transition-colors h-full bg-gradient-to-br from-card to-card/80 border-border/50">
+              <CardHeader>
+                <CardTitle className="text-base font-semibold flex items-center gap-2">
+                  Scan Code
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Analyze code snippets for vulnerabilities.
                 </p>
               </CardContent>
             </Card>
