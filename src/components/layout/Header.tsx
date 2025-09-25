@@ -40,6 +40,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import React from 'react';
+import { tools } from '@/lib/data';
 
 const logoUrl =
   'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png';
@@ -193,11 +194,16 @@ export default function Header() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/tools" legacyBehavior={false} passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Tools
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              {tools.map((tool) => (
+                <ListItem key={tool.title} href={`/tools/${tool.slug}`} title={tool.title}>
+                  {tool.description}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
         </NavigationMenuItem>
          <NavigationMenuItem>
           <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
