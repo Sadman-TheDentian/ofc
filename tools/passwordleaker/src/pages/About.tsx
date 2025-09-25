@@ -74,53 +74,6 @@ const About = () => {
             </div>
           </div>
         </div>
-
-        {/* Technology */}
-        <div className="bg-gray-800 border border-green-500/20 rounded-xl p-8">
-          <h2 className="text-2xl font-bold mb-4 text-green-400">Technology Stack</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="bg-green-600/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-8 w-8 text-green-400" />
-              </div>
-              <h3 className="font-semibold mb-2">HaveIBeenPwned API</h3>
-              <p className="text-gray-400 text-sm">Industry-standard breach database with billions of compromised credentials</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-green-600/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Lock className="h-8 w-8 text-green-400" />
-              </div>
-              <h3 className="font-semibold mb-2">SHA-1 Hashing</h3>
-              <p className="text-gray-400 text-sm">Secure client-side password hashing for privacy protection</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-green-600/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Database className="h-8 w-8 text-green-400" />
-              </div>
-              <h3 className="font-semibold mb-2">K-Anonymity Model</h3>
-              <p className="text-gray-400 text-sm">Advanced privacy technique ensuring your password remains private</p>
-            </div>
-          </div>
-        </div>
-
-        {/* DentiSystems */}
-        <div className="bg-gray-800 border border-green-500/20 rounded-xl p-8 text-center">
-          <h2 className="text-2xl font-bold mb-4 text-green-400">Built by DentiSystems</h2>
-          <p className="text-gray-300 mb-6">
-            Password Leaker is part of the DentiSystems cybersecurity suite, providing enterprise-grade 
-            security tools for individuals and organizations worldwide.
-          </p>
-          <a
-            href="https://denti.systems"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors"
-          >
-            Explore More Tools
-          </a>
-        </div>
       </div>
     </div>
   );

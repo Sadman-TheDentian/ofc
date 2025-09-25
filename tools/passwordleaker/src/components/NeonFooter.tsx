@@ -1,14 +1,10 @@
 
 const NeonFooter = () => (
-  <footer className="w-full py-4 flex flex-col items-center text-xs text-muted-foreground mt-12 opacity-80">
-    <div className="neon-glow mb-2" />
+  <footer className="w-full py-4 flex flex-col items-center text-xs text-gray-400 mt-12 opacity-80">
     <p>
-      Powered by <span className="neon-text font-bold">DentiSystems</span> &copy; {new Date().getFullYear()} &mdash; 
-      <a href="mailto:contact@denti.systems" className="underline ml-1">Contact</a>
+      Powered by <a href="https://dentisystems.com" target="_blank" rel="noopener noreferrer" className="font-bold text-green-400 hover:underline">DentiSystems</a> &copy; {new Date().getFullYear()}
     </p>
-    <p className="mt-1">No data stored. No accounts. 100% privacy.</p>
   </footer>
 );
 
 export default NeonFooter;
-
