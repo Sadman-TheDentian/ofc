@@ -56,9 +56,9 @@ export default async function BlogPage() {
 
           return (
             <Link href={`/blog/${post.slug.current}`} key={post._id} className="group block">
-              <Card className="flex flex-col md:flex-row overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80 transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-1">
+              <Card className="flex flex-col overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80 transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-1">
                 {postImageUrl && (
-                  <div className="relative w-full md:w-1/3 aspect-video md:aspect-auto">
+                  <div className="relative w-full aspect-video">
                     <Image
                       src={postImageUrl}
                       alt={post.title}

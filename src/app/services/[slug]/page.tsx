@@ -66,8 +66,8 @@ export default function ServiceDetailPage({ params }: Props) {
               {service.description}
             </p>
         </div>
-      <div className="grid md:grid-cols-3 gap-12">
-        <div className="md:col-span-2 space-y-8">
+      <div className="grid lg:grid-cols-3 gap-12">
+        <div className="lg:col-span-2 space-y-8">
             <div>
                 <Image 
                     src={service.imageUrl} 

@@ -41,7 +41,7 @@ export default function Home() {
 
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-            <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-foreground whitespace-pre-line">
+            <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-foreground whitespace-pre-line">
               Elite Cybersecurity & Custom Web Engineering
             </h1>
             <p
@@ -162,8 +162,8 @@ export default function Home() {
                             <CarouselItem key={post.title}>
                                 <Link href={post.url} className="group block">
                                     <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
-                                        <div className="flex flex-col md:flex-row">
-                                            <div className="relative h-40 md:h-auto md:w-48 flex-shrink-0">
+                                        <div className="flex flex-col">
+                                            <div className="relative h-40 w-full flex-shrink-0">
                                                 <Image src={post.imageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" data-ai-hint={post.imageHint} />
                                             </div>
                                             <div className="p-6">

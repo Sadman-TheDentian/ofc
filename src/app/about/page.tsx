@@ -106,8 +106,7 @@ export default function AboutPage() {
             </h2>
             <p className="text-muted-foreground">
               In a world of escalating digital threats, passive defense is no
-              longer enough. Our mission is to provide organizations with an
-              attacker&apos;s advantage. We combine deep offensive security expertise
+              longer enough. Our mission is to provide organizations with an attacker&apos;s advantage. We combine deep offensive security expertise
               with secure development practices to build digital experiences
               that are not just functional, but fundamentally resilient.
             </p>
@@ -207,7 +206,7 @@ export default function AboutPage() {
         <h2 className="font-headline text-3xl font-bold tracking-tighter mb-12">
           Meet the Experts
         </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mb-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mb-12">
           {TeamMembers.map((member) => (
             <Card key={member.id} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center">
               <CardContent className="p-6">
