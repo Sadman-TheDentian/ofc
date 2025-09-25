@@ -1,5 +1,6 @@
 
 import type { LucideIcon } from "lucide-react";
+import { type SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 export type Service = {
   id: number;
@@ -61,6 +62,13 @@ export type BlogPost = {
     body: any;
 };
 
+export type Partner = {
+  _id: string;
+  name: string;
+  website?: string;
+  logo: SanityImageSource;
+}
+
 export type FirebaseConfig = {
     apiKey: string;
     authDomain: string;
@@ -70,5 +78,3 @@ export type FirebaseConfig = {
     appId: string;
     measurementId?: string;
 };
-
-    

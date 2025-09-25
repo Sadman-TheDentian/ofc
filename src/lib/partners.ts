@@ -1,3 +1,7 @@
+
+// This file is now deprecated. Partner data is fetched from Sanity.io.
+// The file is kept to prevent breaking changes but can be removed in a future refactor.
+
 import {
   QuantumIncLogo,
   CyberCorpLogo,
