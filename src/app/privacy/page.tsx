@@ -107,8 +107,8 @@ export default function PrivacyPolicyPage() {
           </p>
           <p>
             DentiSystems Inc. <br />
-            123 Cyber Street, Suite 101 <br />
-            Metropolis, USA 90210 <br />
+            One World Trade Center <br />
+            New York, NY 10007, USA <br />
             Email: privacy@dentisystems.com
           </p>
         </div>

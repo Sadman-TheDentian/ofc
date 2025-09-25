@@ -94,9 +94,9 @@ export default function TermsOfServicePage() {
           </p>
           <p>
             DentiSystems Inc. <br />
-            123 Cyber Street, Suite 101 <br />
-            Metropolis, USA 90210 <br />
-            Email: support@dentisystems.com
+            One World Trade Center <br />
+            New York, NY 10007, USA <br />
+            Email: help@denti.systems
           </p>
         </div>
       </div>

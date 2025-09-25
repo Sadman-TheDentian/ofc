@@ -162,8 +162,8 @@ export default function ContactPage() {
                         <div>
                             <h4 className="font-semibold">Email</h4>
                             <p className="text-muted-foreground">General Inquiries</p>
-                            <a href="mailto:support@dentisystems.com" className="text-primary hover:underline">
-                                support@dentisystems.com
+                            <a href="mailto:help@denti.systems" className="text-primary hover:underline">
+                                help@denti.systems
                             </a>
                         </div>
                     </div>
@@ -174,7 +174,7 @@ export default function ContactPage() {
                         <div>
                             <h4 className="font-semibold">Phone</h4>
                             <p className="text-muted-foreground">Mon-Fri, 9am-5pm EST</p>
-                            <p>+1 (555) 123-4567</p>
+                            <p>+1 (212) 845-9947</p>
                         </div>
                     </div>
                      <div className="flex items-start gap-4">
@@ -183,8 +183,8 @@ export default function ContactPage() {
                         </div>
                         <div>
                             <h4 className="font-semibold">Headquarters</h4>
-                            <p className="text-muted-foreground">123 Cyber Street, Suite 101</p>
-                            <p>Metropolis, USA 90210</p>
+                            <p className="text-muted-foreground">One World Trade Center</p>
+                            <p>New York, NY 10007, USA</p>
                         </div>
                     </div>
                 </div>

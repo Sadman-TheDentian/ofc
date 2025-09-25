@@ -22,9 +22,9 @@ const organizationSchema = {
   "logo": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+1-555-123-4567",
+    "telephone": "+1-212-845-9947",
     "contactType": "Customer Service",
-    "email": "support@dentisystems.com"
+    "email": "help@denti.systems"
   },
   "sameAs": [
     "https://x.com/dentisystemsofc",
