@@ -254,21 +254,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="reviews" className="py-20 md:py-32 border-t border-border/50 bg-card/80 backdrop-blur-sm">
-        <div className="container px-4 md:px-6">
-           <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
-            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-              What Our Clients Say
-            </h2>
-          </div>
-          {isClient && (
-             <div className="trustpilot-widget" data-locale="en-US" data-template-id="539ad0ffdec7e10e686debd7" data-businessunit-id="67d29a402aa368cdff23342e" data-style-height="350px" data-style-width="100%" data-theme="dark">
-              <a href="https://www.trustpilot.com/review/denti.systems" target="_blank" rel="noopener">Trustpilot</a>
-            </div>
-          )}
-        </div>
-      </section>
-
       <section
         id="partners"
         className="py-20 md:py-32 border-t border-border/50 bg-background"
@@ -285,5 +270,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
