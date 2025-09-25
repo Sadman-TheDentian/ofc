@@ -13,6 +13,7 @@ import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Result from "./pages/Result";
 import NotFound from "./pages/NotFound";
+import SecurityProtection from "./components/SecurityProtection";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <Analytics />
+      <SecurityProtection />
       <BrowserRouter basename="/tools/darkcheck">
           <Routes>
             <Route path="/" element={<Home />} />
