@@ -30,7 +30,7 @@ export default function CloudFirewallPage() {
 
   const [serverIP, setServerIP] = useState('');
   const [rules, setRules] = useState<Rule[]>([]);
-  const [newRule, setNewRule] = useState({ action: 'Allow', port: '', protocol: 'TCP', source: '0.0.0.0/0' });
+  const [newRule, setNewRule] = useState({ action: 'Allow' as 'Allow' | 'Deny', port: '', protocol: 'TCP' as 'TCP' | 'UDP', source: '0.0.0.0/0' });
   const [isGenerating, setIsGenerating] = useState(false);
 
   const addRule = () => {
@@ -55,9 +55,13 @@ export default function CloudFirewallPage() {
           toast({ variant: 'destructive', title: 'Error', description: 'Please add at least one rule.'});
           return;
       }
+      if (!user) {
+         toast({ variant: 'destructive', title: 'Error', description: 'You must be logged in.'});
+          return;
+      }
       
       setIsGenerating(true);
-      const result = await generateFirewallConfig({ serverIP, rules });
+      const result = await generateFirewallConfig({ serverIP, rules }, user.uid);
       setIsGenerating(false);
 
       if (result.success && result.config) {

@@ -2,8 +2,7 @@
 'use server';
 
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
-import { auth } from '@/lib/firebase';
+import { initializeFirebase } from '@/firebase'; // Corrected import
 
 interface Rule {
   action: 'Allow' | 'Deny';
@@ -17,15 +16,19 @@ interface FirewallConfig {
   rules: Rule[];
 }
 
-export async function generateFirewallConfig(data: FirewallConfig): Promise<{
+export async function generateFirewallConfig(
+  data: FirewallConfig,
+  userId: string
+): Promise<{
   success: boolean;
   config?: string;
   message?: string;
 }> {
-  const user = auth.currentUser;
-  if (!user) {
+  if (!userId) {
     return { success: false, message: 'Authentication required.' };
   }
+
+  const { firestore } = initializeFirebase();
 
   const { serverIP, rules } = data;
   if (!serverIP || !rules || rules.length === 0) {
@@ -50,8 +53,8 @@ export async function generateFirewallConfig(data: FirewallConfig): Promise<{
 
   try {
     // Save the configuration to Firestore
-    await addDoc(collection(db, 'firewallRules'), {
-      userId: user.uid,
+    await addDoc(collection(firestore, 'firewallRules'), {
+      userId: userId,
       serverIP,
       rules,
       generatedConfig: config,

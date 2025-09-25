@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
@@ -13,7 +14,7 @@ import {
   UserCredential,
 } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import { useFirebase } from '@/firebase'; // Updated import
+import { useFirebase } from '@/firebase';
 import { createUserProfile } from './firestore';
 
 type AuthContextType = {
@@ -32,7 +33,7 @@ const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { auth } = useFirebase(); // Use the hook to get auth
+  const { auth } = useFirebase();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
