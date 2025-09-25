@@ -1,4 +1,3 @@
-
 # PhishRisk Score — DentiSystems
 
 The open-source phishing risk scanner for 2025: check if your **email address** or **business domain** is likely to be targeted for phishing—free, instant, no data stored!
