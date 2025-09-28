@@ -62,20 +62,25 @@ export default function DashboardLayout({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // This effect handles all redirection logic.
+    // Wait until all authentication and user data loading is complete.
     if (authLoading || userLoading) {
-      return; // Wait until all data is loaded.
+      return;
     }
 
+    // If there is no user, redirect to the authentication page.
     if (!user) {
-      // If auth is done and there's no user, redirect to login.
       router.push('/auth');
-    } else if (userData && userData.plan !== 'pro') {
-      // If user data is loaded and the plan is not 'pro', redirect to pricing.
-      router.push('/pricing');
+      return;
     }
-    // No action needed if user is logged in and 'pro'.
-  }, [user, userData, authLoading, userLoading, router]);
+
+    // If there is a user but they are not on the 'pro' plan, redirect to the pricing page.
+    // This check runs only after we know the user exists.
+    if (userData?.plan !== 'pro') {
+      router.push('/pricing');
+      return;
+    }
+  }, [authLoading, userLoading, user, userData, router]);
+
 
   const currentPage = sidebarNavItems.find((item) => item.href === pathname);
 
@@ -99,7 +104,7 @@ export default function DashboardLayout({
     </nav>
   );
   
-  // Render a loading state while we verify the user's subscription
+  // While loading authentication state or user data, show a loading spinner.
   if (authLoading || userLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-background">
@@ -108,9 +113,10 @@ export default function DashboardLayout({
     );
   }
 
-  // If the user is not authenticated or not a pro user, the useEffect will trigger a redirect.
-  // We can show a simple "Redirecting..." message or a loading spinner while that happens.
-  if (!user || !userData || userData.plan !== 'pro') {
+  // If the user exists and is a pro user, render the dashboard.
+  // Otherwise, the useEffect hook above will have initiated a redirect.
+  // We can show a simple "Redirecting..." message while that happens.
+  if (!user || userData?.plan !== 'pro') {
      return (
       <div className="flex h-screen w-full items-center justify-center bg-background">
         <div className="text-center">
@@ -121,7 +127,6 @@ export default function DashboardLayout({
     );
   }
 
-  // If all checks pass, render the dashboard.
   return (
     <div className="flex min-h-[calc(100vh-57px)]">
       <aside className="hidden md:flex w-64 flex-col border-r bg-card/80 backdrop-blur-sm p-4">
