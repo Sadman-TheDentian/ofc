@@ -17,6 +17,7 @@ function PaymentSuccessContent() {
   
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [errorMessage, setErrorMessage] = useState('');
+  const [apiKey, setApiKey] = useState<string | null>(null);
 
   useEffect(() => {
     const chargeCode = searchParams.get('code');
@@ -41,6 +42,9 @@ function PaymentSuccessContent() {
       const result = await verifyPaymentAndUpgrade(chargeCode, user.uid);
       if (result.success) {
         setStatus('success');
+        if (result.apiKey) {
+            setApiKey(result.apiKey);
+        }
       } else {
         setErrorMessage(result.error || 'An unknown error occurred during verification.');
         setStatus('error');
@@ -69,6 +73,13 @@ function PaymentSuccessContent() {
             <div>
               <CardTitle className="text-green-500">Upgrade Successful!</CardTitle>
               <CardDescription>Your account has been upgraded to PRO. You now have access to all premium features.</CardDescription>
+              {apiKey && (
+                  <div className="mt-4 text-left bg-secondary/50 p-4 rounded-lg">
+                      <p className="text-sm font-bold">Your API Key:</p>
+                      <p className="text-xs text-muted-foreground mb-2">Copy this key and save it. You will not see it again.</p>
+                      <pre className="text-xs bg-background p-2 rounded-md font-mono break-all">{apiKey}</pre>
+                  </div>
+              )}
               <Button asChild className="mt-6">
                 <Link href="/dashboard">Go to Dashboard</Link>
               </Button>

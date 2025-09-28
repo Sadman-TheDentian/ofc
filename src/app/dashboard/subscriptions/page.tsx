@@ -31,13 +31,13 @@ export default function SubscriptionsPage() {
     ];
     
     const handleUpgrade = async () => {
-        if (!user) {
+        if (!user || !user.email) {
             toast({ variant: 'destructive', title: 'Authentication Error', description: 'You must be logged in to upgrade.' });
             return;
         }
         setIsRedirecting(true);
         try {
-            const result = await createCoinbaseCharge({ userId: user.uid, email: user.email! });
+            const result = await createCoinbaseCharge({ userId: user.uid, email: user.email });
             if (result.success && result.hosted_url) {
                 window.location.href = result.hosted_url;
             } else {

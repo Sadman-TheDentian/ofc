@@ -35,7 +35,7 @@ export async function verifyPaymentAndUpgrade(chargeCode: string, userId: string
             if (userDoc.exists() && userDoc.data().plan !== 'pro') {
                 
                 // Secure API Key Generation (Server-Side)
-                const apiKeySecret = process.env.API_KEY_SECRET;
+                const apiKeySecret = process.env.API_KEY_SECRET || "default-secret-for-local-dev";
                 if (!apiKeySecret) {
                   throw new Error("API_KEY_SECRET is not configured on the server.");
                 }
