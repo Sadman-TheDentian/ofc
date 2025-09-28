@@ -18,11 +18,56 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
-import React from 'react';
-import { securityAdvisories, blogPosts } from '@/lib/data';
+import React, { useEffect, useState } from 'react';
+import { securityAdvisories } from '@/lib/data';
+import { client } from '@/lib/sanity';
+import { type SanityDocument } from "next-sanity";
+import type { CaseStudy } from "@/lib/types";
+import imageUrlBuilder from '@sanity/image-url'
+
+const builder = imageUrlBuilder(client)
+
+function urlFor(source: any) {
+  return builder.image(source)
+}
+
+const POSTS_QUERY = `*[
+  _type == "post"
+  && defined(slug.current)
+]|order(publishedAt desc)[0...3]{
+  _id,
+  title,
+  slug,
+  mainImage,
+  author->{ name }
+}`;
+
+const CASE_STUDIES_QUERY = `*[_type == "caseStudy" && defined(slug.current)] {
+  _id,
+  title,
+  "slug": slug.current,
+  summary,
+  mainImage
+}`;
 
 
 export default function Home() {
+  const [blogPosts, setBlogPosts] = useState<(SanityDocument & { author?: { name: string }})[]>([]);
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  
+  useEffect(() => {
+    async function fetchData() {
+        const [posts, studies] = await Promise.all([
+            client.fetch<(SanityDocument & { author?: { name: string }})[]>(POSTS_QUERY),
+            client.fetch<CaseStudy[]>(CASE_STUDIES_QUERY)
+        ]);
+        setBlogPosts(posts);
+        setCaseStudies(studies);
+    }
+    fetchData();
+  }, []);
+  
+  
   const productsPlugin = React.useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true })
   );
@@ -32,6 +77,9 @@ export default function Home() {
   const blogPlugin = React.useRef(
      Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true })
   );
+  const caseStudiesPlugin = React.useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })
+ );
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -158,17 +206,19 @@ export default function Home() {
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
                       <Carousel opts={{ align: 'start', loop: true }} plugins={[blogPlugin.current]} className="w-full">
                          <CarouselContent>
-                          {blogPosts.slice(0,2).map(post => (
-                            <CarouselItem key={post.title}>
-                                <Link href={post.url} className="group block">
+                          {blogPosts.slice(0,3).map(post => (
+                            <CarouselItem key={post._id}>
+                                <Link href={`/blog/${post.slug.current}`} className="group block">
                                     <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
                                         <div className="flex flex-col">
-                                            <div className="relative h-40 w-full flex-shrink-0">
-                                                <Image src={post.imageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" data-ai-hint={post.imageHint} />
-                                            </div>
+                                            {post.mainImage && (
+                                                <div className="relative h-40 w-full flex-shrink-0">
+                                                    <Image src={urlFor(post.mainImage).width(400).height(250).url()} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                                </div>
+                                            )}
                                             <div className="p-6">
                                                 <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
-                                                <p className="text-xs text-muted-foreground mt-2">{post.author}</p>
+                                                <p className="text-xs text-muted-foreground mt-2">{post.author?.name}</p>
                                             </div>
                                         </div>
                                     </Card>
@@ -198,7 +248,47 @@ export default function Home() {
               fortify their digital defenses.
             </p>
           </div>
-          <div className="text-center">
+            {caseStudies.length > 0 && (
+                 <Carousel
+                    opts={{ align: 'start', loop: true }}
+                    plugins={[caseStudiesPlugin.current]}
+                    className="w-full max-w-5xl mx-auto"
+                >
+                    <CarouselContent className="-ml-4">
+                        {caseStudies.map((study) => (
+                             <CarouselItem key={study._id} className="pl-4 md:basis-1/2 group">
+                                <Link href={`/case-studies/${study.slug}`} className="block">
+                                <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
+                                    {study.mainImage && (
+                                        <div className="relative h-48 w-full">
+                                            <Image
+                                                src={urlFor(study.mainImage).width(600).height(400).url()}
+                                                alt={study.title}
+                                                fill
+                                                className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                                            />
+                                        </div>
+                                    )}
+                                    <CardHeader>
+                                    <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
+                                        {study.title}
+                                    </CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="flex-grow">
+                                    <p className="text-muted-foreground text-sm">
+                                        {study.summary}
+                                    </p>
+                                    </CardContent>
+                                </Card>
+                                </Link>
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="hidden md:flex" />
+                    <CarouselNext className="hidden md:flex" />
+                </Carousel>
+            )}
+          <div className="text-center mt-12">
             <Button asChild size="lg">
               <Link href="/case-studies">View All Case Studies</Link>
             </Button>

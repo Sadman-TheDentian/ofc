@@ -39,7 +39,10 @@ const createCoinbaseChargeFlow = ai.defineFlow(
     // This is a mock response. In a real application, you would make a POST request
     // to `https://api.commerce.coinbase.com/charges` with the appropriate payload.
     const mockChargeCode = `MOCK_${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
-    const mockHostedUrl = `/dashboard/payment-success?code=${mockChargeCode}`;
+    
+    // The issue was here. The URL must be absolute for window.location.href to work reliably.
+    const domain = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:9002';
+    const mockHostedUrl = `${domain}/dashboard/payment-success?code=${mockChargeCode}`;
 
     return {
       charge_code: mockChargeCode,
