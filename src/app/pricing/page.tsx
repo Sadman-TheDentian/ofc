@@ -62,7 +62,7 @@ export default function PricingPage() {
             <CardDescription>For businesses that need advanced security and full API access.</CardDescription>
           </CardHeader>
           <CardContent className="flex-grow space-y-4">
-             <p><span className="text-4xl font-bold">$99</span> / month</p>
+             <p><span className="text-4xl font-bold">$0.99</span> / one-time</p>
              <ul className="space-y-3">
               {proFeatures.map((feature, i) => (
                 <li key={i} className="flex items-start gap-3">

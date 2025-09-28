@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import {
   LayoutDashboard,
@@ -9,11 +9,16 @@ import {
   CreditCard,
   KeyRound,
   PanelLeft,
+  Loader2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useAuth } from '@/lib/auth';
+import { useDoc } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { useFirebase } from '@/firebase/provider';
 
 const sidebarNavItems = [
   {
@@ -47,7 +52,28 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
+  const { firestore } = useFirebase();
+
+  const userDocRef = firestore && user ? doc(firestore, 'users', user.uid) : null;
+  const { data: userData, isLoading: userLoading } = useDoc(userDocRef);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    // If auth is done loading and there's still no user, redirect to login
+    if (!authLoading && !user) {
+      router.push('/auth');
+    }
+  }, [user, authLoading, router]);
+
+  useEffect(() => {
+    // If user data is loaded and the plan is not 'pro', redirect to pricing
+    if (!userLoading && userData && userData.plan !== 'pro') {
+      router.push('/pricing');
+    }
+  }, [userData, userLoading, router]);
 
   const currentPage = sidebarNavItems.find((item) => item.href === pathname);
 
@@ -70,6 +96,24 @@ export default function DashboardLayout({
       ))}
     </nav>
   );
+  
+  // Render a loading state while we verify the user's subscription
+  if (authLoading || userLoading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  // If user is not pro, this will be null and the useEffect will redirect
+  if (!userData || userData.plan !== 'pro') {
+     return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <p className="text-muted-foreground">Redirecting...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-[calc(100vh-57px)]">
