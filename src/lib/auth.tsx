@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     return () => unsubscribe();
-  }, [auth, firestore]);
+  }, [auth, firestore, router]);
 
   const createUserInDatabase = async (user: User) => {
     if (!firestore) {
