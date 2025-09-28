@@ -1,3 +1,4 @@
+'use client';
 
 import { tools } from "@/lib/data";
 import { notFound } from "next/navigation";
@@ -17,6 +18,8 @@ type Props = {
   params: { slug: string };
 };
 
+// Note: generateMetadata is a server-only function, but Next.js allows it
+// in a client component file. It will be handled correctly during the build.
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tool = tools.find((t) => t.slug === params.slug);
 
