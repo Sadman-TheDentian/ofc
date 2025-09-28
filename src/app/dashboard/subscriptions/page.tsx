@@ -125,8 +125,8 @@ export default function SubscriptionsPage() {
                         <CardDescription>Manage payments or get help.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                         <p className="font-semibold">{isPro ? "Visa ending in 4242" : "No payment method on file"}</p>
-                        <p className="text-sm text-muted-foreground">{isPro ? "Expires 12/26" : "Upgrade to add a payment method."}</p>
+                         <p className="font-semibold">{isPro ? "Payment via Coinbase Commerce" : "No payment method on file"}</p>
+                        <p className="text-sm text-muted-foreground">{isPro ? "Lifetime PRO access" : "Upgrade to add a payment method."}</p>
                     </CardContent>
                     <CardFooter className="flex gap-2">
                         <Button variant="outline" disabled={!isPro}>View Invoices</Button>

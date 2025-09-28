@@ -39,11 +39,11 @@ const createCoinbaseChargeFlow = ai.defineFlow(
     // This is a mock response. In a real application, you would make a POST request
     // to `https://api.commerce.coinbase.com/charges` with the appropriate payload.
     const mockChargeCode = `MOCK_${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
-    const mockHostedUrl = `https://commerce.coinbase.com/charges/${mockChargeCode}`;
+    const mockHostedUrl = `/dashboard/payment-success?code=${mockChargeCode}`;
 
     return {
       charge_code: mockChargeCode,
-      hosted_url: `/dashboard/payment-success?code=${mockChargeCode}`,
+      hosted_url: mockHostedUrl,
     };
   }
 );
