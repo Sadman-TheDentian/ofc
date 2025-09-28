@@ -1,7 +1,4 @@
 
-'use client';
-
-import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
@@ -17,8 +14,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import Autoplay from "embla-carousel-autoplay";
-import React, { useEffect, useState } from 'react';
 import { securityAdvisories } from '@/lib/data';
 import { client } from '@/lib/sanity';
 import { type SanityDocument } from "next-sanity";
@@ -51,35 +46,9 @@ const CASE_STUDIES_QUERY = `*[_type == "caseStudy" && defined(slug.current)] {
 }`;
 
 
-export default function Home() {
-  const [blogPosts, setBlogPosts] = useState<(SanityDocument & { author?: { name: string }})[]>([]);
-  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
-  
-  useEffect(() => {
-    async function fetchData() {
-        const [posts, studies] = await Promise.all([
-            client.fetch<(SanityDocument & { author?: { name: string }})[]>(POSTS_QUERY),
-            client.fetch<CaseStudy[]>(CASE_STUDIES_QUERY)
-        ]);
-        setBlogPosts(posts);
-        setCaseStudies(studies);
-    }
-    fetchData();
-  }, []);
-  
-  
-  const productsPlugin = React.useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true })
-  );
-  const advisoriesPlugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })
-  );
-  const blogPlugin = React.useRef(
-     Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true })
-  );
-  const caseStudiesPlugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })
- );
+export default async function Home() {
+  const blogPosts = await client.fetch<(SanityDocument & { author?: { name: string }})[]>(POSTS_QUERY);
+  const caseStudies = await client.fetch<CaseStudy[]>(CASE_STUDIES_QUERY);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -121,7 +90,6 @@ export default function Home() {
           </div>
            <Carousel
               opts={{ align: 'start', loop: true }}
-              plugins={[productsPlugin.current]}
               className="w-full max-w-6xl mx-auto"
             >
               <CarouselContent className="-ml-4">
@@ -179,7 +147,7 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-8">
                  <div className='space-y-4'>
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
-                     <Carousel opts={{ align: 'start', loop: true }} plugins={[advisoriesPlugin.current]} className="w-full">
+                     <Carousel opts={{ align: 'start', loop: true }} className="w-full">
                        <CarouselContent>
                           {securityAdvisories.map(advisory => (
                             <CarouselItem key={advisory.id}>
@@ -204,7 +172,7 @@ export default function Home() {
                 </div>
                  <div className='space-y-4'>
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
-                      <Carousel opts={{ align: 'start', loop: true }} plugins={[blogPlugin.current]} className="w-full">
+                      <Carousel opts={{ align: 'start', loop: true }} className="w-full">
                          <CarouselContent>
                           {blogPosts.slice(0,3).map(post => (
                             <CarouselItem key={post._id}>
@@ -251,7 +219,6 @@ export default function Home() {
             {caseStudies.length > 0 && (
                  <Carousel
                     opts={{ align: 'start', loop: true }}
-                    plugins={[caseStudiesPlugin.current]}
                     className="w-full max-w-5xl mx-auto"
                 >
                     <CarouselContent className="-ml-4">
