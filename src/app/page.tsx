@@ -1,3 +1,4 @@
+'use client';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,6 +20,8 @@ import { client } from '@/lib/sanity';
 import { type SanityDocument } from "next-sanity";
 import type { CaseStudy } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url'
+import React, { useState, useEffect } from "react";
+import Autoplay from "embla-carousel-autoplay";
 
 const builder = imageUrlBuilder(client)
 
@@ -46,9 +49,23 @@ const CASE_STUDIES_QUERY = `*[_type == "caseStudy" && defined(slug.current)] {
 }`;
 
 
-export default async function Home() {
-  const blogPosts = await client.fetch<(SanityDocument & { author?: { name: string }})[]>(POSTS_QUERY);
-  const caseStudies = await client.fetch<CaseStudy[]>(CASE_STUDIES_QUERY);
+export default function Home() {
+  const [blogPosts, setBlogPosts] = useState<(SanityDocument & { author?: { name: string }})[]>([]);
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  
+  const autoplayPlugin = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
+  );
+
+  useEffect(() => {
+    async function fetchData() {
+      const posts = await client.fetch<(SanityDocument & { author?: { name: string }})[]>(POSTS_QUERY);
+      const studies = await client.fetch<CaseStudy[]>(CASE_STUDIES_QUERY);
+      setBlogPosts(posts);
+      setCaseStudies(studies);
+    }
+    fetchData();
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -89,6 +106,7 @@ export default async function Home() {
             </p>
           </div>
            <Carousel
+              plugins={[autoplayPlugin.current]}
               opts={{ align: 'start', loop: true }}
               className="w-full max-w-6xl mx-auto"
             >
@@ -147,7 +165,7 @@ export default async function Home() {
             <div className="grid md:grid-cols-2 gap-8">
                  <div className='space-y-4'>
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
-                     <Carousel opts={{ align: 'start', loop: true }} className="w-full">
+                     <Carousel opts={{ align: 'start', loop: true }} plugins={[autoplayPlugin.current]} className="w-full">
                        <CarouselContent>
                           {securityAdvisories.map(advisory => (
                             <CarouselItem key={advisory.id}>
@@ -172,7 +190,7 @@ export default async function Home() {
                 </div>
                  <div className='space-y-4'>
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
-                      <Carousel opts={{ align: 'start', loop: true }} className="w-full">
+                      <Carousel opts={{ align: 'start', loop: true }} plugins={[autoplayPlugin.current]} className="w-full">
                          <CarouselContent>
                           {blogPosts.slice(0,3).map(post => (
                             <CarouselItem key={post._id}>
@@ -219,6 +237,7 @@ export default async function Home() {
             {caseStudies.length > 0 && (
                  <Carousel
                     opts={{ align: 'start', loop: true }}
+                    plugins={[autoplayPlugin.current]}
                     className="w-full max-w-5xl mx-auto"
                 >
                     <CarouselContent className="-ml-4">
