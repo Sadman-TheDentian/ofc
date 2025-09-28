@@ -1,4 +1,3 @@
-
 'use client';
 
 import { tools } from "@/lib/data";
@@ -59,6 +58,9 @@ export default function ToolDetailClient({ tool }: Props) {
         ]
     }
   };
+  
+  // Find the correct icon component from the original `tools` array
+  const IconComponent = tools.find(t => t.id === tool.id)?.icon;
 
   return (
     <div className="container py-12 md:py-20">
@@ -69,7 +71,7 @@ export default function ToolDetailClient({ tool }: Props) {
       <div className="max-w-4xl mx-auto">
         <div className="text-center space-y-4 mb-12">
           <div className="inline-block p-4 bg-secondary rounded-xl">
-            <Image src={tool.imageUrl} alt={tool.title} width={48} height={48} />
+             {IconComponent && <IconComponent className="h-10 w-10 text-primary" />}
           </div>
           <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
             {tool.title}
