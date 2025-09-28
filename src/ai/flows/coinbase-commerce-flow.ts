@@ -10,6 +10,7 @@ import { z } from 'genkit';
 const CreateChargeInputSchema = z.object({
   userId: z.string().describe('The internal user ID of the customer.'),
   email: z.string().email().describe('The email address of the customer.'),
+  clientOrigin: z.string().url().describe('The origin URL of the client making the request.'),
 });
 export type CreateChargeInput = z.infer<typeof CreateChargeInputSchema>;
 
@@ -40,9 +41,8 @@ const createCoinbaseChargeFlow = ai.defineFlow(
     // to `https://api.commerce.coinbase.com/charges` with the appropriate payload.
     const mockChargeCode = `MOCK_${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
     
-    // The issue was here. The URL must be absolute for window.location.href to work reliably.
-    const domain = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:9002';
-    const mockHostedUrl = `${domain}/dashboard/payment-success?code=${mockChargeCode}`;
+    // Construct the success URL using the client's origin to ensure it works in any environment.
+    const mockHostedUrl = `${input.clientOrigin}/dashboard/payment-success?code=${mockChargeCode}`;
 
     return {
       charge_code: mockChargeCode,

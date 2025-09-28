@@ -37,7 +37,11 @@ export default function SubscriptionsPage() {
         }
         setIsRedirecting(true);
         try {
-            const result = await createCoinbaseCharge({ userId: user.uid, email: user.email });
+            const result = await createCoinbaseCharge({ 
+                userId: user.uid, 
+                email: user.email,
+                clientOrigin: window.location.origin,
+            });
             if (result.success && result.hosted_url) {
                 window.location.href = result.hosted_url;
             } else {

@@ -9,6 +9,7 @@ import crypto from 'crypto';
 type CreateChargeInput = {
   userId: string;
   email: string;
+  clientOrigin: string;
 };
 
 export async function createCoinbaseCharge(input: CreateChargeInput) {

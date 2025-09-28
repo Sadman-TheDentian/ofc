@@ -53,12 +53,6 @@ const CASE_STUDIES_QUERY = `*[_type == "caseStudy" && defined(slug.current)] {
 export default function Home() {
   const [blogPosts, setBlogPosts] = useState<(SanityDocument & { author?: { name: string }})[]>([]);
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
-  
-  const servicesAutoplay = React.useRef(Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }));
-  const advisoriesAutoplay = React.useRef(Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true }));
-  const blogAutoplay = React.useRef(Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true }));
-  const caseStudiesAutoplay = React.useRef(Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true }));
-
 
   useEffect(() => {
     async function fetchData() {
@@ -113,7 +107,7 @@ export default function Home() {
             </p>
           </div>
            <Carousel
-              plugins={[servicesAutoplay.current]}
+              plugins={[Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })]}
               opts={{ align: 'start', loop: true }}
               className="w-full max-w-6xl mx-auto"
             >
@@ -172,7 +166,11 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-8">
                  <div className='space-y-4'>
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
-                     <Carousel opts={{ align: 'start', loop: true }} plugins={[advisoriesAutoplay.current]} className="w-full">
+                     <Carousel 
+                        opts={{ align: 'start', loop: true }} 
+                        plugins={[Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true })]} 
+                        className="w-full"
+                    >
                        <CarouselContent>
                           {securityAdvisories.map(advisory => (
                             <CarouselItem key={advisory.id}>
@@ -197,7 +195,11 @@ export default function Home() {
                 </div>
                  <div className='space-y-4'>
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
-                      <Carousel opts={{ align: 'start', loop: true }} plugins={[blogAutoplay.current]} className="w-full">
+                      <Carousel 
+                        opts={{ align: 'start', loop: true }} 
+                        plugins={[Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })]}
+                        className="w-full"
+                      >
                          <CarouselContent>
                           {blogPosts.slice(0,3).map(post => (
                             <CarouselItem key={post._id}>
@@ -244,7 +246,7 @@ export default function Home() {
             {caseStudies.length > 0 && (
                  <Carousel
                     opts={{ align: 'start', loop: true }}
-                    plugins={[caseStudiesAutoplay.current]}
+                    plugins={[Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true })]}
                     className="w-full max-w-5xl mx-auto"
                 >
                     <CarouselContent className="-ml-4">
