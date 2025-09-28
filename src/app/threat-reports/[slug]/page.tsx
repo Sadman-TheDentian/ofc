@@ -78,5 +78,7 @@ export default async function ThreatReportPage({ params }: { params: { slug: str
 
 export async function generateStaticParams() {
   const reports = await client.fetch<SanityDocument[]>(`*[_type == "threatReport" && defined(slug.current)]{"slug": slug.current}`);
-  return reports.map(report => ({ slug: report.slug.current }));
+  return reports
+    .filter(report => report.slug?.current)
+    .map(report => ({ slug: report.slug.current }));
 }

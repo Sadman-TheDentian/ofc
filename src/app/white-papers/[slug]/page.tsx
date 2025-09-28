@@ -77,5 +77,7 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
 
 export async function generateStaticParams() {
   const papers = await client.fetch<SanityDocument[]>(`*[_type == "whitePaper" && defined(slug.current)]{"slug": slug.current}`);
-  return papers.map(paper => ({ slug: paper.slug.current }));
+  return papers
+    .filter(paper => paper.slug?.current)
+    .map(paper => ({ slug: paper.slug.current }));
 }
