@@ -15,7 +15,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Github, Chrome, Loader2 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
@@ -29,6 +28,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { FirebaseError } from "firebase/app";
+import { checkEmailValidity } from "./actions";
 
 const signUpSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -55,7 +55,7 @@ const getAuthErrorMessage = (error: FirebaseError) => {
         case 'auth/email-already-in-use':
             return 'An account with this email address already exists. Please sign in instead.';
         case 'auth/weak-password':
-            return 'The password is too weak. It must be at least 6 characters long.';
+            return 'The password is too weak. It must be at least 8 characters long.';
         case 'auth/operation-not-allowed':
             return 'This sign-in method is not enabled. Please contact support.';
         case 'auth/popup-closed-by-user':
@@ -114,6 +114,16 @@ export default function AuthPage() {
   const handleSignUp = async (data: z.infer<typeof signUpSchema>) => {
     setLoading(true);
     try {
+      const { isDisposable } = await checkEmailValidity(data.email);
+      if(isDisposable) {
+        toast({
+          variant: "destructive",
+          title: "Sign Up Failed",
+          description: "Disposable email addresses are not allowed. Please use a permanent email.",
+        });
+        setLoading(false);
+        return;
+      }
       await signUpWithEmail(data.email, data.password);
     } catch (error) {
       const firebaseError = error as FirebaseError;
@@ -306,5 +316,3 @@ export default function AuthPage() {
     </div>
   );
 }
-
-    

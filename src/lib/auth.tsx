@@ -15,8 +15,7 @@ import {
 } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase'; // Use the central Firebase hook
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
-import { generate as generateApiKey } from 'random-string';
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 type AuthContextType = {
   user: User | null;
@@ -62,31 +61,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       throw new Error("Database service is not configured.");
     }
     try {
-      // New users default to the 'free' plan.
-      await setDoc(doc(firestore, "users", user.uid), {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        plan: 'free', // All new users start on the free plan.
-        apiKey: null, // API key is null until they upgrade.
-        createdAt: serverTimestamp(),
-      }, { merge: true });
+      const userDocRef = doc(firestore, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+      if (!userDoc.exists()) {
+        await setDoc(userDocRef, {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          plan: 'free', // All new users start on the free plan.
+          apiKey: null, // API key is null until they upgrade.
+          createdAt: serverTimestamp(),
+        });
+      }
     } catch (error) {
        console.error("Error creating user profile in Firestore:", error);
-       // We don't re-throw here because the auth user is already created.
-       // The app can function, but we should log this failure.
     }
   };
 
   const handleSuccessfulAuth = async (userCredential: UserCredential) => {
     const user = userCredential.user;
-    // Check if the user is new by comparing creation and last sign-in times.
-    const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime;
-      
-    if (isNewUser) {
-      await createUserInDatabase(user);
-    }
+    await createUserInDatabase(user);
     router.push('/dashboard');
   };
 
