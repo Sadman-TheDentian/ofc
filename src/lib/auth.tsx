@@ -15,7 +15,8 @@ import {
 } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase'; // Use the central Firebase hook
-import { addDoc, collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { generate as generateApiKey } from 'random-string';
 
 type AuthContextType = {
   user: User | null;
@@ -45,8 +46,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
        if (user) {
-        // Here you could fetch additional user profile data from Firestore
-        // For now, we'll just set the basic user object
         setUser(user);
       } else {
         setUser(null);
@@ -63,12 +62,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       throw new Error("Database service is not configured.");
     }
     try {
+      // New users default to the 'free' plan.
       await setDoc(doc(firestore, "users", user.uid), {
         uid: user.uid,
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
-        plan: 'free', // All new users start on the free plan
+        plan: 'free', // All new users start on the free plan.
+        apiKey: null, // API key is null until they upgrade.
         createdAt: serverTimestamp(),
       }, { merge: true });
     } catch (error) {
@@ -80,9 +81,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const handleSuccessfulAuth = async (userCredential: UserCredential) => {
     const user = userCredential.user;
-    const isNewUser =
-      userCredential.user.metadata.creationTime ===
-      userCredential.user.metadata.lastSignInTime;
+    // Check if the user is new by comparing creation and last sign-in times.
+    const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime;
       
     if (isNewUser) {
       await createUserInDatabase(user);

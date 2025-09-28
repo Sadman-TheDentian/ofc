@@ -1,16 +1,15 @@
 
 'use client';
 
-import {useState} from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -24,10 +23,10 @@ import {
   MoreHorizontal,
   PlusCircle,
   Trash2,
-  Edit,
+  RefreshCcw,
   Loader2,
 } from 'lucide-react';
-import {Badge} from '@/components/ui/badge';
+import { Badge } from '@/components/ui/badge';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -44,113 +43,122 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from '@/components/ui/dialog';
-import {useToast} from '@/hooks/use-toast';
-import {Input} from '@/components/ui/input';
-import {Label} from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/lib/auth';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useFirebase } from '@/firebase';
+import { generate as generateApiKey } from 'random-string';
 
 type ApiKey = {
-  id: string;
   name: string;
   key: string;
   created: string;
   lastUsed: string;
 };
 
-const initialApiKeys: ApiKey[] = [
-  {
-    id: '1',
-    name: 'Primary Server Key',
-    key: 'ds_prod_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6',
-    created: '2023-01-15',
-    lastUsed: '2024-05-20',
-  },
-  {
-    id: '2',
-    name: 'Staging Environment',
-    key: 'ds_test_p6o5n4m3l2k1j0i9h8g7f6e5d4c3b2a1',
-    created: '2023-03-10',
-    lastUsed: '2024-05-18',
-  },
-  {
-    id: '3',
-    name: 'Personal Dev Key',
-    key: 'ds_dev_z9y8x7w6v5u4t3s2r1q0p9o8n7m6l5k4',
-    created: '2024-02-01',
-    lastUsed: 'Never',
-  },
-];
-
 export default function ApiKeysPage() {
-  const [apiKeys, setApiKeys] = useState<ApiKey[]>(initialApiKeys);
+  const { user, loading: authLoading } = useAuth();
+  const { firestore } = useFirebase();
+  const [apiKey, setApiKey] = useState<ApiKey | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRegenerating, setIsRegenerating] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [createDialogOpen, setCreateDialogOpen] = useState(false);
-  const [newKeyName, setNewKeyName] = useState('');
-  const [isCreating, setIsCreating] = useState(false);
-  const [keyToDelete, setKeyToDelete] = useState<ApiKey | null>(null);
-  const {toast} = useToast();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (user && firestore) {
+      const fetchApiKey = async () => {
+        setIsLoading(true);
+        const userDocRef = doc(firestore, 'users', user.uid);
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          // @ts-ignore
+          if (userData.apiKey && userData.plan === 'pro') {
+            setApiKey({
+              name: 'Primary API Key',
+              // @ts-ignore
+              key: userData.apiKey,
+              created: new Date(userData.createdAt.toDate()).toISOString().split('T')[0],
+              lastUsed: 'Never', // Placeholder
+            });
+          } else {
+            setApiKey(null);
+          }
+        }
+        setIsLoading(false);
+      };
+      fetchApiKey();
+    } else if (!authLoading) {
+      setIsLoading(false);
+    }
+  }, [user, firestore, authLoading]);
 
   const handleCopy = (key: string) => {
     navigator.clipboard.writeText(key);
-    toast({title: 'Copied to clipboard!', description: "The API key has been copied."});
+    toast({ title: 'Copied to clipboard!', description: 'The API key has been copied.' });
   };
-
-  const openDeleteDialog = (key: ApiKey) => {
-    setKeyToDelete(key);
-    setDeleteDialogOpen(true);
-  };
-
-  const handleDelete = () => {
-    if (keyToDelete) {
-      setApiKeys(apiKeys.filter(k => k.id !== keyToDelete.id));
-      toast({
-        title: 'API Key Deleted',
-        description: `The key "${keyToDelete.name}" has been revoked.`,
-      });
-    }
-    setDeleteDialogOpen(false);
-    setKeyToDelete(null);
-  };
-
-  const handleCreateKey = () => {
-    if (!newKeyName.trim()) {
-        toast({
-            variant: "destructive",
-            title: "Validation Error",
-            description: "Key name cannot be empty.",
-        });
-        return;
-    }
+  
+  const handleRegenerate = async () => {
+    if (!user || !firestore) return;
+    setIsRegenerating(true);
     
-    setIsCreating(true);
-    // Simulate API call
-    setTimeout(() => {
-        const newKey = `ds_prod_${[...Array(32)].map(() => Math.random().toString(36)[2]).join('')}`;
-        const newApiKey: ApiKey = {
-            id: new Date().getTime().toString(),
-            name: newKeyName,
+    const newKey = `ds_prod_${generateApiKey(32)}`;
+    const userDocRef = doc(firestore, 'users', user.uid);
+
+    try {
+        await updateDoc(userDocRef, { apiKey: newKey });
+        setApiKey(prev => prev ? { ...prev, key: newKey } : {
+            name: 'Primary API Key',
             key: newKey,
             created: new Date().toISOString().split('T')[0],
-            lastUsed: "Never",
-        };
-
-        setApiKeys(prev => [newApiKey, ...prev]);
-        setIsCreating(false);
-        setCreateDialogOpen(false);
-        setNewKeyName('');
-        toast({
-            title: "API Key Created",
-            description: `A new key named "${newKeyName}" has been successfully created.`,
+            lastUsed: 'Never'
         });
-    }, 1000);
+        toast({
+            title: 'API Key Regenerated',
+            description: 'Your new API key is now active.',
+        });
+    } catch (error) {
+        toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'Failed to regenerate API key.',
+        });
+        console.error("Error regenerating API key:", error);
+    } finally {
+        setIsRegenerating(false);
+    }
+  };
+
+  const handleDelete = async () => {
+     if (!user || !firestore) return;
+    
+    const userDocRef = doc(firestore, 'users', user.uid);
+    try {
+        await updateDoc(userDocRef, { apiKey: null });
+        setApiKey(null);
+        toast({
+            title: 'API Key Deleted',
+            description: 'Your API key has been successfully revoked.',
+        });
+    } catch (error) {
+         toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'Failed to delete API key.',
+        });
+    }
+    setDeleteDialogOpen(false);
+  };
+
+
+  if (isLoading || authLoading) {
+    return <div className="flex justify-center items-center h-64"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
   }
+  
+  // @ts-ignore
+  const userPlan = user?.plan;
+  const isPro = userPlan === 'pro';
 
   return (
     <div>
@@ -161,70 +169,86 @@ export default function ApiKeysPage() {
             Manage API keys for programmatic access to DentiSystems tools.
           </p>
         </div>
-        <Button onClick={() => setCreateDialogOpen(true)}>
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Create New Key
+        <Button onClick={handleRegenerate} disabled={isRegenerating || !isPro}>
+            {isRegenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <PlusCircle className="mr-2 h-4 w-4" />}
+            {apiKey ? 'Regenerate Key' : 'Create API Key'}
         </Button>
       </div>
+      
+       {!isPro && !isLoading && (
+         <Card className="mb-8 bg-yellow-500/10 border-yellow-500/30">
+            <CardHeader>
+                <CardTitle className="text-yellow-400">PRO Feature</CardTitle>
+                <CardDescription className="text-yellow-400/80">
+                    API Access is only available on the PRO plan. Upgrade your account to generate and use API keys.
+                </CardDescription>
+            </CardHeader>
+            <CardFooter>
+                <Button variant="secondary" onClick={() => window.location.href='/dashboard/subscriptions'}>Upgrade to PRO</Button>
+            </CardFooter>
+         </Card>
+      )}
 
-      <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
+      <Card className={`bg-gradient-to-br from-card to-card/80 border-border/50 ${!isPro ? 'opacity-50 pointer-events-none' : ''}`}>
         <div className="overflow-x-auto">
-            <Table>
+          <Table>
             <TableHeader>
-                <TableRow>
+              <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead>Key</TableHead>
                 <TableHead>Created</TableHead>
                 <TableHead>Last Used</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
+              </TableRow>
             </TableHeader>
             <TableBody>
-                {apiKeys.map(apiKey => (
-                <TableRow key={apiKey.id}>
-                    <TableCell className="font-medium whitespace-nowrap">{apiKey.name}</TableCell>
-                    <TableCell className="font-mono text-sm">
+              {apiKey ? (
+                <TableRow>
+                  <TableCell className="font-medium whitespace-nowrap">{apiKey.name}</TableCell>
+                  <TableCell className="font-mono text-sm">
                     {apiKey.key.slice(0, 8)}••••••••••••••••
                     {apiKey.key.slice(-4)}
-                    </TableCell>
-                    <TableCell className="whitespace-nowrap">{apiKey.created}</TableCell>
-                    <TableCell>
-                    {apiKey.lastUsed === 'Never' ? (
-                        <Badge variant="outline">Never</Badge>
-                    ) : (
-                        apiKey.lastUsed
-                    )}
-                    </TableCell>
-                    <TableCell className="text-right">
+                  </TableCell>
+                  <TableCell className="whitespace-nowrap">{apiKey.created}</TableCell>
+                  <TableCell>
+                    <Badge variant="outline">Never</Badge>
+                  </TableCell>
+                  <TableCell className="text-right">
                     <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
+                      <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon">
-                            <MoreHorizontal className="h-4 w-4" />
+                          <MoreHorizontal className="h-4 w-4" />
                         </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => handleCopy(apiKey.key)}>
-                            <Copy className="mr-2 h-4 w-4" />
-                            Copy Key
+                          <Copy className="mr-2 h-4 w-4" />
+                          Copy Key
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <Edit className="mr-2 h-4 w-4" />
-                            Edit Name
+                        <DropdownMenuItem onClick={handleRegenerate}>
+                          <RefreshCcw className="mr-2 h-4 w-4" />
+                          Regenerate
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                            className="text-destructive"
-                            onClick={() => openDeleteDialog(apiKey)}
+                          className="text-destructive"
+                          onClick={() => setDeleteDialogOpen(true)}
                         >
-                            <Trash2 className="mr-2 h-4 w-4" />
-                            Delete
+                          <Trash2 className="mr-2 h-4 w-4" />
+                          Delete
                         </DropdownMenuItem>
-                        </DropdownMenuContent>
+                      </DropdownMenuContent>
                     </DropdownMenu>
-                    </TableCell>
+                  </TableCell>
                 </TableRow>
-                ))}
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={5} className="text-center h-24 text-muted-foreground">
+                    {isPro ? 'No API keys found. Generate your first key to get started.' : 'Upgrade to PRO to generate an API key.'}
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
-            </Table>
+          </Table>
         </div>
       </Card>
 
@@ -247,8 +271,7 @@ export default function ApiKeysPage() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the API
-              key named "{keyToDelete?.name}" and revoke its access.
+              This action cannot be undone. This will permanently revoke your API key.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -262,39 +285,6 @@ export default function ApiKeysPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
-      {/* Create Key Dialog */}
-       <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create a New API Key</DialogTitle>
-            <DialogDescription>
-              Give your new key a descriptive name to help you identify it later.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="key-name" className="text-right">
-                Name
-              </Label>
-              <Input
-                id="key-name"
-                value={newKeyName}
-                onChange={(e) => setNewKeyName(e.target.value)}
-                className="col-span-3"
-                placeholder="e.g. My Production Server"
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setCreateDialogOpen(false)} disabled={isCreating}>Cancel</Button>
-            <Button onClick={handleCreateKey} disabled={isCreating}>
-              {isCreating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Create Key
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
