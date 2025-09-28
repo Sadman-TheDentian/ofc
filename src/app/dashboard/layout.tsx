@@ -62,18 +62,20 @@ export default function DashboardLayout({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // If auth is done loading and there's still no user, redirect to login
-    if (!authLoading && !user) {
-      router.push('/auth');
+    // This effect handles all redirection logic.
+    if (authLoading || userLoading) {
+      return; // Wait until all data is loaded.
     }
-  }, [user, authLoading, router]);
 
-  useEffect(() => {
-    // If user data is loaded and the plan is not 'pro', redirect to pricing
-    if (!userLoading && userData && userData.plan !== 'pro') {
+    if (!user) {
+      // If auth is done and there's no user, redirect to login.
+      router.push('/auth');
+    } else if (userData && userData.plan !== 'pro') {
+      // If user data is loaded and the plan is not 'pro', redirect to pricing.
       router.push('/pricing');
     }
-  }, [userData, userLoading, router]);
+    // No action needed if user is logged in and 'pro'.
+  }, [user, userData, authLoading, userLoading, router]);
 
   const currentPage = sidebarNavItems.find((item) => item.href === pathname);
 
@@ -106,15 +108,20 @@ export default function DashboardLayout({
     );
   }
 
-  // If user is not pro, this will be null and the useEffect will redirect
-  if (!userData || userData.plan !== 'pro') {
+  // If the user is not authenticated or not a pro user, the useEffect will trigger a redirect.
+  // We can show a simple "Redirecting..." message or a loading spinner while that happens.
+  if (!user || !userData || userData.plan !== 'pro') {
      return (
       <div className="flex h-screen w-full items-center justify-center bg-background">
-        <p className="text-muted-foreground">Redirecting...</p>
+        <div className="text-center">
+            <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
+            <p className="text-muted-foreground">Verifying access...</p>
+        </div>
       </div>
     );
   }
 
+  // If all checks pass, render the dashboard.
   return (
     <div className="flex min-h-[calc(100vh-57px)]">
       <aside className="hidden md:flex w-64 flex-col border-r bg-card/80 backdrop-blur-sm p-4">
