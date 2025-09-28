@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -25,6 +26,8 @@ import {
   Trash2,
   RefreshCcw,
   Loader2,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -48,47 +51,50 @@ import { useAuth } from '@/lib/auth';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useFirebase } from '@/firebase';
 import { generate as generateApiKey } from 'random-string';
+import Link from 'next/link';
 
-type ApiKey = {
-  name: string;
+type ApiKeyInfo = {
   key: string;
-  created: string;
-  lastUsed: string;
+  createdAt: string;
 };
 
 export default function ApiKeysPage() {
   const { user, loading: authLoading } = useAuth();
   const { firestore } = useFirebase();
-  const [apiKey, setApiKey] = useState<ApiKey | null>(null);
+  const [apiKeyInfo, setApiKeyInfo] = useState<ApiKeyInfo | null>(null);
+  const [newlyGeneratedKey, setNewlyGeneratedKey] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const { toast } = useToast();
 
+  const [userPlan, setUserPlan] = useState('free');
+
   useEffect(() => {
     if (user && firestore) {
-      const fetchApiKey = async () => {
+      const fetchUserData = async () => {
         setIsLoading(true);
         const userDocRef = doc(firestore, 'users', user.uid);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
           const userData = userDoc.data();
           // @ts-ignore
-          if (userData.apiKey && userData.plan === 'pro') {
-            setApiKey({
-              name: 'Primary API Key',
+          setUserPlan(userData.plan || 'free');
+          // @ts-ignore
+          if (userData.apiKeyHashed) {
+            setApiKeyInfo({
               // @ts-ignore
-              key: userData.apiKey,
-              created: new Date(userData.createdAt.toDate()).toISOString().split('T')[0],
-              lastUsed: 'Never', // Placeholder
+              key: 'ds_prod_••••••••••••••••••••••••••••••••', // Never show the real key
+              // @ts-ignore
+              createdAt: userData.apiKeyCreatedAt ? new Date(userData.apiKeyCreatedAt.toDate()).toISOString().split('T')[0] : 'N/A',
             });
           } else {
-            setApiKey(null);
+            setApiKeyInfo(null);
           }
         }
         setIsLoading(false);
       };
-      fetchApiKey();
+      fetchUserData();
     } else if (!authLoading) {
       setIsLoading(false);
     }
@@ -96,27 +102,35 @@ export default function ApiKeysPage() {
 
   const handleCopy = (key: string) => {
     navigator.clipboard.writeText(key);
-    toast({ title: 'Copied to clipboard!', description: 'The API key has been copied.' });
+    toast({ title: 'Copied to clipboard!', description: 'Your new API key has been copied.' });
   };
   
   const handleRegenerate = async () => {
-    if (!user || !firestore) return;
+    if (!user || !firestore || userPlan !== 'pro') return;
     setIsRegenerating(true);
     
+    // This would call a secure cloud function in a real app
+    // For demo, we simulate it client-side but would be server-side
     const newKey = `ds_prod_${generateApiKey(32)}`;
     const userDocRef = doc(firestore, 'users', user.uid);
 
     try {
-        await updateDoc(userDocRef, { apiKey: newKey });
-        setApiKey(prev => prev ? { ...prev, key: newKey } : {
-            name: 'Primary API Key',
-            key: newKey,
-            created: new Date().toISOString().split('T')[0],
-            lastUsed: 'Never'
+        // In a real app, the server would hash this key.
+        // For demo, we are storing a placeholder hash.
+        await updateDoc(userDocRef, { 
+            apiKeyHashed: `hashed_${newKey}`, // Placeholder for real hash
+            apiKeyCreatedAt: new Date()
         });
+
+        setNewlyGeneratedKey(newKey);
+        setApiKeyInfo({
+            key: 'ds_prod_••••••••••••••••••••••••••••••••',
+            createdAt: new Date().toISOString().split('T')[0]
+        });
+
         toast({
-            title: 'API Key Regenerated',
-            description: 'Your new API key is now active.',
+            title: 'API Key Regenerated!',
+            description: 'Your new key is now active. Copy it now, you will not see it again.',
         });
     } catch (error) {
         toast({
@@ -135,8 +149,9 @@ export default function ApiKeysPage() {
     
     const userDocRef = doc(firestore, 'users', user.uid);
     try {
-        await updateDoc(userDocRef, { apiKey: null });
-        setApiKey(null);
+        await updateDoc(userDocRef, { apiKeyHashed: null, apiKeyCreatedAt: null });
+        setApiKeyInfo(null);
+        setNewlyGeneratedKey(null);
         toast({
             title: 'API Key Deleted',
             description: 'Your API key has been successfully revoked.',
@@ -151,13 +166,10 @@ export default function ApiKeysPage() {
     setDeleteDialogOpen(false);
   };
 
-
   if (isLoading || authLoading) {
     return <div className="flex justify-center items-center h-64"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
   }
   
-  // @ts-ignore
-  const userPlan = user?.plan;
   const isPro = userPlan === 'pro';
 
   return (
@@ -169,9 +181,9 @@ export default function ApiKeysPage() {
             Manage API keys for programmatic access to DentiSystems tools.
           </p>
         </div>
-        <Button onClick={handleRegenerate} disabled={isRegenerating || !isPro}>
+         <Button onClick={handleRegenerate} disabled={isRegenerating || !isPro}>
             {isRegenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <PlusCircle className="mr-2 h-4 w-4" />}
-            {apiKey ? 'Regenerate Key' : 'Create API Key'}
+            {apiKeyInfo ? 'Regenerate Key' : 'Create API Key'}
         </Button>
       </div>
       
@@ -184,9 +196,36 @@ export default function ApiKeysPage() {
                 </CardDescription>
             </CardHeader>
             <CardFooter>
-                <Button variant="secondary" onClick={() => window.location.href='/dashboard/subscriptions'}>Upgrade to PRO</Button>
+                <Button variant="secondary" asChild>
+                    <Link href="/dashboard/subscriptions">Upgrade to PRO</Link>
+                </Button>
             </CardFooter>
          </Card>
+      )}
+      
+      {newlyGeneratedKey && (
+          <Card className="mb-8 bg-green-500/10 border-green-500/30">
+              <CardHeader>
+                  <CardTitle className="text-green-400">Your New API Key</CardTitle>
+                  <CardDescription className="text-green-400/80">
+                      Please copy this key and store it securely. You will not be able to see it again.
+                  </CardDescription>
+              </CardHeader>
+              <CardContent>
+                  <div className="flex items-center gap-2 p-3 bg-background rounded-md">
+                      <pre className="font-mono text-sm flex-1 truncate">{newlyGeneratedKey}</pre>
+                      <Button variant="ghost" size="icon" onClick={() => handleCopy(newlyGeneratedKey)}>
+                          <Copy className="h-4 w-4" />
+                      </Button>
+                  </div>
+              </CardContent>
+              <CardFooter>
+                  <Button variant="secondary" onClick={() => setNewlyGeneratedKey(null)}>
+                        <EyeOff className="mr-2 h-4 w-4" />
+                        I have saved my key
+                  </Button>
+              </CardFooter>
+          </Card>
       )}
 
       <Card className={`bg-gradient-to-br from-card to-card/80 border-border/50 ${!isPro ? 'opacity-50 pointer-events-none' : ''}`}>
@@ -202,14 +241,13 @@ export default function ApiKeysPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {apiKey ? (
+              {apiKeyInfo ? (
                 <TableRow>
-                  <TableCell className="font-medium whitespace-nowrap">{apiKey.name}</TableCell>
+                  <TableCell className="font-medium whitespace-nowrap">Primary API Key</TableCell>
                   <TableCell className="font-mono text-sm">
-                    {apiKey.key.slice(0, 8)}••••••••••••••••
-                    {apiKey.key.slice(-4)}
+                    {apiKeyInfo.key}
                   </TableCell>
-                  <TableCell className="whitespace-nowrap">{apiKey.created}</TableCell>
+                  <TableCell className="whitespace-nowrap">{apiKeyInfo.createdAt}</TableCell>
                   <TableCell>
                     <Badge variant="outline">Never</Badge>
                   </TableCell>
@@ -221,10 +259,6 @@ export default function ApiKeysPage() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => handleCopy(apiKey.key)}>
-                          <Copy className="mr-2 h-4 w-4" />
-                          Copy Key
-                        </DropdownMenuItem>
                         <DropdownMenuItem onClick={handleRegenerate}>
                           <RefreshCcw className="mr-2 h-4 w-4" />
                           Regenerate

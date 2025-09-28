@@ -42,36 +42,40 @@ const signInSchema = z.object({
   password: z.string().min(1, { message: "Password is required." }),
 });
 
-const getAuthErrorMessage = (error: FirebaseError) => {
-    switch (error.code) {
-        case 'auth/invalid-email':
-            return 'Invalid email address format.';
-        case 'auth/user-disabled':
-            return 'This user account has been disabled.';
-        case 'auth/user-not-found':
-        case 'auth/wrong-password':
-        case 'auth/invalid-credential':
-            return 'Invalid email or password. Please check your credentials and try again.';
-        case 'auth/email-already-in-use':
-            return 'An account with this email address already exists. Please sign in instead.';
-        case 'auth/weak-password':
-            return 'The password is too weak. It must be at least 8 characters long.';
-        case 'auth/operation-not-allowed':
-            return 'This sign-in method is not enabled. Please contact support.';
-        case 'auth/popup-closed-by-user':
-            return 'The authentication popup was closed before completing the sign-in. Please try again.';
-        case 'auth/cancelled-popup-request':
-            return 'Multiple login attempts detected. Please complete one before trying another.';
-        case 'auth/popup-blocked':
-            return 'Authentication popup was blocked by the browser. Please allow popups for this site.';
-        case 'auth/invalid-api-key':
-             return 'Authentication failed: Invalid API Key. Please contact support.';
-        case 'auth/network-request-failed':
-            return 'A network error occurred. Please check your internet connection and try again.';
-        default:
-            console.error('Unhandled Firebase Auth Error:', error);
-            return 'An unexpected authentication error occurred. Please try again later.';
+const getAuthErrorMessage = (error: FirebaseError | Error) => {
+    if ('code' in error) { // It's a FirebaseError
+        switch (error.code) {
+            case 'auth/invalid-email':
+                return 'Invalid email address format.';
+            case 'auth/user-disabled':
+                return 'This user account has been disabled.';
+            case 'auth/user-not-found':
+            case 'auth/wrong-password':
+            case 'auth/invalid-credential':
+                return 'Invalid email or password. Please check your credentials and try again.';
+            case 'auth/email-already-in-use':
+                return 'An account with this email address already exists. Please sign in instead.';
+            case 'auth/weak-password':
+                return 'The password is too weak. It must be at least 8 characters long.';
+            case 'auth/operation-not-allowed':
+                return 'This sign-in method is not enabled. Please contact support.';
+            case 'auth/popup-closed-by-user':
+                return 'The authentication popup was closed before completing the sign-in. Please try again.';
+            case 'auth/cancelled-popup-request':
+                return 'Multiple login attempts detected. Please complete one before trying another.';
+            case 'auth/popup-blocked':
+                return 'Authentication popup was blocked by the browser. Please allow popups for this site.';
+            case 'auth/invalid-api-key':
+                 return 'Authentication failed: Invalid API Key. Please contact support.';
+            case 'auth/network-request-failed':
+                return 'A network error occurred. Please check your internet connection and try again.';
+            default:
+                console.error('Unhandled Firebase Auth Error:', error);
+                return 'An unexpected authentication error occurred. Please try again later.';
+        }
     }
+    // It's a general Error (like our disposable email error)
+    return error.message;
 }
 
 export default function AuthPage() {
@@ -100,11 +104,10 @@ export default function AuthPage() {
     try {
       await signInWithEmail(data.email, data.password);
     } catch (error) {
-      const firebaseError = error as FirebaseError;
       toast({
         variant: "destructive",
         title: "Sign In Failed",
-        description: getAuthErrorMessage(firebaseError),
+        description: getAuthErrorMessage(error as FirebaseError),
       });
     } finally {
         setLoading(false);
@@ -114,23 +117,12 @@ export default function AuthPage() {
   const handleSignUp = async (data: z.infer<typeof signUpSchema>) => {
     setLoading(true);
     try {
-      const { isDisposable } = await checkEmailValidity(data.email);
-      if(isDisposable) {
-        toast({
-          variant: "destructive",
-          title: "Sign Up Failed",
-          description: "Disposable email addresses are not allowed. Please use a permanent email.",
-        });
-        setLoading(false);
-        return;
-      }
       await signUpWithEmail(data.email, data.password);
     } catch (error) {
-      const firebaseError = error as FirebaseError;
       toast({
         variant: "destructive",
         title: "Sign Up Failed",
-        description: getAuthErrorMessage(firebaseError),
+        description: getAuthErrorMessage(error as FirebaseError | Error),
       });
     } finally {
         setLoading(false);
@@ -144,11 +136,10 @@ export default function AuthPage() {
         if(provider === 'github') await signInWithGithub();
     } catch (error) {
        console.error(`Social login error (${provider}):`, error);
-       const firebaseError = error as FirebaseError;
         toast({
             variant: "destructive",
             title: "Authentication Failed",
-            description: getAuthErrorMessage(firebaseError),
+            description: getAuthErrorMessage(error as FirebaseError),
         });
     } finally {
         setSocialLoading(null);

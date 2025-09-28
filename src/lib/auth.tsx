@@ -16,6 +16,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase'; // Use the central Firebase hook
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { checkEmailValidity } from '@/app/auth/actions';
 
 type AuthContextType = {
   user: User | null;
@@ -108,6 +109,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signUpWithEmail = async (email: string, pass: string) => {
     if (!auth) throw new Error("Firebase services not available");
+
+    const { isDisposable } = await checkEmailValidity(email);
+    if(isDisposable) {
+      throw new Error("Disposable email addresses are not allowed.");
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
