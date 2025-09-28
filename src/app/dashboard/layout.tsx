@@ -1,8 +1,8 @@
+
 'use client';
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { cn } from '@/lib/utils';
 import {
   LayoutDashboard,
   ShieldAlert,
@@ -60,26 +60,34 @@ export default function DashboardLayout({
   const { data: userData, isLoading: userLoading } = useDoc(userDocRef);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   useEffect(() => {
-    // Wait until all authentication and user data loading is complete.
+    // Don't do anything until all data is loaded
     if (authLoading || userLoading) {
       return;
+    }
+    
+    // Prevent re-running the effect once a redirect has been initiated
+    if (isRedirecting) {
+        return;
     }
 
     // If there is no user, redirect to the authentication page.
     if (!user) {
+      setIsRedirecting(true);
       router.push('/auth');
       return;
     }
 
-    // If there is a user but they are not on the 'pro' plan, redirect to the pricing page.
-    // This check runs only after we know the user exists.
-    if (userData?.plan !== 'pro') {
+    // If user data exists and the plan is not 'pro', redirect to pricing.
+    if (userData && userData.plan !== 'pro') {
+      setIsRedirecting(true);
       router.push('/pricing');
       return;
     }
-  }, [authLoading, userLoading, user, userData, router]);
+    
+  }, [authLoading, userLoading, user, userData, router, isRedirecting]);
 
 
   const currentPage = sidebarNavItems.find((item) => item.href === pathname);
@@ -104,76 +112,81 @@ export default function DashboardLayout({
     </nav>
   );
   
-  // While loading authentication state or user data, show a loading spinner.
-  if (authLoading || userLoading) {
+  // While loading authentication state, user data, or redirecting, show a loading spinner.
+  if (authLoading || userLoading || isRedirecting) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-background">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
+          <p className="text-muted-foreground">
+            {isRedirecting ? 'Redirecting...' : 'Verifying access...'}
+          </p>
+        </div>
       </div>
     );
   }
 
   // If the user exists and is a pro user, render the dashboard.
   // Otherwise, the useEffect hook above will have initiated a redirect.
-  // We can show a simple "Redirecting..." message while that happens.
-  if (!user || userData?.plan !== 'pro') {
-     return (
+  if (user && userData?.plan === 'pro') {
+      return (
+        <div className="flex min-h-[calc(100vh-57px)]">
+          <aside className="hidden md:flex w-64 flex-col border-r bg-card/80 backdrop-blur-sm p-4">
+            <div className="flex items-center gap-2 mb-8">
+              <Image
+                src={logoUrl}
+                alt="DentiSystems Logo"
+                width={32}
+                height={32}
+                className="h-8 w-8"
+              />
+              <span className="font-headline text-lg font-bold">Dashboard</span>
+            </div>
+            {navContent}
+          </aside>
+          <div className="flex-1">
+            <header className="md:hidden border-b p-2 flex items-center justify-between sticky top-0 bg-background/80 backdrop-blur-sm z-30">
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <PanelLeft className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="p-4">
+                  <div className="flex items-center gap-2 mb-8">
+                    <Image
+                      src={logoUrl}
+                      alt="DentiSystems Logo"
+                      width={32}
+                      height={32}
+                      className="h-8 w-8"
+                    />
+                    <span className="font-headline text-lg font-bold">
+                      DentiSystems
+                    </span>
+                  </div>
+                  {navContent}
+                </SheetContent>
+              </Sheet>
+              <h1 className="font-headline text-lg font-bold">
+                {currentPage?.title || 'Dashboard'}
+              </h1>
+              {/* Empty div for spacing */}
+              <div className="w-9 h-9" />
+            </header>
+            <div className="p-4 md:p-8">{children}</div>
+          </div>
+        </div>
+      );
+  }
+
+  // Fallback case while redirecting.
+  return (
       <div className="flex h-screen w-full items-center justify-center bg-background">
         <div className="text-center">
             <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
             <p className="text-muted-foreground">Verifying access...</p>
         </div>
       </div>
-    );
-  }
-
-  return (
-    <div className="flex min-h-[calc(100vh-57px)]">
-      <aside className="hidden md:flex w-64 flex-col border-r bg-card/80 backdrop-blur-sm p-4">
-        <div className="flex items-center gap-2 mb-8">
-          <Image
-            src={logoUrl}
-            alt="DentiSystems Logo"
-            width={32}
-            height={32}
-            className="h-8 w-8"
-          />
-          <span className="font-headline text-lg font-bold">Dashboard</span>
-        </div>
-        {navContent}
-      </aside>
-      <div className="flex-1">
-        <header className="md:hidden border-b p-2 flex items-center justify-between sticky top-0 bg-background/80 backdrop-blur-sm z-30">
-          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <PanelLeft className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="p-4">
-              <div className="flex items-center gap-2 mb-8">
-                <Image
-                  src={logoUrl}
-                  alt="DentiSystems Logo"
-                  width={32}
-                  height={32}
-                  className="h-8 w-8"
-                />
-                <span className="font-headline text-lg font-bold">
-                  DentiSystems
-                </span>
-              </div>
-              {navContent}
-            </SheetContent>
-          </Sheet>
-          <h1 className="font-headline text-lg font-bold">
-            {currentPage?.title || 'Dashboard'}
-          </h1>
-          {/* Empty div for spacing */}
-          <div className="w-9 h-9" />
-        </header>
-        <div className="p-4 md:p-8">{children}</div>
-      </div>
-    </div>
   );
 }
