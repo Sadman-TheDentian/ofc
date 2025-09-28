@@ -34,7 +34,7 @@ const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { auth, firestore } = useFirebase(); // Get auth and firestore from the central provider
+  const { auth, firestore } = useFirebase();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -70,8 +70,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          plan: 'free', // All new users start on the free plan.
-          apiKey: null, // API key is null until they upgrade.
+          plan: 'free', // <<< CORRECT: All new users are 'free'.
+          apiKeyHashed: null, // <<< CORRECT: API key is null until payment.
+          apiKeyCreatedAt: null,
           createdAt: serverTimestamp(),
         });
       }

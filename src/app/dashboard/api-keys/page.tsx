@@ -26,7 +26,6 @@ import {
   Trash2,
   RefreshCcw,
   Loader2,
-  Eye,
   EyeOff,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -50,8 +49,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/lib/auth';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useFirebase } from '@/firebase';
-import { generate as generateApiKey } from 'random-string';
 import Link from 'next/link';
+import { useDoc } from '@/firebase/firestore/use-doc';
 
 type ApiKeyInfo = {
   key: string;
@@ -61,44 +60,30 @@ type ApiKeyInfo = {
 export default function ApiKeysPage() {
   const { user, loading: authLoading } = useAuth();
   const { firestore } = useFirebase();
+
+  const userDocRef = user ? doc(firestore, 'users', user.uid) : null;
+  const { data: userData, isLoading: userLoading } = useDoc(userDocRef);
+
   const [apiKeyInfo, setApiKeyInfo] = useState<ApiKeyInfo | null>(null);
   const [newlyGeneratedKey, setNewlyGeneratedKey] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const { toast } = useToast();
 
-  const [userPlan, setUserPlan] = useState('free');
+  const userPlan = userData?.plan || 'free';
 
   useEffect(() => {
-    if (user && firestore) {
-      const fetchUserData = async () => {
-        setIsLoading(true);
-        const userDocRef = doc(firestore, 'users', user.uid);
-        const userDoc = await getDoc(userDocRef);
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          // @ts-ignore
-          setUserPlan(userData.plan || 'free');
-          // @ts-ignore
-          if (userData.apiKeyHashed) {
-            setApiKeyInfo({
-              // @ts-ignore
-              key: 'ds_prod_••••••••••••••••••••••••••••••••', // Never show the real key
-              // @ts-ignore
-              createdAt: userData.apiKeyCreatedAt ? new Date(userData.apiKeyCreatedAt.toDate()).toISOString().split('T')[0] : 'N/A',
-            });
-          } else {
-            setApiKeyInfo(null);
-          }
-        }
-        setIsLoading(false);
-      };
-      fetchUserData();
-    } else if (!authLoading) {
-      setIsLoading(false);
+    if (userData) {
+      if (userData.apiKeyHashed) {
+        setApiKeyInfo({
+          key: 'ds_prod_••••••••••••••••••••••••••••••••', // Never show the real key
+          createdAt: userData.apiKeyCreatedAt ? new Date(userData.apiKeyCreatedAt.toDate()).toISOString().split('T')[0] : 'N/A',
+        });
+      } else {
+        setApiKeyInfo(null);
+      }
     }
-  }, [user, firestore, authLoading]);
+  }, [userData]);
 
   const handleCopy = (key: string) => {
     navigator.clipboard.writeText(key);
@@ -109,20 +94,18 @@ export default function ApiKeysPage() {
     if (!user || !firestore || userPlan !== 'pro') return;
     setIsRegenerating(true);
     
-    // This would call a secure cloud function in a real app
-    // For demo, we simulate it client-side but would be server-side
-    const newKey = `ds_prod_${generateApiKey(32)}`;
-    const userDocRef = doc(firestore, 'users', user.uid);
-
+    // In a real app, this would call a secure cloud function/server action
+    // We are simulating this by updating the doc client-side for demo.
+    // The key generation itself should be server-side.
     try {
-        // In a real app, the server would hash this key.
-        // For demo, we are storing a placeholder hash.
-        await updateDoc(userDocRef, { 
-            apiKeyHashed: `hashed_${newKey}`, // Placeholder for real hash
-            apiKeyCreatedAt: new Date()
-        });
+        const response = await fetch('/api/regenerate-key', { method: 'POST' }); // Placeholder for a real API route
+        const data = await response.json();
 
-        setNewlyGeneratedKey(newKey);
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to regenerate key');
+        }
+
+        setNewlyGeneratedKey(data.apiKey);
         setApiKeyInfo({
             key: 'ds_prod_••••••••••••••••••••••••••••••••',
             createdAt: new Date().toISOString().split('T')[0]
@@ -136,7 +119,7 @@ export default function ApiKeysPage() {
         toast({
             variant: 'destructive',
             title: 'Error',
-            description: 'Failed to regenerate API key.',
+            description: error instanceof Error ? error.message : 'Failed to regenerate API key.',
         });
         console.error("Error regenerating API key:", error);
     } finally {
@@ -166,7 +149,7 @@ export default function ApiKeysPage() {
     setDeleteDialogOpen(false);
   };
 
-  if (isLoading || authLoading) {
+  if (authLoading || userLoading) {
     return <div className="flex justify-center items-center h-64"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
   }
   
@@ -187,7 +170,7 @@ export default function ApiKeysPage() {
         </Button>
       </div>
       
-       {!isPro && !isLoading && (
+       {!isPro && (
          <Card className="mb-8 bg-yellow-500/10 border-yellow-500/30">
             <CardHeader>
                 <CardTitle className="text-yellow-400">PRO Feature</CardTitle>
@@ -299,7 +282,6 @@ export default function ApiKeysPage() {
         </CardFooter>
       </Card>
 
-      {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
