@@ -10,12 +10,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Loader2, ShieldAlert, ShieldCheck, KeyRound } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { CodeLeakDetectorInput, CodeLeakDetectorOutput } from '@/ai/flows/code-leak-detector';
+import { CodeLeakDetectorInputSchema, type CodeLeakDetectorInput, type CodeLeakDetectorOutput } from '@/ai/flows/code-leak-detector';
 import { analyzeCodeForLeaks } from './actions';
 import { useAuth } from '@/lib/auth';
 import Link from 'next/link';
 
-const formSchema = CodeLeakDetectorInput;
+const formSchema = CodeLeakDetectorInputSchema;
 
 export default function CodeLeakDetectorPage() {
   const [result, setResult] = useState<CodeLeakDetectorOutput | null>(null);

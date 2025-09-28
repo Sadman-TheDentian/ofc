@@ -81,5 +81,7 @@ export default async function PostPage({
 
 export async function generateStaticParams() {
   const posts = await client.fetch<SanityDocument[]>(`*[_type == "post" && defined(slug.current)]{"slug": slug.current}`);
-  return posts.map(post => ({ slug: post.slug }));
+  return posts
+    .filter(post => post.slug && post.slug.current) // Filter out items with no slug
+    .map(post => ({ slug: post.slug.current }));
 }

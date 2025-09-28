@@ -98,5 +98,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
 
 export async function generateStaticParams() {
   const studies = await client.fetch<CaseStudy[]>(`*[_type == "caseStudy" && defined(slug.current)]{"slug": slug.current}`);
-  return studies.map(study => ({ slug: study.slug.current }));
+  return studies
+    .filter(study => study.slug && study.slug.current) // Filter out items with no slug
+    .map(study => ({ slug: study.slug.current }));
 }

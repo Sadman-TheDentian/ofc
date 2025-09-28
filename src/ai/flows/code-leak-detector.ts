@@ -10,7 +10,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-const CodeLeakDetectorInputSchema = z.object({
+export const CodeLeakDetectorInputSchema = z.object({
   code: z.string().describe('The code snippet to analyze for leaks.'),
 });
 export type CodeLeakDetectorInput = z.infer<typeof CodeLeakDetectorInputSchema>;
