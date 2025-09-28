@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -193,9 +194,11 @@ export default function Header() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/tools">Tools</Link>
-          </NavigationMenuLink>
+            <Link href="/tools" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Tools
+                </NavigationMenuLink>
+            </Link>
         </NavigationMenuItem>
          <NavigationMenuItem>
           <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
