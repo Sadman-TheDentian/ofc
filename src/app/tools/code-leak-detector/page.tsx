@@ -15,15 +15,13 @@ import { analyzeCodeForLeaks } from './actions';
 import { useAuth } from '@/lib/auth';
 import Link from 'next/link';
 
-const formSchema = CodeLeakDetectorInputSchema;
-
 export default function CodeLeakDetectorPage() {
   const [result, setResult] = useState<CodeLeakDetectorOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { user, loading: authLoading } = useAuth();
 
   const form = useForm<CodeLeakDetectorInput>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(CodeLeakDetectorInputSchema),
     defaultValues: {
       code: `// Example vulnerable code
 const API_KEY = "da_test_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6";
