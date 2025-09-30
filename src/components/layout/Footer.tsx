@@ -8,6 +8,7 @@ import { useAuth } from "@/lib/auth";
 import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { ThreadsIcon, TiktokIcon, DiscordIcon, ClutchIcon, ProductHuntIcon, CrunchbaseIcon, G2Icon, F6sIcon, WellfoundIcon, TrustpilotIcon, TrustedReviewsIcon } from "../icons/Socials";
 
 const logoUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png";
 
@@ -45,6 +46,12 @@ const socials = [
     { name: "LinkedIn", href: "https://www.linkedin.com/company/dentisystems/", icon: Linkedin },
     { name: "Twitter", href: "https://x.com/dentisystemsofc", icon: Twitter },
     { name: "GitHub", href: "#", icon: Github },
+    { name: "YouTube", href: "https://www.youtube.com/@denti.systems", icon: Youtube },
+    { name: "Threads", href: "#", icon: ThreadsIcon },
+    { name: "TikTok", href: "#", icon: TiktokIcon },
+    { name: "Discord", href: "#", icon: DiscordIcon },
+    { name: "Crunchbase", href: "https://www.crunchbase.com/organization/dentisystems", icon: CrunchbaseIcon },
+    { name: "Trustpilot", href: "https://www.trustpilot.com/review/denti.systems", icon: TrustpilotIcon },
 ];
 
 export default function Footer() {
@@ -99,7 +106,7 @@ export default function Footer() {
             <div className="flex items-center gap-4">
                  <Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
                  <Link href="/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link>
-                 <div className="flex items-center gap-4">
+                 <div className="flex items-center gap-4 flex-wrap">
                     {socials.map(social => (
                         <Link key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                             <social.icon className="h-5 w-5" />
