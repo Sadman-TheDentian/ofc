@@ -12,6 +12,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   UserCredential,
+  sendEmailVerification,
 } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase'; // Use the central Firebase hook
@@ -26,6 +27,7 @@ type AuthContextType = {
   signUpWithEmail: (email: string, pass: string) => Promise<any>;
   signInWithEmail: (email: string, pass: string) => Promise<any>;
   signOut: () => Promise<void>;
+  resendVerificationEmail: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -81,9 +83,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const handleSuccessfulAuth = async (userCredential: UserCredential) => {
+  const handleSuccessfulAuth = async (userCredential: UserCredential, isNewUser = false) => {
     await createUserInDatabase(userCredential.user);
-    router.push('/dashboard');
+    if(isNewUser) {
+        router.push('/auth/verify-email');
+    } else {
+        router.push('/dashboard');
+    }
   };
 
   const socialSignIn = async (
@@ -121,7 +127,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         email,
         pass
       );
-      await handleSuccessfulAuth(userCredential);
+      await sendEmailVerification(userCredential.user);
+      await handleSuccessfulAuth(userCredential, true); // Pass true for new user
       return userCredential;
     } catch (error) {
       console.error('Error signing up with email:', error);
@@ -137,7 +144,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         email,
         pass
       );
-      router.push('/dashboard');
+      await handleSuccessfulAuth(userCredential);
       return userCredential;
     } catch (error) {
       console.error('Error signing in with email:', error);
@@ -154,6 +161,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       console.error('Error signing out:', error);
     }
   };
+  
+  const resendVerificationEmail = async () => {
+    if (!auth?.currentUser) {
+        throw new Error("No user is currently signed in.");
+    }
+    await sendEmailVerification(auth.currentUser);
+  }
 
   const value = {
     user,
@@ -163,6 +177,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     signUpWithEmail,
     signInWithEmail,
     signOut,
+    resendVerificationEmail
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

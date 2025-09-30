@@ -9,12 +9,15 @@ import {
   KeyRound,
   PanelLeft,
   Loader2,
+  MailWarning,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useAuth } from '@/lib/auth';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { useToast } from '@/hooks/use-toast';
 
 const sidebarNavItems = [
   {
@@ -36,6 +39,55 @@ const sidebarNavItems = [
 
 const logoUrl =
   'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png';
+
+const VerificationNotice = () => {
+    const { user, resendVerificationEmail } = useAuth();
+    const { toast } = useToast();
+    const [isSending, setIsSending] = useState(false);
+
+    if (user?.emailVerified) {
+        return null;
+    }
+
+    const handleResend = async () => {
+        setIsSending(true);
+        try {
+            await resendVerificationEmail();
+            toast({
+                title: "Verification Email Sent",
+                description: "Please check your inbox for a new verification link.",
+            });
+        } catch (error) {
+            toast({
+                variant: 'destructive',
+                title: "Error",
+                description: "Failed to send verification email. Please try again later.",
+            });
+        } finally {
+            setIsSending(false);
+        }
+    }
+
+    return (
+        <div className="p-4 md:p-8 pt-0 md:pt-0">
+             <Alert variant="destructive">
+                <MailWarning className="h-4 w-4" />
+                <AlertTitle>Verify Your Email</AlertTitle>
+                <AlertDescription>
+                    Your email address has not been verified. Please check your inbox for a verification link to access all features.
+                    <Button
+                        variant="link"
+                        className="p-0 h-auto ml-2 text-destructive"
+                        onClick={handleResend}
+                        disabled={isSending}
+                    >
+                        {isSending ? 'Sending...' : 'Resend Email'}
+                    </Button>
+                </AlertDescription>
+            </Alert>
+        </div>
+    )
+}
 
 export default function DashboardLayout({
   children,
@@ -143,7 +195,10 @@ export default function DashboardLayout({
           {/* Empty div for spacing */}
           <div className="w-9 h-9" />
         </header>
-        <div className="p-4 md:p-8">{children}</div>
+        <div className="py-4 md:py-8">
+          <VerificationNotice />
+          <div className="p-4 md:p-8 pt-0 md:pt-0">{children}</div>
+        </div>
       </div>
     </div>
   );
