@@ -126,10 +126,6 @@ export default function Header() {
             <DropdownMenuItem asChild>
               <Link href="/dashboard">Dashboard</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/dashboard/api-keys">API Keys</Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem onClick={signOut}>Log out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -162,7 +158,7 @@ export default function Header() {
                   </NavigationMenuLink>
                   <ul className="flex flex-col">
                     {items.map((item) => (
-                      <ListItem key={item} href={`/tools/${item.toLowerCase().replace(/\s+/g, '-')}`} title={item}>
+                      <ListItem key={item} href={`/products/${item.toLowerCase().replace(/\s+/g, '-')}`} title={item}>
                         {tools.find(t => t.title.toLowerCase() === item.toLowerCase())?.description}
                       </ListItem>
                     ))}
@@ -194,9 +190,20 @@ export default function Header() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-             <Link href="/tools">Tools</Link>
-           </NavigationMenuLink>
+          <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] lg:w-[600px] lg:grid-cols-2">
+              {tools.map((tool) => (
+                <ListItem
+                  key={tool.id}
+                  href={tool.url || `/tools/${tool.slug}`}
+                  title={tool.title}
+                >
+                  {tool.description}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
         </NavigationMenuItem>
          <NavigationMenuItem>
           <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
