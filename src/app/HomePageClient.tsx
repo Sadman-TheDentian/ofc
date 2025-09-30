@@ -90,11 +90,18 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
                   <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                     <RevealOnScroll delay={index * 150}>
                       <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group bg-gradient-to-br from-card to-card/80 border-border/50">
-                          <CardHeader className="flex flex-row items-center gap-4 p-6">
-                            <div className="p-3 bg-secondary rounded-lg">
-                                <service.icon className="h-6 w-6 text-primary" />
-                            </div>
-                             <CardTitle className="font-headline text-xl">
+                          <div className="relative h-48 w-full">
+                              <Image 
+                                  src={service.imageUrl}
+                                  alt={service.title}
+                                  fill
+                                  style={{ objectFit: 'cover' }}
+                                  className="group-hover:scale-105 transition-transform"
+                                  data-ai-hint={service.imageHint}
+                              />
+                          </div>
+                          <CardHeader>
+                             <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors">
                                 {service.title}
                              </CardTitle>
                           </CardHeader>
