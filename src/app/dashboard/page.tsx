@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -116,26 +117,21 @@ export default function DashboardOverviewPage() {
         </Card>
         <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Subscription</CardTitle>
+            <CardTitle className="text-sm font-medium">Account Status</CardTitle>
             <ShieldCheck className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">PRO Plan</div>
+            <div className="text-2xl font-bold text-primary">Active</div>
             <p className="text-xs text-muted-foreground">
               All tools and API access unlocked.
             </p>
-             <Button variant="link" size="sm" asChild className="p-0 h-auto mt-2">
-              <Link href="/dashboard/subscriptions">
-                Manage Subscription <ArrowRight className="ml-1 h-3 w-3" />
-              </Link>
-            </Button>
           </CardContent>
         </Card>
         <Card className="lg:col-span-1 bg-gradient-to-br from-card to-card/80 border-border/50">
           <CardHeader>
             <CardTitle>API Usage</CardTitle>
             <CardDescription>
-              {chartData.reduce((acc, item) => acc + item.requests, 0).toLocaleString()} / 10,000 requests used this month
+              {chartData.reduce((acc, item) => acc + item.requests, 0).toLocaleString()} API requests this month
             </CardDescription>
           </CardHeader>
           <CardContent className="h-[120px] w-full p-0">

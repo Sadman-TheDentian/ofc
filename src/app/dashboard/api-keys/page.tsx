@@ -49,7 +49,6 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/lib/auth';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useFirebase } from '@/firebase';
-import Link from 'next/link';
 import { useDoc } from '@/firebase/firestore/use-doc';
 
 type ApiKeyInfo = {
@@ -70,7 +69,6 @@ export default function ApiKeysPage() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const { toast } = useToast();
 
-  const userPlan = userData?.plan || 'free';
 
   useEffect(() => {
     if (userData) {
@@ -91,7 +89,7 @@ export default function ApiKeysPage() {
   };
   
   const handleRegenerate = async () => {
-    if (!user || !firestore || userPlan !== 'pro') return;
+    if (!user || !firestore) return;
     setIsRegenerating(true);
     
     // In a real app, this would call a secure cloud function/server action
@@ -152,8 +150,6 @@ export default function ApiKeysPage() {
   if (authLoading || userLoading) {
     return <div className="flex justify-center items-center h-64"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
   }
-  
-  const isPro = userPlan === 'pro';
 
   return (
     <div>
@@ -164,27 +160,11 @@ export default function ApiKeysPage() {
             Manage API keys for programmatic access to DentiSystems tools.
           </p>
         </div>
-         <Button onClick={handleRegenerate} disabled={isRegenerating || !isPro}>
+         <Button onClick={handleRegenerate} disabled={isRegenerating}>
             {isRegenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <PlusCircle className="mr-2 h-4 w-4" />}
             {apiKeyInfo ? 'Regenerate Key' : 'Create API Key'}
         </Button>
       </div>
-      
-       {!isPro && (
-         <Card className="mb-8 bg-yellow-500/10 border-yellow-500/30">
-            <CardHeader>
-                <CardTitle className="text-yellow-400">PRO Feature</CardTitle>
-                <CardDescription className="text-yellow-400/80">
-                    API Access is only available on the PRO plan. Upgrade your account to generate and use API keys.
-                </CardDescription>
-            </CardHeader>
-            <CardFooter>
-                <Button variant="secondary" asChild>
-                    <Link href="/dashboard/subscriptions">Upgrade to PRO</Link>
-                </Button>
-            </CardFooter>
-         </Card>
-      )}
       
       {newlyGeneratedKey && (
           <Card className="mb-8 bg-green-500/10 border-green-500/30">
@@ -211,7 +191,7 @@ export default function ApiKeysPage() {
           </Card>
       )}
 
-      <Card className={`bg-gradient-to-br from-card to-card/80 border-border/50 ${!isPro ? 'opacity-50 pointer-events-none' : ''}`}>
+      <Card className={`bg-gradient-to-br from-card to-card/80 border-border/50`}>
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
@@ -260,7 +240,7 @@ export default function ApiKeysPage() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} className="text-center h-24 text-muted-foreground">
-                    {isPro ? 'No API keys found. Generate your first key to get started.' : 'Upgrade to PRO to generate an API key.'}
+                    No API keys found. Generate your first key to get started.
                   </TableCell>
                 </TableRow>
               )}

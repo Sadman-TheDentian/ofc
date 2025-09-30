@@ -127,7 +127,7 @@ export default function Header() {
               <Link href="/dashboard">Dashboard</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/dashboard/subscriptions">Billing</Link>
+              <Link href="/dashboard/api-keys">API Keys</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={signOut}>Log out</DropdownMenuItem>
@@ -139,7 +139,7 @@ export default function Header() {
     return (
       <nav className="hidden md:flex items-center space-x-2">
         <Button variant="ghost" asChild>
-          <Link href="/pricing">Free Trial</Link>
+          <Link href="/auth">Login</Link>
         </Button>
         <Button asChild>
           <Link href="/contact">Contact Sales</Link>
@@ -194,11 +194,9 @@ export default function Header() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/tools" legacyBehavior passHref>
-            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-              <a>Tools</a>
-            </NavigationMenuLink>
-          </Link>
+           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+             <Link href="/tools">Tools</Link>
+           </NavigationMenuLink>
         </NavigationMenuItem>
          <NavigationMenuItem>
           <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
@@ -350,7 +348,7 @@ export default function Header() {
             ) : (
               <div className="flex flex-col space-y-2">
                  <Button asChild onClick={() => setMobileMenuOpen(false)}>
-                  <Link href="/pricing">Free Trial</Link>
+                  <Link href="/auth">Login</Link>
                 </Button>
                 <Button variant="ghost" asChild onClick={() => setMobileMenuOpen(false)}>
                   <Link href="/contact">Contact Sales</Link>

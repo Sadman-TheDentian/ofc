@@ -15,7 +15,7 @@ import {
 } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase'; // Use the central Firebase hook
-import { doc, getDoc, serverTimestamp, setDoc, updateDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 import { checkEmailValidity } from '@/app/auth/actions';
 
 type AuthContextType = {
@@ -46,29 +46,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
        if (user) {
-        // User is signed in, now verify their plan and data integrity.
-        const userDocRef = doc(firestore, "users", user.uid);
-        const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists()) {
-            const userData = userDoc.data();
-            // AUTO-DOWNGRADE LOGIC
-            if (userData.plan === 'pro') {
-                const paymentsRef = collection(firestore, "payments");
-                const q = query(paymentsRef, where("userId", "==", user.uid), where("status", "==", "completed"));
-                const paymentSnapshot = await getDocs(q);
-
-                if (paymentSnapshot.empty) {
-                    // This is a fake "pro" user. Downgrade them.
-                    console.warn(`User ${user.uid} has 'pro' plan but no valid payment. Downgrading.`);
-                    await updateDoc(userDocRef, {
-                        plan: 'free',
-                        apiKeyHashed: null,
-                        apiKeyCreatedAt: null,
-                    });
-                }
-            }
-        }
+        // User is signed in
+        await createUserInDatabase(user);
         setUser(user);
       } else {
         setUser(null);
@@ -93,9 +72,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          plan: 'free', // All new users default to 'free'
-          apiKeyHashed: null,
-          apiKeyCreatedAt: null,
+          plan: 'free', // All users default to 'free'
           createdAt: serverTimestamp(),
         });
       }
@@ -105,8 +82,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const handleSuccessfulAuth = async (userCredential: UserCredential) => {
-    const user = userCredential.user;
-    await createUserInDatabase(user);
+    await createUserInDatabase(userCredential.user);
     router.push('/dashboard');
   };
 
