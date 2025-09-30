@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -9,7 +8,7 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ShieldCheck, Zap, ArrowRight, ShieldAlert, Loader2, Newspaper } from 'lucide-react';
+import { ShieldCheck, Zap, ArrowRight, ShieldAlert, Loader2, Newspaper, KeyRound, ShieldHalf } from 'lucide-react';
 import Link from 'next/link';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 import {
@@ -177,46 +176,17 @@ export default function DashboardOverviewPage() {
       <div>
         <h2 className="font-headline text-xl font-bold mb-4">Quick Actions</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Link href="/dashboard/threat-monitor">
+          <Link href="/tools/code-leak-detector">
             <Card className="hover:border-primary/50 transition-colors h-full bg-gradient-to-br from-card to-card/80 border-border/50">
               <CardHeader>
                 <CardTitle className="text-base font-semibold flex items-center gap-2">
-                  <Newspaper className="h-5 w-5 text-primary" />
-                  Threat Intel Feed
+                  <KeyRound className="h-5 w-5 text-primary" />
+                  AI Code Leak Detector
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Review detailed threat analysis reports.
-                </p>
-              </CardContent>
-            </Card>
-          </Link>
-          <Link href="/tools/phishrisk">
-            <Card className="hover:border-primary/50 transition-colors h-full bg-gradient-to-br from-card to-card/80 border-border/50">
-              <CardHeader>
-                <CardTitle className="text-base font-semibold flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-primary" />
-                  Launch PhishRisk Sim
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Test your team's phishing awareness.
-                </p>
-              </CardContent>
-            </Card>
-          </Link>
-          <Link href="/dashboard/api-keys">
-            <Card className="hover:border-primary/50 transition-colors h-full bg-gradient-to-br from-card to-card/80 border-border/50">
-              <CardHeader>
-                <CardTitle className="text-base font-semibold flex items-center gap-2">
-                  Manage API Keys
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Generate or revoke API credentials.
+                  Scan code snippets for hardcoded secrets.
                 </p>
               </CardContent>
             </Card>
@@ -225,12 +195,13 @@ export default function DashboardOverviewPage() {
              <Card className="hover:border-primary/50 transition-colors h-full bg-gradient-to-br from-card to-card/80 border-border/50">
               <CardHeader>
                 <CardTitle className="text-base font-semibold flex items-center gap-2">
-                  Scan Code
+                   <ShieldHalf className="h-5 w-5 text-primary" />
+                  AI Code Scanner
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Analyze code snippets for vulnerabilities.
+                  Analyze code for common vulnerabilities.
                 </p>
               </CardContent>
             </Card>

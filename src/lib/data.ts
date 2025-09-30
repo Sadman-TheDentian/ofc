@@ -1,16 +1,11 @@
-
 import type { Service, Tool } from "./types";
 import {
   ShieldCheck,
   Zap,
   Code,
-  Search,
-  Fingerprint,
   KeyRound,
-  Scan,
   ShieldHalf,
   Siren,
-  Shield,
 } from "lucide-react";
 
 export const services: Service[] = [
@@ -66,63 +61,6 @@ export const services: Service[] = [
 
 export const tools: Tool[] = [
   {
-    id: 1,
-    slug: "darkcheck",
-    title: "DarkCheck",
-    description:
-      "Monitor the dark web for mentions of your brand, domains, and employee credentials.",
-    longDescription: "DarkCheck continuously scours dark web marketplaces, forums, and paste sites for any signs of your organization's compromised data. Receive real-time alerts when your assets are detected, allowing you to take immediate action.",
-    icon: Search,
-    url: "/tools/darkcheck",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhP0_bWguZ5wH-zwO9nWFsKIf6oJtiqyUNuF87wE7CBzUEJe7xfDLoYWtUmJaC0p1LSGHfsWkmhSn8-mH5JnYKre-LKkEl9zCC4PSmM89ke2Dg4E14yZejNEd0zGPlo_b09JMSRGBaUC3NnkkjlfU0KtATGbgmiK_PdrcgYisrwITVnOeZ420EUyg92T2w/s320/Darkcheck.png",
-    screenshots: [
-      { id: 1, url: 'https://picsum.photos/seed/ds1/1200/800', alt: 'DarkCheck dashboard showing breach statistics', hint: 'dashboard chart' },
-      { id: 2, url: 'https://picsum.photos/seed/ds2/1200/800', alt: 'DarkCheck alert configuration page', hint: 'settings form' }
-    ]
-  },
-  {
-    id: 2,
-    slug: "phishrisk",
-    title: "PhishRisk",
-    description:
-      "Assess your organization's susceptibility to phishing attacks with simulated campaigns.",
-    longDescription: "PhishRisk allows you to run realistic, automated phishing simulations to test employee awareness. Track open rates, click rates, and data entry to identify vulnerabilities and target training where it's needed most.",
-    icon: Fingerprint,
-    url: "/tools/phishrisk",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjaDT7-W90QmoQPNtx9ZKZd_ZXDzjAx41rprheeshOMZ2k-0c5K4JXPkK5COAWvZcd8FU03p99VJTvBPxOS2aDYWsj3IgZ8c4X6AdS-QxQwIWeXlQ3IWl423Zwl-l7N9Rivm395N3kqigtsfPlxMY_a83BMsFbF3VvlElmmQaZGfBf6C-EM_1Ys71T4t1g/s320/PhishRisk.png",
-    screenshots: [
-        { id: 1, url: 'https://picsum.photos/seed/pr1/1200/800', alt: 'PhishRisk campaign editor', hint: 'email editor' },
-        { id: 2, url: 'https://picsum.photos/seed/pr2/1200/800', alt: 'PhishRisk campaign results dashboard', hint: 'analytics dashboard' }
-    ]
-  },
-  {
-    id: 3,
-    slug: "passwordleaker-pro",
-    title: "PasswordLeaker PRO",
-    description:
-      "Check if your passwords have been compromised in known data breaches.",
-    longDescription: "PasswordLeaker PRO leverages a massive database of breached credentials to help you determine if your passwords are secure. PRO users get access to our API for automated checks and deeper integrations.",
-    icon: KeyRound,
-    url: "/tools/passwordleaker",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7UJYQdyLisohKiFJaPnaq169Y1lxjBcDX1eKBFoA2U8j19vvWaTkwFc0A0lBAqjm7Umf0VcrHsD91aAJz-pFzFDSx8tgm5tdrXYXfFuJpw1JTs8HnFBKc6UHaOlUT5StxqDsrG-6in4FHc0yZKrKGn7k0tVOkZRbTOuwpLvqpYTLzQjXYdzHz9vYJ_jc/s320/PasswordLeaker.png",
-    screenshots: [
-        { id: 1, url: 'https://picsum.photos/seed/pl1/1200/800', alt: 'PasswordLeaker PRO interface', hint: 'code interface' },
-    ]
-  },
-  {
-    id: 4,
-    slug: "leakscan",
-    title: "LeakScan",
-    description: "Continuously scan public code repositories for accidental secret leaks.",
-    longDescription: "LeakScan integrates with your development lifecycle to automatically scan GitHub, GitLab, and other repositories for hardcoded API keys, passwords, and other secrets before they can be exploited by malicious actors.",
-    icon: Scan,
-    url: "/tools/leakscan",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHKHiRNvCifFGey2MkZi5URT_W0HnGJjmgv-bASQy7RcXMSLPSedhxIcn_5JCjQWEDAZhQ2XKiPeLzXUbOrmJv8L3y_CSShjw5gGk6KmUZ6jdnLAoMsyY4orfN3SFnebPVdsTer2RmVgQ6YpPxZQS0XWD3Lia-6FgLPq-ItuDQ3uue1amlsRAhFDZKjiE/s320/Leakscan.png",
-    screenshots: [
-        { id: 1, url: 'https://picsum.photos/seed/ls1/1200/800', alt: 'LeakScan results table', hint: 'data table' }
-    ]
-  },
-  {
     id: 5,
     slug: "code-leak-detector",
     title: "AI Code Leak Detector",
@@ -146,20 +84,6 @@ export const tools: Tool[] = [
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
     screenshots: [
         { id: 1, url: 'https://picsum.photos/seed/cvs1/1200/800', alt: 'AI Code Vulnerability Scanner interface', hint: 'code editor' }
-    ]
-  },
-  {
-    id: 7,
-    slug: "cloud-firewall",
-    title: "Cloud Firewall Lite",
-    description: "Generate `ufw` (Uncomplicated Firewall) rules for your servers quickly.",
-    longDescription: "A premium tool to generate and manage firewall configurations for your cloud servers. Define rules, generate scripts, and secure your infrastructure in minutes. This tool is available exclusively to PRO subscribers.",
-    icon: Shield,
-    url: "/tools/cloud-firewall",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhv9e9pB3k-A9PjM5d9hA2b8r-F-g2G7hJ6T5yY6c5b4rX9cK3v2ZzX8eW5jB0p1N2l3kR8hJ7s6t5Y4wI9U2aX3v0sF4rE2b1oX3jA1sG5t4rY2b0c1kHjGf/s320/Firewall.png",
-    screenshots: [
-        { id: 1, url: 'https://picsum.photos/seed/cf1/1200/800', alt: 'Cloud Firewall rule generator interface', hint: 'dashboard form' },
-        { id: 2, url: 'https://picsum.photos/seed/cf2/1200/800', alt: 'Generated firewall configuration script', hint: 'code block script' }
     ]
   }
 ];
