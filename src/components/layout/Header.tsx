@@ -218,16 +218,11 @@ export default function Header() {
           </NavigationMenuContent>
         </NavigationMenuItem>
          <NavigationMenuItem>
-          <NavigationMenuTrigger>Partners</NavigationMenuTrigger>
-          <NavigationMenuContent>
-             <ul className="grid w-[200px] gap-3 p-4 md:w-[250px]">
-              {partners.map((item) => (
-                <ListItem key={item} href={`/partners/${item.toLowerCase().replace(/\s+/g, '-')}`} title={item}>
-                  {/* Add short descriptions later */}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
+          <Link href="/about" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              About Us
+            </NavigationMenuLink>
+          </Link>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
@@ -301,8 +296,8 @@ export default function Header() {
                             Products
                         </AccordionTrigger>
                         <AccordionContent>
-                           {[...Object.values(products).flat(), ...tools.map(t => t.title)].map(item => (
-                                <MobileNavLink key={item} href={`/tools/${item.toLowerCase().replace(/\s+/g, '-')}`}>{item}</MobileNavLink>
+                           {[...Object.values(products).flat()].map(item => (
+                                <MobileNavLink key={item} href={`/products/${item.toLowerCase().replace(/\s+/g, '-')}`}>{item}</MobileNavLink>
                            ))}
                         </AccordionContent>
                     </AccordionItem>
@@ -321,6 +316,16 @@ export default function Header() {
                            ))}
                         </AccordionContent>
                     </AccordionItem>
+                     <AccordionItem value="tools" className="border-b-0">
+                        <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
+                           Tools
+                        </AccordionTrigger>
+                        <AccordionContent>
+                           {tools.map(tool => (
+                                <MobileNavLink key={tool.id} href={tool.url || `/tools/${tool.slug}`}>{tool.title}</MobileNavLink>
+                           ))}
+                        </AccordionContent>
+                    </AccordionItem>
                      <AccordionItem value="resources" className="border-b-0">
                         <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
                            Resources
@@ -331,17 +336,25 @@ export default function Header() {
                            ))}
                         </AccordionContent>
                     </AccordionItem>
-                      <AccordionItem value="partners" className="border-b-0">
-                        <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
-                           Partners
-                        </AccordionTrigger>
-                        <AccordionContent>
-                           {partners.map(item => (
-                                <MobileNavLink key={item} href={`/partners/${item.toLowerCase().replace(/\s+/g, '-')}`}>{item}</MobileNavLink>
-                           ))}
-                        </AccordionContent>
-                    </AccordionItem>
                 </Accordion>
+                <Link
+                    href="/about"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn("text-lg text-muted-foreground transition-colors hover:text-primary py-2",
+                        pathname === '/about' ? 'text-primary' : ''
+                    )}
+                >
+                    About Us
+                </Link>
+                 <Link
+                    href="/contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn("text-lg text-muted-foreground transition-colors hover:text-primary py-2",
+                        pathname === '/contact' ? 'text-primary' : ''
+                    )}
+                >
+                    Contact
+                </Link>
             </div>
             {user ? (
               <div className="flex flex-col space-y-2">
