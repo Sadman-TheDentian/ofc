@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -27,6 +28,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { FirebaseError } from "firebase/app";
+import { verifyRecaptcha } from "./actions";
 
 declare const grecaptcha: any;
 
@@ -121,26 +123,26 @@ export default function AuthPage() {
         throw new Error("reCAPTCHA not loaded. Please refresh and try again.");
       }
       
-      grecaptcha.enterprise.ready(async () => {
-        try {
-          const token = await grecaptcha.enterprise.execute('6LcHfdkrAAAAACT50f21UCQfGiRAoDzPQeKXhbGp', {action: 'SIGNUP'});
-          await signUpWithEmail(data.email, data.password, token);
-        } catch (error) {
-           toast({
-            variant: "destructive",
-            title: "Sign Up Failed",
-            description: getAuthErrorMessage(error as FirebaseError | Error),
-          });
-          setLoading(false); // Ensure loading is stopped on error within ready callback
-        }
-        // No finally here as setLoading(false) might happen before async operation is done.
-      });
+      const token = await grecaptcha.enterprise.execute('6LcHfdkrAAAAACT50f21UCQfGiRAoDzPQeKXhbGp', {action: 'SIGNUP'});
+      
+      const recaptchaResult = await verifyRecaptcha(token);
+      if (!recaptchaResult.success) {
+          throw new Error(recaptchaResult.error || "reCAPTCHA verification failed.");
+      }
+      if (recaptchaResult.score < 0.7) {
+          console.warn(`Low reCAPTCHA score: ${recaptchaResult.score}. Blocking signup.`);
+          throw new Error("Your request was flagged as suspicious. Please try again.");
+      }
+
+      await signUpWithEmail(data.email, data.password);
+
     } catch (error) {
         toast({
             variant: "destructive",
-            title: "Sign Up Initialization Failed",
-            description: getAuthErrorMessage(error as Error),
+            title: "Sign Up Failed",
+            description: getAuthErrorMessage(error as FirebaseError | Error),
         });
+    } finally {
         setLoading(false);
     }
   };

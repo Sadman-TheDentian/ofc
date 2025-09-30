@@ -24,7 +24,7 @@ type AuthContextType = {
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   signInWithGithub: () => Promise<void>;
-  signUpWithEmail: (email: string, pass: string, token: string) => Promise<any>;
+  signUpWithEmail: (email: string, pass: string) => Promise<any>;
   signInWithEmail: (email: string, pass: string) => Promise<any>;
   signOut: () => Promise<void>;
   resendVerificationEmail: () => Promise<void>;
@@ -114,7 +114,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     await socialSignIn(githubProvider);
   };
   
-  const signUpWithEmail = async (email: string, pass: string, token: string): Promise<UserCredential> => {
+  const signUpWithEmail = async (email: string, pass: string): Promise<UserCredential> => {
      if (!auth) throw new Error("Firebase services not available");
 
     const { isDisposable } = await checkEmailValidity(email);
@@ -122,44 +122,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       throw new Error("Disposable email addresses are not allowed.");
     }
     
-    // Server-side reCAPTCHA verification
-    const recaptchaApiKey = process.env.RECAPTCHA_API_KEY;
-    if (!recaptchaApiKey) {
-        console.error("reCAPTCHA API key is not configured on the server.");
-        throw new Error("Cannot verify your request. Please contact support.");
-    }
-
-    const response = await fetch(`https://recaptchaenterprise.googleapis.com/v1/projects/dentisystems-web-2563348-a6782/assessments?key=${recaptchaApiKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            event: {
-                token: token,
-                siteKey: "6LcHfdkrAAAAACT50f21UCQfGiRAoDzPQeKXhbGp",
-                expectedAction: 'SIGNUP'
-            }
-        })
-    });
-
-    if (!response.ok) {
-        const errorBody = await response.text();
-        console.error("reCAPTCHA verification request failed:", response.status, errorBody);
-        throw new Error("reCAPTCHA verification request failed.");
-    }
-
-    const assessment = await response.json();
-    
-    if (!assessment.tokenProperties.valid) {
-        console.error("Invalid reCAPTCHA token:", assessment.tokenProperties.invalidReason);
-        throw new Error(`reCAPTCHA check failed: ${assessment.tokenProperties.invalidReason}`);
-    }
-    
-    // Recommended threshold for sign-up is 0.7
-    if (assessment.riskAnalysis.score < 0.7) {
-         console.warn(`Low reCAPTCHA score: ${assessment.riskAnalysis.score}. Blocking signup.`);
-         throw new Error("Your request was flagged as suspicious. Please try again.");
-    }
-
     // If verification passes, create the user
     try {
         const userCredential = await createUserWithEmailAndPassword(
@@ -214,7 +176,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     loading,
     signInWithGoogle,
     signInWithGithub,
-    // @ts-ignore
     signUpWithEmail,
     signInWithEmail,
     signOut,
