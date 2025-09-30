@@ -23,6 +23,7 @@ import type { CaseStudy, Partner } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url'
 import React, { useState, useEffect, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
+import HeroAnimation from '@/components/animations/HeroAnimation';
 
 const builder = imageUrlBuilder(client)
 
@@ -45,7 +46,9 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
   return (
     <div className="flex flex-col min-h-screen">
        <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 -z-20" />
+        <div className="absolute inset-0 -z-20">
+          <HeroAnimation />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
 
         <div className="container relative z-10 px-4 md:px-6">
