@@ -16,7 +16,7 @@ import {
 } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase'; // Use the central Firebase hook
-import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { checkEmailValidity } from '@/app/auth/actions';
 
 type AuthContextType = {
@@ -24,7 +24,7 @@ type AuthContextType = {
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   signInWithGithub: () => Promise<void>;
-  signUpWithEmail: (email: string, pass: string) => Promise<any>;
+  signUpWithEmail: (email: string, pass: string, token: string) => Promise<any>;
   signInWithEmail: (email: string, pass: string) => Promise<any>;
   signOut: () => Promise<void>;
   resendVerificationEmail: () => Promise<void>;
@@ -74,7 +74,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          plan: 'free', // All users default to 'free'
           createdAt: serverTimestamp(),
         });
       }
@@ -113,12 +112,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     await socialSignIn(githubProvider);
   };
 
-  const signUpWithEmail = async (email: string, pass: string) => {
+  const signUpWithEmail = async (email: string, pass: string, token: string) => {
     if (!auth) throw new Error("Firebase services not available");
 
     const { isDisposable } = await checkEmailValidity(email);
     if(isDisposable) {
       throw new Error("Disposable email addresses are not allowed.");
+    }
+    
+    // TODO: Implement backend reCAPTCHA token verification here.
+    // For now, we'll simulate a successful verification.
+    // In a real app, you would send the `token` to your backend,
+    // which would then call the reCAPTCHA Enterprise API to verify it.
+    // If verification fails, you should throw an error.
+    console.log("reCAPTCHA token received:", token);
+    const isHuman = true; // Simulating successful verification
+    if (!isHuman) {
+      throw new Error("reCAPTCHA verification failed. Please try again.");
     }
 
     try {

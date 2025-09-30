@@ -28,7 +28,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { FirebaseError } from "firebase/app";
-import { checkEmailValidity } from "./actions";
+
+declare const grecaptcha: any;
 
 const signUpSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -117,14 +118,30 @@ export default function AuthPage() {
   const handleSignUp = async (data: z.infer<typeof signUpSchema>) => {
     setLoading(true);
     try {
-      await signUpWithEmail(data.email, data.password);
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Sign Up Failed",
-        description: getAuthErrorMessage(error as FirebaseError | Error),
+      if (typeof grecaptcha === 'undefined' || !grecaptcha.enterprise) {
+        throw new Error("reCAPTCHA not loaded. Please try again.");
+      }
+      
+      grecaptcha.enterprise.ready(async () => {
+        try {
+          const token = await grecaptcha.enterprise.execute('6LcHfdkrAAAAACT50f21UCQfGiRAoDzPQeKXhbGp', {action: 'SIGNUP'});
+          await signUpWithEmail(data.email, data.password, token);
+        } catch (error) {
+           toast({
+            variant: "destructive",
+            title: "Sign Up Failed",
+            description: getAuthErrorMessage(error as FirebaseError | Error),
+          });
+        } finally {
+           setLoading(false);
+        }
       });
-    } finally {
+    } catch (error) {
+        toast({
+            variant: "destructive",
+            title: "Sign Up Failed",
+            description: getAuthErrorMessage(error as FirebaseError | Error),
+        });
         setLoading(false);
     }
   };
