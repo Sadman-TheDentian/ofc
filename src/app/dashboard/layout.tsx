@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
-  ShieldAlert,
+  ShieldHalf,
   KeyRound,
   PanelLeft,
   Loader2,
@@ -23,13 +23,13 @@ const sidebarNavItems = [
     icon: LayoutDashboard,
   },
   {
-    title: 'Threat Monitor',
-    href: '/dashboard/threat-monitor',
-    icon: ShieldAlert,
+    title: 'Vulnerability Scanner',
+    href: '/dashboard/code-scanner',
+    icon: ShieldHalf,
   },
   {
-    title: 'API Keys',
-    href: '/dashboard/api-keys',
+    title: 'Leak Detector',
+    href: '/dashboard/code-leak-detector',
     icon: KeyRound,
   },
 ];
