@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
@@ -74,6 +75,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           displayName: user.displayName,
           photoURL: user.photoURL,
           createdAt: serverTimestamp(),
+          plan: 'free', // Default plan
         });
       }
     } catch (error) {
@@ -83,7 +85,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const handleSuccessfulAuth = async (userCredential: UserCredential, isNewUser = false) => {
     await createUserInDatabase(userCredential.user);
-    if(isNewUser) {
+    if(isNewUser && userCredential.user.email) { // Only send verification for email sign-ups
+        await sendEmailVerification(userCredential.user);
         router.push('/auth/verify-email');
     } else {
         router.push('/dashboard');
@@ -110,65 +113,68 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signInWithGithub = async () => {
     await socialSignIn(githubProvider);
   };
-
-  const signUpWithEmail = async (email: string, pass: string, token: string) => {
-    if (!auth) throw new Error("Firebase services not available");
+  
+  const signUpWithEmail = async (email: string, pass: string, token: string): Promise<UserCredential> => {
+     if (!auth) throw new Error("Firebase services not available");
 
     const { isDisposable } = await checkEmailValidity(email);
     if(isDisposable) {
       throw new Error("Disposable email addresses are not allowed.");
     }
+    
+    // Server-side reCAPTCHA verification
+    const recaptchaApiKey = process.env.RECAPTCHA_API_KEY;
+    if (!recaptchaApiKey) {
+        console.error("reCAPTCHA API key is not configured on the server.");
+        throw new Error("Cannot verify your request. Please contact support.");
+    }
 
+    const response = await fetch(`https://recaptchaenterprise.googleapis.com/v1/projects/dentisystems-web-2563348-a6782/assessments?key=${recaptchaApiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            event: {
+                token: token,
+                siteKey: "6LcHfdkrAAAAACT50f21UCQfGiRAoDzPQeKXhbGp",
+                expectedAction: 'SIGNUP'
+            }
+        })
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text();
+        console.error("reCAPTCHA verification request failed:", response.status, errorBody);
+        throw new Error("reCAPTCHA verification request failed.");
+    }
+
+    const assessment = await response.json();
+    
+    if (!assessment.tokenProperties.valid) {
+        console.error("Invalid reCAPTCHA token:", assessment.tokenProperties.invalidReason);
+        throw new Error(`reCAPTCHA check failed: ${assessment.tokenProperties.invalidReason}`);
+    }
+    
+    // Recommended threshold for sign-up is 0.7
+    if (assessment.riskAnalysis.score < 0.7) {
+         console.warn(`Low reCAPTCHA score: ${assessment.riskAnalysis.score}. Blocking signup.`);
+         throw new Error("Your request was flagged as suspicious. Please try again.");
+    }
+
+    // If verification passes, create the user
     try {
-        const recaptchaApiKey = "AIzaSyAh4zVl79npUE6jXwYxYfO-i1f4FF2Lw1c";
-        if (!recaptchaApiKey) {
-            console.error("reCAPTCHA API key is not configured.");
-            throw new Error("Cannot verify your request. Please contact support.");
-        }
-        
-        const response = await fetch(`https://recaptchaenterprise.googleapis.com/v1/projects/dentisystems-web-2563348-a6782/assessments?key=${recaptchaApiKey}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                event: {
-                    token: token,
-                    siteKey: "6LcHfdkrAAAAACT50f21UCQfGiRAoDzPQeKXhbGp",
-                    expectedAction: 'SIGNUP'
-                }
-            })
-        });
-
-        if (!response.ok) {
-            const errorBody = await response.text();
-            console.error("reCAPTCHA verification request failed:", response.status, errorBody);
-            throw new Error("reCAPTCHA verification request failed.");
-        }
-
-        const assessment = await response.json();
-        
-        if (!assessment.tokenProperties.valid) {
-            console.error("Invalid reCAPTCHA token:", assessment.tokenProperties.invalidReason);
-            throw new Error(`reCAPTCHA check failed: ${assessment.tokenProperties.invalidReason}`);
-        }
-        
-        if (assessment.riskAnalysis.score < 0.7) {
-             console.warn(`Low reCAPTCHA score: ${assessment.riskAnalysis.score}. Blocking signup.`);
-             throw new Error("Your request was flagged as suspicious. Please try again.");
-        }
-
         const userCredential = await createUserWithEmailAndPassword(
             auth,
             email,
             pass
         );
-        await sendEmailVerification(userCredential.user);
-        await handleSuccessfulAuth(userCredential, true); // Pass true for new user
+        await handleSuccessfulAuth(userCredential, true);
         return userCredential;
     } catch (error) {
-        console.error('Error in signUpWithEmail:', error);
-        throw error; // Re-throw the error to be caught by the calling form
+        console.error('Error creating Firebase user:', error);
+        throw error;
     }
   };
+
 
   const signInWithEmail = async (email: string, pass: string) => {
     if (!auth) throw new Error("Firebase services not available");
@@ -208,6 +214,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     loading,
     signInWithGoogle,
     signInWithGithub,
+    // @ts-ignore
     signUpWithEmail,
     signInWithEmail,
     signOut,
