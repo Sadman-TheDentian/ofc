@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -75,7 +74,7 @@ const getAuthErrorMessage = (error: FirebaseError | Error) => {
                 return 'An unexpected authentication error occurred. Please try again later.';
         }
     }
-    // It's a general Error (like our disposable email error)
+    // It's a general Error (like our disposable email error or reCAPTCHA error)
     return error.message;
 }
 
@@ -119,7 +118,7 @@ export default function AuthPage() {
     setLoading(true);
     try {
       if (typeof grecaptcha === 'undefined' || !grecaptcha.enterprise) {
-        throw new Error("reCAPTCHA not loaded. Please try again.");
+        throw new Error("reCAPTCHA not loaded. Please refresh and try again.");
       }
       
       grecaptcha.enterprise.ready(async () => {
@@ -132,15 +131,15 @@ export default function AuthPage() {
             title: "Sign Up Failed",
             description: getAuthErrorMessage(error as FirebaseError | Error),
           });
-        } finally {
-           setLoading(false);
+          setLoading(false); // Ensure loading is stopped on error within ready callback
         }
+        // No finally here as setLoading(false) might happen before async operation is done.
       });
     } catch (error) {
         toast({
             variant: "destructive",
-            title: "Sign Up Failed",
-            description: getAuthErrorMessage(error as FirebaseError | Error),
+            title: "Sign Up Initialization Failed",
+            description: getAuthErrorMessage(error as Error),
         });
         setLoading(false);
     }

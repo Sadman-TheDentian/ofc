@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
@@ -121,7 +120,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     try {
-        const recaptchaApiKey = process.env.RECAPTCHA_API_KEY;
+        const recaptchaApiKey = "AIzaSyAh4zVl79npUE6jXwYxYfO-i1f4FF2Lw1c";
         if (!recaptchaApiKey) {
             console.error("reCAPTCHA API key is not configured.");
             throw new Error("Cannot verify your request. Please contact support.");
@@ -140,6 +139,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
 
         if (!response.ok) {
+            const errorBody = await response.text();
+            console.error("reCAPTCHA verification request failed:", response.status, errorBody);
             throw new Error("reCAPTCHA verification request failed.");
         }
 
