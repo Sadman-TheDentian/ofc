@@ -19,9 +19,9 @@ import {
 import { securityAdvisories } from '@/lib/data';
 import { client } from '@/lib/sanity';
 import { type SanityDocument } from "next-sanity";
-import type { CaseStudy } from "@/lib/types";
+import type { CaseStudy, Partner } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 
 const builder = imageUrlBuilder(client)
@@ -49,18 +49,35 @@ const CASE_STUDIES_QUERY = `*[_type == "caseStudy" && defined(slug.current)] {
   mainImage
 }`;
 
+const PARTNERS_QUERY = `*[_type == "partner"]{
+  _id,
+  name,
+  website,
+  logo
+}`;
+
 
 export default function Home() {
   const [blogPosts, setBlogPosts] = useState<(SanityDocument & { author?: { name: string }})[]>([]);
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  const [partners, setPartners] = useState<Partner[]>([]);
+
+  const servicesAutoplayPlugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }));
+  const advisoriesAutoplayPlugin = useRef(Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true }));
+  const blogAutoplayPlugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true }));
+  const caseStudiesAutoplayPlugin = useRef(Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true }));
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const posts = await client.fetch<(SanityDocument & { author?: { name: string }})[]>(POSTS_QUERY);
-        const studies = await client.fetch<CaseStudy[]>(CASE_STUDIES_QUERY);
+        const [posts, studies, partnerData] = await Promise.all([
+            client.fetch<(SanityDocument & { author?: { name: string }})[]>(POSTS_QUERY),
+            client.fetch<CaseStudy[]>(CASE_STUDIES_QUERY),
+            client.fetch<Partner[]>(PARTNERS_QUERY)
+        ]);
         setBlogPosts(posts);
         setCaseStudies(studies);
+        setPartners(partnerData);
       } catch (error) {
         console.error("Failed to fetch Sanity data:", error);
       }
@@ -107,7 +124,7 @@ export default function Home() {
             </p>
           </div>
            <Carousel
-              plugins={[Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })]}
+              plugins={[servicesAutoplayPlugin.current]}
               opts={{ align: 'start', loop: true }}
               className="w-full max-w-6xl mx-auto"
             >
@@ -168,7 +185,7 @@ export default function Home() {
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
                      <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={[Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true })]} 
+                        plugins={[advisoriesAutoplayPlugin.current]} 
                         className="w-full"
                     >
                        <CarouselContent>
@@ -197,7 +214,7 @@ export default function Home() {
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
                       <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={[Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })]}
+                        plugins={[blogAutoplayPlugin.current]}
                         className="w-full"
                       >
                          <CarouselContent>
@@ -246,7 +263,7 @@ export default function Home() {
             {caseStudies.length > 0 && (
                  <Carousel
                     opts={{ align: 'start', loop: true }}
-                    plugins={[Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true })]}
+                    plugins={[caseStudiesAutoplayPlugin.current]}
                     className="w-full max-w-5xl mx-auto"
                 >
                     <CarouselContent className="-ml-4">
@@ -301,7 +318,7 @@ export default function Home() {
               Powering the World's Most Secure Companies
             </h2>
           </div>
-          <PartnerSlider />
+          <PartnerSlider partners={partners} />
         </div>
       </section>
     </div>
