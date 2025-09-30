@@ -129,11 +129,12 @@ export default function AuthPage() {
       if (!recaptchaResult.success) {
           throw new Error(recaptchaResult.error || "reCAPTCHA verification failed.");
       }
-      if (recaptchaResult.score < 0.7) {
+      if (recaptchaResult.score < 0.7) { // Recommended threshold
           console.warn(`Low reCAPTCHA score: ${recaptchaResult.score}. Blocking signup.`);
           throw new Error("Your request was flagged as suspicious. Please try again.");
       }
 
+      // If reCAPTCHA is successful and score is high enough, proceed with signup
       await signUpWithEmail(data.email, data.password);
 
     } catch (error) {
