@@ -119,30 +119,53 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if(isDisposable) {
       throw new Error("Disposable email addresses are not allowed.");
     }
-    
-    // TODO: Implement backend reCAPTCHA token verification here.
-    // For now, we'll simulate a successful verification.
-    // In a real app, you would send the `token` to your backend,
-    // which would then call the reCAPTCHA Enterprise API to verify it.
-    // If verification fails, you should throw an error.
-    console.log("reCAPTCHA token received:", token);
-    const isHuman = true; // Simulating successful verification
-    if (!isHuman) {
-      throw new Error("reCAPTCHA verification failed. Please try again.");
-    }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        pass
-      );
-      await sendEmailVerification(userCredential.user);
-      await handleSuccessfulAuth(userCredential, true); // Pass true for new user
-      return userCredential;
+        const recaptchaApiKey = process.env.RECAPTCHA_API_KEY;
+        if (!recaptchaApiKey) {
+            console.error("reCAPTCHA API key is not configured.");
+            throw new Error("Cannot verify your request. Please contact support.");
+        }
+        
+        const response = await fetch(`https://recaptchaenterprise.googleapis.com/v1/projects/dentisystems-web-2563348-a6782/assessments?key=${recaptchaApiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                event: {
+                    token: token,
+                    siteKey: "6LcHfdkrAAAAACT50f21UCQfGiRAoDzPQeKXhbGp",
+                    expectedAction: 'SIGNUP'
+                }
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("reCAPTCHA verification request failed.");
+        }
+
+        const assessment = await response.json();
+        
+        if (!assessment.tokenProperties.valid) {
+            console.error("Invalid reCAPTCHA token:", assessment.tokenProperties.invalidReason);
+            throw new Error(`reCAPTCHA check failed: ${assessment.tokenProperties.invalidReason}`);
+        }
+        
+        if (assessment.riskAnalysis.score < 0.7) {
+             console.warn(`Low reCAPTCHA score: ${assessment.riskAnalysis.score}. Blocking signup.`);
+             throw new Error("Your request was flagged as suspicious. Please try again.");
+        }
+
+        const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            pass
+        );
+        await sendEmailVerification(userCredential.user);
+        await handleSuccessfulAuth(userCredential, true); // Pass true for new user
+        return userCredential;
     } catch (error) {
-      console.error('Error signing up with email:', error);
-      throw error;
+        console.error('Error in signUpWithEmail:', error);
+        throw error; // Re-throw the error to be caught by the calling form
     }
   };
 
