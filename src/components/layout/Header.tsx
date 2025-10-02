@@ -217,18 +217,18 @@ export default function Header() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/about" legacyBehavior={false}>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              About Us
+            <NavigationMenuLink asChild>
+                <Link href="/about" className={navigationMenuTriggerStyle()}>
+                About Us
+                </Link>
             </NavigationMenuLink>
-          </Link>
         </NavigationMenuItem>
          <NavigationMenuItem>
-          <Link href="/contact" legacyBehavior={false}>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Contact
+            <NavigationMenuLink asChild>
+                <Link href="/contact" className={navigationMenuTriggerStyle()}>
+                Contact
+                </Link>
             </NavigationMenuLink>
-          </Link>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
