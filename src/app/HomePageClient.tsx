@@ -51,22 +51,15 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6 p-8 rounded-xl">
              <h1
-                className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground"
+                className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground animate-focus-in"
+                style={{ animationDelay: '200ms', animationFillMode: 'backwards' }}
               >
-                {heroHeadline.split('').map((char, index) => (
-                  <span
-                    key={index}
-                    className="inline-block animate-secure-lock-in"
-                    style={{ animationDelay: `${100 + index * 25}ms`, animationFillMode: 'backwards' }}
-                  >
-                    {char === ' ' ? '\u00A0' : char}
-                  </span>
-                ))}
+                {heroHeadline}
               </h1>
               <div className="overflow-hidden">
                 <p
-                  className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-slide-up"
-                  style={{ animationDelay: '400ms', animationFillMode: 'backwards' }}
+                  className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-focus-in"
+                  style={{ animationDelay: '500ms', animationFillMode: 'backwards' }}
                 >
                   Advanced threat detection and prevention for enterprises.
                 </p>
