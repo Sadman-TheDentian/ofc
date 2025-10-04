@@ -45,11 +45,11 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
   return (
     <div className="flex flex-col min-h-screen">
-       <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden">
+       <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden bg-background/50 backdrop-blur-sm border-b border-border/50">
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
 
         <div className="container relative z-10 px-4 md:px-6">
-          <div className="max-w-4xl mx-auto space-y-6 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
+          <div className="max-w-4xl mx-auto space-y-6 p-8 rounded-xl">
             <RevealOnScroll>
               <h1
                 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground whitespace-pre-line"
