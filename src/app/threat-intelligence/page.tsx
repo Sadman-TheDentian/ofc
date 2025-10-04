@@ -60,7 +60,7 @@ const blogPosts = [
         title: "The Future of Zero Trust Architecture",
         author: "Alex Johnson, Network Architect",
         url: "/blog/post-3",
-        imageUrl: "https://images.unsplash.com/photo-1518434779774-d94213f80c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxuZXR3b3JrJTIwYXJjaGl0ZWN0dXJlJTIwZGlhZ3JhbXxlbnwwfHx8fDE3NTg2MDM4MTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        imageUrl: "https://images.unsplash.com/photo-1518434779774-d94213f80c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxuZXR3b3JrJTIwYXJjaGl0ZWN0dXJlJTIwZGlhZ3JhbXxlbnwwfHx8fDE3NTg2MDM4MTh8MA&ixlib-rb-4.1.0&q=80&w=1080",
         imageHint: "network architecture diagram"
     },
 ];
@@ -79,7 +79,7 @@ export default function ThreatIntelligencePage() {
 
       <section id="reports" className="mb-20">
         <h2 className="font-headline text-3xl font-bold tracking-tighter mb-8 border-l-4 border-primary pl-4">Latest Threat Reports</h2>
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {threatReports.map(report => (
                 <Card key={report.title} className="flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50 group">
                     <div className="relative h-56 w-full">
@@ -124,7 +124,7 @@ export default function ThreatIntelligencePage() {
 
       <section id="research-blog" className="mb-20">
           <h2 className="font-headline text-3xl font-bold tracking-tighter mb-8 border-l-4 border-primary pl-4">From Our Research Blog</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {blogPosts.map(post => (
                   <Link href={post.url} key={post.title} className="group">
                     <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
