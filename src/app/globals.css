@@ -125,7 +125,7 @@
   @keyframes slide-up-and-fade {
     from {
       opacity: 0;
-      transform: translateY(100%);
+      transform: translateY(24px);
     }
     to {
       opacity: 1;
@@ -135,6 +135,21 @@
 
   .animate-slide-up {
     animation: slide-up-and-fade 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+  
+  @keyframes character-reveal {
+    from {
+      opacity: 0;
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+    }
+  }
+  
+  .animate-character-reveal {
+    animation: character-reveal 0.6s ease-out forwards;
   }
 
   @keyframes scroll {

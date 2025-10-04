@@ -43,8 +43,6 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
   const heroHeadline = "Elite Cybersecurity & Custom Web Engineering";
 
-  const headlineWords = heroHeadline.split(' ');
-
   return (
     <div className="flex flex-col min-h-screen">
        <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden bg-background/50 backdrop-blur-sm border-b border-border/50">
@@ -55,14 +53,13 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
              <h1
                 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground"
               >
-                {headlineWords.map((word, index) => (
-                  <span key={index} className="inline-block overflow-hidden">
-                    <span
-                      className="inline-block animate-slide-up"
-                      style={{ animationDelay: `${100 + index * 50}ms`, animationFillMode: 'backwards' }}
-                    >
-                      {word}&nbsp;
-                    </span>
+                {heroHeadline.split('').map((char, index) => (
+                  <span
+                    key={index}
+                    className="inline-block animate-character-reveal"
+                    style={{ animationDelay: `${100 + index * 20}ms`, animationFillMode: 'backwards' }}
+                  >
+                    {char === ' ' ? '\u00A0' : char}
                   </span>
                 ))}
               </h1>
