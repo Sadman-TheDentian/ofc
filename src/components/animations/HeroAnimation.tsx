@@ -116,15 +116,18 @@ const HeroAnimation: React.FC = () => {
         if (!ctx) return;
         
         ctx.beginPath();
-        ctx.moveTo(this.history[0]?.x, this.history[0]?.y);
-        for (let i = 1; i < this.history.length; i++) {
-          const opacity = (i / this.history.length);
-          const color = this.color === 'red' ? `rgba(255, 80, 80, ${opacity * 0.5})` : `rgba(0, 255, 136, ${opacity})`;
-          ctx.strokeStyle = color;
-          ctx.lineWidth = 1;
-          ctx.lineTo(this.history[i].x, this.history[i].y);
+        if(this.history.length > 1) {
+            ctx.moveTo(this.history[0].x, this.history[0].y);
+            for (let i = 1; i < this.history.length; i++) {
+                const opacity = (i / this.history.length);
+                const color = this.color === 'red' ? `rgba(255, 80, 80, ${opacity * 0.5})` : `rgba(0, 255, 136, ${opacity})`;
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 1;
+                ctx.lineTo(this.history[i].x, this.history[i].y);
+            }
+            ctx.stroke();
         }
-        ctx.stroke();
+
 
         ctx.beginPath();
         ctx.arc(this.x, this.y, 1.5, 0, Math.PI * 2);
