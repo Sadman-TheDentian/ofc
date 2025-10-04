@@ -122,69 +122,6 @@
     animation: fade-in 0.5s ease-out forwards;
   }
   
-  @keyframes slide-up-and-fade {
-    from {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-slide-up {
-    animation: slide-up-and-fade 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  }
-  
-  @keyframes draw-line {
-    from {
-      width: 0%;
-    }
-    to {
-      width: 100%;
-    }
-  }
-
-  @keyframes fade-in-delayed {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  .blueprint-reveal {
-    position: relative;
-    padding: 0.5rem 0;
-  }
-
-  .blueprint-reveal::before,
-  .blueprint-reveal::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 1px;
-    background-color: hsl(var(--primary) / 0.3);
-    width: 0%;
-    animation: draw-line 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-  }
-
-  .blueprint-reveal::before {
-    top: 0;
-  }
-
-  .blueprint-reveal::after {
-    bottom: 0;
-  }
-
-  .blueprint-reveal-text {
-    opacity: 0;
-    animation: fade-in-delayed 0.5s ease-out 0.6s forwards;
-  }
-
   @keyframes scroll {
     to {
       transform: translate(calc(-50% - 2rem));
@@ -192,5 +129,35 @@
   }
   .animate-scroll {
     animation: scroll 40s linear infinite;
+  }
+  
+  .glint-headline {
+    position: relative;
+    color: hsl(var(--foreground));
+  }
+
+  .glint-headline::before {
+    content: var(--text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(
+      circle at var(--mouseX) var(--mouseY),
+      hsl(var(--primary) / 0.8) 0%,
+      hsl(var(--primary) / 0.6) 10%,
+      hsl(var(--foreground) / 0.8) 25%,
+      transparent 40%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+
+  .glint-container:hover .glint-headline::before {
+    opacity: 1;
   }
 }
