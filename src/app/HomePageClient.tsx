@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -7,7 +8,6 @@ import Link from 'next/link';
 import { services } from '@/lib/data';
 import Image from 'next/image';
 import PartnerSlider from '@/components/layout/PartnerSlider';
-import RevealOnScroll from '@/components/animations/RevealOnScroll';
 import {
   Carousel,
   CarouselContent,
@@ -43,6 +43,8 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
   const heroHeadline = "Elite Cybersecurity & Custom Web Engineering";
 
+  const headlineWords = heroHeadline.split(' ');
+
   return (
     <div className="flex flex-col min-h-screen">
        <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden bg-background/50 backdrop-blur-sm border-b border-border/50">
@@ -50,30 +52,41 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6 p-8 rounded-xl">
-            <RevealOnScroll>
-              <h1
-                className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground whitespace-pre-line"
+             <h1
+                className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground"
               >
-                {heroHeadline}
+                {headlineWords.map((word, index) => (
+                  <span key={index} className="inline-block overflow-hidden">
+                    <span
+                      className="inline-block animate-slide-up"
+                      style={{ animationDelay: `${100 + index * 50}ms`, animationFillMode: 'backwards' }}
+                    >
+                      {word}&nbsp;
+                    </span>
+                  </span>
+                ))}
               </h1>
-            </RevealOnScroll>
-            <RevealOnScroll delay={300}>
-              <p
-                className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
-              >
-                Advanced threat detection and prevention for enterprises.
-              </p>
-            </RevealOnScroll>
-            <RevealOnScroll delay={500}>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                <Button size="lg" asChild>
-                  <Link href="/contact">Schedule Demo</Link>
-                </Button>
-                <Button size="lg" variant="secondary" asChild>
-                  <Link href="/threat-intelligence">View Threat Report</Link>
-                </Button>
+              <div className="overflow-hidden">
+                <p
+                  className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-slide-up"
+                  style={{ animationDelay: '400ms', animationFillMode: 'backwards' }}
+                >
+                  Advanced threat detection and prevention for enterprises.
+                </p>
               </div>
-            </RevealOnScroll>
+               <div className="overflow-hidden">
+                <div 
+                  className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-slide-up"
+                  style={{ animationDelay: '600ms', animationFillMode: 'backwards' }}
+                >
+                  <Button size="lg" asChild>
+                    <Link href="/contact">Schedule Demo</Link>
+                  </Button>
+                  <Button size="lg" variant="secondary" asChild>
+                    <Link href="/threat-intelligence">View Threat Report</Link>
+                  </Button>
+                </div>
+              </div>
           </div>
         </div>
       </section>
@@ -96,7 +109,6 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
               <CarouselContent className="-ml-4">
                 {services.map((service, index) => (
                   <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <RevealOnScroll delay={index * 150}>
                       <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group bg-gradient-to-br from-card to-card/80 border-border/50">
                           <div className="relative h-48 w-full">
                               <Image 
@@ -129,7 +141,6 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
                             </Button>
                           </CardContent>
                         </Card>
-                    </RevealOnScroll>
                   </CarouselItem>
                 ))}
               </CarouselContent>
