@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -48,12 +47,18 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
   return (
     <div className="flex flex-col min-h-screen">
        <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 bg-background -z-10" />
+        <HeroAnimation />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
 
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6">
-            <HeroAnimation text={heroHeadline} />
+            <RevealOnScroll>
+              <h1
+                className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground whitespace-pre-line"
+              >
+                {heroHeadline}
+              </h1>
+            </RevealOnScroll>
             <RevealOnScroll delay={300}>
               <p
                 className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
