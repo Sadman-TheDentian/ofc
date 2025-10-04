@@ -54,6 +54,7 @@ const ScrambleTextAnimation: React.FC<ScrambleTextAnimationProps> = ({ text, cla
         clearTimeout(animationTimeout.current);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
   return (

@@ -54,20 +54,23 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6">
             <HeroAnimation text={heroHeadline} />
-            <p
-              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up"
-               style={{ animationDelay: '300ms' }}
-            >
-              Advanced threat detection and prevention for enterprises.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in-up" style={{ animationDelay: '500ms' }}>
-              <Button size="lg" asChild>
-                <Link href="/contact">Schedule Demo</Link>
-              </Button>
-              <Button size="lg" variant="secondary" asChild>
-                <Link href="/threat-intelligence">View Threat Report</Link>
-              </Button>
-            </div>
+            <RevealOnScroll delay={300}>
+              <p
+                className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
+              >
+                Advanced threat detection and prevention for enterprises.
+              </p>
+            </RevealOnScroll>
+            <RevealOnScroll delay={500}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                <Button size="lg" asChild>
+                  <Link href="/contact">Schedule Demo</Link>
+                </Button>
+                <Button size="lg" variant="secondary" asChild>
+                  <Link href="/threat-intelligence">View Threat Report</Link>
+                </Button>
+              </div>
+            </RevealOnScroll>
           </div>
         </div>
       </section>
