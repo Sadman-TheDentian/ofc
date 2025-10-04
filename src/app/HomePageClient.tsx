@@ -50,32 +50,29 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6 p-8 rounded-xl">
-             <h1
-                className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground animate-focus-in"
-                style={{ animationDelay: '200ms', animationFillMode: 'backwards' }}
+             <div className="blueprint-reveal">
+                 <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground">
+                    <span className="blueprint-reveal-text">
+                        {heroHeadline}
+                    </span>
+                 </h1>
+             </div>
+             <p
+                className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in"
+                style={{ animationDelay: '1s', animationFillMode: 'backwards' }}
               >
-                {heroHeadline}
-              </h1>
-              <div className="overflow-hidden">
-                <p
-                  className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-focus-in"
-                  style={{ animationDelay: '500ms', animationFillMode: 'backwards' }}
-                >
-                  Advanced threat detection and prevention for enterprises.
-                </p>
-              </div>
-               <div className="overflow-hidden">
-                <div 
-                  className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-slide-up"
-                  style={{ animationDelay: '600ms', animationFillMode: 'backwards' }}
-                >
-                  <Button size="lg" asChild>
-                    <Link href="/contact">Schedule Demo</Link>
-                  </Button>
-                  <Button size="lg" variant="secondary" asChild>
-                    <Link href="/threat-intelligence">View Threat Report</Link>
-                  </Button>
-                </div>
+                Advanced threat detection and prevention for enterprises.
+              </p>
+               <div 
+                className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in"
+                style={{ animationDelay: '1.2s', animationFillMode: 'backwards' }}
+              >
+                <Button size="lg" asChild>
+                  <Link href="/contact">Schedule Demo</Link>
+                </Button>
+                <Button size="lg" variant="secondary" asChild>
+                  <Link href="/threat-intelligence">View Threat Report</Link>
+                </Button>
               </div>
           </div>
         </div>

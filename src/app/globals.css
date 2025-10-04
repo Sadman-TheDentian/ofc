@@ -137,19 +137,52 @@
     animation: slide-up-and-fade 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
   
-  @keyframes focus-in {
-    0% {
-      filter: blur(12px);
+  @keyframes draw-line {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes fade-in-delayed {
+    from {
       opacity: 0;
     }
-    100% {
-      filter: blur(0);
+    to {
       opacity: 1;
     }
   }
-  
-  .animate-focus-in {
-    animation: focus-in 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+
+  .blueprint-reveal {
+    position: relative;
+    padding: 0.5rem 0;
+  }
+
+  .blueprint-reveal::before,
+  .blueprint-reveal::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 1px;
+    background-color: hsl(var(--primary) / 0.3);
+    width: 0%;
+    animation: draw-line 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  .blueprint-reveal::before {
+    top: 0;
+  }
+
+  .blueprint-reveal::after {
+    bottom: 0;
+  }
+
+  .blueprint-reveal-text {
+    opacity: 0;
+    animation: fade-in-delayed 0.5s ease-out 0.6s forwards;
   }
 
   @keyframes scroll {
