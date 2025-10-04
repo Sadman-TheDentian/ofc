@@ -43,23 +43,24 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
   const blogAutoplayPlugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true }));
   const caseStudiesAutoplayPlugin = useRef(Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true }));
 
+  const heroHeadline = "Elite Cybersecurity & Custom Web Engineering";
+
   return (
     <div className="flex flex-col min-h-screen">
        <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden">
-        <HeroAnimation />
+        <div className="absolute inset-0 bg-background -z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
 
         <div className="container relative z-10 px-4 md:px-6">
-          <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-            <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground whitespace-pre-line">
-              Elite Cybersecurity & Custom Web Engineering
-            </h1>
+          <div className="max-w-4xl mx-auto space-y-6">
+            <HeroAnimation text={heroHeadline} />
             <p
-              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
+              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up"
+               style={{ animationDelay: '300ms' }}
             >
               Advanced threat detection and prevention for enterprises.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in-up" style={{ animationDelay: '500ms' }}>
               <Button size="lg" asChild>
                 <Link href="/contact">Schedule Demo</Link>
               </Button>
