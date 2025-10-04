@@ -172,7 +172,7 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
                   Stay ahead of adversaries with real-time alerts and research from the front lines of cybersecurity.
                 </p>
             </div>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                  <div className='space-y-4'>
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
                      <Carousel 
