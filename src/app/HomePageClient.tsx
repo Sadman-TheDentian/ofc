@@ -56,8 +56,8 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
                 {heroHeadline.split('').map((char, index) => (
                   <span
                     key={index}
-                    className="inline-block animate-character-reveal"
-                    style={{ animationDelay: `${100 + index * 20}ms`, animationFillMode: 'backwards' }}
+                    className="inline-block animate-secure-lock-in"
+                    style={{ animationDelay: `${100 + index * 25}ms`, animationFillMode: 'backwards' }}
                   >
                     {char === ' ' ? '\u00A0' : char}
                   </span>
