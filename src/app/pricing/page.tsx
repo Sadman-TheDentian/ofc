@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ArrowRight, Check, Shield, Code } from "lucide-react";
+import { ArrowRight, Check, Shield } from "lucide-react";
 import Link from "next/link";
 
 
@@ -61,7 +61,7 @@ export default function PricingPage() {
         <Card className="flex flex-col bg-gradient-to-br from-card to-card/80 border-border/50">
           <CardHeader>
              <div className="flex items-center gap-4">
-                <Code className="h-8 w-8 text-primary" />
+                <Check className="h-8 w-8 text-primary" />
                 <CardTitle className="font-headline text-2xl">Developer Tools</CardTitle>
             </div>
             <CardDescription className="pt-2">For individuals and developers using our free security utilities.</CardDescription>
