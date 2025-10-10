@@ -14,6 +14,7 @@ export const services: Service[] = [
     id: 1,
     slug: "high-risk-vendor-recon",
     title: "High-Risk Vendor Recon",
+    headline: "Uncover Hidden Supply Chain Risks",
     description:
       "We identify and analyze your high-risk vendors to uncover potential breach points and supply chain vulnerabilities.",
     longDescription:
@@ -21,11 +22,34 @@ export const services: Service[] = [
     icon: ShieldCheck,
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgQSRzyjF-_g0LnSdNoxY338BBlMxBE78y6EU_6sDeLZQEx5p1nZy6aWT847p0omh0RRcvpUxYzk9WBQlGDvPxRUi19XaOIvPmsxiR2itZU8TuTOxlAcnUVz47EJLy7KRQe4GTt6jblQ3OjiPj_ploYeHMyGBiWWOLOtpXjx3tO-ya9xiFjQq8qBGFG2is/w634-h355/High-Risk%20Vendor%20Recon.jpg",
     imageHint: "data security",
+    challenge: {
+      title: "Your Security is Only as Strong as Your Weakest Link",
+      description: "A single compromised vendor can lead to a full-scale breach of your own systems. Traditional security measures often overlook the vast, interconnected network of third-party suppliers, creating critical blind spots.",
+      stat: "60%",
+      statLabel: "of breaches originate from third-party vendors"
+    },
+    capabilities: [
+      { icon: "Target", title: "Vendor Risk Scoring", description: "We quantitatively score your vendors based on their security posture and access level." },
+      { icon: "Shield", title: "Attack Surface Mapping", description: "Identifying all exposed assets and potential entry points associated with your vendors." },
+      { icon: "Eye", title: "Dark Web Monitoring", description: "Continuously searching for leaked credentials or sensitive data related to your supply chain." }
+    ],
+    approach: [
+      { step: 1, title: "Discovery & Mapping", description: "We work with you to identify all vendors and map their data access and integrations." },
+      { step: 2, title: "External Reconnaissance", description: "Our team conducts deep OSINT and technical scans to build a risk profile for each vendor." },
+      { step:3, title: "Analysis & Reporting", description: "We deliver a comprehensive report detailing vulnerabilities, risk scores, and actionable remediation steps." },
+      { step: 4, title: "Continuous Monitoring", description: "Ongoing monitoring provides real-time alerts for new risks emerging in your supply chain." }
+    ],
+    socialProof: {
+      quote: "DentiSystems uncovered a critical vulnerability in one of our key logistics partners we never would have found on our own. They saved us from what could have been a disastrous breach.",
+      author: "CFO",
+      company: "Global Logistics Corp"
+    }
   },
   {
     id: 2,
     slug: "assurance-services",
     title: "Assurance Services",
+    headline: "Proactive Defense Through Simulated Attacks",
     description:
       "Comprehensive penetration testing and ransomware resilience assessments to fortify your defenses.",
     longDescription:
@@ -33,11 +57,34 @@ export const services: Service[] = [
     icon: Zap,
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtbBCKuZskvSJPiQYyaPMimovP5jgPOcsmUYtZS1JzbbiloKv5z39TYUYSVYVQ3LgGvi8aW_l8oKUBolxG3nrLiJzvnzqbXCPVI4Xa1pLZrTTQ1eFUyIQ3neGm4jz6v6V_UeSumgcCG1Kh3YMxI5gA_Ws2ZzZHNjpxOmTI7kIb3P-FhixMA0DrRf16RN4/w641-h358/Assurance%20Services.jpg",
     imageHint: "network infrastructure",
+    challenge: {
+        title: "Are Your Defenses Truly Battle-Tested?",
+        description: "Compliance checklists and automated scanners can provide a false sense of security. Sophisticated attackers exploit gaps that only a manual, intelligence-driven testing approach can uncover.",
+        stat: "93%",
+        statLabel: "of successful attacks bypass traditional antivirus and firewalls."
+    },
+    capabilities: [
+        { icon: "Network", title: "Network Penetration Testing", description: "Simulating real-world attacks to identify vulnerabilities in your internal and external networks." },
+        { icon: "Smartphone", title: "Web & Mobile Application Testing", description: "Finding flaws in your applications before attackers do, from XSS to insecure authentication." },
+        { icon: "Cloud", title: "Cloud Security Assessment", description: "Evaluating your AWS, Azure, or GCP configuration for misconfigurations and security gaps." }
+    ],
+    approach: [
+        { step: 1, title: "Scope & Rules of Engagement", description: "We define the testing scope and objectives to align with your business goals." },
+        { step: 2, title: "Intelligence-Led Testing", description: "Our testers use adversary tactics (TTPs) relevant to your industry to simulate realistic threats." },
+        { step: 3, title: "Exploitation & Analysis", description: "We safely exploit vulnerabilities to demonstrate business impact and identify root causes." },
+        { step: 4, title: "Strategic Debrief & Reporting", description: "You receive a detailed report with a strategic executive summary and tactical remediation guidance." }
+    ],
+    socialProof: {
+        quote: "The penetration test from DentiSystems was the most thorough we've ever experienced. Their report was clear, actionable, and helped us secure critical infrastructure.",
+        author: "Head of Security",
+        company: "Fintech Innovations Inc."
+    }
   },
   {
     id: 3,
     slug: "secure-web-development",
     title: "Secure Web Development",
+    headline: "Build Resilient Applications, Faster",
     description:
       "Custom web engineering with security baked in from the ground up, reducing your operational risk.",
     longDescription:
@@ -45,11 +92,34 @@ export const services: Service[] = [
     icon: Code,
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhoYBuNJZrtHawM4IQz4mkVoZ00kqNBXFiIPAD7QEkUHD_gYdPrwHtuT207KaHeeKz0RaR0_DpNPKVScb9i03CBr3VTb5NsrSYJHpIRS4EiQp4l9pUKsfZmAyXylodtOShXS3-O5qJ-Fjttbx6ZnBrkAbziSdzcPiV0vBpOQXyE5o7wFb-5RYibkwAazic/w629-h352/Secure%20Web%20Development.jpg",
     imageHint: "developer laptop code",
+    challenge: {
+        title: "The Pressure to Ship vs. The Need to Be Secure",
+        description: "In a fast-paced development environment, security is often treated as an afterthought, leading to vulnerabilities that are costly to fix post-deployment. This technical debt creates significant operational and reputational risk.",
+        stat: "100x",
+        statLabel: "more expensive to fix a bug in production than during design."
+    },
+    capabilities: [
+        { icon: "FileCode", title: "Secure by Design Architecture", description: "We design application and cloud architecture with security principles like least privilege and defense-in-depth." },
+        { icon: "Scan", title: "DevSecOps Integration", description: "Automating security testing (SAST, DAST) directly into your CI/CD pipeline for rapid feedback." },
+        { icon: "Users", title: "Developer Security Training", description: "Upskilling your team with secure coding best practices to prevent vulnerabilities at the source." }
+    ],
+    approach: [
+        { step: 1, title: "Threat Modeling Workshop", description: "We identify potential threats and design security controls before development begins." },
+        { step: 2, title: "Secure Coding & PR Reviews", description: "Our engineers build your application, with every pull request undergoing a security-focused code review." },
+        { step: 3, title: "Pre-Deployment Pentesting", description: "A final manual penetration test is conducted in a staging environment to catch any remaining issues." },
+        { step: 4, title: "Secure Infrastructure & Handover", description: "We deploy the application on hardened infrastructure and provide full documentation and training." }
+    ],
+    socialProof: {
+        quote: "DentiSystems didn't just build our platform; they made our entire team better at security. Their process is a game-changer for any company that takes security seriously.",
+        author: "VP of Engineering",
+        company: "SaaSConnect"
+    }
   },
   {
     id: 4,
     slug: "incident-response-forensics",
     title: "Incident Response & Forensics",
+    headline: "Rapid Response to Minimize Breach Impact",
     description:
       "Rapid response to security breaches to minimize damage, recover data, and identify the root cause.",
     longDescription:
@@ -57,6 +127,28 @@ export const services: Service[] = [
     icon: Siren,
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitdckfgici7gt_cQw1iNaEULPtjFOOffZJ7NSzMqcNns90531Ep5zXqcDuXVff0OtSmkpfHHM17CF7qU8ZPU7ZUBAWhiy-aj_PrlukTmYNaWpDhuU7yQibjdtPVt9ui1f5ckzOCwyQNe5bdH2jD260h1Y3-EAHWFsHip2fvxTuB9E4-rw-CJ29sEJr_YA/w631-h353/Incident%20Response%20&%20Forensics.jpg",
     imageHint: "emergency server room",
+    challenge: {
+        title: "Every Second Counts During a Breach",
+        description: "An uncontained security incident can quickly escalate from a minor issue to a catastrophic event, leading to data loss, financial ruin, and irreparable brand damage. A slow or ineffective response is often worse than the initial attack.",
+        stat: "$4.35M",
+        statLabel: "average cost of a data breach in 2023."
+    },
+    capabilities: [
+        { icon: "Zap", title: "24/7 Emergency Response", description: "Our team is on standby to help you contain threats and manage incidents at a moment's notice." },
+        { icon: "Server", title: "Digital Forensics", description: "We preserve and analyze digital evidence to understand the full scope of the attack and support recovery." },
+        { icon: "Shield", title: "Threat Eradication", description: "We hunt down and remove the adversary from your network to prevent re-infection and further damage." }
+    ],
+    approach: [
+        { step: 1, title: "Containment", description: "Our first priority is to stop the bleeding by isolating affected systems and preventing further attacker movement." },
+        { step: 2, title: "Investigation", description: "We conduct a thorough forensic analysis to determine the root cause, timeline, and scope of the incident." },
+        { step: 3, title: "Eradication", description: "We systematically remove all attacker artifacts, backdoors, and persistence mechanisms from your environment." },
+        { step: 4, title: "Recovery & Hardening", description: "We help you safely restore operations and implement security enhancements to prevent a recurrence." }
+    ],
+    socialProof: {
+        quote: "When we were hit with ransomware, we were dead in the water. DentiSystems had us contained in hours and fully operational in days. They are true experts in crisis management.",
+        author: "CEO",
+        company: "Manufacturing Solutions LLC"
+    }
   },
 ];
 

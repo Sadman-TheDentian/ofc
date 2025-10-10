@@ -6,11 +6,33 @@ export type Service = {
   id: number;
   slug: string;
   title: string;
+  headline: string;
   description: string;
   longDescription: string;
   icon: LucideIcon;
   imageUrl: string;
   imageHint: string;
+  challenge: {
+    title: string;
+    description: string;
+    stat?: string;
+    statLabel?: string;
+  };
+  capabilities: {
+    icon: string;
+    title: string;
+    description: string;
+  }[];
+  approach: {
+    step: number;
+    title: string;
+    description: string;
+  }[];
+  socialProof: {
+    quote: string;
+    author: string;
+    company: string;
+  };
 };
 
 export type Tool = {
