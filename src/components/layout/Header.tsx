@@ -40,7 +40,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import React from 'react';
-import { tools } from '@/lib/data';
+import { tools, services } from '@/lib/data';
 
 const logoUrl =
   'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png';
@@ -146,6 +146,13 @@ export default function Header() {
   const DesktopNav = () => (
     <NavigationMenu>
       <NavigationMenuList>
+        <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+                <Link href="/services" className={navigationMenuTriggerStyle()}>
+                Services
+                </Link>
+            </NavigationMenuLink>
+        </NavigationMenuItem>
          <NavigationMenuItem>
           <NavigationMenuTrigger>Products</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -297,6 +304,16 @@ export default function Header() {
             </SheetHeader>
             <div className="flex flex-col space-y-3 mb-6">
                 <Accordion type="multiple" className="w-full">
+                    <AccordionItem value="services" className="border-b-0">
+                        <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
+                            Services
+                        </AccordionTrigger>
+                        <AccordionContent>
+                           {services.map(item => (
+                                <MobileNavLink key={item.id} href={`/services/${item.slug}`}>{item.title}</MobileNavLink>
+                           ))}
+                        </AccordionContent>
+                    </AccordionItem>
                     <AccordionItem value="products" className="border-b-0">
                         <AccordionTrigger className="text-lg text-muted-foreground hover:text-primary transition-colors hover:no-underline py-2 [&[data-state=open]>svg]:text-primary">
                             Products
