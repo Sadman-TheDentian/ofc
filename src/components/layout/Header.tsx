@@ -147,11 +147,20 @@ export default function Header() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-            <NavigationMenuLink asChild>
-                <Link href="/services" className={navigationMenuTriggerStyle()}>
-                Services
-                </Link>
-            </NavigationMenuLink>
+          <NavigationMenuTrigger>Services</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] lg:w-[600px] lg:grid-cols-2">
+              {services.map((service) => (
+                <ListItem
+                  key={service.id}
+                  href={`/services/${service.slug}`}
+                  title={service.title}
+                >
+                  {service.description}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
         </NavigationMenuItem>
          <NavigationMenuItem>
           <NavigationMenuTrigger>Products</NavigationMenuTrigger>
