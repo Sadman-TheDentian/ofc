@@ -1,37 +1,33 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ArrowRight, Check, Shield } from "lucide-react";
+import { Check, Shield } from "lucide-react";
 import Link from "next/link";
-
+import Image from "next/image";
 
 export default function PricingPage() {
   return (
     <div className="container py-12 md:py-20">
       <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
         <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-          Tailored Security Solutions
+          Bespoke Security for the Modern Enterprise
         </h1>
         <p className="text-xl text-muted-foreground">
-          DentiSystems provides bespoke security engagements. Contact us to discuss a solution tailored to your organization's unique needs.
+          DentiSystems provides custom security engagements, not off-the-shelf products. Contact us to architect a solution tailored to your organization's unique threat landscape and business objectives.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        {/* Enterprise Solutions Card */}
-        <Card className="border-primary border-2 shadow-lg shadow-primary/10 flex flex-col bg-gradient-to-br from-card to-card/90">
-           <CardHeader>
-            <div className="flex items-center gap-4">
+      <div className="max-w-4xl mx-auto">
+        <Card className="border-primary border-2 shadow-lg shadow-primary/10 flex flex-col md:flex-row overflow-hidden bg-gradient-to-br from-card to-card/90">
+           <div className="md:w-1/2 p-8 flex flex-col justify-center">
+            <div className="flex items-center gap-4 mb-4">
                 <Shield className="h-8 w-8 text-primary" />
                 <CardTitle className="font-headline text-2xl">Custom Enterprise Solutions</CardTitle>
             </div>
-            <CardDescription className="pt-2">For businesses requiring comprehensive security services and architecture.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex-grow space-y-4">
-             <p className="text-muted-foreground">
-                Our core services are not off-the-shelf products. We provide high-touch, bespoke engagements tailored to the unique complexities and threat models of your organization. Pricing is determined by the scope, duration, and specific requirements of the engagement.
-             </p>
-             <ul className="space-y-3">
+            <CardDescription className="pt-2 mb-6">
+                Our pricing is determined by the scope, duration, and specific requirements of your engagement. We partner with you to deliver maximum value and ROI.
+            </CardDescription>
+             <ul className="space-y-4 text-muted-foreground mb-8">
                 <li className="flex items-start gap-3">
                   <Check className="h-5 w-5 text-primary mt-1 shrink-0" />
                   <span>High-Risk Vendor Reconnaissance</span>
@@ -49,42 +45,18 @@ export default function PricingPage() {
                   <span>Incident Response & Digital Forensics</span>
                 </li>
             </ul>
-          </CardContent>
-          <div className="p-6 pt-0">
-            <Button className="w-full text-lg" size="lg" asChild>
+             <Button className="w-full text-lg mt-auto" size="lg" asChild>
                 <Link href="/contact">Contact Sales for Pricing</Link>
             </Button>
           </div>
-        </Card>
-        
-        {/* Developer Tools Card */}
-        <Card className="flex flex-col bg-gradient-to-br from-card to-card/80 border-border/50">
-          <CardHeader>
-             <div className="flex items-center gap-4">
-                <Check className="h-8 w-8 text-primary" />
-                <CardTitle className="font-headline text-2xl">Developer Tools</CardTitle>
-            </div>
-            <CardDescription className="pt-2">For individuals and developers using our free security utilities.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex-grow space-y-4">
-            <p className="text-muted-foreground">
-                Access our suite of free, client-side security tools designed for quick analysis and insights. No account needed for basic use, or sign up to access more features.
-            </p>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <Check className="h-5 w-5 text-primary mt-1 shrink-0" />
-                <span>AI Code Vulnerability Scanner</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Check className="h-5 w-5 text-primary mt-1 shrink-0" />
-                <span>AI Code Leak Detector</span>
-              </li>
-            </ul>
-          </CardContent>
-          <div className="p-6 pt-0 mt-auto">
-             <Button variant="secondary" className="w-full" asChild>
-                <Link href="/dashboard">Get Started Free</Link>
-            </Button>
+          <div className="md:w-1/2 relative min-h-[300px] md:min-h-0">
+             <Image 
+                src="https://picsum.photos/seed/pricing-hero/800/1000"
+                alt="Cybersecurity Professionals in a Security Operations Center"
+                fill
+                className="object-cover"
+                data-ai-hint="security operations center"
+             />
           </div>
         </Card>
       </div>

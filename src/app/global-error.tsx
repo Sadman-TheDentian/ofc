@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Dna } from 'lucide-react';
 import { useEffect } from 'react';
 
-export default function GlobalError({
+function GlobalErrorClient({
   error,
   reset,
 }: {
@@ -38,4 +38,15 @@ export default function GlobalError({
       </body>
     </html>
   );
+}
+
+
+export default function GlobalError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  return <GlobalErrorClient error={error} reset={reset} />;
 }
