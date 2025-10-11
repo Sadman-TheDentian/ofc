@@ -118,6 +118,16 @@
     }
   }
 
+  @keyframes progress-animation {
+    from {
+      stroke-dashoffset: 502.65; /* Circumference of a circle with radius 80 */
+    }
+  }
+
+  .animate-progress.in-view {
+    animation: progress-animation 2s ease-out forwards;
+  }
+
   .animate-fade-in {
     animation: fade-in 0.5s ease-out forwards;
   }

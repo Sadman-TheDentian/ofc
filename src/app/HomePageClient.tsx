@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -89,17 +90,10 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
 
 const DonutChart = ({ value }: { value: number }) => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
-    const [animatedValue, setAnimatedValue] = useState(0);
 
     const radius = 80;
     const circumference = 2 * Math.PI * radius;
-    const offset = circumference - (animatedValue / 100) * circumference;
-
-    useEffect(() => {
-        if (inView) {
-            setAnimatedValue(value);
-        }
-    }, [inView, value]);
+    const offset = circumference - (value / 100) * circumference;
 
     return (
         <div ref={ref} className="relative h-48 w-48 mx-auto">
@@ -116,7 +110,7 @@ const DonutChart = ({ value }: { value: number }) => {
                 />
                 {/* Foreground circle */}
                 <circle
-                    className="text-primary transition-all duration-[2000ms] ease-out"
+                    className={`text-primary animate-progress ${inView ? 'in-view' : ''}`}
                     strokeWidth="12"
                     strokeDasharray={circumference}
                     strokeDashoffset={offset}
@@ -140,20 +134,17 @@ const DonutChart = ({ value }: { value: number }) => {
 
 const stats = [
   {
-    icon: BrainCircuit,
     value: 1800000,
     label: "Threats Analyzed Daily",
     description: "Proactively monitor, analyze and prevent sophisticated threats in real time with less complexity."
   },
   {
     type: 'chart',
-    icon: ShieldCheck,
     value: 99.8,
     label: "Breach Prevention Rate",
     description: "Proactive threat hunting and vulnerability management to secure your perimeter and prevent incidents."
   },
   {
-    icon: Zap,
     value: 90,
     suffix: '%',
     label: "Faster Incident Response",
@@ -299,7 +290,6 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
             </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             {stats.map((stat, index) => {
-              const Icon = stat.icon;
               return (
                 <div key={index} className={`flex flex-col items-center justify-start space-y-4 transition-all duration-500 delay-${index * 150} ${statsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   
