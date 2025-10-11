@@ -141,8 +141,8 @@ const DonutChart = ({ value }: { value: number }) => {
 const stats = [
   {
     icon: BrainCircuit,
-    value: 30900000000,
-    label: "Inline Attacks Blocked Daily",
+    value: 1800000,
+    label: "Threats Analyzed Daily",
     description: "Proactively monitor, analyze and prevent sophisticated threats in real time with less complexity."
   },
   {
@@ -302,16 +302,13 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
               const Icon = stat.icon;
               return (
                 <div key={index} className={`flex flex-col items-center justify-start space-y-4 transition-all duration-500 delay-${index * 150} ${statsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                   <div className="mx-auto bg-secondary p-4 rounded-full w-fit">
-                    <Icon className="h-8 w-8 text-primary" />
-                  </div>
                   
                   {stat.type === 'chart' ? (
                       <DonutChart value={stat.value} />
                   ) : (
                       <h3 className="text-5xl font-bold font-headline text-primary h-48 flex items-center justify-center">
-                        <Counter to={stat.value} isMillion={stat.label.includes('Attacks')} />
-                         {stat.label.includes("Attacks") ? "B" : stat.suffix}
+                        <Counter to={stat.value} isMillion={stat.label.includes('Threats')} />
+                         {stat.label.includes("Threats") ? "M+" : stat.suffix}
                       </h3>
                   )}
                   
