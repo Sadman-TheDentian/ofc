@@ -37,7 +37,7 @@ interface HomePageClientProps {
   partners: Partner[];
 }
 
-const Counter = ({ to }: { to: number }) => {
+const Counter = ({ to, isMillion }: { to: number, isMillion?: boolean }) => {
   const [count, setCount] = useState(0);
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const animationFrameRef = useRef<number>();
@@ -52,11 +52,11 @@ const Counter = ({ to }: { to: number }) => {
       const animate = (timestamp: number) => {
         if (!startTime) startTime = timestamp;
         const progress = timestamp - startTime;
-        const percentage = Math.min(progress / duration, 1);
+        let percentage = Math.min(progress / duration, 1);
         
         // Ease-out function
         const easedPercentage = 1 - Math.pow(1 - percentage, 3);
-        const currentCount = Math.floor(easedPercentage * end);
+        const currentCount = easedPercentage * end;
 
         setCount(currentCount);
 
@@ -77,7 +77,12 @@ const Counter = ({ to }: { to: number }) => {
     };
   }, [inView, to]);
 
-  const formattedCount = count.toLocaleString();
+  let formattedCount: string;
+  if(isMillion) {
+    formattedCount = (count / 1000000).toFixed(1);
+  } else {
+    formattedCount = count.toFixed(1);
+  }
 
   return <span ref={ref}>{formattedCount}</span>;
 }
@@ -86,7 +91,7 @@ const Counter = ({ to }: { to: number }) => {
 const stats = [
   {
     icon: BrainCircuit,
-    value: 1800000,
+    value: 1.8,
     suffix: 'M+',
     label: "Threats Analyzed Daily",
     description: "Our AI-powered platform continuously processes millions of data points to identify emerging threats and protect your assets."
@@ -240,56 +245,50 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
-                <div key={index} className={`transition-all duration-500 delay-${index * 150} ${statsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                  <Card className="bg-transparent border-0 shadow-none h-full">
-                    <CardHeader className="flex flex-col items-center">
-                      <div className="mx-auto bg-secondary p-4 rounded-full w-fit mb-4">
-                        <Icon className="h-8 w-8 text-primary" />
+                <div key={index} className={`flex flex-col items-center justify-start space-y-4 transition-all duration-500 delay-${index * 150} ${statsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                  <div className="mx-auto bg-secondary p-4 rounded-full w-fit">
+                    <Icon className="h-8 w-8 text-primary" />
+                  </div>
+                  
+                  {stat.type === 'chart' ? (
+                      <div className="relative h-36 w-36">
+                         <ResponsiveContainer width="100%" height="100%">
+                            <RadialBarChart 
+                                innerRadius="80%" 
+                                outerRadius="100%" 
+                                barSize={8} 
+                                data={[{name: 'prevention', value: statsInView ? stat.value : 0, fill: 'hsl(var(--primary))'}]} 
+                                startAngle={90} 
+                                endAngle={-270}
+                            >
+                                <PolarAngleAxis
+                                    type="number"
+                                    domain={[0, 100]}
+                                    angleAxisId={0}
+                                    tick={false}
+                                />
+                                <RadialBar
+                                    background
+                                    dataKey='value'
+                                    cornerRadius={4}
+                                    className="transition-all"
+                                />
+                            </RadialBarChart>
+                         </ResponsiveContainer>
+                         <div className="absolute inset-0 flex items-center justify-center">
+                             <h3 className="text-3xl font-bold font-headline text-primary">
+                                 <Counter to={stat.value} />{stat.suffix}
+                             </h3>
+                         </div>
                       </div>
-                      
-                      {stat.type === 'chart' ? (
-                          <div className="relative h-32 w-32">
-                             <ResponsiveContainer width="100%" height="100%">
-                                <RadialBarChart 
-                                    innerRadius="70%" 
-                                    outerRadius="100%" 
-                                    barSize={10} 
-                                    data={[{name: 'prevention', value: statsInView ? stat.value : 0, fill: 'hsl(var(--primary))'}]} 
-                                    startAngle={90} 
-                                    endAngle={-270}
-                                >
-                                    <PolarAngleAxis
-                                        type="number"
-                                        domain={[0, 100]}
-                                        angleAxisId={0}
-                                        tick={false}
-                                    />
-                                    <RadialBar
-                                        background
-                                        dataKey='value'
-                                        cornerRadius={5}
-                                        className="transition-all"
-                                    />
-                                </RadialBarChart>
-                             </ResponsiveContainer>
-                             <div className="absolute inset-0 flex items-center justify-center">
-                                 <h3 className="text-3xl font-bold font-headline text-primary">
-                                     {stat.value}{stat.suffix}
-                                 </h3>
-                             </div>
-                          </div>
-                      ) : (
-                          <h3 className="text-5xl font-bold font-headline text-primary">
-                            {(stat.value / 1000000).toFixed(1)}{stat.suffix === 'M+' ? 'M' : stat.suffix}
-                          </h3>
-                      )}
-                      
-                      <CardTitle className="font-semibold text-foreground mt-4">{stat.label}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">{stat.description}</p>
-                    </CardContent>
-                  </Card>
+                  ) : (
+                      <h3 className="text-5xl font-bold font-headline text-primary">
+                        <Counter to={stat.value * (stat.label === "Threats Analyzed Daily" ? 1000000 : 1)} isMillion={stat.label === "Threats Analyzed Daily"} />{stat.suffix}
+                      </h3>
+                  )}
+                  
+                  <h4 className="font-semibold text-foreground text-xl">{stat.label}</h4>
+                  <p className="text-muted-foreground max-w-xs">{stat.description}</p>
                 </div>
               )
             })}
@@ -455,7 +454,3 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
     </div>
   );
 }
-
-    
-
-    
