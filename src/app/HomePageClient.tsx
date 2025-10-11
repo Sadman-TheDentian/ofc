@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -23,7 +22,6 @@ import imageUrlBuilder from '@sanity/image-url'
 import React, { useState, useEffect, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { useInView } from 'react-intersection-observer';
-import { RadialBarChart, RadialBar, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 
 const builder = imageUrlBuilder(client)
 
@@ -37,7 +35,7 @@ interface HomePageClientProps {
   partners: Partner[];
 }
 
-const Counter = ({ to, isMillion }: { to: number, isMillion?: boolean }) => {
+const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean, isPercent?: boolean }) => {
   const [count, setCount] = useState(0);
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const animationFrameRef = useRef<number>();
@@ -55,7 +53,7 @@ const Counter = ({ to, isMillion }: { to: number, isMillion?: boolean }) => {
         let percentage = Math.min(progress / duration, 1);
         
         // Ease-out function
-        const easedPercentage = 1 - Math.pow(1 - percentage, 3);
+        const easedPercentage = 1 - Math.pow(1 - percentage, 4);
         const currentCount = easedPercentage * end;
 
         setCount(currentCount);
@@ -80,36 +78,86 @@ const Counter = ({ to, isMillion }: { to: number, isMillion?: boolean }) => {
   let formattedCount: string;
   if(isMillion) {
     formattedCount = (count / 1000000).toFixed(1);
-  } else {
+  } else if (isPercent) {
     formattedCount = count.toFixed(1);
+  } else {
+    formattedCount = Math.floor(count).toLocaleString();
   }
 
   return <span ref={ref}>{formattedCount}</span>;
-}
+};
 
+const DonutChart = ({ value }: { value: number }) => {
+    const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+    const [animatedValue, setAnimatedValue] = useState(0);
+
+    const radius = 80;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (animatedValue / 100) * circumference;
+
+    useEffect(() => {
+        if (inView) {
+            setAnimatedValue(value);
+        }
+    }, [inView, value]);
+
+    return (
+        <div ref={ref} className="relative h-48 w-48 mx-auto">
+            <svg className="w-full h-full" viewBox="0 0 200 200">
+                {/* Background circle */}
+                <circle
+                    className="text-secondary"
+                    strokeWidth="12"
+                    stroke="currentColor"
+                    fill="transparent"
+                    r={radius}
+                    cx="100"
+                    cy="100"
+                />
+                {/* Foreground circle */}
+                <circle
+                    className="text-primary transition-all duration-[2000ms] ease-out"
+                    strokeWidth="12"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={offset}
+                    strokeLinecap="round"
+                    stroke="currentColor"
+                    fill="transparent"
+                    r={radius}
+                    cx="100"
+                    cy="100"
+                    transform="rotate(-90 100 100)"
+                />
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+                 <h3 className="text-4xl font-bold font-headline text-primary">
+                    <Counter to={value} isPercent />%
+                </h3>
+            </div>
+        </div>
+    );
+};
 
 const stats = [
   {
     icon: BrainCircuit,
-    value: 1.8,
-    suffix: 'M+',
-    label: "Threats Analyzed Daily",
-    description: "Our AI-powered platform continuously processes millions of data points to identify emerging threats and protect your assets."
+    value: 30900000000,
+    label: "Inline Attacks Blocked Daily",
+    description: "Proactively monitor, analyze and prevent sophisticated threats in real time with less complexity."
   },
   {
     type: 'chart',
     icon: ShieldCheck,
     value: 99.8,
-    suffix: '%',
     label: "Breach Prevention Rate",
-    description: "Proactive threat hunting and vulnerability management to secure your perimeter and prevent incidents before they happen."
+    description: "Proactive threat hunting and vulnerability management to secure your perimeter and prevent incidents."
   },
   {
     icon: Zap,
     value: 90,
     suffix: '%',
     label: "Faster Incident Response",
-    description: "Drastically reduce mean time to respond (MTTR) with our expert-led incident response and forensics services."
+    description: "Drastically reduce mean time to respond (MTTR) with our expert-led incident response services."
   }
 ];
 
@@ -241,49 +289,29 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
       <section id="stats" className="py-20 md:py-32 bg-background/50 border-y border-border/50">
         <div ref={statsRef} className="container px-4 md:px-6">
+            <div className="text-center space-y-4 mb-16">
+                 <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+                  By the Numbers
+                </h2>
+                <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl">
+                    Our platform provides unparalleled visibility and real-time threat detection to secure your entire digital estate.
+                </p>
+            </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
                 <div key={index} className={`flex flex-col items-center justify-start space-y-4 transition-all duration-500 delay-${index * 150} ${statsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                  <div className="mx-auto bg-secondary p-4 rounded-full w-fit">
+                   <div className="mx-auto bg-secondary p-4 rounded-full w-fit">
                     <Icon className="h-8 w-8 text-primary" />
                   </div>
                   
                   {stat.type === 'chart' ? (
-                      <div className="relative h-36 w-36">
-                         <ResponsiveContainer width="100%" height="100%">
-                            <RadialBarChart 
-                                innerRadius="80%" 
-                                outerRadius="100%" 
-                                barSize={8} 
-                                data={[{name: 'prevention', value: statsInView ? stat.value : 0, fill: 'hsl(var(--primary))'}]} 
-                                startAngle={90} 
-                                endAngle={-270}
-                            >
-                                <PolarAngleAxis
-                                    type="number"
-                                    domain={[0, 100]}
-                                    angleAxisId={0}
-                                    tick={false}
-                                />
-                                <RadialBar
-                                    background
-                                    dataKey='value'
-                                    cornerRadius={4}
-                                    className="transition-all"
-                                />
-                            </RadialBarChart>
-                         </ResponsiveContainer>
-                         <div className="absolute inset-0 flex items-center justify-center">
-                             <h3 className="text-3xl font-bold font-headline text-primary">
-                                 <Counter to={stat.value} />{stat.suffix}
-                             </h3>
-                         </div>
-                      </div>
+                      <DonutChart value={stat.value} />
                   ) : (
-                      <h3 className="text-5xl font-bold font-headline text-primary">
-                        <Counter to={stat.value * (stat.label === "Threats Analyzed Daily" ? 1000000 : 1)} isMillion={stat.label === "Threats Analyzed Daily"} />{stat.suffix}
+                      <h3 className="text-5xl font-bold font-headline text-primary h-48 flex items-center justify-center">
+                        <Counter to={stat.value} isMillion={stat.label.includes('Attacks')} />
+                         {stat.label.includes("Attacks") ? "B" : stat.suffix}
                       </h3>
                   )}
                   
