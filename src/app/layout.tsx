@@ -68,6 +68,17 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcHfdkrAAAAACT50f21UCQfGiRAoDzPQeKXhbGp" async defer></script>
+        
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-52G6ZBH1ZM"></script>
+        <script dangerouslySetInnerHTML={{ __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-52G6ZBH1ZM');
+        `}} />
+
       </head>
       <body
         className={cn(
