@@ -160,4 +160,13 @@
   .glint-container:hover .glint-headline::before {
     opacity: 1;
   }
+  
+  .delay-150 {
+    transition-delay: 150ms;
+  }
+  .delay-300 {
+    transition-delay: 300ms;
+  }
 }
+
+    

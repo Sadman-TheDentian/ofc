@@ -3,7 +3,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, BrainCircuit, ShieldCheck, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { services } from '@/lib/data';
 import Image from 'next/image';
@@ -22,6 +22,7 @@ import type { CaseStudy, Partner } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url'
 import React, { useState, useEffect, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
+import { useInView } from 'react-intersection-observer';
 
 const builder = imageUrlBuilder(client)
 
@@ -35,6 +36,61 @@ interface HomePageClientProps {
   partners: Partner[];
 }
 
+const Counter = ({ to }: { to: number }) => {
+  const [count, setCount] = useState(0);
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  useEffect(() => {
+    if (inView) {
+      let start = 0;
+      const end = to;
+      if (start === end) return;
+      
+      const duration = 2000;
+      const incrementTime = (duration / end);
+      
+      const timer = setInterval(() => {
+        start += 1;
+        setCount(start);
+        if (start === end) clearInterval(timer);
+      }, incrementTime);
+
+      return () => clearInterval(timer);
+    }
+  }, [inView, to]);
+
+  // Format to one decimal place if it's a float, otherwise just the number
+  const formattedCount = (to % 1 !== 0) ? count.toFixed(1) : count.toLocaleString();
+
+  return <span ref={ref}>{formattedCount}</span>;
+}
+
+
+const stats = [
+  {
+    icon: BrainCircuit,
+    value: 1.8,
+    suffix: 'M+',
+    label: "Threats Analyzed Daily",
+    description: "Our AI-powered platform continuously processes millions of data points to identify emerging threats and protect your assets."
+  },
+  {
+    icon: ShieldCheck,
+    value: 99.8,
+    suffix: '%',
+    label: "Breach Prevention Rate",
+    description: "Proactive threat hunting and vulnerability management to secure your perimeter and prevent incidents before they happen."
+  },
+  {
+    icon: Zap,
+    value: 90,
+    suffix: '%',
+    label: "Faster Incident Response",
+    description: "Drastically reduce mean time to respond (MTTR) with our expert-led incident response and forensics services."
+  }
+];
+
+
 export default function HomePageClient({ blogPosts, caseStudies, partners }: HomePageClientProps) {
   const servicesAutoplayPlugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }));
   const advisoriesAutoplayPlugin = useRef(Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true }));
@@ -45,6 +101,7 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
   
   const heroRef = useRef<HTMLDivElement>(null);
   const h1Ref = useRef<HTMLHeadingElement>(null);
+  const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -159,9 +216,37 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
         </div>
       </section>
 
+      <section id="stats" className="py-20 md:py-32 bg-background/50 border-y border-border/50">
+        <div ref={statsRef} className="container px-4 md:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            {stats.map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <div key={index} className={`transition-all duration-500 delay-${index * 150} ${statsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                  <Card className="bg-transparent border-0 shadow-none">
+                    <CardHeader>
+                      <div className="mx-auto bg-secondary p-4 rounded-full w-fit mb-4">
+                        <Icon className="h-8 w-8 text-primary" />
+                      </div>
+                      <h3 className="text-5xl font-bold font-headline text-primary">
+                        <Counter to={stat.value} />{stat.suffix}
+                      </h3>
+                      <CardTitle className="font-semibold text-foreground">{stat.label}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">{stat.description}</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
       <section
         id="threat-intelligence"
-        className="py-20 md:py-32 border-y border-border/50 bg-card/80 backdrop-blur-sm"
+        className="py-20 md:py-32 border-b border-border/50 bg-card/80 backdrop-blur-sm"
       >
         <div className="container px-4 md:px-6">
            <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
@@ -316,3 +401,5 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
     </div>
   );
 }
+
+    
