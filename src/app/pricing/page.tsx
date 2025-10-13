@@ -1,64 +1,117 @@
 
+'use client';
+
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Check, Shield } from "lucide-react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Check, Shield, Star, Zap } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import { useState } from 'react';
+import { cn } from "@/lib/utils";
+
+const plans = [
+  {
+    name: "Free",
+    price: "$0",
+    period: "Forever",
+    description: "For individuals and developers starting to explore our security tools.",
+    features: [
+      "Access to AI Code Scanner",
+      "Access to AI Leak Detector",
+      "Limited daily usage",
+      "Community support",
+    ],
+    cta: "Get Started",
+    href: "/auth",
+    variant: "secondary"
+  },
+  {
+    name: "Pro",
+    price: "$2.99",
+    period: "/ month",
+    description: "For professionals and teams who need unlimited access and advanced features.",
+    features: [
+      "Everything in Free, plus:",
+      "Access to all 5 security tools",
+      "Unlimited usage",
+      "Continuous monitoring & alerts",
+      "API access for automation",
+      "Priority support",
+    ],
+    cta: "Upgrade to Pro",
+    href: "/dashboard/subscriptions",
+    variant: "default",
+    isFeatured: true,
+  },
+  {
+    name: "Enterprise",
+    price: "Custom",
+    period: "",
+    description: "For organizations requiring bespoke security solutions and dedicated support.",
+    features: [
+      "Everything in Pro, plus:",
+      "Custom tool integrations",
+      "On-premise deployment options",
+      "Dedicated security engineer",
+      "Team & user management",
+      "Custom SLAs",
+    ],
+    cta: "Contact Sales",
+    href: "/contact",
+    variant: "secondary"
+  }
+];
 
 export default function PricingPage() {
+    const [billingCycle, setBillingCycle] = useState<'monthly' | 'annually'>('monthly');
+
   return (
     <div className="container py-12 md:py-20">
       <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
         <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-          Bespoke Security for the Modern Enterprise
+          Find the Right Plan for You
         </h1>
         <p className="text-xl text-muted-foreground">
-          DentiSystems provides custom security engagements, not off-the-shelf products. Contact us to architect a solution tailored to your organization's unique threat landscape and business objectives.
+          From individual developers to large enterprises, we have a plan that fits your security needs.
         </p>
       </div>
 
-      <div className="max-w-4xl mx-auto">
-        <Card className="border-primary border-2 shadow-lg shadow-primary/10 flex flex-col md:flex-row overflow-hidden bg-gradient-to-br from-card to-card/90">
-           <div className="md:w-1/2 p-8 flex flex-col justify-center">
-            <div className="flex items-center gap-4 mb-4">
-                <Shield className="h-8 w-8 text-primary" />
-                <CardTitle className="font-headline text-2xl">Custom Enterprise Solutions</CardTitle>
-            </div>
-            <CardDescription className="pt-2 mb-6">
-                Our pricing is determined by the scope, duration, and specific requirements of your engagement. We partner with you to deliver maximum value and ROI.
-            </CardDescription>
-             <ul className="space-y-4 text-muted-foreground mb-8">
-                <li className="flex items-start gap-3">
-                  <Check className="h-5 w-5 text-primary mt-1 shrink-0" />
-                  <span>High-Risk Vendor Reconnaissance</span>
-                </li>
-                 <li className="flex items-start gap-3">
-                  <Check className="h-5 w-5 text-primary mt-1 shrink-0" />
-                  <span>Assurance Services & Penetration Testing</span>
-                </li>
-                 <li className="flex items-start gap-3">
-                  <Check className="h-5 w-5 text-primary mt-1 shrink-0" />
-                  <span>Secure Web Development & Architecture</span>
-                </li>
-                 <li className="flex items-start gap-3">
-                  <Check className="h-5 w-5 text-primary mt-1 shrink-0" />
-                  <span>Incident Response & Digital Forensics</span>
-                </li>
-            </ul>
-             <Button className="w-full text-lg mt-auto" size="lg" asChild>
-                <Link href="/contact">Contact Sales for Pricing</Link>
-            </Button>
-          </div>
-          <div className="md:w-1/2 relative min-h-[300px] md:min-h-0">
-             <Image 
-                src="https://picsum.photos/seed/pricing-hero/800/1000"
-                alt="Cybersecurity Professionals in a Security Operations Center"
-                fill
-                className="object-cover"
-                data-ai-hint="security operations center"
-             />
-          </div>
-        </Card>
+      <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        {plans.map((plan) => (
+          <Card 
+            key={plan.name}
+            className={cn(
+                "flex flex-col bg-gradient-to-br from-card to-card/80 border-border/50",
+                plan.isFeatured && "border-primary/80 border-2 shadow-2xl shadow-primary/10"
+            )}
+          >
+            <CardHeader className="p-8">
+              <div className="flex justify-between items-center">
+                <CardTitle className="font-headline text-2xl">{plan.name}</CardTitle>
+                {plan.isFeatured && <div className="bg-primary text-primary-foreground text-xs font-bold uppercase px-3 py-1 rounded-full">Most Popular</div>}
+              </div>
+              <CardDescription>{plan.description}</CardDescription>
+            </CardHeader>
+            <CardContent className="p-8 pt-0 flex-grow">
+              <div className="mb-8">
+                <span className="text-5xl font-bold">{plan.price}</span>
+                {plan.period && <span className="text-muted-foreground">{plan.period}</span>}
+              </div>
+              <ul className="space-y-4">
+                {plan.features.map((feature, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <Check className="h-5 w-5 text-primary mt-1 shrink-0" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            <CardFooter className="p-8">
+              <Button asChild size="lg" className="w-full" variant={plan.variant as any}>
+                <Link href={plan.href}>{plan.cta}</Link>
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
       </div>
     </div>
   );
