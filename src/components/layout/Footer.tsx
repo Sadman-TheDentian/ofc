@@ -33,6 +33,7 @@ const footerLinks = {
         { title: "Partners", href: "/partners"},
         { title: "Contact", href: "/contact"},
         { title: "News", href: "/blog"},
+        { title: "Pricing", href: "/pricing"},
     ],
     Support: [
         { title: "Help Center", href: "/contact"},
