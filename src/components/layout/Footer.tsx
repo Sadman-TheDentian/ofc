@@ -56,10 +56,10 @@ const socials = [
 ];
 
 export default function Footer() {
-  const [isClient, setIsClient] = useState(false);
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
 
   useEffect(() => {
-    setIsClient(true);
+    setCurrentYear(new Date().getFullYear());
   }, []);
   
   return (
@@ -102,7 +102,7 @@ export default function Footer() {
         </div>
         <div className="mt-12 border-t border-border/40 pt-8 flex flex-col-reverse gap-6 md:flex-row justify-between items-center">
             <p className="text-sm text-muted-foreground">
-                &copy; {new Date().getFullYear()} DentiSystems. All rights reserved.
+                &copy; {currentYear ? currentYear : new Date().getFullYear()} DentiSystems. All rights reserved.
             </p>
             <div className="flex items-center gap-4 flex-wrap justify-center">
                  <Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
