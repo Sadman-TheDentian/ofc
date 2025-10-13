@@ -1,5 +1,15 @@
 
+'use client';
+
+import { useState, useEffect } from 'react';
+
 export default function RefundPolicyPage() {
+  const [lastUpdated, setLastUpdated] = useState('');
+
+  useEffect(() => {
+    setLastUpdated(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
+  }, []);
+
   return (
     <div className="container py-12 md:py-20">
       <div className="max-w-3xl mx-auto">
@@ -8,7 +18,7 @@ export default function RefundPolicyPage() {
             Refund Policy
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">
-            Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            Last updated: {lastUpdated}
             </p>
         </div>
 
