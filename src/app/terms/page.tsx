@@ -15,7 +15,7 @@ export default function TermsOfServicePage() {
         <div className="prose prose-invert max-w-none text-foreground/90 prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
           <h2>1. Agreement to Terms</h2>
           <p>
-            By using our website and any of our tools or services (collectively, the "Services"), you agree to be bound by these Terms. If you
+            By using our website and any of our tools or services (collectively, the "Services"), you agree to be bound by these Terms of Service ("Terms"). If you
             don’t agree to be bound by these Terms, do not use the Services.
             If you are accessing and using the Services on behalf of a company
             (such as your employer) or other legal entity, you represent and
@@ -30,46 +30,35 @@ export default function TermsOfServicePage() {
             information.
           </p>
 
-          <h2>3. Changes to Terms or Services</h2>
+          <h2>3. User Accounts and Subscriptions</h2>
+            <p>
+                To access certain features, including our PRO tools, you must create an account. You agree that the information you provide is accurate and complete. You are responsible for safeguarding your password. Our PRO plan is a one-time purchase for lifetime access to the features available at the time of purchase.
+            </p>
+
+          <h2>4. Use of Our Tools</h2>
           <p>
-            We may update the Terms at any time, in our sole discretion. If we
-            do so, we’ll let you know either by posting the updated Terms on the
-            Site or through other communications. It’s important that you
-            review the Terms whenever we update them or you use the Services.
+            Our tools are provided for informational and lawful security assessment purposes only. You agree not to use our tools for any illegal, malicious, or unauthorized activities. This includes, but is not limited to, attempting to access accounts that are not your own, attacking or disrupting systems, or any other activity that violates applicable laws. Any misuse of our services may result in an immediate and permanent ban from our platform. We are not responsible for any damages caused by the use or misuse of our tools.
           </p>
 
-          <h2>4. Who May Use the Services?</h2>
+           <h2>5. Intellectual Property</h2>
           <p>
-            You may use the Services only if you are 13 years or older and not
-            barred from using the Services under applicable law. To make a
-            purchase via the Services, you must be 18 years or older and capable
-            of forming a binding contract.
-          </p>
-          
-          <h2>5. Use of Our Tools</h2>
-          <p>
-            Our tools are provided for informational and security assessment purposes. You agree not to use our tools for any illegal or malicious activities. Any misuse of our services may result in a ban from our platform. We are not responsible for any damages caused by the use or misuse of our tools.
+            We and our licensors exclusively own all right, title and interest in and to the Services and Content,
+            including all associated intellectual property rights. You acknowledge that the Services and Content are protected by copyright, trademark, and other laws of the United States and foreign countries.
           </p>
 
-          <h2>6. Content Ownership</h2>
-          <p>
-            We do not claim any ownership rights in any User Content and
-            nothing in these Terms will be deemed to restrict any rights that
-            you may have to use and exploit your User Content. Subject to the
-            foregoing, DentiSystems and its licensors exclusively own all
-            right, title and interest in and to the Services and Content,
-            including all associated intellectual property rights.
-          </p>
+          <h2>6. Payments and Refunds</h2>
+            <p>
+                All payments for our PRO plan are processed through third-party payment processors (e.g., Coinbase Commerce). By making a purchase, you agree to the terms of our payment processor. Due to the nature of digital services and cryptocurrency transactions, all sales are final and non-refundable. Please see our <a href="/refund-policy">Refund Policy</a> for more details.
+            </p>
 
           <h2>7. General Prohibitions</h2>
           <p>You agree not to do any of the following:</p>
           <ul>
             <li>
-              Post, upload, publish, submit or transmit any User Content that:
+              Post, upload, publish, submit or transmit any content that:
               (i) infringes, misappropriates or violates a third party’s
-              patent, copyright, trademark, trade secret, moral rights or
-              other intellectual property rights, or rights of publicity or
-              privacy; (ii) violates, or encourages any conduct that would
+              patent, copyright, trademark, trade secret, or
+              other intellectual property rights; (ii) violates, or encourages any conduct that would
               violate, any applicable law or regulation or would give rise to
               civil liability.
             </li>
@@ -83,11 +72,24 @@ export default function TermsOfServicePage() {
             <li>
               Attempt to probe, scan or test the vulnerability of any
               DentiSystems system or network or breach any security or
-              authentication measures, outside of the intended use of our security scanning tools.
+              authentication measures, outside of the intended and lawful use of our security scanning tools.
+            </li>
+             <li>
+              Interfere with, or attempt to interfere with, the access of any user, host or network, including, without limitation, sending a virus, overloading, flooding, spamming, or mail-bombing the Services.
             </li>
           </ul>
 
-           <h2>8. Contact Information</h2>
+           <h2>8. Termination</h2>
+            <p>
+                We may terminate or suspend your access to and use of the Services, at our sole discretion, at any time and without notice to you, particularly if you violate these Terms.
+            </p>
+
+           <h2>9. Disclaimer of Warranties</h2>
+            <p>
+                THE SERVICES ARE PROVIDED “AS IS,” WITHOUT WARRANTY OF ANY KIND. WE EXPLICITLY DISCLAIM ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+            </p>
+
+           <h2>10. Contact Information</h2>
           <p>
             If you have any questions about these Terms or the Services, please
             contact us at:

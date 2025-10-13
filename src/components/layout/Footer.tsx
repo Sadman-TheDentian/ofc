@@ -103,9 +103,10 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground">
                 &copy; {new Date().getFullYear()} DentiSystems. All rights reserved.
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 flex-wrap justify-center">
                  <Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
                  <Link href="/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link>
+                 <Link href="/refund-policy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Refund Policy</Link>
                  <div className="flex items-center gap-4 flex-wrap">
                     {socials.map(social => (
                         <Link key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">

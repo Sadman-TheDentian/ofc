@@ -1,3 +1,4 @@
+
 import { MetadataRoute } from 'next'
 import { client } from '@/lib/sanity'
 import { services } from '@/lib/data'
@@ -21,6 +22,7 @@ const staticRoutes: MetadataRoute.Sitemap = [
     { url: 'https://www.denti.systems/pricing', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: 'https://www.denti.systems/privacy', lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
     { url: 'https://www.denti.systems/terms', lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+    { url: 'https://www.denti.systems/refund-policy', lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
 ]
  
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
