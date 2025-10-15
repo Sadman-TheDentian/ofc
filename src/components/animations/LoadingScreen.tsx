@@ -1,30 +1,127 @@
-
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, useRef, useState, useEffect } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { useGLTF, Bounds, Edges } from '@react-three/drei';
+import * as THREE from 'three';
 
-const D_PATH = "M28.3,9.8c-0.1,0-0.1,0-0.2,0c-1.9-0.1-3.6,0.3-5.2,1.2c-1.5,0.9-2.7,2.2-3.6,3.8c-0.9,1.6-1.4,3.5-1.4,5.4c0,2,0.5,3.9,1.4,5.5c0.9,1.6,2.1,2.9,3.6,3.8c1.6,0.9,3.3,1.4,5.3,1.3c0.1,0,0.1,0,0.2,0c2.1,0,4-0.5,5.7-1.5c1.7-1,3.1-2.4,4.1-4.2c1-1.8,1.5-3.8,1.5-6c0-2.2-0.5-4.2-1.5-6C41.1,12.3,39.7,10.9,38,10c-1.7-0.8-3.5-1.3-5.4-1.3C31.2,8.8,29.7,9.2,28.3,9.8z M32.6,25.9c-0.9,0.5-2,0.8-3.1,0.8c-1.1,0-2.1-0.3-3-0.8c-0.9-0.5-1.7-1.3-2.2-2.3c-0.5-1-0.8-2.1-0.8-3.3c0-1.2,0.3-2.3,0.8-3.3c0.5-1,1.3-1.8,2.2-2.3c0.9-0.5,2-0.8,3-0.8c1.1,0,2.1,0.3,3.1,0.8c0.9,0.5,1.7,1.3,2.3,2.3c0.5,1,0.8,2.1,0.8,3.3c0,1.2-0.3,2.3-0.8,3.3C34.3,24.7,33.5,25.4,32.6,25.9z";
+// This component is responsible for loading and rendering the 3D model.
+function Model(props) {
+  const { nodes } = useGLTF('/logo.glb');
+  const meshRef = useRef();
 
-const LoadingScreen = () => {
-  const [visible, setVisible] = useState(true);
-  const [isFading, setIsFading] = useState(false);
+  // Custom shader material for the liquid fill effect
+  const material = new THREE.ShaderMaterial({
+    uniforms: {
+      fillColor: { value: new THREE.Color('#00FF88') },
+      baseColor: { value: new THREE.Color('#FFFFFF') },
+      fillAmount: { value: 0.0 },
+      boundingBoxMin: { value: new THREE.Vector3() },
+      boundingBoxMax: { value: new THREE.Vector3() },
+    },
+    vertexShader: `
+      varying vec3 vWorldPosition;
+      void main() {
+        vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+        vWorldPosition = worldPosition.xyz;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform vec3 fillColor;
+      uniform vec3 baseColor;
+      uniform float fillAmount;
+      uniform vec3 boundingBoxMin;
+      uniform vec3 boundingBoxMax;
+      varying vec3 vWorldPosition;
 
+      void main() {
+        float height = (vWorldPosition.y - boundingBoxMin.y) / (boundingBoxMax.y - boundingBoxMin.y);
+        if (height < fillAmount) {
+          gl_FragColor = vec4(fillColor, 1.0);
+        } else {
+          gl_FragColor = vec4(baseColor, 1.0);
+        }
+      }
+    `,
+  });
+
+  // Calculate the bounding box of the model to control the fill animation
   useEffect(() => {
-    // Start fade-out after the drawing animation is roughly complete
-    const fadeTimer = setTimeout(() => {
-      setIsFading(true);
-    }, 2500); // Animation duration is 2s, plus a small buffer
+    if (meshRef.current) {
+      const box = new THREE.Box3().setFromObject(meshRef.current);
+      material.uniforms.boundingBoxMin.value = box.min;
+      material.uniforms.boundingBoxMax.value = box.max;
+    }
+  }, [nodes, material.uniforms.boundingBoxMin, material.uniforms.boundingBoxMax]);
 
-    // Hide component completely after fade-out
-    const visibilityTimer = setTimeout(() => {
-      setVisible(false);
-    }, 3000); // 2.5s animation + 0.5s fade
+  return (
+    <group {...props} dispose={null}>
+      <mesh ref={meshRef} geometry={(nodes.DentiSystems_Logo_SVG as THREE.Mesh).geometry} material={material} />
+    </group>
+  );
+}
 
-    return () => {
-      clearTimeout(fadeTimer);
-      clearTimeout(visibilityTimer);
+// Preload the model so it's ready when the component mounts
+useGLTF.preload('/logo.glb');
+
+// This component controls the animation and fade-out logic
+function AnimationController({ onAnimationComplete }) {
+  const [fill, setFill] = useState(0);
+  const startTime = useRef(Date.now());
+
+  useFrame(() => {
+    const elapsedTime = Date.now() - startTime.current;
+    let progress = elapsedTime / 2500; // 2.5 second duration
+
+    if (progress < 1) {
+      setFill(progress);
+    } else {
+      setFill(1);
+      setTimeout(onAnimationComplete, 300); // Wait a bit before fading out
+    }
+  });
+  
+  // This is a bit of a hack to get the fill amount to the shader
+  // A more robust solution would use context or a shared store
+  useEffect(() => {
+    const interval = setInterval(() => {
+      document.dispatchEvent(new CustomEvent('fillUpdate', { detail: fill }));
+    }, 16);
+    return () => clearInterval(interval);
+  }, [fill]);
+
+  return null;
+}
+
+// The main loading screen component
+export default function LoadingScreen() {
+  const [visible, setVisible] = useState(true);
+  const [fading, setFading] = useState(false);
+  const materialRef = useRef<THREE.ShaderMaterial>();
+  
+  useEffect(() => {
+    const handleFillUpdate = (e: CustomEvent) => {
+        if(materialRef.current) {
+            materialRef.current.uniforms.fillAmount.value = e.detail;
+        }
     };
+    document.addEventListener('fillUpdate', handleFillUpdate as EventListener);
+    return () => document.removeEventListener('fillUpdate', handleFillUpdate as EventListener);
   }, []);
+
+  const handleAnimationComplete = () => {
+    setFading(true);
+    setTimeout(() => {
+      setVisible(false);
+      // Clean up Three.js resources
+      const canvas = document.querySelector('canvas');
+      const renderer = canvas?.getContext('webgl2');
+      if (renderer) {
+        (renderer as any).getExtension('WEBGL_lose_context')?.loseContext();
+      }
+    }, 500); // Match fade duration
+  };
 
   if (!visible) return null;
 
@@ -38,44 +135,22 @@ const LoadingScreen = () => {
         height: '100%',
         backgroundColor: '#0a0a0a',
         zIndex: 9999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        opacity: isFading ? 0 : 1,
+        opacity: fading ? 0 : 1,
         transition: 'opacity 0.5s ease-out',
       }}
     >
-      <svg
-        width="100"
-        height="100"
-        viewBox="0 0 50 40"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <style>
-          {`
-            .logo-path {
-              stroke-dasharray: 400;
-              stroke-dashoffset: 400;
-              animation: draw 2s ease-in-out forwards;
-            }
-
-            @keyframes draw {
-              to {
-                stroke-dashoffset: 0;
-              }
-            }
-          `}
-        </style>
-        <path
-          className="logo-path"
-          d={D_PATH}
-          fill="none"
-          stroke="hsl(135, 94%, 45%)"
-          strokeWidth="1.5"
-        />
-      </svg>
+      <Suspense fallback={null}>
+        <Canvas>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1} />
+           <spotLight position={[0, 20, 0]} angle={0.3} penumbra={1} intensity={2} castShadow />
+          <Bounds fit clip observe margin={1.2}>
+            <Model />
+          </Bounds>
+          <AnimationController onAnimationComplete={handleAnimationComplete} />
+          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+        </Canvas>
+      </Suspense>
     </div>
   );
-};
-
-export default LoadingScreen;
+}
