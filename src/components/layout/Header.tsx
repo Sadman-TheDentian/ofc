@@ -82,7 +82,7 @@ const solutions = {
     "By Use Case": ["Zero Trust Architecture", "Compliance", "Threat Intelligence"]
 };
 
-const resources = ["Threat Reports", "White Papers", "Blog", "Webinars"];
+const resources = ["Threat Reports", "White Papers", "Blog", "News", "Webinars"];
 
 
 export default function Header() {

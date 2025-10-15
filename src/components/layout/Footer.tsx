@@ -24,6 +24,7 @@ const footerLinks = {
         { title: "Threat Reports", href: "/threat-reports"},
         { title: "White Papers", href: "/white-papers"},
         { title: "Blog", href: "/blog"},
+        { title: "News", href: "/news"},
         { title: "Webinars", href: "/webinars"},
         { title: "Documentation", href: "/docs"},
     ],
@@ -32,7 +33,6 @@ const footerLinks = {
         { title: "Careers", href: "/contact"},
         { title: "Partners", href: "/partners"},
         { title: "Contact", href: "/contact"},
-        { title: "News", href: "/blog"},
         { title: "Pricing", href: "/pricing"},
     ],
     Support: [
