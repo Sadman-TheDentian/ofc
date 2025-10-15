@@ -9,6 +9,7 @@ type SanitySlug = {
         current: string;
     },
     publishedAt: string;
+    _type: string;
 }
 
 const staticRoutes: MetadataRoute.Sitemap = [
