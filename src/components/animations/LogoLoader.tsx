@@ -4,7 +4,7 @@
 const LogoLoader = () => {
   return (
     <div 
-      className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+      className="fixed inset-0 flex items-center justify-center bg-background z-50 pointer-events-none"
       style={{
         animation: 'logo-fade-out 0.5s ease-out 2.5s forwards',
       }}
@@ -23,8 +23,8 @@ const LogoLoader = () => {
           strokeWidth="0.5"
           fill="none"
           style={{
-            strokeDasharray: 1,
-            strokeDashoffset: 1,
+            strokeDasharray: 100,
+            strokeDashoffset: 100,
             animation: 'logo-draw 2s ease-in-out forwards',
           }}
         />
@@ -34,5 +34,3 @@ const LogoLoader = () => {
 };
 
 export default LogoLoader;
-
-    
