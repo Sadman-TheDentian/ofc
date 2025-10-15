@@ -9,7 +9,7 @@ export type Service = {
   headline: string;
   description: string;
   longDescription: string;
-  icon: LucideIcon;
+  icon: string;
   imageUrl: string;
   imageHint: string;
   challenge: {

@@ -19,7 +19,7 @@ export const services: Service[] = [
       "We identify and analyze your high-risk vendors to uncover potential breach points and supply chain vulnerabilities.",
     longDescription:
       "Our High-Risk Vendor Reconnaissance service provides an in-depth analysis of your third-party ecosystem. We meticulously map out your supply chain, identifying vendors with access to sensitive data and systems. Using a combination of OSINT, dark web monitoring, and proprietary techniques, we assess their security posture, uncovering misconfigurations, leaked credentials, and past breaches. This proactive approach allows you to address supply chain risks before they escalate into costly incidents, ensuring your entire operational pipeline remains secure.",
-    icon: ShieldCheck,
+    icon: "ShieldCheck",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgQSRzyjF-_g0LnSdNoxY338BBlMxBE78y6EU_6sDeLZQEx5p1nZy6aWT847p0omh0RRcvpUxYzk9WBQlGDvPxRUi19XaOIvPmsxiR2itZU8TuTOxlAcnUVz47EJLy7KRQe4GTt6jblQ3OjiPj_ploYeHMyGBiWWOLOtpXjx3tO-ya9xiFjQq8qBGFG2is/w634-h355/High-Risk%20Vendor%20Recon.jpg",
     imageHint: "data security",
     challenge: {
@@ -54,7 +54,7 @@ export const services: Service[] = [
       "Comprehensive penetration testing and ransomware resilience assessments to fortify your defenses.",
     longDescription:
       "DentiSystems' Assurance Services are designed to rigorously test and validate your security controls. Our expert team conducts realistic penetration tests, simulating attacks from sophisticated adversaries to identify exploitable vulnerabilities in your network, applications, and cloud infrastructure. We also provide ransomware resilience assessments, evaluating your ability to withstand and recover from a ransomware attack. Our detailed reports provide actionable recommendations to strengthen your security posture and minimize your attack surface.",
-    icon: Zap,
+    icon: "Zap",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtbBCKuZskvSJPiQYyaPMimovP5jgPOcsmUYtZS1JzbbiloKv5z39TYUYSVYVQ3LgGvi8aW_l8oKUBolxG3nrLiJzvnzqbXCPVI4Xa1pLZrTTQ1eFUyIQ3neGm4jz6v6V_UeSumgcCG1Kh3YMxI5gA_Ws2ZzZHNjpxOmTI7kIb3P-FhixMA0DrRf16RN4/w641-h358/Assurance%20Services.jpg",
     imageHint: "network infrastructure",
     challenge: {
@@ -89,7 +89,7 @@ export const services: Service[] = [
       "Custom web engineering with security baked in from the ground up, reducing your operational risk.",
     longDescription:
       "We build high-performance, scalable web applications with a security-first mindset. Our development lifecycle integrates security at every stage, from threat modeling and secure coding practices to continuous security testing and infrastructure hardening. By embedding security into the DNA of your applications, we help you launch products faster without compromising on safety. Whether it's a customer-facing portal or a critical internal tool, we deliver web solutions that are resilient by design, protecting your data and your reputation.",
-    icon: Code,
+    icon: "Code",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhoYBuNJZrtHawM4IQz4mkVoZ00kqNBXFiIPAD7QEkUHD_gYdPrwHtuT207KaHeeKz0RaR0_DpNPKVScb9i03CBr3VTb5NsrSYJHpIRS4EiQp4l9pUKsfZmAyXylodtOShXS3-O5qJ-Fjttbx6ZnBrkAbziSdzcPiV0vBpOQXyE5o7wFb-5RYibkwAazic/w629-h352/Secure%20Web%20Development.jpg",
     imageHint: "developer laptop code",
     challenge: {
@@ -124,7 +124,7 @@ export const services: Service[] = [
       "Rapid response to security breaches to minimize damage, recover data, and identify the root cause.",
     longDescription:
       "When a security incident occurs, time is critical. Our Incident Response & Forensics team provides rapid, expert assistance to contain the threat, eradicate the attacker's presence, and restore your systems to normal. We conduct detailed digital forensic investigations to understand the attack vector, determine the extent of the breach, and gather evidence for legal action. Our goal is to not only resolve the immediate crisis but also to provide you with the insights needed to prevent future incidents.",
-    icon: Siren,
+    icon: "Siren",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitdckfgici7gt_cQw1iNaEULPtjFOOffZJ7NSzMqcNns90531Ep5zXqcDuXVff0OtSmkpfHHM17CF7qU8ZPU7ZUBAWhiy-aj_PrlukTmYNaWpDhuU7yQibjdtPVt9ui1f5ckzOCwyQNe5bdH2jD260h1Y3-EAHWFsHip2fvxTuB9E4-rw-CJ29sEJr_YA/w631-h353/Incident%20Response%20&%20Forensics.jpg",
     imageHint: "emergency server room",
     challenge: {
