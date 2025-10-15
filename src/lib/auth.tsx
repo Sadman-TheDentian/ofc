@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
@@ -89,6 +88,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         await sendEmailVerification(userCredential.user);
         router.push('/auth/verify-email');
     } else {
+        // For both new social logins and all returning users, go to dashboard
         router.push('/dashboard');
     }
   };
