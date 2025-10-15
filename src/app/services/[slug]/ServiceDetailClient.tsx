@@ -215,14 +215,19 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                    Our process is transparent, structured, and designed for maximum impact and clear communication.
                 </p>
             </motion.div>
-            <div ref={approachContainerRef} className="relative h-[200vh] max-w-5xl mx-auto">
-                 <div className="sticky top-[20vh] h-screen">
+            <div ref={approachContainerRef} className="relative max-w-5xl mx-auto" style={{ height: `${service.approach.length * 100}vh`}}>
+                 <div className="sticky top-[20vh] h-screen overflow-hidden">
                     {service.approach.map((item, index) => {
-                         const start = index / service.approach.length;
-                         const end = (index + 1) / service.approach.length;
-                         const opacity = useTransform(scrollYProgress, [start, start + 0.1, end - 0.1, end], [0, 1, 1, 0]);
-                         const scale = useTransform(scrollYProgress, [start, start + 0.1, end - 0.1, end], [0.9, 1, 1, 0.9]);
-                         const y = useTransform(scrollYProgress, [start, end], ["100px", "-100px"]);
+                        const totalItems = service.approach.length;
+                        const start = index / totalItems;
+                        const end = (index + 1) / totalItems;
+                        
+                        const entranceStart = start + (0.1 / totalItems);
+                        const exitEnd = end - (0.1 / totalItems);
+                        
+                        const opacity = useTransform(scrollYProgress, [start, entranceStart, exitEnd, end], [0, 1, 1, 0]);
+                        const scale = useTransform(scrollYProgress, [start, entranceStart, exitEnd, end], [0.9, 1, 1, 0.9]);
+                        const y = useTransform(scrollYProgress, [start, end], ["50%", "-50%"]);
 
                         return (
                             <motion.div 
