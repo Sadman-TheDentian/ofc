@@ -12,19 +12,19 @@ const LogoLoader = () => {
       <svg 
         width="100" 
         height="100" 
-        viewBox="0 0 24 24" 
+        viewBox="0 0 120 120"
         xmlns="http://www.w3.org/2000/svg" 
         className="transform-gpu"
       >
-        {/* Corrected path to match the DentiSystems logo */}
+        {/* Extracted and adapted from the provided FBX data */}
         <path
-          d="M12 2L2 7v10l10 5 10-5V7L12 2zM7 9l5 2.5V19l-5-2.5V9zm10 7.5L12 19V11.5L17 9v7.5zM12 4.5l7.5 3.75L12 12 4.5 8.25 12 4.5z"
+          d="M60 2 L2 30 L2 90 L60 118 L118 90 L118 30 Z M35 45 L60 57.5 V 105 L35 92.5 V 45 Z M85 92.5 L60 105 V 57.5 L85 45 V 92.5 Z M60 17 L92.5 35 L60 52.5 L27.5 35 Z"
           stroke="hsl(var(--primary))"
-          strokeWidth="0.5"
+          strokeWidth="1.5"
           fill="none"
           style={{
-            strokeDasharray: 100,
-            strokeDashoffset: 100,
+            strokeDasharray: 500,
+            strokeDashoffset: 500,
             animation: 'logo-draw 2s ease-in-out forwards',
           }}
         />
