@@ -1,6 +1,29 @@
 
 'use client';
 
+import React, { Suspense, useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, useGLTF } from '@react-three/drei';
+
+// This component is responsible for loading and rendering the 3D model.
+function Model(props: any) {
+  // The useGLTF hook loads the .glb file from the public directory.
+  // Make sure your file is located at `public/logo.glb`.
+  const { scene } = useGLTF('/logo.glb');
+  const modelRef = useRef<any>();
+
+  // This useFrame hook will rotate the model on every frame, creating an animation.
+  useFrame(() => {
+    if (modelRef.current) {
+      modelRef.current.rotation.y += 0.01;
+    }
+  });
+
+  // The primitive object is used to render the loaded scene directly.
+  return <primitive object={scene} ref={modelRef} {...props} />;
+}
+
+// The main loader component that sets up the 3D scene.
 const LogoLoader = () => {
   return (
     <div 
@@ -9,28 +32,27 @@ const LogoLoader = () => {
         animation: 'logo-fade-out 0.5s ease-out 2.5s forwards',
       }}
     >
-      <svg 
-        width="100" 
-        height="100" 
-        viewBox="0 0 120 120"
-        xmlns="http://www.w3.org/2000/svg" 
-        className="transform-gpu"
-      >
-        {/* Extracted and adapted from the provided FBX data */}
-        <path
-          d="M60 2 L2 30 L2 90 L60 118 L118 90 L118 30 Z M35 45 L60 57.5 V 105 L35 92.5 V 45 Z M85 92.5 L60 105 V 57.5 L85 45 V 92.5 Z M60 17 L92.5 35 L60 52.5 L27.5 35 Z"
-          stroke="hsl(var(--primary))"
-          strokeWidth="1.5"
-          fill="none"
-          style={{
-            strokeDasharray: 500,
-            strokeDashoffset: 500,
-            animation: 'logo-draw 2s ease-in-out forwards',
-          }}
-        />
-      </svg>
+      <Canvas style={{ width: '150px', height: '150px' }}>
+        {/* Suspense is crucial. It shows a fallback (null here) while the 3D model is loading. */}
+        <Suspense fallback={null}>
+          {/* Add some lighting to make the model visible. */}
+          <ambientLight intensity={1.5} />
+          <directionalLight position={[5, 5, 5]} intensity={1} />
+          
+          {/* Render the model component. */}
+          <Model scale={1.5} />
+          
+          {/* Optional: OrbitControls allow you to drag and rotate the model with your mouse.
+              This is helpful for debugging but should be disabled for a real loader.
+          <OrbitControls enableZoom={false} /> 
+          */}
+        </Suspense>
+      </Canvas>
     </div>
   );
 };
+
+// Preload the model so it's ready faster.
+useGLTF.preload('/logo.glb');
 
 export default LogoLoader;
