@@ -1,133 +1,81 @@
 
 'use client';
 
-import React, { Suspense, useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Bounds, Edges } from '@react-three/drei';
-import * as THREE from 'three';
+import React, { useState, useEffect } from 'react';
 
-const FILL_DURATION = 2.5; // seconds
-const FADE_OUT_DURATION = 0.5; // seconds
+const D_PATH = "M28.3,9.8c-0.1,0-0.1,0-0.2,0c-1.9-0.1-3.6,0.3-5.2,1.2c-1.5,0.9-2.7,2.2-3.6,3.8c-0.9,1.6-1.4,3.5-1.4,5.4c0,2,0.5,3.9,1.4,5.5c0.9,1.6,2.1,2.9,3.6,3.8c1.6,0.9,3.3,1.4,5.3,1.3c0.1,0,0.1,0,0.2,0c2.1,0,4-0.5,5.7-1.5c1.7-1,3.1-2.4,4.1-4.2c1-1.8,1.5-3.8,1.5-6c0-2.2-0.5-4.2-1.5-6C41.1,12.3,39.7,10.9,38,10c-1.7-0.8-3.5-1.3-5.4-1.3C31.2,8.8,29.7,9.2,28.3,9.8z M32.6,25.9c-0.9,0.5-2,0.8-3.1,0.8c-1.1,0-2.1-0.3-3-0.8c-0.9-0.5-1.7-1.3-2.2-2.3c-0.5-1-0.8-2.1-0.8-3.3c0-1.2,0.3-2.3,0.8-3.3c0.5-1,1.3-1.8,2.2-2.3c0.9-0.5,2-0.8,3-0.8c1.1,0,2.1,0.3,3.1,0.8c0.9,0.5,1.7,1.3,2.3,2.3c0.5,1,0.8,2.1,0.8,3.3c0,1.2-0.3,2.3-0.8,3.3C34.3,24.7,33.5,25.4,32.6,25.9z";
 
-const brandColor = new THREE.Color("hsl(135, 94%, 45%)");
-
-const LiquidFillMaterial = {
-  uniforms: {
-    time: { value: 0.0 },
-    fillColor: { value: brandColor },
-    baseColor: { value: new THREE.Color('white') },
-    minY: { value: 0.0 },
-    maxY: { value: 0.0 },
-    fillProgress: { value: 0.0 },
-  },
-  vertexShader: `
-    varying vec3 vWorldPosition;
-    void main() {
-      vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-  `,
-  fragmentShader: `
-    uniform float time;
-    uniform vec3 fillColor;
-    uniform vec3 baseColor;
-    uniform float minY;
-    uniform float maxY;
-    uniform float fillProgress;
-    varying vec3 vWorldPosition;
-
-    void main() {
-      float fillHeight = mix(minY, maxY, fillProgress);
-      vec3 color = baseColor;
-      if (vWorldPosition.y < fillHeight) {
-        color = fillColor;
-      }
-      gl_FragColor = vec4(color, 1.0);
-    }
-  `,
-};
-
-function LogoModel({ onAnimationComplete }: { onAnimationComplete: () => void }) {
-  const { scene } = useGLTF('/logo.glb');
-  const shaderRef = useRef<THREE.ShaderMaterial>(null!);
-  const [bbox, setBbox] = useState<THREE.Box3 | null>(null);
+const LoadingScreen = () => {
+  const [visible, setVisible] = useState(true);
+  const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
-    const box = new THREE.Box3().setFromObject(scene);
-    setBbox(box);
-    if(shaderRef.current) {
-        shaderRef.current.uniforms.minY.value = box.min.y;
-        shaderRef.current.uniforms.maxY.value = box.max.y;
-    }
-  }, [scene]);
+    // Start fade-out after the drawing animation is roughly complete
+    const fadeTimer = setTimeout(() => {
+      setIsFading(true);
+    }, 2500); // Animation duration is 2s, plus a small buffer
 
-  useFrame(({ clock }) => {
-    if (shaderRef.current) {
-        const elapsedTime = clock.getElapsedTime();
-        const progress = Math.min(elapsedTime / FILL_DURATION, 1.0);
-        shaderRef.current.uniforms.fillProgress.value = progress;
+    // Hide component completely after fade-out
+    const visibilityTimer = setTimeout(() => {
+      setVisible(false);
+    }, 3000); // 2.5s animation + 0.5s fade
 
-        if (progress >= 1.0) {
-            onAnimationComplete();
-        }
-    }
-  });
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(visibilityTimer);
+    };
+  }, []);
+
+  if (!visible) return null;
 
   return (
-    <primitive object={scene}>
-      <shaderMaterial 
-        ref={shaderRef} 
-        attach="material" 
-        args={[LiquidFillMaterial]} 
-      />
-    </primitive>
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#0a0a0a',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        opacity: isFading ? 0 : 1,
+        transition: 'opacity 0.5s ease-out',
+      }}
+    >
+      <svg
+        width="100"
+        height="100"
+        viewBox="0 0 50 40"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <style>
+          {`
+            .logo-path {
+              stroke-dasharray: 400;
+              stroke-dashoffset: 400;
+              animation: draw 2s ease-in-out forwards;
+            }
+
+            @keyframes draw {
+              to {
+                stroke-dashoffset: 0;
+              }
+            }
+          `}
+        </style>
+        <path
+          className="logo-path"
+          d={D_PATH}
+          fill="none"
+          stroke="hsl(135, 94%, 45%)"
+          strokeWidth="1.5"
+        />
+      </svg>
+    </div>
   );
-}
+};
 
-useGLTF.preload('/logo.glb');
-
-export default function LoadingScreen() {
-    const [visible, setVisible] = useState(true);
-    const [isFading, setIsFading] = useState(false);
-
-    const handleAnimationComplete = () => {
-        setIsFading(true);
-    };
-
-    useEffect(() => {
-        if(isFading) {
-            const timer = setTimeout(() => setVisible(false), FADE_OUT_DURATION * 1000);
-            return () => clearTimeout(timer);
-        }
-    }, [isFading]);
-
-    if(!visible) return null;
-
-    return (
-        <div 
-            style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                backgroundColor: '#0a0a0a',
-                zIndex: 9999,
-                opacity: isFading ? 0 : 1,
-                transition: `opacity ${FADE_OUT_DURATION}s ease-out`,
-            }}
-        >
-            <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} intensity={1} />
-                <pointLight position={[-10, -10, -10]} intensity={0.5} color={brandColor} />
-
-                <Suspense fallback={null}>
-                    <Bounds fit clip observe margin={1.2}>
-                         <LogoModel onAnimationComplete={handleAnimationComplete} />
-                    </Bounds>
-                </Suspense>
-            </Canvas>
-        </div>
-    );
-}
+export default LoadingScreen;
