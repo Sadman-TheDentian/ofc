@@ -55,7 +55,7 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
   const approachContainerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: approachContainerRef,
-    offset: ['start center', 'end end'],
+    offset: ['start start', 'end end'],
   });
 
   if (!service) {
@@ -198,7 +198,7 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
         </motion.div>
       </section>
 
-      {/* Our Approach Section */}
+       {/* Our Approach Section */}
        <section ref={approachRef} className="py-20 md:py-32">
          <div className="container px-4 md:px-6">
             <motion.div 
@@ -215,27 +215,21 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                    Our process is transparent, structured, and designed for maximum impact and clear communication.
                 </p>
             </motion.div>
-            <div ref={approachContainerRef} className="relative max-w-5xl mx-auto" style={{ height: `${service.approach.length * 100}vh`}}>
-                 <div className="sticky top-[20vh] h-screen overflow-hidden">
+            <div ref={approachContainerRef} className="relative max-w-5xl mx-auto">
+                 <div className="sticky top-[30vh] h-[40vh] overflow-hidden">
                     {service.approach.map((item, index) => {
                         const totalItems = service.approach.length;
                         const start = index / totalItems;
                         const end = (index + 1) / totalItems;
-                        
-                        const entranceStart = start + (0.1 / totalItems);
-                        const exitEnd = end - (0.1 / totalItems);
-                        
-                        const opacity = useTransform(scrollYProgress, [start, entranceStart, exitEnd, end], [0, 1, 1, 0]);
-                        const scale = useTransform(scrollYProgress, [start, entranceStart, exitEnd, end], [0.9, 1, 1, 0.9]);
-                        const y = useTransform(scrollYProgress, [start, end], ["50%", "-50%"]);
+                        const opacity = useTransform(scrollYProgress, [start, start + 0.1, end - 0.1, end], [0, 1, 1, 0]);
 
                         return (
                             <motion.div 
                                 key={item.step} 
-                                style={{ opacity, scale, y }}
+                                style={{ opacity }}
                                 className="absolute inset-0 flex items-center justify-center"
                             >
-                                <Card className={`w-full max-w-lg p-6 bg-gradient-to-br from-card to-card/80 border-border/50`}>
+                                <Card className="w-full max-w-lg p-6 bg-gradient-to-br from-card to-card/80 border-border/50">
                                     <div className="flex items-center gap-4 mb-4">
                                         <div className="flex items-center justify-center w-12 h-12 rounded-full bg-secondary border-2 border-primary/50 text-primary font-bold text-lg">
                                             {item.step}
