@@ -229,15 +229,22 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                                 style={{ opacity }}
                                 className="absolute inset-0 flex items-center justify-center"
                             >
-                                <Card className="w-full max-w-lg p-6 bg-gradient-to-br from-card to-card/80 border-border/50">
-                                    <div className="flex items-center gap-4 mb-4">
-                                        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-secondary border-2 border-primary/50 text-primary font-bold text-lg">
-                                            {item.step}
+                                <motion.div 
+                                    className="w-full max-w-lg"
+                                    style={{ perspective: 800 }}
+                                    whileHover={{ scale: 1.05, rotateX: 5, rotateY: -5 }}
+                                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                                >
+                                    <Card className="p-6 bg-gradient-to-br from-card to-card/80 border-border/50">
+                                        <div className="flex items-center gap-4 mb-4">
+                                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-secondary border-2 border-primary/50 text-primary font-bold text-lg">
+                                                {item.step}
+                                            </div>
+                                            <h3 className="font-headline text-xl font-bold text-primary">{item.title}</h3>
                                         </div>
-                                        <h3 className="font-headline text-xl font-bold text-primary">{item.title}</h3>
-                                    </div>
-                                    <p className="text-muted-foreground">{item.description}</p>
-                                </Card>
+                                        <p className="text-muted-foreground">{item.description}</p>
+                                    </Card>
+                                </motion.div>
                             </motion.div>
                         )
                     })}
