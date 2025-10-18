@@ -11,7 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Loader2, ShieldAlert, ShieldCheck, KeyRound } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { CodeLeakDetectorInputSchema, type CodeLeakDetectorInput, type CodeLeakDetectorOutput } from '@/ai/flows/code-leak-detector';
-import { analyzeCodeForLeaks } from '../../tools/code-leak-detector/actions';
+import { analyzeCodeForLeaks } from '@/app/tools/code-leak-detector/actions';
 import { useAuth } from '@/lib/auth';
 import Link from 'next/link';
 

@@ -12,7 +12,7 @@ import { Loader2, ShieldAlert, ShieldCheck, ShieldHalf } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { ScanCodeInputSchema, type ScanCodeInput, type ScanCodeOutput } from '@/ai/flows/code-vulnerability-scanner-types';
-import { analyzeCode } from '../../tools/code-scanner/actions';
+import { analyzeCode } from '@/app/tools/code-scanner/actions';
 
 export default function CodeScannerPage() {
   const [result, setResult] = useState<ScanCodeOutput | null>(null);
