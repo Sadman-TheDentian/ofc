@@ -1,3 +1,4 @@
+
 import { client } from '@/lib/sanity';
 import type { SanityDocument } from 'next-sanity';
 
