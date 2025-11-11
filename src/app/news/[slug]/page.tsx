@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Author } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import StructuredData from "@/components/StructuredData";
 
 const NEWS_POST_QUERY = `*[_type == "news" && slug.current == $slug][0]{
   ...,
@@ -71,10 +72,7 @@ export default async function NewsPostPage({
 
   return (
     <>
-      <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+      <StructuredData data={jsonLd} />
       <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-8">
         <Link href="/news" className="text-primary hover:underline">
           ← Back to News
