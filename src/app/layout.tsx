@@ -79,6 +79,20 @@ export default function RootLayout({
 
           gtag('config', 'G-52G6ZBH1ZM');
         `}} />
+        
+        {/* Subscribe with Google */}
+        <script async type="application/javascript"
+        src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
+        <script dangerouslySetInnerHTML={{ __html: `
+          (self.SWG_BASIC = self.SWG_BASIC || []).push( basicSubscriptions => {
+            basicSubscriptions.init({
+              type: "NewsArticle",
+              isPartOfType: ["Product"],
+              isPartOfProductId: "CAow-KTCDA:openaccess",
+              clientOptions: { theme: "light", lang: "en" },
+            });
+          });
+        `}} />
 
       </head>
       <body
