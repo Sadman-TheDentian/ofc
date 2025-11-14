@@ -161,9 +161,6 @@ export default function AboutPage() {
                          <Image src={value.imageUrl} alt={value.title} fill style={{objectFit: 'cover'}} className="group-hover:scale-105 transition-transform" />
                     </div>
                      <div className="p-6 text-center flex-grow flex flex-col">
-                        <div className="mb-4 inline-block p-3 bg-secondary rounded-full mx-auto">
-                            <value.icon className="h-8 w-8 text-primary" />
-                        </div>
                         <h3 className="font-headline text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{value.title}</h3>
                         <p className="text-muted-foreground text-sm flex-grow">{value.description}</p>
                      </div>
