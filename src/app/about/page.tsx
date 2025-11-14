@@ -28,17 +28,23 @@ const values = [
     {
         icon: Award,
         title: "Expertise",
-        description: "Our team comprises industry veterans with decades of combined experience in offensive security, threat intelligence, and secure software development."
+        description: "Our team comprises industry veterans with decades of combined experience in offensive security, threat intelligence, and secure software development.",
+        imageUrl: "https://blogger.googleusercontent.com/img/a/AVvXsEic3sHUvr_T2_6WSx-BUfO1t9T3BAAfhyiN8dWAsaEJSxP7_-c3w7RgMkF8Bbw4AYKTYrVd9HDQte7HvRjoOQKLPrlSvHOlhOK3hhLHaZQo2gGoi1eT6hznYtFfglkHqhlc3nPDRCGDNMDJhoQewbKrFoE9g5hRsKp8YPog5tabjXe1SDk-OciMupiea3M=w641-h358",
+        href: "/about/expertise"
     },
     {
         icon: Handshake,
         title: "Integrity",
-        description: "We operate with the highest ethical standards, prioritizing our clients' trust and confidentiality above all else. Your security is our bond."
+        description: "We operate with the highest ethical standards, prioritizing our clients' trust and confidentiality above all else. Your security is our bond.",
+        imageUrl: "https://blogger.googleusercontent.com/img/a/AVvXsEg9f_wEbICAyoTey7qzbh9tgOfpc0cQ_JSLxvHqgPG3qTA-Vzv9v_JAwgT-fS0ISQb7lpd0qLEXCEqj4jNQYDpNFgDhhTtviRBdIhcsPYuygiU98p9rzK9ax0rR8CCQPoe7xZ-AkB8zVe06pz7gVu5Q4hukRYqcEuw_uJzHdCfeEMzmHQyOjtnma3Ty-Oc=w631-h353",
+        href: "/about/integrity"
     },
     {
         icon: BrainCircuit,
         title: "Innovation",
-        description: "The threat landscape is always evolving, and so are we. We are committed to continuous research and development to stay ahead of adversaries."
+        description: "The threat landscape is always evolving, and so are we. We are committed to continuous research and development to stay ahead of adversaries.",
+        imageUrl: "https://blogger.googleusercontent.com/img/a/AVvXsEgKyvpArELsyfOnQb0iNOF8rSx2neMBe-gD0S7zAsKHKDdp2GTkOBhtRsto8gf07eXLfFhIou6L_X1_-bHuodabFPNHPCcHfgTOrqeOx3BQ0cHZgODohBHz1qPoY1KV42fKBtS9qRu7xQyChHv4dn3uA2QdwtgrVIHSnEi43eSSPsXZlOks59jRJelRbHo=w635-h354",
+        href: "/about/innovation"
     }
 ];
 
@@ -149,13 +155,20 @@ export default function AboutPage() {
         </h2>
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {values.map((value) => (
-                <Card key={value.title} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
-                     <div className="mb-4 inline-block p-3 bg-secondary rounded-full">
-                        <value.icon className="h-8 w-8 text-primary" />
+              <Link href={value.href} key={value.title} className="group">
+                <Card className="overflow-hidden bg-gradient-to-br from-card to-card/80 border-border/50 h-full flex flex-col transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
+                    <div className="relative h-40 w-full">
+                         <Image src={value.imageUrl} alt={value.title} fill style={{objectFit: 'cover'}} className="group-hover:scale-105 transition-transform" />
+                    </div>
+                     <div className="p-6 text-center flex-grow flex flex-col">
+                        <div className="mb-4 inline-block p-3 bg-secondary rounded-full mx-auto">
+                            <value.icon className="h-8 w-8 text-primary" />
+                        </div>
+                        <h3 className="font-headline text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{value.title}</h3>
+                        <p className="text-muted-foreground text-sm flex-grow">{value.description}</p>
                      </div>
-                     <h3 className="font-headline text-xl font-semibold mb-2">{value.title}</h3>
-                     <p className="text-muted-foreground text-sm">{value.description}</p>
                 </Card>
+              </Link>
             ))}
         </div>
       </section>
