@@ -8,7 +8,6 @@ import Footer from "@/components/layout/Footer";
 import { AuthProvider } from "@/lib/auth";
 import GalaxyAnimation from "@/components/animations/Galaxy";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
-import LoadingScreen from "@/components/animations/LoadingScreen";
 import StructuredData from "@/components/StructuredData";
 
 const logoUrl =
@@ -77,7 +76,6 @@ export default function RootLayout({
         )}
         suppressHydrationWarning={true}
       >
-        <LoadingScreen />
         <GalaxyAnimation />
         <FirebaseClientProvider>
           <AuthProvider>
