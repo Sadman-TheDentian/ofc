@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, Building, Loader2 } from "lucide-react";
+import { Mail, Phone, Building, Loader2, MessageSquare } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { submitInquiry } from "./actions";
@@ -178,6 +178,16 @@ export default function ContactPage() {
                             <p>+8801308539526</p>
                         </div>
                     </div>
+                    <div className="flex items-start gap-4">
+                        <div className="p-2 bg-secondary rounded-md mt-1">
+                            <MessageSquare className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                            <h4 className="font-semibold">WhatsApp</h4>
+                            <p className="text-muted-foreground">Direct Message</p>
+                            <p>+6289506801621</p>
+                        </div>
+                    </div>
                      <div className="flex items-start gap-4">
                         <div className="p-2 bg-secondary rounded-md mt-1">
                             <Building className="h-5 w-5 text-primary" />
@@ -190,11 +200,11 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <p className="text-muted-foreground">Bangladesh Office</p>
-                                <p>Jahaj Company More, Rangpur Sadar</p>
+                                <p>Jahaj Company More, Ranngpur Sadar, Bangladesh</p>
                             </div>
                              <div>
                                 <p className="text-muted-foreground">Technology Hub</p>
-                                <p>6/B Mohona Tower, Suihari, Dinajpur Sadar</p>
+                                <p>6/B Mohona Tower, Suihari, Dinajpur Sadar, Bangladesh</p>
                             </div>
                         </div>
                     </div>
