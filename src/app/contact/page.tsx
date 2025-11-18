@@ -174,18 +174,28 @@ export default function ContactPage() {
                         </div>
                         <div>
                             <h4 className="font-semibold">Phone</h4>
-                            <p className="text-muted-foreground">Mon-Fri, 9am-5pm EST</p>
-                            <p>+1 (212) 845-9947</p>
+                            <p className="text-muted-foreground">24/7 Support</p>
+                            <p>+8801308539526</p>
                         </div>
                     </div>
                      <div className="flex items-start gap-4">
                         <div className="p-2 bg-secondary rounded-md mt-1">
                             <Building className="h-5 w-5 text-primary" />
                         </div>
-                        <div>
+                        <div className="space-y-2">
                             <h4 className="font-semibold">Headquarters</h4>
-                            <p className="text-muted-foreground">One World Trade Center</p>
-                            <p>New York, NY 10007, USA</p>
+                            <div>
+                                <p className="text-muted-foreground">DentiSystems HQ</p>
+                                <p>101 Kallang Ave, Singapore</p>
+                            </div>
+                            <div>
+                                <p className="text-muted-foreground">Bangladesh Office</p>
+                                <p>Jahaj Company More, Rangpur Sadar</p>
+                            </div>
+                             <div>
+                                <p className="text-muted-foreground">Technology Hub</p>
+                                <p>6/B Mohona Tower, Suihari, Dinajpur Sadar</p>
+                            </div>
                         </div>
                     </div>
                 </div>
