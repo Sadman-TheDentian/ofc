@@ -67,6 +67,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image: radial-gradient(circle at top, hsl(135 94% 5% / 0.7), hsl(var(--background)) 70%);
   }
   
   html, body {

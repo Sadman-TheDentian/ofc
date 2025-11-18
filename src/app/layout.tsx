@@ -6,7 +6,6 @@ import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { AuthProvider } from "@/lib/auth";
-import GalaxyAnimation from "@/components/animations/Galaxy";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
 import StructuredData from "@/components/StructuredData";
 
@@ -76,7 +75,6 @@ export default function RootLayout({
         )}
         suppressHydrationWarning={true}
       >
-        <GalaxyAnimation />
         <FirebaseClientProvider>
           <AuthProvider>
             <Header />
