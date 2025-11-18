@@ -66,9 +66,7 @@
     @apply border-border;
   }
   body {
-    @apply text-foreground;
-    background-image: linear-gradient(to bottom right, hsl(135 94% 5% / 0.25) 0%, transparent 50%),
-                      linear-gradient(to bottom left, hsl(135 94% 5% / 0.25) 0%, transparent 50%);
+    background-image: linear-gradient(to bottom right, hsl(135 94% 7% / 0.6), hsl(var(--background)) 60%);
     background-color: hsl(var(--background));
   }
   
