@@ -68,6 +68,7 @@
   body {
     background-image: linear-gradient(to bottom right, hsl(135 94% 7% / 0.6), hsl(var(--background)) 60%);
     background-color: hsl(var(--background));
+    @apply text-foreground;
   }
   
   html, body {
