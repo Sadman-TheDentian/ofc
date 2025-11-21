@@ -108,19 +108,12 @@
     --tw-prose-invert-td-borders: hsl(var(--border));
   }
 
-  .bg-hero-gradient {
-    background-image: radial-gradient(ellipse at center 20%, hsl(135 94% 5% / 0.5) 0%, hsl(var(--background)) 60%);
+  .bg-animated-hero-gradient {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(135 94% 5% / 0.5), transparent);
+    background-size: 300% 300%;
+    animation: pan-gradient 15s ease-in-out infinite;
   }
-
-  .bg-grid-gradient {
-    --grid-color: hsl(135 94% 15% / 0.1);
-    --grid-size: 50px;
-    background-image: 
-        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
-    background-size: var(--grid-size) var(--grid-size);
-  }
-
+  
   .bg-asymmetrical-gradient {
     background-image: radial-gradient(ellipse at top left, hsl(135 94% 5% / 0.4) 0%, transparent 50%),
                       radial-gradient(ellipse at bottom right, hsl(135 94% 5% / 0.4) 0%, transparent 50%);
@@ -132,6 +125,24 @@
 }
 
 @layer utilities {
+  @keyframes pan-gradient {
+    0% {
+      background-position: 50% 0%;
+    }
+    25% {
+      background-position: 100% 50%;
+    }
+    50% {
+      background-position: 50% 100%;
+    }
+    75% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 50% 0%;
+    }
+  }
+
   @keyframes fade-in {
     from {
       opacity: 0;
