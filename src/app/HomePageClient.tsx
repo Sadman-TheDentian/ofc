@@ -186,7 +186,7 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
   return (
     <div className="flex flex-col min-h-screen">
-       <section ref={heroRef} className="glint-container relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden bg-background/50 backdrop-blur-sm border-b border-border/50">
+       <section ref={heroRef} className="glint-container relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden bg-hero-gradient bg-background/50 backdrop-blur-sm border-b border-border/50">
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
 
         <div className="container relative z-10 px-4 md:px-6">
@@ -278,7 +278,7 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
         </div>
       </section>
 
-      <section id="stats" className="py-20 md:py-32 bg-background/50 border-y border-border/50">
+      <section id="stats" className="py-20 md:py-32 bg-grid-gradient bg-background/50 border-y border-border/50">
         <div ref={statsRef} className="container px-4 md:px-6">
             <div className="text-center space-y-4 mb-16">
                  <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
@@ -314,7 +314,7 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
       <section
         id="threat-intelligence"
-        className="py-20 md:py-32 border-b border-border/50 bg-card/80 backdrop-blur-sm"
+        className="py-20 md:py-32 border-b border-border/50 bg-asymmetrical-gradient bg-card/80 backdrop-blur-sm"
       >
         <div className="container px-4 md:px-6">
            <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
@@ -455,7 +455,7 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
       <section
         id="partners"
-        className="py-20 md:py-32 border-t border-border/50 bg-background"
+        className="py-20 md:py-32 border-t border-border/50 bg-bottom-glow-gradient bg-background"
       >
         <div className="container px-4 md:px-6">
           <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">

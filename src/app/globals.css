@@ -66,7 +66,6 @@
     @apply border-border;
   }
   body {
-    background-image: linear-gradient(to bottom right, hsl(135 94% 7% / 0.7), hsl(var(--background)) 65%);
     background-color: hsl(var(--background));
     @apply text-foreground;
   }
@@ -107,6 +106,28 @@
     --tw-prose-invert-pre-bg: hsl(var(--secondary));
     --tw-prose-invert-th-borders: hsl(var(--border));
     --tw-prose-invert-td-borders: hsl(var(--border));
+  }
+
+  .bg-hero-gradient {
+    background-image: radial-gradient(ellipse at center 20%, hsl(135 94% 5% / 0.5) 0%, hsl(var(--background)) 60%);
+  }
+
+  .bg-grid-gradient {
+    --grid-color: hsl(135 94% 15% / 0.1);
+    --grid-size: 50px;
+    background-image: 
+        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+  }
+
+  .bg-asymmetrical-gradient {
+    background-image: radial-gradient(ellipse at top left, hsl(135 94% 5% / 0.4) 0%, transparent 50%),
+                      radial-gradient(ellipse at bottom right, hsl(135 94% 5% / 0.4) 0%, transparent 50%);
+  }
+
+  .bg-bottom-glow-gradient {
+    background-image: linear-gradient(to top, hsl(135 94% 7% / 0.6) 0%, transparent 70%);
   }
 }
 
