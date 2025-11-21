@@ -1,7 +1,6 @@
 
 'use client'
 import { type Partner } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import imageUrlBuilder from "@sanity/image-url";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,7 +21,8 @@ export default function PartnerSlider({ partners }: { partners: Partner[] }) {
     );
   }
 
-  const extendedPartners = [...partners, ...partners]; // Duplicate for seamless scrolling
+  // Duplicate the partners array for a seamless, infinite scrolling effect
+  const extendedPartners = [...partners, ...partners];
 
   return (
     <div
