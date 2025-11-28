@@ -23,6 +23,7 @@ import imageUrlBuilder from '@sanity/image-url'
 import React, { useState, useEffect, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { useInView } from 'react-intersection-observer';
+import AnimatedHeadline from '@/components/layout/AnimatedHeadline';
 
 const builder = imageUrlBuilder(client)
 
@@ -159,8 +160,6 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
   const blogAutoplayPlugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true }));
   const caseStudiesAutoplayPlugin = useRef(Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true }));
 
-  const heroHeadline = "HACK THE THREAT";
-  
   const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
@@ -170,12 +169,7 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6 p-8 rounded-xl">
-             <h1 
-                className="glitch-headline font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground"
-                data-text={heroHeadline}
-              >
-                {heroHeadline}
-              </h1>
+             <AnimatedHeadline text="HACK THE THREAT" />
              <p
                 className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in"
                 style={{ animationDelay: '1.5s', animationFillMode: 'backwards' }}
