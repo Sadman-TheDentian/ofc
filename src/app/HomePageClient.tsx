@@ -172,13 +172,13 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
              <AnimatedHeadline text="HACK THE THREAT" />
              <p
                 className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in"
-                style={{ animationDelay: '1.5s', animationFillMode: 'backwards' }}
+                style={{ animationDelay: '1s' }}
               >
                 Offensive security to fortify your digital defenses.
               </p>
                <div 
                 className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in"
-                style={{ animationDelay: '1.7s', animationFillMode: 'backwards' }}
+                style={{ animationDelay: '1.2s' }}
               >
                 <Button size="lg" asChild>
                   <Link href="/contact">Schedule Demo</Link>
