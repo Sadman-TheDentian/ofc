@@ -181,4 +181,37 @@
   .delay-300 {
     transition-delay: 300ms;
   }
+
+  .animated-headline-glare {
+    position: relative;
+    color: hsl(var(--foreground));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-image: linear-gradient(135deg, hsl(var(--foreground)) 25%, hsl(var(--muted-foreground)) 50%, hsl(var(--foreground)) 75%);
+  }
+
+  .animated-headline-glare::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    -webkit-mask-image: linear-gradient(
+      -75deg,
+      transparent 30%,
+      white 50%,
+      transparent 70%
+    );
+    mask-image: linear-gradient(
+      -75deg,
+      transparent 30%,
+      white 50%,
+      transparent 70%
+    );
+    -webkit-mask-size: 200% 100%;
+    mask-size: 200% 100%;
+    -webkit-mask-position: var(--mouse-x, 150%) 0;
+    mask-position: var(--mouse-x, 150%) 0;
+    background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, white 50%, hsl(var(--primary)) 100%);
+    transition: mask-position 0.2s ease-out;
+  }
 }
