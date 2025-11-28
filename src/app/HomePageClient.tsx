@@ -161,52 +161,30 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
   const heroHeadline = "HACK THE THREAT";
   
-  const heroRef = useRef<HTMLDivElement>(null);
-  const h1Ref = useRef<HTMLHeadingElement>(null);
   const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true, threshold: 0.2 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!h1Ref.current) return;
-      const rect = h1Ref.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      h1Ref.current.style.setProperty("--mouseX", `${x}px`);
-      h1Ref.current.style.setProperty("--mouseY", `${y}px`);
-    };
-    
-    const currentHeroRef = heroRef.current;
-    currentHeroRef?.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      currentHeroRef?.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
 
   return (
     <div className="flex flex-col min-h-screen">
-       <section ref={heroRef} className="glint-container relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden bg-animated-hero-gradient bg-background/50 backdrop-blur-sm border-b border-border/50">
+       <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden bg-animated-hero-gradient bg-background/50 backdrop-blur-sm border-b border-border/50">
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
 
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-6 p-8 rounded-xl">
              <h1 
-                ref={h1Ref}
-                className="glint-headline font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground"
-                style={{ '--text': `"${heroHeadline}"` } as React.CSSProperties}
+                className="glitch-headline font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground"
+                data-text={heroHeadline}
               >
                 {heroHeadline}
               </h1>
              <p
                 className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in"
-                style={{ animationDelay: '0.5s', animationFillMode: 'backwards' }}
+                style={{ animationDelay: '1.5s', animationFillMode: 'backwards' }}
               >
                 Offensive security to fortify your digital defenses.
               </p>
                <div 
                 className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in"
-                style={{ animationDelay: '0.7s', animationFillMode: 'backwards' }}
+                style={{ animationDelay: '1.7s', animationFillMode: 'backwards' }}
               >
                 <Button size="lg" asChild>
                   <Link href="/contact">Schedule Demo</Link>
