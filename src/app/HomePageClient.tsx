@@ -159,7 +159,7 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
   const blogAutoplayPlugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true }));
   const caseStudiesAutoplayPlugin = useRef(Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true }));
 
-  const heroHeadline = "Elite Cybersecurity & Custom Web Engineering";
+  const heroHeadline = "HACK THE THREAT";
   
   const heroRef = useRef<HTMLDivElement>(null);
   const h1Ref = useRef<HTMLHeadingElement>(null);
@@ -202,7 +202,7 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
                 className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in"
                 style={{ animationDelay: '0.5s', animationFillMode: 'backwards' }}
               >
-                Advanced threat detection and prevention for enterprises.
+                Offensive security to fortify your digital defenses.
               </p>
                <div 
                 className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in"
