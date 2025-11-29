@@ -24,6 +24,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { useInView } from 'react-intersection-observer';
 import AnimatedHeadline from '@/components/layout/AnimatedHeadline';
+import SyntheticHero from '@/components/layout/SyntheticHero';
 
 const builder = imageUrlBuilder(client)
 
@@ -164,32 +165,21 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
 
   return (
     <div className="flex flex-col min-h-screen">
-       <section className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden bg-animated-hero-gradient bg-background/50 backdrop-blur-sm border-b border-border/50">
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0" />
-
-        <div className="container relative z-10 px-4 md:px-6">
-          <div className="max-w-4xl mx-auto space-y-6 p-8 rounded-xl">
-             <AnimatedHeadline text="HACK THE THREAT" />
-             <p
-                className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in"
-                style={{ animationDelay: '1s' }}
-              >
-                Offensive security to fortify your digital defenses.
-              </p>
-               <div 
-                className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in"
-                style={{ animationDelay: '1.2s' }}
-              >
-                <Button size="lg" asChild>
-                  <Link href="/contact">Schedule Demo</Link>
-                </Button>
-                <Button size="lg" variant="secondary" asChild>
-                  <Link href="/threat-intelligence">View Threat Report</Link>
-                </Button>
-              </div>
-          </div>
-        </div>
-      </section>
+       <SyntheticHero 
+          title="HACK THE THREAT"
+          description="Offensive security to fortify your digital defenses."
+          badgeText="DentiSystems"
+          badgeLabel="Cybersecurity"
+          ctaButtons={[
+            { text: 'Schedule Demo', href: '/contact', primary: true },
+            { text: 'View Threat Report', href: '/threat-intelligence' },
+          ]}
+          microDetails={[
+            "AI-Powered Threat Detection",
+            "Offensive Security",
+            "Resilient Infrastructure"
+          ]}
+       />
 
       <section id="services" className="py-20 md:py-32 bg-transparent">
         <div className="container px-4 md:px-6">
