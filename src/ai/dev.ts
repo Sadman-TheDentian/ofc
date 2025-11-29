@@ -7,5 +7,3 @@
  */
 import '@/ai/flows/code-vulnerability-scanner.ts';
 import '@/ai/flows/code-leak-detector.ts';
-import '@/ai/flows/site-assistant-flow.ts';
-import '@/ai/flows/site-assistant-flow-types.ts';
