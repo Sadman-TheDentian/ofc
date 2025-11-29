@@ -84,21 +84,17 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
   }, [inView, to, isMounted]);
 
   let formattedCount: string;
-  if(isMillion) {
-    formattedCount = (count / 1000000).toFixed(1);
-  } else if (isPercent) {
-    formattedCount = count.toFixed(1);
-  } else {
-    formattedCount = Math.floor(count).toLocaleString();
-  }
-
-  // Render a placeholder on the server and initial client render
   if (!isMounted) {
-    let placeholder: string;
-    if (isMillion) placeholder = (to / 1000000).toFixed(1);
-    else if (isPercent) placeholder = to.toFixed(1);
-    else placeholder = to.toLocaleString();
-    return <span ref={ref}>{placeholder}</span>;
+    // Render a placeholder or initial state on the server
+    formattedCount = '0';
+  } else {
+    if(isMillion) {
+      formattedCount = (count / 1000000).toFixed(1);
+    } else if (isPercent) {
+      formattedCount = count.toFixed(1);
+    } else {
+      formattedCount = Math.floor(count).toLocaleString();
+    }
   }
 
   return <span ref={ref}>{formattedCount}</span>;
@@ -114,7 +110,9 @@ const DonutChart = ({ value }: { value: number }) => {
 
     const radius = 80;
     const circumference = 2 * Math.PI * radius;
-    const offset = circumference - (value / 100) * circumference;
+    const initialOffset = circumference;
+    const finalOffset = circumference - (value / 100) * circumference;
+    const offset = isMounted && inView ? finalOffset : initialOffset;
 
     return (
         <div ref={ref} className="relative h-48 w-48 mx-auto">
@@ -134,7 +132,7 @@ const DonutChart = ({ value }: { value: number }) => {
                     className={`text-primary transition-all duration-[2000ms] ease-out`}
                     strokeWidth="12"
                     strokeDasharray={circumference}
-                    strokeDashoffset={isMounted && inView ? offset : circumference}
+                    strokeDashoffset={offset}
                     strokeLinecap="round"
                     stroke="currentColor"
                     fill="transparent"
@@ -146,7 +144,7 @@ const DonutChart = ({ value }: { value: number }) => {
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
                  <h3 className="text-4xl font-bold font-headline text-primary">
-                    <Counter to={value} isPercent />%
+                    {isMounted ? <Counter to={value} isPercent /> : `0.0`}%
                 </h3>
             </div>
         </div>
@@ -181,6 +179,11 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
   const caseStudiesAutoplayPlugin = useRef(Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true }));
 
   const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -273,16 +276,20 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className={`flex flex-col items-center justify-start space-y-4 transition-all duration-500 delay-${index * 150} ${
-                  statsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                }`}
+                className="flex flex-col items-center justify-start space-y-4"
               >
                 {stat.type === 'chart' ? (
-                  <DonutChart value={stat.value} />
+                  isMounted ? <DonutChart value={stat.value} /> : <div className="h-48 w-48" />
                 ) : (
                   <h3 className="text-5xl font-bold font-headline text-primary h-48 flex items-center justify-center">
-                    <Counter to={stat.value} isMillion={stat.label.includes('Threats')} />
-                    {stat.label.includes("Threats") ? "M+" : stat.suffix}
+                    {isMounted ? (
+                      <>
+                        <Counter to={stat.value} isMillion={stat.label.includes('Threats')} />
+                        {stat.label.includes("Threats") ? "M+" : stat.suffix}
+                      </>
+                    ) : (
+                      '0'
+                    )}
                   </h3>
                 )}
                 

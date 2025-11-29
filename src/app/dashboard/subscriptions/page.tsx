@@ -42,7 +42,7 @@ export default function SubscriptionsPage() {
                 email: user.email,
                 clientOrigin: window.location.origin,
             });
-            if (result.success) {
+            if (result.success && "hosted_url" in result) {
                 window.location.href = result.hosted_url;
             } else {
                 throw new Error(result.error || 'Failed to create payment session.');
