@@ -3,15 +3,15 @@ import { client } from "@/lib/sanity";
 import type { CaseStudy } from "@/lib/types";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import imageUrlBuilder from '@sanity/image-url'
-import { PortableText } from '@portabletext/react'
+import imageUrlBuilder from '@sanity/image-url';
+import { PortableText } from '@portabletext/react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-const builder = imageUrlBuilder(client)
+const builder = imageUrlBuilder(client);
 
 function urlFor(source: any) {
-  return builder.image(source)
+  return builder.image(source);
 }
 
 async function getCaseStudy(slug: string): Promise<CaseStudy> {
@@ -30,7 +30,7 @@ const ptComponents = {
       return (
         <div className="relative my-8">
             <Image
-                src={urlFor(value).width(1200).height(800).fit('max').auto('format').url()}
+                src={urlFor(value).width(1200).height(800).fit('max').auto('format').url()!}
                 width={1200}
                 height={800}
                 alt={value.alt || ' '}
@@ -64,7 +64,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
                 {study.mainImage && (
                     <div className="relative h-96 w-full mb-12">
                         <Image 
-                            src={urlFor(study.mainImage).width(1200).height(800).url()}
+                            src={urlFor(study.mainImage).width(1200).height(800).url()!}
                             alt={study.title}
                             fill
                             className="object-cover rounded-xl shadow-lg"

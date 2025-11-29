@@ -83,7 +83,7 @@ export default async function NewsPostPage({
               {post.author && (
                   <div className="flex items-center gap-3">
                       <Avatar>
-                          {authorImageUrl && <AvatarImage src={authorImageUrl} alt={post.author.name} />}
+                          {authorImageUrl && <AvatarImage src={authorImageUrl} alt={post.author.name || ""} />}
                           <AvatarFallback>{post.author.name?.charAt(0) || 'A'}</AvatarFallback>
                       </Avatar>
                       <span className="font-medium text-muted-foreground">{post.author.name}</span>
@@ -99,7 +99,7 @@ export default async function NewsPostPage({
               <div className="relative w-full aspect-video mb-8">
                   <Image
                       src={postImageUrl}
-                      alt={post.title}
+                      alt={post.title || ""}
                       fill
                       className="rounded-xl object-cover"
                       priority

@@ -41,7 +41,7 @@ export default async function ThreatReportsPage() {
                      {report.mainImage && (
                         <div className="relative h-48 w-full">
                             <Image
-                            src={urlFor(report.mainImage).width(600).height(400).url()}
+                            src={urlFor(report.mainImage).width(600).height(400).url()!}
                             alt={report.title}
                             fill
                             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"

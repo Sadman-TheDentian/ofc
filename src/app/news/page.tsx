@@ -61,7 +61,7 @@ export default async function NewsPage() {
                   <div className="relative w-full aspect-video">
                     <Image
                       src={itemImageUrl}
-                      alt={item.title}
+                      alt={item.title || ""}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform"
                     />
@@ -76,7 +76,7 @@ export default async function NewsPage() {
                     {item.author && (
                         <div className="flex items-center gap-2">
                             <Avatar className="h-6 w-6">
-                                {authorImageUrl && <AvatarImage src={authorImageUrl} alt={item.author.name} />}
+                                {authorImageUrl && <AvatarImage src={authorImageUrl} alt={item.author.name || ""} />}
                                 <AvatarFallback>{item.author.name?.charAt(0) || 'A'}</AvatarFallback>
                             </Avatar>
                             <span>{item.author.name}</span>

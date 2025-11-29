@@ -19,17 +19,17 @@ import { securityAdvisories } from '@/lib/data';
 import { client } from '@/lib/sanity';
 import { type SanityDocument } from "next-sanity";
 import type { CaseStudy, Partner } from "@/lib/types";
-import imageUrlBuilder from '@sanity/image-url'
+import imageUrlBuilder from '@sanity/image-url';
 import React, { useState, useEffect, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { useInView } from 'react-intersection-observer';
 import AnimatedHeadline from '@/components/layout/AnimatedHeadline';
 import SyntheticHero from '@/components/layout/SyntheticHero';
 
-const builder = imageUrlBuilder(client)
+const builder = imageUrlBuilder(client);
 
 function urlFor(source: any) {
-  return builder.image(source)
+  return builder.image(source);
 }
 
 interface HomePageClientProps {
@@ -332,7 +332,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                         <div className="flex flex-col">
                                             {post.mainImage && (
                                                 <div className="relative h-40 w-full flex-shrink-0">
-                                                    <Image src={urlFor(post.mainImage).width(400).height(250).url()} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                                    <Image src={urlFor(post.mainImage).width(400).height(250).url()!} alt={post.title || ""} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
                                                 </div>
                                             )}
                                             <div className="p-6">
@@ -381,7 +381,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                     {study.mainImage && (
                                         <div className="relative h-48 w-full">
                                             <Image
-                                                src={urlFor(study.mainImage).width(600).height(400).url()}
+                                                src={urlFor(study.mainImage).width(600).height(400).url()!}
                                                 alt={study.title}
                                                 fill
                                                 className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"

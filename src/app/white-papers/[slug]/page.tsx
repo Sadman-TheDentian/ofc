@@ -3,15 +3,15 @@ import { client } from "@/lib/sanity";
 import type { SanityDocument } from "next-sanity";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import imageUrlBuilder from '@sanity/image-url'
-import { PortableText } from '@portabletext/react'
+import imageUrlBuilder from '@sanity/image-url';
+import { PortableText } from '@portabletext/react';
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 
-const builder = imageUrlBuilder(client)
+const builder = imageUrlBuilder(client);
 
 function urlFor(source: any) {
-  return builder.image(source)
+  return builder.image(source);
 }
 
 async function getWhitePaper(slug: string) {
@@ -46,7 +46,7 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
                 {paper.mainImage && (
                     <div className="relative h-96 w-full mb-12">
                         <Image 
-                            src={urlFor(paper.mainImage).width(1200).height(800).url()}
+                            src={urlFor(paper.mainImage).width(1200).height(800).url()!}
                             alt={paper.title}
                             fill
                             className="object-cover rounded-xl shadow-lg"

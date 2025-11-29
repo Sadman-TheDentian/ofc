@@ -61,7 +61,7 @@ export default async function BlogPage() {
                   <div className="relative w-full aspect-video">
                     <Image
                       src={postImageUrl}
-                      alt={post.title}
+                      alt={post.title || ""}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform"
                     />
@@ -76,7 +76,7 @@ export default async function BlogPage() {
                     {post.author && (
                         <div className="flex items-center gap-2">
                             <Avatar className="h-6 w-6">
-                                {authorImageUrl && <AvatarImage src={authorImageUrl} alt={post.author.name} />}
+                                {authorImageUrl && <AvatarImage src={authorImageUrl} alt={post.author.name || ""} />}
                                 <AvatarFallback>{post.author.name?.charAt(0) || 'A'}</AvatarFallback>
                             </Avatar>
                             <span>{post.author.name}</span>

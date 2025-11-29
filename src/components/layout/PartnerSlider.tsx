@@ -33,7 +33,7 @@ export default function PartnerSlider({ partners }: { partners: Partner[] }) {
           <li key={`${partner._id}-${index}`} className="flex-shrink-0">
             <Link href={partner.website || '#'} target="_blank" rel="noopener noreferrer" className="grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300">
               <Image 
-                src={urlFor(partner.logo).height(40).url()}
+                src={urlFor(partner.logo).height(40).url()!}
                 alt={partner.name}
                 width={140}
                 height={40}

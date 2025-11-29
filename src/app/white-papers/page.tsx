@@ -41,7 +41,7 @@ export default async function WhitePapersPage() {
                      {paper.mainImage && (
                         <div className="relative h-48 w-full">
                             <Image
-                            src={urlFor(paper.mainImage).width(600).height(400).url()}
+                            src={urlFor(paper.mainImage).width(600).height(400).url()!}
                             alt={paper.title}
                             fill
                             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
