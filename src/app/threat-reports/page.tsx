@@ -35,13 +35,18 @@ export default async function ThreatReportsPage() {
 
        {reports && reports.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {reports.map(report => (
+            {reports.map(report => {
+                 const imageUrl =
+                    report.mainImage
+                        ? urlFor(report.mainImage).width(600).height(400).url()
+                        : null;
+                return (
                  <Link key={report._id} href={`/threat-reports/${report.slug.current}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
-                     {report.mainImage && (
+                     {imageUrl && (
                         <div className="relative h-48 w-full">
                             <Image
-                            src={urlFor(report.mainImage).width(600).height(400).url()!}
+                            src={imageUrl}
                             alt={report.title}
                             fill
                             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
@@ -60,7 +65,8 @@ export default async function ThreatReportsPage() {
                     </CardContent>
                   </Card>
                 </Link>
-            ))}
+                )
+            })}
         </div>
       ) : (
         <div className="text-center py-16 border border-dashed rounded-lg">

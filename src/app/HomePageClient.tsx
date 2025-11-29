@@ -42,14 +42,9 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
   const [count, setCount] = useState(0);
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const animationFrameRef = useRef<number>();
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (inView && isMounted) {
+    if (inView) {
       let start = 0;
       const end = to;
       const duration = 2000;
@@ -60,7 +55,6 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
         const progress = timestamp - startTime;
         let percentage = Math.min(progress / duration, 1);
         
-        // Ease-out function
         const easedPercentage = 1 - Math.pow(1 - percentage, 4);
         const currentCount = easedPercentage * end;
 
@@ -81,24 +75,20 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [inView, to, isMounted]);
+  }, [inView, to]);
 
   let formattedCount: string;
-  if (!isMounted) {
-    // Render a placeholder or initial state on the server
-    formattedCount = '0';
+  if (isMillion) {
+    formattedCount = (count / 1000000).toFixed(1);
+  } else if (isPercent) {
+    formattedCount = count.toFixed(1);
   } else {
-    if(isMillion) {
-      formattedCount = (count / 1000000).toFixed(1);
-    } else if (isPercent) {
-      formattedCount = count.toFixed(1);
-    } else {
-      formattedCount = Math.floor(count).toLocaleString();
-    }
+    formattedCount = Math.floor(count).toLocaleString();
   }
 
   return <span ref={ref}>{formattedCount}</span>;
 };
+
 
 const DonutChart = ({ value }: { value: number }) => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -288,7 +278,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                         {stat.label.includes("Threats") ? "M+" : stat.suffix}
                       </>
                     ) : (
-                      '0'
+                      stat.label.includes("Threats") ? `${(stat.value / 1000000).toFixed(1)}M+` : `${stat.value}${stat.suffix || ''}`
                     )}
                   </h3>
                 )}
