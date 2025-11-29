@@ -50,7 +50,7 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
   }, []);
 
   useEffect(() => {
-    if (isMounted && inView) {
+    if (inView && isMounted) {
       let start = 0;
       const end = to;
       const duration = 2000;
@@ -84,31 +84,32 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
   }, [inView, to, isMounted]);
   
   useEffect(() => {
-    if (!isMounted) return;
-    let newFormattedCount: string;
-    if (isMillion) {
-      newFormattedCount = (count / 1000000).toFixed(1);
-    } else if (isPercent) {
-      newFormattedCount = count.toFixed(1);
-    } else {
-      newFormattedCount = Math.floor(count).toLocaleString();
+    if (isMounted) {
+      let newFormattedCount: string;
+      if (isMillion) {
+        newFormattedCount = (count / 1000000).toFixed(1);
+      } else if (isPercent) {
+        newFormattedCount = count.toFixed(1);
+      } else {
+        newFormattedCount = Math.floor(count).toLocaleString();
+      }
+      setFormattedCount(newFormattedCount);
     }
-    setFormattedCount(newFormattedCount);
   }, [count, isMillion, isPercent, isMounted]);
 
-  return <span ref={ref}>{isMounted ? formattedCount : '0'}</span>;
+  return <span ref={ref}>{formattedCount}</span>;
 };
 
 
 const DonutChart = ({ value }: { value: number }) => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
-    const [isMounted, setIsMounted] = useState(false);
     const [offset, setOffset] = useState(2 * Math.PI * 80);
     const radius = 80;
     const circumference = 2 * Math.PI * radius;
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
-        setIsMounted(true);
+      setIsMounted(true);
     }, []);
 
     useEffect(() => {
@@ -134,7 +135,7 @@ const DonutChart = ({ value }: { value: number }) => {
                     className={`text-primary transition-all duration-[2000ms] ease-out`}
                     strokeWidth="12"
                     strokeDasharray={circumference}
-                    strokeDashoffset={isMounted ? offset : circumference}
+                    strokeDashoffset={offset}
                     strokeLinecap="round"
                     stroke="currentColor"
                     fill="transparent"
@@ -146,7 +147,7 @@ const DonutChart = ({ value }: { value: number }) => {
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
                  <h3 className="text-4xl font-bold font-headline text-primary">
-                    {isMounted ? <Counter to={value} isPercent /> : '0.0'}%
+                    <Counter to={value} isPercent />%
                 </h3>
             </div>
         </div>
@@ -178,25 +179,9 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
   const [plugins, setPlugins] = useState<any[]>([]);
 
   useEffect(() => {
-    setPlugins([Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })]);
-  }, []);
-
-  const [advisoriesAutoplayPlugin, setAdvisoriesAutoplayPlugin] = useState<any[]>([]);
-  const [blogAutoplayPlugin, setBlogAutoplayPlugin] = useState<any[]>([]);
-  const [caseStudiesAutoplayPlugin, setCaseStudiesAutoplayPlugin] = useState<any[]>([]);
-
-  useEffect(() => {
-      setAdvisoriesAutoplayPlugin([Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true })]);
-      setBlogAutoplayPlugin([Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })]);
-      setCaseStudiesAutoplayPlugin([Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true })]);
-  }, []);
-
-
-  const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true, threshold: 0.2 });
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
+    setPlugins([
+      Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
+    ]);
   }, []);
 
   return (
@@ -277,7 +262,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
       </section>
 
       <section id="stats" className="py-20 md:py-32 bg-asymmetrical-gradient bg-background/50 border-y border-border/50">
-        <div ref={statsRef} className="container px-4 md:px-6">
+        <div className="container px-4 md:px-6">
             <div className="text-center space-y-4 mb-16">
                  <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
                   By the Numbers
@@ -293,17 +278,13 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                 className="flex flex-col items-center justify-start space-y-4"
               >
                 {stat.type === 'chart' ? (
-                  isMounted ? <DonutChart value={stat.value} /> : <div className="h-48 w-48" />
+                  <DonutChart value={stat.value} />
                 ) : (
                   <h3 className="text-5xl font-bold font-headline text-primary h-48 flex items-center justify-center">
-                    {isMounted ? (
                       <>
                         <Counter to={stat.value} isMillion={stat.label.includes('Threats')} />
                         {stat.label.includes("Threats") ? "M+" : (stat.suffix || '')}
                       </>
-                    ) : (
-                      '0'
-                    )}
                   </h3>
                 )}
                 
@@ -334,7 +315,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
                      <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={advisoriesAutoplayPlugin}
+                        plugins={plugins}
                         className="w-full"
                     >
                        <CarouselContent>
@@ -363,7 +344,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
                       <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={blogAutoplayPlugin}
+                        plugins={plugins}
                         className="w-full"
                       >
                          <CarouselContent>
@@ -412,7 +393,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             {caseStudies.length > 0 && (
                  <Carousel
                     opts={{ align: 'start', loop: true }}
-                    plugins={caseStudiesAutoplayPlugin}
+                    plugins={plugins}
                     className="w-full max-w-5xl mx-auto"
                 >
                     <CarouselContent className="-ml-4">
@@ -473,5 +454,4 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
     </div>
   );
 }
-
     
