@@ -49,13 +49,11 @@ Keep your responses concise, helpful, and professional. Guide users by suggestin
   async (input) => {
     return {
       messages: [
-        {
-          role: 'user',
-          content: 'What do you do?',
-        },
+        { role: 'user', content: 'What do you do?' },
         {
           role: 'assistant',
-          content: "I'm an AI assistant for DentiSystems. I can help you understand our cybersecurity services, web engineering solutions, and company values. How can I help you today?",
+          content:
+            "I'm an AI assistant for DentiSystems. I can help you understand our cybersecurity services, web engineering solutions, and company values. How can I help you today?",
         },
         ...input.history,
       ],
