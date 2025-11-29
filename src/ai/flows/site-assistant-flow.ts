@@ -45,16 +45,14 @@ The website structure is:
 
 Keep your responses concise, helpful, and professional. Guide users by suggesting which pages they might find useful for their questions. Do not make up services or information. Stick to the provided context.`,
   messages: [
-    ...[
-      {
-        role: 'user' as const,
-        content: `What do you do?`,
-      },
-      {
-        role: 'assistant' as const,
-        content: `I'm an AI assistant for DentiSystems. I can help you understand our cybersecurity services, web engineering solutions, and company values. How can I help you today?`,
-      },
-    ],
+    {
+      role: 'user',
+      content: 'What do you do?',
+    },
+    {
+      role: 'assistant',
+      content: "I'm an AI assistant for DentiSystems. I can help you understand our cybersecurity services, web engineering solutions, and company values. How can I help you today?",
+    },
     '{{#each history}}',
     '{{#if (eq role "user")}}',
     { role: 'user', content: '{{{content}}}' },
