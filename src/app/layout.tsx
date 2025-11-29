@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer";
 import { AuthProvider } from "@/lib/auth";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
 import StructuredData from "@/components/StructuredData";
+import Chatbot from "@/components/layout/Chatbot";
 
 const logoUrl =
   'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png';
@@ -80,6 +81,7 @@ export default function RootLayout({
             <Header />
             <main className="flex-grow z-10">{children}</main>
             <Footer />
+            <Chatbot />
             <Toaster />
           </AuthProvider>
         </FirebaseClientProvider>
