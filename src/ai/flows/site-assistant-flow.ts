@@ -55,17 +55,22 @@ const siteAssistantFlow = ai.defineFlow(
     outputSchema: SiteAssistantOutputSchema,
   },
   async (input) => {
-    const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
-      prompt: {
-        system: assistantSystemPrompt,
-        messages: input.history,
-      },
-      config: {
-        maxOutputTokens: 512
-      }
-    });
+    try {
+        const { output } = await ai.generate({
+          model: 'googleai/gemini-2.5-flash',
+          prompt: {
+            system: assistantSystemPrompt,
+            messages: input.history,
+          },
+          config: {
+            maxOutputTokens: 512
+          }
+        });
 
-    return output || 'Sorry, I am unable to respond at this time.';
+        return output || 'Sorry, I am unable to respond at this time.';
+    } catch (error) {
+        console.error("Error in siteAssistantFlow:", error);
+        return "I'm sorry, but I'm encountering a technical issue at the moment. Please try again in a little while.";
+    }
   }
 );
