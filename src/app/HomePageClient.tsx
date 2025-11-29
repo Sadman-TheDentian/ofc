@@ -155,7 +155,7 @@ const stats = [
 ];
 
 
-export default function HomePageClient({ blogPosts = [], caseStudies, partners }: HomePageClientProps) {
+export default function HomePageClient({ blogPosts = [], caseStudies = [], partners = [] }: HomePageClientProps) {
   const servicesAutoplayPlugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }));
   const advisoriesAutoplayPlugin = useRef(Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true }));
   const blogAutoplayPlugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true }));
@@ -431,3 +431,5 @@ export default function HomePageClient({ blogPosts = [], caseStudies, partners }
     </div>
   );
 }
+
+    
