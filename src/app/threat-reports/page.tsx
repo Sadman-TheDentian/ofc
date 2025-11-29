@@ -38,7 +38,7 @@ export default async function ThreatReportsPage() {
             {reports.map(report => {
                  const imageUrl =
                     report.mainImage
-                        ? urlFor(report.mainImage).width(600).height(400).url()
+                        ? urlFor(report.mainImage)?.width(600).height(400).url()
                         : null;
                 return (
                  <Link key={report._id} href={`/threat-reports/${report.slug.current}`} className="group">
@@ -47,7 +47,7 @@ export default async function ThreatReportsPage() {
                         <div className="relative h-48 w-full">
                             <Image
                             src={imageUrl}
-                            alt={report.title}
+                            alt={report.title || ""}
                             fill
                             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                             />
