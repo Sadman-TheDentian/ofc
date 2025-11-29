@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { MessageSquare, X, Send, Bot, User, Loader2 } from 'lucide-react';
+import { MessageSquare, X, Send, Bot, User, Loader2, Bell } from 'lucide-react';
 import { getAssistantResponse } from '@/app/chatbot/actions';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { Message } from '@/ai/flows/site-assistant-flow-types';
@@ -21,6 +21,28 @@ export default function Chatbot() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [notificationPermission, setNotificationPermission] = useState('default');
+
+  useEffect(() => {
+    if ('Notification' in window) {
+      setNotificationPermission(Notification.permission);
+    }
+  }, []);
+
+  const requestNotificationPermission = () => {
+    if ('Notification' in window) {
+      Notification.requestPermission().then(permission => {
+        setNotificationPermission(permission);
+      });
+    }
+  };
+
+  const showNotification = (title: string, body: string) => {
+    if (notificationPermission === 'granted') {
+      new Notification(title, { body });
+    }
+  };
+
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -41,6 +63,7 @@ export default function Chatbot() {
       const response = await getAssistantResponse({ history: [...messages, userMessage] });
       const assistantMessage: Message = { role: 'assistant', content: response };
       setMessages((prev) => [...prev, assistantMessage]);
+      showNotification('DentiSystems AI Assistant', response);
     } catch (error) {
       const errorMessage: Message = {
         role: 'assistant',
@@ -63,7 +86,7 @@ export default function Chatbot() {
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.2 }}
             >
-              <Card className="w-80 h-96 flex flex-col shadow-2xl shadow-primary/20 bg-card/80 backdrop-blur-lg border-primary/20">
+              <Card className="w-80 h-[28rem] flex flex-col shadow-2xl shadow-primary/20 bg-card/80 backdrop-blur-lg border-primary/20">
                 <CardHeader className="flex flex-row items-center justify-between p-4 border-b border-border/50">
                   <div className="flex items-center gap-2">
                     <Bot className="h-6 w-6 text-primary" />
@@ -79,6 +102,14 @@ export default function Chatbot() {
                   </Button>
                 </CardHeader>
                 <CardContent className="flex-1 p-4 overflow-y-auto space-y-4">
+                  {notificationPermission === 'default' && (
+                    <div className="bg-secondary/50 p-3 rounded-lg text-center">
+                        <p className="text-xs text-muted-foreground mb-2">Enable notifications to get messages when you switch tabs.</p>
+                        <Button size="sm" variant="outline" className="h-8 text-xs" onClick={requestNotificationPermission}>
+                            <Bell className="h-3 w-3 mr-2" /> Enable Notifications
+                        </Button>
+                    </div>
+                  )}
                   {messages.map((msg, index) => (
                     <div
                       key={index}
