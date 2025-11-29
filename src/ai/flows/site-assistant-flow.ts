@@ -41,6 +41,13 @@ The website structure is:
 
 Keep your responses concise, helpful, and professional. Guide users by suggesting which pages they might find useful for their questions. Do not make up services or information. Stick to the provided context.`;
 
+export async function askSiteAssistant(
+  input: SiteAssistantInput
+): Promise<SiteAssistantOutput> {
+  return siteAssistantFlow(input);
+}
+
+
 const siteAssistantFlow = ai.defineFlow(
   {
     name: 'siteAssistantFlow',
@@ -49,18 +56,16 @@ const siteAssistantFlow = ai.defineFlow(
   },
   async (input) => {
     const { output } = await ai.generate({
-      model: 'gemini-pro',
+      model: 'googleai/gemini-2.5-flash',
       prompt: {
         system: assistantSystemPrompt,
         messages: input.history,
       },
+      config: {
+        maxOutputTokens: 512
+      }
     });
+
     return output || 'Sorry, I am unable to respond at this time.';
   }
 );
-
-export async function askSiteAssistant(
-  input: SiteAssistantInput
-): Promise<SiteAssistantOutput> {
-  return await siteAssistantFlow(input);
-}
