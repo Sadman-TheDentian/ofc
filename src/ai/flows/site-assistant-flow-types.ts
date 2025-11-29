@@ -1,4 +1,3 @@
-'use server';
 /**
  * @fileOverview Type definitions for the site assistant flow.
  */
