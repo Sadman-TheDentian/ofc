@@ -47,6 +47,7 @@ The website structure is:
 Keep your responses concise, helpful, and professional. Guide users by suggesting which pages they might find useful for their questions. Do not make up services or information. Stick to the provided context.`,
   },
   async (input) => {
+    // This structure correctly pre-pends context and then adds the user's history.
     return {
       messages: [
         { role: 'user', content: 'What do you do?' },
