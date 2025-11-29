@@ -13,11 +13,12 @@ import {
   type SiteAssistantOutput,
 } from './site-assistant-flow-types';
 
-const assistantPrompt = ai.definePrompt({
-  name: 'siteAssistantPrompt',
-  input: { schema: SiteAssistantInputSchema },
-  output: { schema: SiteAssistantOutputSchema },
-  system: `You are a friendly and professional AI assistant for DentiSystems, a cutting-edge cybersecurity and web engineering firm. Your goal is to help users understand the company's services, values, and resources, and guide them to the right pages on the website.
+const assistantPrompt = ai.definePrompt(
+  {
+    name: 'siteAssistantPrompt',
+    input: { schema: SiteAssistantInputSchema },
+    output: { schema: SiteAssistantOutputSchema },
+    system: `You are a friendly and professional AI assistant for DentiSystems, a cutting-edge cybersecurity and web engineering firm. Your goal is to help users understand the company's services, values, and resources, and guide them to the right pages on the website.
 
 You are an expert in the following areas:
 - High-Risk Vendor Reconnaissance
@@ -44,24 +45,23 @@ The website structure is:
 - News: /news
 
 Keep your responses concise, helpful, and professional. Guide users by suggesting which pages they might find useful for their questions. Do not make up services or information. Stick to the provided context.`,
-  messages: [
-    {
-      role: 'user',
-      content: 'What do you do?',
-    },
-    {
-      role: 'assistant',
-      content: "I'm an AI assistant for DentiSystems. I can help you understand our cybersecurity services, web engineering solutions, and company values. How can I help you today?",
-    },
-    '{{#each history}}',
-    '{{#if (eq role "user")}}',
-    { role: 'user', content: '{{{content}}}' },
-    '{{else}}',
-    { role: 'assistant', content: '{{{content}}}' },
-    '{{/if}}',
-    '{{/each}}',
-  ],
-});
+  },
+  async (input) => {
+    return {
+      messages: [
+        {
+          role: 'user',
+          content: 'What do you do?',
+        },
+        {
+          role: 'assistant',
+          content: "I'm an AI assistant for DentiSystems. I can help you understand our cybersecurity services, web engineering solutions, and company values. How can I help you today?",
+        },
+        ...input.history,
+      ],
+    };
+  }
+);
 
 const siteAssistantFlow = ai.defineFlow(
   {
