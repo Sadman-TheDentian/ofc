@@ -13,8 +13,7 @@ import {
   type SiteAssistantOutput,
 } from './site-assistant-flow-types';
 
-const assistantPrompt = {
-  system: `You are a friendly and professional AI assistant for DentiSystems, a cutting-edge cybersecurity and web engineering firm. Your goal is to help users understand the company's services, values, and resources, and guide them to the right pages on the website.
+const assistantSystemPrompt = `You are a friendly and professional AI assistant for DentiSystems, a cutting-edge cybersecurity and web engineering firm. Your goal is to help users understand the company's services, values, and resources, and guide them to the right pages on the website.
 
 You are an expert in the following areas:
 - High-Risk Vendor Reconnaissance
@@ -40,16 +39,7 @@ The website structure is:
 - Blog: /blog
 - News: /news
 
-Keep your responses concise, helpful, and professional. Guide users by suggesting which pages they might find useful for their questions. Do not make up services or information. Stick to the provided context.`,
-  messages: [
-    { role: 'user' as const, content: 'What do you do?' },
-    {
-      role: 'assistant' as const,
-      content:
-        "I'm an AI assistant for DentiSystems. I can help you understand our cybersecurity services, web engineering solutions, and company values. How can I help you today?",
-    },
-  ],
-};
+Keep your responses concise, helpful, and professional. Guide users by suggesting which pages they might find useful for their questions. Do not make up services or information. Stick to the provided context.`;
 
 const siteAssistantFlow = ai.defineFlow(
   {
@@ -59,10 +49,10 @@ const siteAssistantFlow = ai.defineFlow(
   },
   async (input) => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
+      model: 'gemini-pro',
       prompt: {
-        system: assistantPrompt.system,
-        messages: [...assistantPrompt.messages, ...input.history],
+        system: assistantSystemPrompt,
+        messages: input.history,
       },
     });
     return output || 'Sorry, I am unable to respond at this time.';
