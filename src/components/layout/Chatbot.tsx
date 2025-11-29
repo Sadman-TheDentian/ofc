@@ -9,6 +9,7 @@ import { MessageSquare, X, Send, Bot, User, Loader2, Bell } from 'lucide-react';
 import { getAssistantResponse } from '@/app/chatbot/actions';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { Message } from '@/ai/flows/site-assistant-flow-types';
+import { cn } from '@/lib/utils';
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -82,22 +83,29 @@ export default function Chatbot() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="origin-bottom-right"
             >
-              <Card className="w-80 h-[28rem] flex flex-col shadow-2xl shadow-primary/20 bg-card/80 backdrop-blur-lg border-primary/20">
-                <CardHeader className="flex flex-row items-center justify-between p-4 border-b border-border/50">
-                  <div className="flex items-center gap-2">
-                    <Bot className="h-6 w-6 text-primary" />
-                    <h3 className="font-headline font-semibold">AI Assistant</h3>
+              <Card className="w-80 md:w-96 h-[32rem] flex flex-col shadow-2xl shadow-primary/20 bg-card/80 backdrop-blur-lg border-primary/20">
+                <CardHeader className="flex flex-row items-center justify-between p-4 border-b bg-gradient-to-br from-card to-card/60">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                        <Bot className="h-6 w-6 text-primary" />
+                         <span className="absolute bottom-0 right-0 block h-2 w-2 rounded-full bg-green-500 ring-2 ring-background" />
+                    </div>
+                    <div>
+                      <h3 className="font-headline font-semibold">AI Assistant</h3>
+                      <p className="text-xs text-muted-foreground">Online</p>
+                    </div>
                   </div>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setIsOpen(false)}
-                    className="h-8 w-8"
+                    className="h-8 w-8 rounded-full"
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -112,42 +120,50 @@ export default function Chatbot() {
                     </div>
                   )}
                   {messages.map((msg, index) => (
-                    <div
+                    <motion.div
                       key={index}
-                      className={`flex items-start gap-3 ${
-                        msg.role === 'user' ? 'justify-end' : ''
-                      }`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className={cn('flex items-start gap-3', msg.role === 'user' ? 'justify-end' : '')}
                     >
                       {msg.role === 'assistant' && (
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
                           <Bot className="h-5 w-5 text-primary" />
                         </div>
                       )}
                       <div
-                        className={`p-3 rounded-lg max-w-[80%] ${
+                        className={cn('p-3 rounded-xl max-w-[80%] text-sm',
                           msg.role === 'user'
                             ? 'bg-primary text-primary-foreground'
                             : 'bg-secondary'
-                        }`}
+                        )}
                       >
-                        <p className="text-sm">{msg.content}</p>
+                        <p>{msg.content}</p>
                       </div>
                       {msg.role === 'user' && (
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
-                          <User className="h-5 w-5" />
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center border border-border">
+                          <User className="h-5 w-5 text-muted-foreground" />
                         </div>
                       )}
-                    </div>
+                    </motion.div>
                   ))}
                   {isLoading && (
-                    <div className="flex items-start gap-3">
-                       <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="flex items-start gap-3"
+                    >
+                       <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
                           <Bot className="h-5 w-5 text-primary" />
                         </div>
-                        <div className="p-3 rounded-lg bg-secondary">
-                          <Loader2 className="h-5 w-5 animate-spin text-primary"/>
+                        <div className="p-3 rounded-xl bg-secondary flex items-center space-x-2">
+                           <span className="h-2 w-2 bg-primary rounded-full animate-pulse-fast"></span>
+                           <span className="h-2 w-2 bg-primary rounded-full animate-pulse-fast animation-delay-200"></span>
+                           <span className="h-2 w-2 bg-primary rounded-full animate-pulse-fast animation-delay-400"></span>
                         </div>
-                    </div>
+                    </motion.div>
                   )}
                   <div ref={messagesEndRef} />
                 </CardContent>
@@ -160,8 +176,8 @@ export default function Chatbot() {
                       className="flex-1"
                       disabled={isLoading}
                     />
-                    <Button type="submit" size="icon" disabled={isLoading}>
-                      <Send className="h-4 w-4" />
+                    <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
+                      {isLoading ? <Loader2 className="animate-spin"/> : <Send className="h-4 w-4" />}
                     </Button>
                   </form>
                 </div>
@@ -176,14 +192,15 @@ export default function Chatbot() {
         >
             <Button
             size="lg"
-            className="rounded-full w-16 h-16 shadow-lg"
+            className="rounded-full w-16 h-16 shadow-lg animate-pulse-slow"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Chatbot"
             >
             <AnimatePresence>
                 {isOpen ? (
-                <motion.div initial={{ scale: 0, rotate: -90 }} animate={{ scale: 1, rotate: 0 }} exit={{ scale: 0, rotate: 90 }}><X /></motion.div>
+                <motion.div key="close" initial={{ scale: 0, rotate: -90 }} animate={{ scale: 1, rotate: 0 }} exit={{ scale: 0, rotate: 90 }}><X /></motion.div>
                 ) : (
-                <motion.div initial={{ scale: 0, rotate: 90 }} animate={{ scale: 1, rotate: 0 }} exit={{ scale: 0, rotate: -90 }}><MessageSquare /></motion.div>
+                <motion.div key="open" initial={{ scale: 0, rotate: 90 }} animate={{ scale: 1, rotate: 0 }} exit={{ scale: 0, rotate: -90 }}><MessageSquare /></motion.div>
                 )}
             </AnimatePresence>
             </Button>
