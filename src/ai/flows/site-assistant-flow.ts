@@ -42,9 +42,9 @@ The website structure is:
 
 Keep your responses concise, helpful, and professional. Guide users by suggesting which pages they might find useful for their questions. Do not make up services or information. Stick to the provided context.`,
   messages: [
-    { role: 'user', content: 'What do you do?' },
+    { role: 'user' as const, content: 'What do you do?' },
     {
-      role: 'assistant',
+      role: 'assistant' as const,
       content:
         "I'm an AI assistant for DentiSystems. I can help you understand our cybersecurity services, web engineering solutions, and company values. How can I help you today?",
     },
@@ -60,7 +60,7 @@ const siteAssistantFlow = ai.defineFlow(
   async (input) => {
     const { output } = await ai.generate({
       prompt: {
-        ...assistantPrompt,
+        system: assistantPrompt.system,
         messages: [...assistantPrompt.messages, ...input.history],
       },
     });
