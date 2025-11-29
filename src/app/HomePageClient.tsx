@@ -155,7 +155,7 @@ const stats = [
 ];
 
 
-export default function HomePageClient({ blogPosts, caseStudies, partners }: HomePageClientProps) {
+export default function HomePageClient({ blogPosts = [], caseStudies, partners }: HomePageClientProps) {
   const servicesAutoplayPlugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }));
   const advisoriesAutoplayPlugin = useRef(Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true }));
   const blogAutoplayPlugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true }));
@@ -166,7 +166,7 @@ export default function HomePageClient({ blogPosts, caseStudies, partners }: Hom
   return (
     <div className="flex flex-col min-h-screen">
        <SyntheticHero 
-          title="HACK THE THREAT"
+          title="REDEFINE YOUR DEFENSE"
           description="Offensive security to fortify your digital defenses."
           badgeText="DentiSystems"
           badgeLabel="Cybersecurity"
