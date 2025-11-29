@@ -7,7 +7,6 @@
 
 import { ai } from '@/ai/genkit';
 import {
-  MessageSchema,
   SiteAssistantInputSchema,
   SiteAssistantOutputSchema,
   type SiteAssistantInput,
