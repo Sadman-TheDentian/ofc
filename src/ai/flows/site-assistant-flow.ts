@@ -59,6 +59,7 @@ const siteAssistantFlow = ai.defineFlow(
   },
   async (input) => {
     const { output } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash',
       prompt: {
         system: assistantPrompt.system,
         messages: [...assistantPrompt.messages, ...input.history],
