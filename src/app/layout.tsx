@@ -7,7 +7,6 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { AuthProvider } from "@/lib/auth";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
-import StructuredData from "@/components/StructuredData";
 import Chatbot from "@/components/layout/Chatbot";
 
 const logoUrl =
@@ -31,7 +30,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <StructuredData />
         <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

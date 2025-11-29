@@ -30,18 +30,12 @@ interface StructuredDataProps {
 }
 
 const StructuredData = ({ data }: StructuredDataProps) => {
-  const finalSchema = data ? {
-    ...organizationSchema,
-    ...data,
-    '@type': Array.isArray(data['@type']) 
-      ? ['Organization', ...data['@type']]
-      : ['Organization', data['@type']]
-  } : organizationSchema;
+  const schema = data ? data : organizationSchema;
 
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(finalSchema) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
 };

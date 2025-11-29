@@ -3,6 +3,7 @@ import { client } from '@/lib/sanity';
 import type { SanityDocument } from "next-sanity";
 import type { CaseStudy, Partner } from "@/lib/types";
 import HomePageClient from './HomePageClient';
+import StructuredData from '@/components/StructuredData';
 
 const POSTS_QUERY = `*[
   _type == "post"
@@ -38,10 +39,13 @@ export default async function Home() {
   ]);
 
   return (
-    <HomePageClient
-      blogPosts={blogPosts}
-      caseStudies={caseStudies}
-      partners={partners}
-    />
+    <>
+      <StructuredData />
+      <HomePageClient
+        blogPosts={blogPosts}
+        caseStudies={caseStudies}
+        partners={partners}
+      />
+    </>
   );
 }
