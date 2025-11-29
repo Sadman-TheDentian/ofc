@@ -42,9 +42,14 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
   const [count, setCount] = useState(0);
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const animationFrameRef = useRef<number>();
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (inView) {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (inView && isMounted) {
       let start = 0;
       const end = to;
       const duration = 2000;
@@ -76,7 +81,7 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [inView, to]);
+  }, [inView, to, isMounted]);
 
   let formattedCount: string;
   if(isMillion) {
@@ -87,11 +92,25 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
     formattedCount = Math.floor(count).toLocaleString();
   }
 
+  // Render a placeholder on the server and initial client render
+  if (!isMounted) {
+    let placeholder: string;
+    if (isMillion) placeholder = (to / 1000000).toFixed(1);
+    else if (isPercent) placeholder = to.toFixed(1);
+    else placeholder = to.toLocaleString();
+    return <span ref={ref}>{placeholder}</span>;
+  }
+
   return <span ref={ref}>{formattedCount}</span>;
 };
 
 const DonutChart = ({ value }: { value: number }) => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+    const [isMounted, setIsMounted] = useState(false);
+    
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const radius = 80;
     const circumference = 2 * Math.PI * radius;
@@ -112,10 +131,10 @@ const DonutChart = ({ value }: { value: number }) => {
                 />
                 {/* Foreground circle */}
                 <circle
-                    className={`text-primary animate-progress ${inView ? 'in-view' : ''}`}
+                    className={`text-primary transition-all duration-[2000ms] ease-out`}
                     strokeWidth="12"
                     strokeDasharray={circumference}
-                    strokeDashoffset={offset}
+                    strokeDashoffset={isMounted && inView ? offset : circumference}
                     strokeLinecap="round"
                     stroke="currentColor"
                     fill="transparent"
@@ -251,24 +270,26 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                 </p>
             </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            {stats.map((stat, index) => {
-              return (
-                <div key={index} className={`flex flex-col items-center justify-start space-y-4 transition-all duration-500 delay-${index * 150} ${statsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                  
-                  {stat.type === 'chart' ? (
-                      <DonutChart value={stat.value} />
-                  ) : (
-                      <h3 className="text-5xl font-bold font-headline text-primary h-48 flex items-center justify-center">
-                        <Counter to={stat.value} isMillion={stat.label.includes('Threats')} />
-                         {stat.label.includes("Threats") ? "M+" : stat.suffix}
-                      </h3>
-                  )}
-                  
-                  <h4 className="font-semibold text-foreground text-xl">{stat.label}</h4>
-                  <p className="text-muted-foreground max-w-xs">{stat.description}</p>
-                </div>
-              )
-            })}
+            {stats.map((stat, index) => (
+              <div
+                key={index}
+                className={`flex flex-col items-center justify-start space-y-4 transition-all duration-500 delay-${index * 150} ${
+                  statsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}
+              >
+                {stat.type === 'chart' ? (
+                  <DonutChart value={stat.value} />
+                ) : (
+                  <h3 className="text-5xl font-bold font-headline text-primary h-48 flex items-center justify-center">
+                    <Counter to={stat.value} isMillion={stat.label.includes('Threats')} />
+                    {stat.label.includes("Threats") ? "M+" : stat.suffix}
+                  </h3>
+                )}
+                
+                <h4 className="font-semibold text-foreground text-xl">{stat.label}</h4>
+                <p className="text-muted-foreground max-w-xs">{stat.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -431,5 +452,3 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
     </div>
   );
 }
-
-    
