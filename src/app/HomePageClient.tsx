@@ -15,15 +15,10 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { securityAdvisories, blogPosts as staticBlogPosts } from '@/lib/data';
-import type { Partner } from "@/lib/types";
 import React from "react";
 import SafeImage from '@/components/SafeImage';
 import { Badge } from '@/components/ui/badge';
-import { partners as staticPartners } from '@/lib/partners';
-
-interface HomePageClientProps {
-  partners: Omit<Partner, 'logo'>[];
-}
+import { partners } from '@/lib/partners';
 
 const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean, isPercent?: boolean }): JSX.Element => {
   const getFormattedCount = (value: number) => {
@@ -61,11 +56,11 @@ const stats = [
 ];
 
 
-export default function HomePageClient({ partners = [] }: HomePageClientProps): JSX.Element {
+export default function HomePageClient(): JSX.Element {
   return (
     <div className="flex flex-col min-h-screen">
        <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-background">
-          <div className="absolute inset-0 z-0 bg-animated-hero-gradient"></div>
+          <div className="absolute inset-0 z-0 animate-pan-gradient bg-gradient-to-br from-primary/10 via-background to-primary/20"></div>
           <div className="relative z-10 flex flex-col items-center text-center px-6">
               <Badge className="mb-6 bg-primary/10 hover:bg-white/15 text-primary backdrop-blur-md border border-primary/20 uppercase tracking-wider font-medium flex items-center gap-2 px-4 py-1.5">
                   <span className="text-[10px] font-light tracking-[0.18em] text-primary/80">DentiSystems</span>
@@ -285,7 +280,7 @@ export default function HomePageClient({ partners = [] }: HomePageClientProps): 
               Powering the World's Most Secure Companies
             </h2>
           </div>
-          <PartnerSlider partners={staticPartners} />
+          <PartnerSlider partners={partners} />
         </div>
       </section>
     </div>

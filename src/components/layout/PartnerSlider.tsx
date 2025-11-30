@@ -4,7 +4,7 @@ import { partnerLogos, type Partner } from "@/lib/partners";
 import Link from "next/link";
 import { SVGProps } from "react";
 
-export default function PartnerSlider({ partners }: { partners: Partner[] }) {
+export default function PartnerSlider({ partners }: { partners: Omit<Partner, 'logo'>[] }) {
     
   if (!partners || partners.length === 0) {
     return (

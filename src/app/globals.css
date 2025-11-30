@@ -125,24 +125,6 @@
     background-image: linear-gradient(to top, hsl(135 94% 7% / 0.6) 0%, transparent 70%);
   }
 
-  @keyframes pan-gradient {
-    0% {
-      background-position: 50% 0%;
-    }
-    25% {
-      background-position: 100% 50%;
-    }
-    50% {
-      background-position: 50% 100%;
-    }
-    75% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 50% 0%;
-    }
-  }
-
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -166,15 +148,6 @@
     animation: fade-in 0.5s ease-out forwards;
   }
   
-  @keyframes scroll {
-    to {
-      transform: translate(calc(-50% - 2rem));
-    }
-  }
-  .animate-scroll {
-    animation: scroll 40s linear infinite;
-  }
-
   .delay-150 {
     transition-delay: 150ms;
   }

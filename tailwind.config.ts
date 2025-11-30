@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -96,10 +95,24 @@ export default {
             height: "0",
           },
         },
+        "pan-gradient": {
+          '0%': { backgroundPosition: '50% 0%' },
+          '25%': { backgroundPosition: '100% 50%' },
+          '50%': { backgroundPosition: '50% 100%' },
+          '75%': { backgroundPosition: '0% 50%' },
+          '100%': { backgroundPosition: '50% 0%' },
+        },
+        scroll: {
+          to: {
+            transform: 'translate(calc(-50% - 2rem))',
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pan-gradient": "pan-gradient 15s ease-in-out infinite",
+        scroll: 'scroll 40s linear infinite',
       },
     },
   },
