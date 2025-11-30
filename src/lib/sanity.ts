@@ -1,5 +1,5 @@
 
-import { createClient } from 'next-sanity'
+import { createClient } from 'sanity'
 
 export const projectId = "9x2bbr6u"
 export const dataset = "production"
