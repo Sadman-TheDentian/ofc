@@ -44,8 +44,8 @@ export default async function BlogPage() {
 
       <div className="max-w-3xl mx-auto grid gap-12">
         {posts.map((post) => {
-          const postImageUrl = post.mainImage ? urlFor(post.mainImage).url() : undefined;
-          const authorImageUrl: string | undefined = post.author?.image ? urlFor(post.author.image).url() : undefined;
+          const postImageUrl = post.mainImage ? urlFor(post.mainImage)?.url() : undefined;
+          const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.url() : undefined;
 
           return (
             <Link href={`/blog/${post.slug.current}`} key={post._id} className="group block">

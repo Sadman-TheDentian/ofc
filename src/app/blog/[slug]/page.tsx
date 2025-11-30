@@ -44,8 +44,8 @@ export default async function PostPage({
     )
   }
 
-  const postImageUrl = post.mainImage ? urlFor(post.mainImage).url() : undefined;
-  const authorImageUrl: string | undefined = post.author?.image ? urlFor(post.author.image).url() : undefined;
+  const postImageUrl = post.mainImage ? urlFor(post.mainImage)?.url() : undefined;
+  const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.url() : undefined;
 
 
   return (

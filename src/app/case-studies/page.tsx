@@ -39,7 +39,7 @@ export default async function CaseStudiesPage() {
       {studies && studies.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {studies.map(study => {
-                const imageUrl = study.mainImage ? urlFor(study.mainImage).url() : undefined;
+                const imageUrl = study.mainImage ? urlFor(study.mainImage)?.url() : undefined;
                 return (
                  <Link key={study._id} href={`/case-studies/${study.slug.current}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">

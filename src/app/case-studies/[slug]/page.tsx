@@ -24,7 +24,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
         notFound();
     }
 
-    const imageUrl = study.mainImage ? urlFor(study.mainImage).url() : undefined;
+    const imageUrl = study.mainImage ? urlFor(study.mainImage)?.url() : undefined;
 
     return (
         <div className="container py-12 md:py-20">

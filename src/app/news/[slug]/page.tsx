@@ -26,7 +26,7 @@ export default async function NewsPostPage({
 }) {
 
   const postImageUrl = post.mainImage;
-  const authorImageUrl: string | undefined = post.author?.image ? urlFor(post.author.image).url() : undefined;
+  const authorImageUrl: string | undefined = post.author?.image ? urlFor(post.author.image)?.url() : undefined;
 
 
   const jsonLd = {
