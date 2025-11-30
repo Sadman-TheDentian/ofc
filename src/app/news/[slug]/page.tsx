@@ -3,28 +3,31 @@ import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StructuredData from "@/components/StructuredData";
 import SafeImage from "@/components/SafeImage";
+import { urlFor } from "@/lib/sanity-client";
+import { SanityImage } from "@/lib/types";
 
-export default async function NewsPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  // In a real app, you would fetch post data based on the slug.
-  const post = {
+// In a real app, you would fetch post data based on the slug.
+const post = {
     title: "Example News Article",
-    author: { name: "DentiSystems News" },
+    author: { name: "DentiSystems News", image: null as SanityImage | null },
     publishedAt: new Date().toISOString(),
     _updatedAt: new Date().toISOString(),
     mainImage: "https://picsum.photos/seed/news1/800/450",
-    slug: { current: params.slug },
+    slug: { current: 'example-news' },
     excerpt: "This is a sample news article. In a production environment, this content would be fetched dynamically from a CMS.",
     body: [
       { _type: 'block', style: 'normal', children: [{ _type: 'span', text: 'This is sample content for the news article.' }] }
     ]
   };
 
+export default async function NewsPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+
   const postImageUrl = post.mainImage;
-  const authorImageUrl: string | undefined = undefined;
+  const authorImageUrl: string | undefined = post.author?.image ? urlFor(post.author.image).url() : undefined;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -68,7 +71,7 @@ export default async function NewsPostPage({
               {post.author && (
                   <div className="flex items-center gap-3">
                       <Avatar>
-                          <AvatarImage src={authorImageUrl ?? undefined} alt={post.author.name ?? undefined} />
+                          <AvatarImage src={authorImageUrl} alt={post.author.name ?? undefined} />
                           <AvatarFallback>{post.author.name?.charAt(0) || 'D'}</AvatarFallback>
                       </Avatar>
                       <span className="font-medium text-muted-foreground">{post.author.name}</span>

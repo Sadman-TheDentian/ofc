@@ -65,7 +65,7 @@ export default async function NewsPage() {
                     {item.author && (
                         <div className="flex items-center gap-2">
                             <Avatar className="h-6 w-6">
-                                <AvatarImage src={authorImageUrl ?? undefined} alt={item.author.name ?? undefined} />
+                                <AvatarImage src={authorImageUrl} alt={item.author.name ?? undefined} />
                                 <AvatarFallback>{item.author.name?.charAt(0) || 'D'}</AvatarFallback>
                             </Avatar>
                             <span>{item.author.name}</span>

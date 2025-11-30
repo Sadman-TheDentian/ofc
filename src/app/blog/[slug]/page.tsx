@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from '@/components/SafeImage';
 import { client, urlFor } from "@/lib/sanity-client";
-import { BlogPost, SanityImage } from "@/lib/types";
+import { BlogPost } from "@/lib/types";
 
 async function getPost(slug: string): Promise<BlogPost | null> {
   const query = `*[_type == "post" && slug.current == $slug][0]{
