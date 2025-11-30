@@ -1,24 +1,22 @@
+
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import SafeImage from "@/components/SafeImage";
-import { client, urlFor } from "@/lib/sanity-client";
 import { CaseStudy } from "@/lib/types";
 
 async function getCaseStudies(): Promise<CaseStudy[]> {
-  const query = `*[_type == "caseStudy"]{
-    _id,
-    title,
-    slug,
-    summary,
-    mainImage
-  }`;
-  try {
-    const studies = await client.fetch<CaseStudy[]>(query);
-    return studies;
-  } catch (error) {
-    console.error("Failed to fetch case studies:", error);
-    return [];
-  }
+    return [
+        {
+            _id: '1',
+            title: "Example Case Study",
+            slug: { current: 'example-case-study' },
+            summary: "This is a summary for the example case study. Real content would be fetched from a CMS.",
+            mainImage: "https://picsum.photos/seed/cs1/800/600",
+            industry: 'Tech',
+            outcome: 'Success',
+            content: []
+        }
+    ];
 }
 
 export default async function CaseStudiesPage() {
@@ -39,7 +37,7 @@ export default async function CaseStudiesPage() {
       {studies && studies.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {studies.map(study => {
-                const imageUrl = study.mainImage ? urlFor(study.mainImage)?.url() : undefined;
+                const imageUrl = study.mainImage as string | undefined;
                 return (
                  <Link key={study._id} href={`/case-studies/${study.slug.current}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
@@ -68,7 +66,7 @@ export default async function CaseStudiesPage() {
       ) : (
         <div className="text-center py-16 border border-dashed rounded-lg">
           <h3 className="font-headline text-xl font-semibold">No Case Studies Found</h3>
-          <p className="text-muted-foreground mt-2">Content is being managed in Sanity.io. Publish new case studies in the Studio.</p>
+          <p className="text-muted-foreground mt-2">Check back soon for new case studies.</p>
         </div>
       )}
     </div>

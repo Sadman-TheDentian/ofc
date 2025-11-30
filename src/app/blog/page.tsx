@@ -3,29 +3,25 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from "@/components/SafeImage";
-import { client, urlFor } from "@/lib/sanity-client";
 import { BlogPost } from "@/lib/types";
 
+
 async function getPosts(): Promise<BlogPost[]> {
-  const query = `*[_type == "post"] | order(publishedAt desc){
-    _id,
-    title,
-    slug,
-    publishedAt,
-    mainImage,
-    excerpt,
-    author->{
-      name,
-      image
-    }
-  }`;
-  try {
-    const posts = await client.fetch<BlogPost[]>(query);
-    return posts;
-  } catch (error) {
-    console.error("Failed to fetch posts:", error);
-    return [];
-  }
+    return [
+        {
+            _id: '1',
+            title: "Example Blog Post",
+            slug: { current: 'example-post' },
+            publishedAt: new Date().toISOString(),
+            mainImage: "https://picsum.photos/seed/blog1/1200/800",
+            excerpt: 'This is a placeholder excerpt for an example blog post. Content would be dynamically fetched from a CMS in a real application.',
+            body: [],
+            author: {
+                name: "The DentiSystems Team",
+                image: "https://picsum.photos/seed/author1/100/100"
+            }
+        }
+    ];
 }
 
 export default async function BlogPage() {
@@ -44,8 +40,8 @@ export default async function BlogPage() {
 
       <div className="max-w-3xl mx-auto grid gap-12">
         {posts.map((post) => {
-          const postImageUrl = post.mainImage ? urlFor(post.mainImage)?.url() : undefined;
-          const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.url() : undefined;
+          const postImageUrl = post.mainImage as string;
+          const authorImageUrl = post.author?.image as string | undefined;
 
           return (
             <Link href={`/blog/${post.slug.current}`} key={post._id} className="group block">

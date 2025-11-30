@@ -3,18 +3,22 @@ import { notFound } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import SafeImage from "@/components/SafeImage";
-import { client, urlFor } from "@/lib/sanity-client";
 import { CaseStudy } from "@/lib/types";
 
 async function getCaseStudy(slug: string): Promise<CaseStudy | null> {
-    const query = `*[_type == "caseStudy" && slug.current == $slug][0]`;
-    try {
-        const study = await client.fetch<CaseStudy>(query, { slug });
-        return study;
-    } catch (error) {
-        console.error("Failed to fetch case study:", error);
-        return null;
+    if (slug === 'example-case-study') {
+        return {
+            _id: '1',
+            slug: { current: 'example-case-study' },
+            title: "Example Case Study",
+            summary: "This is an example case study summary.",
+            industry: "Technology",
+            outcome: "Achieved a 99% reduction in security incidents.",
+            mainImage: "https://picsum.photos/seed/cs1/1200/800",
+            content: [{ _type: 'block', children: [{ _type: 'span', text: 'This is sample content for the case study.' }] }],
+        };
     }
+    return null;
 }
 
 export default async function CaseStudyPage({ params }: { params: { slug: string } }) {
@@ -24,7 +28,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
         notFound();
     }
 
-    const imageUrl = study.mainImage ? urlFor(study.mainImage)?.url() : undefined;
+    const imageUrl = study.mainImage as string | undefined;
 
     return (
         <div className="container py-12 md:py-20">
@@ -69,11 +73,5 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
 }
 
 export async function generateStaticParams() {
-    try {
-        const slugs = await client.fetch<string[]>(`*[_type == "caseStudy"]{ "slug": slug.current }.slug`);
-        return slugs.map(slug => ({ slug }));
-    } catch (error) {
-        console.error("Failed to generate static params for case studies:", error);
-        return [];
-    }
+    return [{ slug: 'example-case-study' }];
 }

@@ -2,29 +2,24 @@
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from '@/components/SafeImage';
-import { client, urlFor } from "@/lib/sanity-client";
 import { BlogPost } from "@/lib/types";
 
-async function getPost(slug: string): Promise<BlogPost | null> {
-  const query = `*[_type == "post" && slug.current == $slug][0]{
-    title,
-    "slug": slug.current,
-    publishedAt,
-    mainImage,
-    body,
-    author->{
-      name,
-      image
-    }
-  }`;
-  try {
-    const post = await client.fetch<BlogPost>(query, { slug });
-    return post;
-  } catch (error) {
-    console.error("Failed to fetch post:", error);
-    return null;
-  }
-}
+// In a real app, this would fetch from a CMS. For now, we use a placeholder.
+const getPost = async (slug: string): Promise<BlogPost | null> => {
+    return {
+        _id: '1',
+        title: "Example Blog Post",
+        slug: { current: slug },
+        publishedAt: new Date().toISOString(),
+        mainImage: "https://picsum.photos/seed/blog1/1200/800",
+        excerpt: 'This is a placeholder excerpt.',
+        body: [{_type: 'block', children: [{_type: 'span', text: 'This is sample content for the blog post.'}]}],
+        author: {
+            name: "The DentiSystems Team",
+            image: "https://picsum.photos/seed/author1/100/100"
+        }
+    };
+};
 
 export default async function PostPage({
   params,
@@ -44,8 +39,8 @@ export default async function PostPage({
     )
   }
 
-  const postImageUrl = post.mainImage ? urlFor(post.mainImage)?.url() : undefined;
-  const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.url() : undefined;
+  const postImageUrl = post.mainImage as string;
+  const authorImageUrl = post.author?.image as string | undefined;
 
 
   return (
@@ -89,11 +84,5 @@ export default async function PostPage({
 }
 
 export async function generateStaticParams() {
-  try {
-    const slugs = await client.fetch<string[]>(`*[_type == "post"]{ "slug": slug.current }.slug`);
-    return slugs.map(slug => ({ slug }));
-  } catch (error) {
-    console.error("Failed to generate static params for posts:", error);
-    return [];
-  }
+  return [{ slug: 'example-post' }];
 }
