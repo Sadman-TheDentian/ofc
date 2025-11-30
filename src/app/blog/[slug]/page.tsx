@@ -5,9 +5,9 @@ import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/lib/sanity";
 import Link from "next/link";
-import Image from "next/image";
 import { Author } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import SafeImage from "@/components/SafeImage";
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   ...,
@@ -61,16 +61,14 @@ export default async function PostPage({
         </div>
 
 
-        {postImageUrl && (
-            <div className="relative w-full aspect-video mb-8">
-                <Image
-                    src={postImageUrl}
-                    alt={post.title || ""}
-                    fill
-                    className="rounded-xl object-cover"
-                />
-            </div>
-        )}
+        <div className="relative w-full aspect-video mb-8">
+          <SafeImage
+            src={postImageUrl}
+            alt={post.title || ""}
+            fill
+            className="rounded-xl object-cover"
+          />
+        </div>
         
         <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
           {Array.isArray(post.body) && <PortableText value={post.body} />}

@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, BrainCircuit, ShieldCheck, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { services } from '@/lib/data';
-import Image from 'next/image';
 import PartnerSlider from '@/components/layout/PartnerSlider';
 import {
   Carousel,
@@ -25,6 +24,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { useInView } from 'react-intersection-observer';
 import AnimatedHeadline from '@/components/layout/AnimatedHeadline';
 import SyntheticHero from '@/components/layout/SyntheticHero';
+import SafeImage from '@/components/SafeImage';
 
 const builder = imageUrlBuilder(client);
 
@@ -43,7 +43,6 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const animationFrameRef = useRef<number>();
   const [isMounted, setIsMounted] = useState(false);
-  const [formattedCount, setFormattedCount] = useState('0');
 
   useEffect(() => {
     setIsMounted(true);
@@ -82,30 +81,30 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
       }
     };
   }, [inView, to, isMounted]);
-  
-  useEffect(() => {
-    if (isMounted) {
-      let newFormattedCount: string;
-      if (isMillion) {
-        newFormattedCount = (count / 1000000).toFixed(1);
-      } else if (isPercent) {
-        newFormattedCount = count.toFixed(1);
-      } else {
-        newFormattedCount = Math.floor(count).toLocaleString();
-      }
-      setFormattedCount(newFormattedCount);
-    }
-  }, [count, isMillion, isPercent, isMounted]);
 
-  return <span ref={ref}>{formattedCount}</span>;
+  const getFormattedCount = (value: number) => {
+    if (isMillion) {
+      return (value / 1000000).toFixed(1);
+    } else if (isPercent) {
+      return value.toFixed(1);
+    } else {
+      return Math.floor(value).toLocaleString();
+    }
+  };
+
+  if (!isMounted) {
+    return <span ref={ref}>{isMillion ? (to / 1000000).toFixed(1) : isPercent ? to.toFixed(1) : to.toLocaleString()}</span>;
+  }
+  
+  return <span ref={ref}>{getFormattedCount(count)}</span>;
 };
 
 
 const DonutChart = ({ value }: { value: number }) => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
-    const [offset, setOffset] = useState(2 * Math.PI * 80);
     const radius = 80;
     const circumference = 2 * Math.PI * radius;
+    const [offset, setOffset] = useState(circumference);
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
@@ -115,7 +114,9 @@ const DonutChart = ({ value }: { value: number }) => {
     useEffect(() => {
         if (isMounted && inView) {
             const finalOffset = circumference - (value / 100) * circumference;
-            setOffset(finalOffset);
+            // Use timeout to ensure animation is visible
+            const timer = setTimeout(() => setOffset(finalOffset), 100);
+            return () => clearTimeout(timer);
         }
     }, [isMounted, inView, value, circumference]);
 
@@ -179,9 +180,8 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
   const [plugins, setPlugins] = useState<any[]>([]);
 
   useEffect(() => {
-    setPlugins([
-      Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
-    ]);
+    // Initialize autoplay plugin only on the client-side
+    setPlugins([Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })]);
   }, []);
 
   return (
@@ -222,11 +222,10 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                   <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                       <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group bg-gradient-to-br from-card to-card/80 border-border/50">
                           <div className="relative h-48 w-full">
-                              <Image 
+                              <SafeImage 
                                   src={service.imageUrl}
                                   alt={service.title}
                                   fill
-                                  style={{ objectFit: 'cover' }}
                                   className="group-hover:scale-105 transition-transform"
                                   data-ai-hint={service.imageHint}
                               />
@@ -281,10 +280,8 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                   <DonutChart value={stat.value} />
                 ) : (
                   <h3 className="text-5xl font-bold font-headline text-primary h-48 flex items-center justify-center">
-                      <>
-                        <Counter to={stat.value} isMillion={stat.label.includes('Threats')} />
-                        {stat.label.includes("Threats") ? "M+" : (stat.suffix || '')}
-                      </>
+                    <Counter to={stat.value} isMillion={stat.label.includes('Threats')} />
+                    {stat.label.includes("Threats") ? "M+" : (stat.suffix || '')}
                   </h3>
                 )}
                 
@@ -353,11 +350,9 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                 <Link href={`/blog/${post.slug.current}`} className="group block">
                                     <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
                                         <div className="flex flex-col">
-                                            {post.mainImage && (
-                                                <div className="relative h-40 w-full flex-shrink-0">
-                                                    <Image src={urlFor(post.mainImage).width(400).height(250).url()!} alt={post.title || ""} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
-                                                </div>
-                                            )}
+                                            <div className="relative h-40 w-full flex-shrink-0">
+                                                <SafeImage src={post.mainImage ? urlFor(post.mainImage).width(400).height(250).url() : null} alt={post.title || ""} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                            </div>
                                             <div className="p-6">
                                                 <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
                                                 <p className="text-xs text-muted-foreground mt-2">{post.author?.name}</p>
@@ -399,18 +394,16 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <CarouselContent className="-ml-4">
                         {caseStudies.map((study) => (
                              <CarouselItem key={study._id} className="pl-4 md:basis-1/2 group">
-                                <Link href={`/case-studies/${study.slug}`} className="block">
+                                <Link href={`/case-studies/${study.slug.current}`} className="block">
                                 <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
-                                    {study.mainImage && (
-                                        <div className="relative h-48 w-full">
-                                            <Image
-                                                src={urlFor(study.mainImage).width(600).height(400).url()!}
-                                                alt={study.title}
-                                                fill
-                                                className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                                            />
-                                        </div>
-                                    )}
+                                    <div className="relative h-48 w-full">
+                                        <SafeImage
+                                            src={study.mainImage ? urlFor(study.mainImage).width(600).height(400).url() : null}
+                                            alt={study.title}
+                                            fill
+                                            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                                        />
+                                    </div>
                                     <CardHeader>
                                     <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
                                         {study.title}
@@ -454,4 +447,5 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
     </div>
   );
 }
+
     

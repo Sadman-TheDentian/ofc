@@ -2,11 +2,11 @@
 import { client } from "@/lib/sanity";
 import type { SanityDocument } from "next-sanity";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import imageUrlBuilder from '@sanity/image-url';
 import { PortableText } from '@portabletext/react';
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
+import SafeImage from "@/components/SafeImage";
 
 const builder = imageUrlBuilder(client);
 
@@ -43,17 +43,14 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
                     </p>
                 </header>
 
-                {paper.mainImage && (
-                    <div className="relative h-96 w-full mb-12">
-                        <Image 
-                            src={urlFor(paper.mainImage).width(1200).height(800).url()!}
-                            alt={paper.title}
-                            fill
-                            className="object-cover rounded-xl shadow-lg"
-                            priority
-                        />
-                    </div>
-                )}
+                <div className="relative h-96 w-full mb-12">
+                    <SafeImage 
+                        src={paper.mainImage ? urlFor(paper.mainImage).width(1200).height(800).url() : null}
+                        alt={paper.title}
+                        fill
+                        className="object-cover rounded-xl shadow-lg"
+                    />
+                </div>
                 
                 <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground mb-12">
                     {paper.summary && <PortableText value={paper.summary} />}

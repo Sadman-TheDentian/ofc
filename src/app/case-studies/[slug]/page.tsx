@@ -2,11 +2,11 @@
 import { client } from "@/lib/sanity";
 import type { CaseStudy } from "@/lib/types";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import imageUrlBuilder from '@sanity/image-url';
 import { PortableText } from '@portabletext/react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import SafeImage from "@/components/SafeImage";
 
 const builder = imageUrlBuilder(client);
 
@@ -29,12 +29,11 @@ const ptComponents = {
       }
       return (
         <div className="relative my-8">
-            <Image
-                src={urlFor(value).width(1200).height(800).fit('max').auto('format').url()!}
+            <SafeImage
+                src={urlFor(value).width(1200).height(800).fit('max').auto('format').url()}
                 width={1200}
                 height={800}
                 alt={value.alt || ' '}
-                loading="lazy"
                 className="rounded-lg"
             />
         </div>
@@ -61,22 +60,19 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
                     </h1>
                 </header>
 
-                {study.mainImage && (
-                    <div className="relative h-96 w-full mb-12">
-                        <Image 
-                            src={urlFor(study.mainImage).width(1200).height(800).url()!}
-                            alt={study.title}
-                            fill
-                            className="object-cover rounded-xl shadow-lg"
-                            priority
-                        />
-                    </div>
-                )}
+                <div className="relative h-96 w-full mb-12">
+                    <SafeImage 
+                        src={study.mainImage ? urlFor(study.mainImage).width(1200).height(800).url() : null}
+                        alt={study.title}
+                        fill
+                        className="object-cover rounded-xl shadow-lg"
+                    />
+                </div>
                 
                 <div className="grid md:grid-cols-3 gap-8">
                     <div className="md:col-span-2">
                         <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
-                            <PortableText value={study.content} components={ptComponents} />
+                            {study.content && <PortableText value={study.content} components={ptComponents} />}
                         </div>
                     </div>
                      <aside>
@@ -102,3 +98,5 @@ export async function generateStaticParams() {
     .filter(study => study.slug && study.slug.current) // Filter out items with no slug
     .map(study => ({ slug: study.slug.current }));
 }
+
+    

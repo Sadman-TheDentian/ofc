@@ -4,10 +4,10 @@ import { type SanityDocument } from "next-sanity";
 import { client } from "@/lib/sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import Image from "next/image";
 import { Author } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import SafeImage from "@/components/SafeImage";
 
 const NEWS_QUERY = `*[
   _type == "news"
@@ -57,16 +57,14 @@ export default async function NewsPage() {
           return (
             <Link href={`/news/${item.slug.current}`} key={item._id} className="group block">
               <Card className="flex flex-col overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80 transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-1">
-                {itemImageUrl && (
-                  <div className="relative w-full aspect-video">
-                    <Image
-                      src={itemImageUrl}
-                      alt={item.title || ""}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform"
-                    />
-                  </div>
-                )}
+                <div className="relative w-full aspect-video">
+                  <SafeImage
+                    src={itemImageUrl}
+                    alt={item.title || ""}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform"
+                  />
+                </div>
                 <div className="flex flex-col flex-1 p-6">
                   <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors mb-2">
                     {item.title}

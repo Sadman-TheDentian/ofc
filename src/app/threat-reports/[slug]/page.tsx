@@ -2,12 +2,12 @@
 import { client } from "@/lib/sanity";
 import type { SanityDocument } from "next-sanity";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import imageUrlBuilder from '@sanity/image-url';
 import { PortableText } from '@portabletext/react';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Download } from "lucide-react";
+import SafeImage from "@/components/SafeImage";
 
 const builder = imageUrlBuilder(client);
 
@@ -44,17 +44,14 @@ export default async function ThreatReportPage({ params }: { params: { slug: str
                     </p>
                 </header>
 
-                {report.mainImage && (
-                    <div className="relative h-96 w-full mb-12">
-                        <Image 
-                            src={urlFor(report.mainImage).width(1200).height(800).url()!}
-                            alt={report.title}
-                            fill
-                            className="object-cover rounded-xl shadow-lg"
-                            priority
-                        />
-                    </div>
-                )}
+                <div className="relative h-96 w-full mb-12">
+                    <SafeImage 
+                        src={report.mainImage ? urlFor(report.mainImage).width(1200).height(800).url() : null}
+                        alt={report.title}
+                        fill
+                        className="object-cover rounded-xl shadow-lg"
+                    />
+                </div>
                 
                 <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground mb-12">
                     {report.summary && <PortableText value={report.summary} />}

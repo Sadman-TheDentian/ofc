@@ -3,9 +3,9 @@ import { client } from "@/lib/sanity";
 import type { CaseStudy } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import SafeImage from "@/components/SafeImage";
 
 const builder = imageUrlBuilder(client);
 
@@ -45,16 +45,14 @@ export default async function CaseStudiesPage() {
             {studies.map(study => (
                  <Link key={study._id} href={`/case-studies/${study.slug}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
-                     {study.mainImage && (
-                        <div className="relative h-48 w-full">
-                            <Image
-                            src={urlFor(study.mainImage).width(600).height(400).url()!}
-                            alt={study.title}
-                            fill
-                            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                        </div>
-                     )}
+                     <div className="relative h-48 w-full">
+                        <SafeImage
+                          src={study.mainImage ? urlFor(study.mainImage).width(600).height(400).url() : null}
+                          alt={study.title}
+                          fill
+                          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                     </div>
                     <CardHeader>
                       <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
                         {study.title}

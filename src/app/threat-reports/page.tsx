@@ -2,10 +2,10 @@
 import { client } from "@/lib/sanity";
 import type { SanityDocument } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
-import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import SafeImage from "@/components/SafeImage";
 
 const REPORTS_QUERY = `*[_type == "threatReport" && defined(slug.current)]|order(publishedAt desc){
   _id,
@@ -43,16 +43,14 @@ export default async function ThreatReportsPage() {
                 return (
                  <Link key={report._id} href={`/threat-reports/${report.slug.current}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
-                     {imageUrl && (
-                        <div className="relative h-48 w-full">
-                            <Image
-                            src={imageUrl}
-                            alt={report.title || ""}
-                            fill
-                            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                        </div>
-                     )}
+                     <div className="relative h-48 w-full">
+                        <SafeImage
+                          src={imageUrl}
+                          alt={report.title || ""}
+                          fill
+                          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                     </div>
                     <CardHeader>
                       <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
                         {report.title}

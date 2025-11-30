@@ -2,10 +2,10 @@
 import { client } from "@/lib/sanity";
 import type { SanityDocument } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
-import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import SafeImage from "@/components/SafeImage";
 
 const PAPERS_QUERY = `*[_type == "whitePaper" && defined(slug.current)]|order(publishedAt desc){
   _id,
@@ -38,16 +38,14 @@ export default async function WhitePapersPage() {
             {papers.map(paper => (
                  <Link key={paper._id} href={`/white-papers/${paper.slug.current}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
-                     {paper.mainImage && (
-                        <div className="relative h-48 w-full">
-                            <Image
-                            src={urlFor(paper.mainImage).width(600).height(400).url()!}
-                            alt={paper.title}
-                            fill
-                            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                        </div>
-                     )}
+                     <div className="relative h-48 w-full">
+                        <SafeImage
+                          src={paper.mainImage ? urlFor(paper.mainImage).width(600).height(400).url() : null}
+                          alt={paper.title || ""}
+                          fill
+                          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                     </div>
                     <CardHeader>
                       <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
                         {paper.title}
