@@ -21,7 +21,6 @@ import type { CaseStudy, Partner } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url';
 import React, { useState, useEffect, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { useInView } from 'react-intersection-observer';
 import AnimatedHeadline from '@/components/layout/AnimatedHeadline';
 import SyntheticHero from '@/components/layout/SyntheticHero';
 import SafeImage from '@/components/SafeImage';
@@ -39,49 +38,6 @@ interface HomePageClientProps {
 }
 
 const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean, isPercent?: boolean }) => {
-  const [count, setCount] = useState(0);
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
-  const animationFrameRef = useRef<number>();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (inView && isMounted) {
-      let start = 0;
-      const end = to;
-      const duration = 2000;
-      let startTime: number | null = null;
-      
-      const animate = (timestamp: number) => {
-        if (!startTime) startTime = timestamp;
-        const progress = timestamp - startTime;
-        let percentage = Math.min(progress / duration, 1);
-        
-        const easedPercentage = 1 - Math.pow(1 - percentage, 4);
-        const currentCount = easedPercentage * end;
-
-        setCount(currentCount);
-
-        if (progress < duration) {
-          animationFrameRef.current = requestAnimationFrame(animate);
-        } else {
-          setCount(end);
-        }
-      };
-
-      animationFrameRef.current = requestAnimationFrame(animate);
-    }
-    
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, [inView, to, isMounted]);
-
   const getFormattedCount = (value: number) => {
     if (isMillion) {
       return (value / 1000000).toFixed(1);
@@ -92,36 +48,17 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
     }
   };
 
-  if (!isMounted) {
-    return <span ref={ref}>{isMillion ? (to / 1000000).toFixed(1) : isPercent ? to.toFixed(1) : to.toLocaleString()}</span>;
-  }
-  
-  return <span ref={ref}>{getFormattedCount(count)}</span>;
+  return <span>{getFormattedCount(to)}</span>;
 };
 
 
 const DonutChart = ({ value }: { value: number }) => {
-    const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
     const radius = 80;
     const circumference = 2 * Math.PI * radius;
-    const [offset, setOffset] = useState(circumference);
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-      setIsMounted(true);
-    }, []);
-
-    useEffect(() => {
-        if (isMounted && inView) {
-            const finalOffset = circumference - (value / 100) * circumference;
-            // Use timeout to ensure animation is visible
-            const timer = setTimeout(() => setOffset(finalOffset), 100);
-            return () => clearTimeout(timer);
-        }
-    }, [isMounted, inView, value, circumference]);
+    const offset = circumference - (value / 100) * circumference;
 
     return (
-        <div ref={ref} className="relative h-48 w-48 mx-auto">
+        <div className="relative h-48 w-48 mx-auto">
             <svg className="w-full h-full" viewBox="0 0 200 200">
                 <circle
                     className="text-secondary"
@@ -133,7 +70,7 @@ const DonutChart = ({ value }: { value: number }) => {
                     cy="100"
                 />
                 <circle
-                    className={`text-primary transition-all duration-[2000ms] ease-out`}
+                    className={`text-primary`}
                     strokeWidth="12"
                     strokeDasharray={circumference}
                     strokeDashoffset={offset}
@@ -180,7 +117,6 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
   const [plugins, setPlugins] = useState<any[]>([]);
 
   useEffect(() => {
-    // Initialize autoplay plugin only on the client-side
     setPlugins([Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })]);
   }, []);
 
@@ -227,6 +163,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                   alt={service.title}
                                   fill
                                   className="group-hover:scale-105 transition-transform"
+                                  style={{ objectFit: 'cover' }}
                                   data-ai-hint={service.imageHint}
                               />
                           </div>
@@ -402,6 +339,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                             alt={study.title}
                                             fill
                                             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                                            style={{ objectFit: 'cover' }}
                                         />
                                     </div>
                                     <CardHeader>
@@ -447,5 +385,3 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
     </div>
   );
 }
-
-    
