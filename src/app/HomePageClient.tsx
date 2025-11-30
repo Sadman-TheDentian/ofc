@@ -20,38 +20,21 @@ import SafeImage from '@/components/SafeImage';
 import { Badge } from '@/components/ui/badge';
 import { partners } from '@/lib/partners';
 
-const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean, isPercent?: boolean }): JSX.Element => {
-  const getFormattedCount = (value: number) => {
-    if (isMillion) {
-      return (value / 1000000).toFixed(1);
-    } else if (isPercent) {
-      return value.toFixed(1);
-    } else {
-      return Math.floor(value).toLocaleString();
-    }
-  };
-
-  return <span>{getFormattedCount(to)}</span>;
-};
-
 const stats = [
   {
-    value: 1800000,
+    value: "1.8M+",
     label: "Threats Analyzed Daily",
     description: "Proactively monitor, analyze and prevent sophisticated threats in real time with less complexity.",
-    isMillion: true,
   },
   {
-    value: 99.8,
+    value: "99.8%",
     label: "Breach Prevention Rate",
     description: "Proactive threat hunting and vulnerability management to secure your perimeter and prevent incidents."
   },
   {
-    value: 90,
-    suffix: '%',
+    value: "90%",
     label: "Faster Incident Response",
     description: "Drastically reduce mean time to respond (MTTR) with our expert-led incident response services.",
-    isPercent: true,
   }
 ];
 
@@ -60,7 +43,7 @@ export default function HomePageClient(): JSX.Element {
   return (
     <div className="flex flex-col min-h-screen">
        <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-background">
-          <div className="absolute inset-0 z-0 animate-pan-gradient bg-gradient-to-br from-primary/10 via-background to-primary/20"></div>
+          <div className="absolute inset-0 z-0 animate-pan-gradient bg-[length:300%_300%] bg-gradient-to-br from-primary/10 via-background to-primary/20"></div>
           <div className="relative z-10 flex flex-col items-center text-center px-6">
               <Badge className="mb-6 bg-primary/10 hover:bg-white/15 text-primary backdrop-blur-md border border-primary/20 uppercase tracking-wider font-medium flex items-center gap-2 px-4 py-1.5">
                   <span className="text-[10px] font-light tracking-[0.18em] text-primary/80">DentiSystems</span>
@@ -160,8 +143,7 @@ export default function HomePageClient(): JSX.Element {
                 className="flex flex-col items-center justify-start space-y-4"
               >
                 <h3 className="text-5xl font-bold font-headline text-primary h-24 flex items-center justify-center">
-                    <Counter to={stat.value} isMillion={stat.isMillion} isPercent={stat.isPercent} />
-                    {stat.isMillion ? "M+" : (stat.suffix || '')}
+                  {stat.value}
                 </h3>
                 
                 <h4 className="font-semibold text-foreground text-xl">{stat.label}</h4>

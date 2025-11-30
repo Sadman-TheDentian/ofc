@@ -1,4 +1,3 @@
-
 import {
   QuantumIncLogo,
   CyberCorpLogo,
@@ -15,7 +14,7 @@ export type Partner = {
   website?: string;
 };
 
-export const partners: Partner[] = [
+export const partners: Omit<Partner, 'logo'>[] = [
   {
     id: "quantum",
     name: "Quantum Inc",
