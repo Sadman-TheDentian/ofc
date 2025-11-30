@@ -20,7 +20,8 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className, 
   });
 
   // The section starts fading in when it enters the viewport and starts fading out as it leaves.
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  // This new range makes the fade much more gradual.
+  const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
 
   return (
     <motion.section
