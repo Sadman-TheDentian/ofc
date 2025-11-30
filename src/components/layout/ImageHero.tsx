@@ -17,21 +17,25 @@ export default function ImageHero({ imageUrl, title, description }: ImageHeroPro
 
     useGSAP(() => {
         if (typeof window === 'undefined') return;
-        const { ScrollTrigger } = require("gsap/ScrollTrigger");
-        gsap.registerPlugin(ScrollTrigger);
 
-        if (!contentRef.current || !sectionRef.current) return;
+        // Dynamically import ScrollTrigger and register it
+        import("gsap/ScrollTrigger").then(ScrollTriggerModule => {
+            gsap.registerPlugin(ScrollTriggerModule.default);
 
-        gsap.to(contentRef.current, {
-            opacity: 0,
-            y: -50,
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top top",
-                end: "bottom top",
-                scrub: true,
-            },
+            if (!contentRef.current || !sectionRef.current) return;
+
+            gsap.to(contentRef.current, {
+                opacity: 0,
+                y: -50,
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true,
+                },
+            });
         });
+
     }, { scope: contentRef });
 
     return (

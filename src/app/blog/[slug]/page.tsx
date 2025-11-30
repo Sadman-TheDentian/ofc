@@ -1,23 +1,51 @@
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from '@/components/SafeImage';
+import { client, urlFor } from "@/lib/sanity-client";
+import { BlogPost } from "@/lib/types";
+
+async function getPost(slug: string): Promise<BlogPost | null> {
+  const query = `*[_type == "post" && slug.current == $slug][0]{
+    title,
+    "slug": slug.current,
+    publishedAt,
+    mainImage,
+    body,
+    author->{
+      name,
+      image
+    }
+  }`;
+  try {
+    const post = await client.fetch<BlogPost>(query, { slug });
+    return post;
+  } catch (error) {
+    console.error("Failed to fetch post:", error);
+    return null;
+  }
+}
 
 export default async function PostPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const post = {
-    title: "Example Blog Post",
-    author: { name: "Jane Doe" },
-    publishedAt: new Date().toISOString(),
-    mainImage: "https://picsum.photos/seed/blog1/800/450",
-    body: [
-      { _type: 'block', style: 'normal', children: [{ _type: 'span', text: 'This is a sample blog post. Content would be fetched from a CMS in a real application.' }] }
-    ]
-  };
-  const postImageUrl = post.mainImage;
-  const authorImageUrl = undefined;
+  const post = await getPost(params.slug);
+
+  if (!post) {
+     return (
+      <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-8">
+         <Link href="/blog" className="text-primary hover:underline">
+          ← Back to posts
+        </Link>
+        <p>Post not found.</p>
+      </main>
+    )
+  }
+
+  const postImageUrl = post.mainImage ? urlFor(post.mainImage).url() : undefined;
+  const authorImageUrl = post.author?.image ? urlFor(post.author.image).url() : undefined;
+
 
   return (
     <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-8">
@@ -30,7 +58,7 @@ export default async function PostPage({
             {post.author && (
                 <div className="flex items-center gap-3">
                     <Avatar>
-                        <AvatarImage src={authorImageUrl ?? undefined} alt={post.author.name ?? undefined} />
+                        <AvatarImage src={authorImageUrl} alt={post.author.name ?? undefined} />
                         <AvatarFallback>{post.author.name?.charAt(0) || 'A'}</AvatarFallback>
                     </Avatar>
                     <span className="font-medium text-muted-foreground">{post.author.name}</span>
@@ -44,7 +72,7 @@ export default async function PostPage({
 
         <div className="relative w-full aspect-video mb-8">
           <SafeImage
-            src={postImageUrl ?? undefined}
+            src={postImageUrl}
             alt={post.title}
             fill
             className="rounded-xl object-cover"
@@ -60,7 +88,11 @@ export default async function PostPage({
 }
 
 export async function generateStaticParams() {
-  // In a real app, this would fetch slugs from a CMS.
-  // For now, we return a sample slug.
-  return [{ slug: 'example-post' }];
+  try {
+    const slugs = await client.fetch<string[]>(`*[_type == "post"].slug.current`);
+    return slugs.map(slug => ({ slug }));
+  } catch (error) {
+    console.error("Failed to generate static params for posts:", error);
+    return [];
+  }
 }

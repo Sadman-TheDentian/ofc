@@ -2,21 +2,18 @@ import { notFound } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import SafeImage from "@/components/SafeImage";
+import { client, urlFor } from "@/lib/sanity-client";
+import { CaseStudy } from "@/lib/types";
 
-// In a real app, this would be fetched from a CMS
-const getCaseStudy = async (slug: string) => {
-    if (slug === 'example-case-study') {
-        return {
-            title: "Securing a Global Financial Network",
-            industry: "Financial Services",
-            mainImage: "https://picsum.photos/seed/cs1/1200/800",
-            outcome: "Reduced critical vulnerabilities by 95% and achieved 100% compliance with industry regulations.",
-            content: [
-                { _type: 'block', style: 'normal', children: [{ _type: 'span', text: 'This is a sample case study. In a real application, this content would be fetched from a CMS like Sanity.io and rendered as rich text.' }] }
-            ]
-        };
+async function getCaseStudy(slug: string): Promise<CaseStudy | null> {
+    const query = `*[_type == "caseStudy" && slug.current == $slug][0]`;
+    try {
+        const study = await client.fetch<CaseStudy>(query, { slug });
+        return study;
+    } catch (error) {
+        console.error("Failed to fetch case study:", error);
+        return null;
     }
-    return null;
 }
 
 export default async function CaseStudyPage({ params }: { params: { slug: string } }) {
@@ -25,6 +22,8 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
     if (!study) {
         notFound();
     }
+
+    const imageUrl = study.mainImage ? urlFor(study.mainImage).url() : undefined;
 
     return (
         <div className="container py-12 md:py-20">
@@ -38,7 +37,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
 
                 <div className="relative h-96 w-full mb-12">
                     <SafeImage 
-                        src={study.mainImage}
+                        src={imageUrl}
                         alt={study.title}
                         fill
                         className="object-cover rounded-xl shadow-lg"
@@ -69,5 +68,11 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
 }
 
 export async function generateStaticParams() {
-  return [{ slug: 'example-case-study' }];
+    try {
+        const slugs = await client.fetch<string[]>(`*[_type == "caseStudy"].slug.current`);
+        return slugs.map(slug => ({ slug }));
+    } catch (error) {
+        console.error("Failed to generate static params for case studies:", error);
+        return [];
+    }
 }

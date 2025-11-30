@@ -161,102 +161,109 @@ const SyntheticHero = ({
 	useGSAP(
 		() => {
             if (typeof window === 'undefined') return;
-            const { SplitText } = require("gsap/SplitText");
-            const { ScrollTrigger } = require("gsap/ScrollTrigger");
-            gsap.registerPlugin(SplitText, ScrollTrigger);
 
-			if (!headingRef.current || !contentRef.current) return;
+            Promise.all([
+                import("gsap/SplitText"),
+                import("gsap/ScrollTrigger")
+            ]).then(([SplitTextModule, ScrollTriggerModule]) => {
+                const SplitText = SplitTextModule.default;
+                const ScrollTrigger = ScrollTriggerModule.default;
 
-			document.fonts.ready.then(() => {
-				const split = new SplitText(headingRef.current!, {
-					type: "lines",
-					wordsClass: "hero-lines",
-				});
+                gsap.registerPlugin(SplitText, ScrollTrigger);
 
-				gsap.set(split.lines, {
-					filter: "blur(16px)",
-					yPercent: 24,
-					autoAlpha: 0,
-					scale: 1.04,
-					transformOrigin: "50% 100%",
-				});
+                if (!headingRef.current || !contentRef.current || !sectionRef.current) return;
 
-				if (badgeWrapperRef.current) {
-					gsap.set(badgeWrapperRef.current, { autoAlpha: 0, y: -8 });
-				}
-				if (paragraphRef.current) {
-					gsap.set(paragraphRef.current, { autoAlpha: 0, y: 8 });
-				}
-				if (ctaRef.current) {
-					gsap.set(ctaRef.current, { autoAlpha: 0, y: 8 });
-				}
+                document.fonts.ready.then(() => {
+                    const split = new SplitText(headingRef.current!, {
+                        type: "lines",
+                        wordsClass: "hero-lines",
+                    });
 
-				const microItems = microRef.current
-					? Array.from(microRef.current.querySelectorAll("li"))
-					: [];
-				if (microItems.length > 0) {
-					gsap.set(microItems, { autoAlpha: 0, y: 6 });
-				}
+                    gsap.set(split.lines, {
+                        filter: "blur(16px)",
+                        yPercent: 24,
+                        autoAlpha: 0,
+                        scale: 1.04,
+                        transformOrigin: "50% 100%",
+                    });
 
-				const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+                    if (badgeWrapperRef.current) {
+                        gsap.set(badgeWrapperRef.current, { autoAlpha: 0, y: -8 });
+                    }
+                    if (paragraphRef.current) {
+                        gsap.set(paragraphRef.current, { autoAlpha: 0, y: 8 });
+                    }
+                    if (ctaRef.current) {
+                        gsap.set(ctaRef.current, { autoAlpha: 0, y: 8 });
+                    }
 
-				if (badgeWrapperRef.current) {
-					tl.to(
-						badgeWrapperRef.current,
-						{ autoAlpha: 1, y: 0, duration: 0.5 },
-						0,
-					);
-				}
+                    const microItems = microRef.current
+                        ? Array.from(microRef.current.querySelectorAll("li"))
+                        : [];
+                    if (microItems.length > 0) {
+                        gsap.set(microItems, { autoAlpha: 0, y: 6 });
+                    }
 
-				tl.to(
-					split.lines,
-					{
-						filter: "blur(0px)",
-						yPercent: 0,
-						autoAlpha: 1,
-						scale: 1,
-						duration: 0.9,
-						stagger: 0.12,
-					},
-					0.1,
-				);
+                    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-				if (paragraphRef.current) {
-					tl.to(
-						paragraphRef.current,
-						{ autoAlpha: 1, y: 0, duration: 0.5 },
-						"-=0.55",
-					);
-				}
+                    if (badgeWrapperRef.current) {
+                        tl.to(
+                            badgeWrapperRef.current,
+                            { autoAlpha: 1, y: 0, duration: 0.5 },
+                            0,
+                        );
+                    }
 
-				if (ctaRef.current) {
-					tl.to(
-						ctaRef.current,
-						{ autoAlpha: 1, y: 0, duration: 0.5 },
-						"-=0.35",
-					);
-				}
+                    tl.to(
+                        split.lines,
+                        {
+                            filter: "blur(0px)",
+                            yPercent: 0,
+                            autoAlpha: 1,
+                            scale: 1,
+                            duration: 0.9,
+                            stagger: 0.12,
+                        },
+                        0.1,
+                    );
 
-				if (microItems.length > 0) {
-					tl.to(
-						microItems,
-						{ autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1 },
-						"-=0.25",
-					);
-				}
+                    if (paragraphRef.current) {
+                        tl.to(
+                            paragraphRef.current,
+                            { autoAlpha: 1, y: 0, duration: 0.5 },
+                            "-=0.55",
+                        );
+                    }
 
-                 gsap.to(contentRef.current, {
-                    opacity: 0,
-                    scale: 0.95,
-                    y: -50,
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top top",
-                        end: "bottom top",
-                        scrub: true,
-                    },
+                    if (ctaRef.current) {
+                        tl.to(
+                            ctaRef.current,
+                            { autoAlpha: 1, y: 0, duration: 0.5 },
+                            "-=0.35",
+                        );
+                    }
+
+                    if (microItems.length > 0) {
+                        tl.to(
+                            microItems,
+                            { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1 },
+                            "-=0.25",
+                        );
+                    }
+
+                     gsap.to(contentRef.current, {
+                        opacity: 0,
+                        scale: 0.95,
+                        y: -50,
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: true,
+                        },
+                    });
                 });
-			});
+            });
 		},
 		{ scope: contentRef },
 	);

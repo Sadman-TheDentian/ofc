@@ -1,27 +1,28 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import SafeImage from "@/components/SafeImage";
+import { client, urlFor } from "@/lib/sanity-client";
+import { CaseStudy } from "@/lib/types";
 
-const staticStudies = [
-    {
-        _id: "1",
-        title: "Securing a Global Financial Network",
-        slug: "example-case-study",
-        summary: "How we implemented a zero-trust architecture for a leading financial institution, reducing attack surface by 80%.",
-        mainImage: "https://picsum.photos/seed/cs1/600/400"
-    },
-    {
-        _id: "2",
-        title: "HIPAA Compliance for a Telehealth Startup",
-        slug: "example-case-study",
-        summary: "Achieving full HIPAA compliance and securing patient data for a rapidly growing telehealth platform.",
-        mainImage: "https://picsum.photos/seed/cs2/600/400"
-    }
-];
+async function getCaseStudies(): Promise<CaseStudy[]> {
+  const query = `*[_type == "caseStudy"]{
+    _id,
+    title,
+    slug,
+    summary,
+    mainImage
+  }`;
+  try {
+    const studies = await client.fetch<CaseStudy[]>(query);
+    return studies;
+  } catch (error) {
+    console.error("Failed to fetch case studies:", error);
+    return [];
+  }
+}
 
 export default async function CaseStudiesPage() {
-  const studies = staticStudies;
+  const studies = await getCaseStudies();
   
   return (
     <div className="container py-12 md:py-20">
@@ -37,12 +38,14 @@ export default async function CaseStudiesPage() {
 
       {studies && studies.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {studies.map(study => (
-                 <Link key={study._id} href={`/case-studies/${study.slug}`} className="group">
+            {studies.map(study => {
+                const imageUrl = study.mainImage ? urlFor(study.mainImage).url() : undefined;
+                return (
+                 <Link key={study._id} href={`/case-studies/${study.slug.current}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
                      <div className="relative h-48 w-full">
                         <SafeImage
-                          src={study.mainImage}
+                          src={imageUrl}
                           alt={study.title}
                           fill
                           className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
@@ -60,7 +63,7 @@ export default async function CaseStudiesPage() {
                     </CardContent>
                   </Card>
                 </Link>
-            ))}
+            )})}
         </div>
       ) : (
         <div className="text-center py-16 border border-dashed rounded-lg">

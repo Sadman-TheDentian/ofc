@@ -17,7 +17,6 @@ import {
 import { securityAdvisories, blogPosts as staticBlogPosts } from '@/lib/data';
 import React from "react";
 import SafeImage from '@/components/SafeImage';
-import { Badge } from '@/components/ui/badge';
 import { partners } from '@/lib/partners';
 import SyntheticHero from '@/components/layout/SyntheticHero';
 
