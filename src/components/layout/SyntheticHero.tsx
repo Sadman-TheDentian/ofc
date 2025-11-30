@@ -1,11 +1,8 @@
-
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -144,11 +141,6 @@ const SyntheticHero = ({
 	],
 }: HeroProps): JSX.Element => {
 	const sectionRef = useRef<HTMLElement | null>(null);
-	const badgeWrapperRef = useRef<HTMLDivElement | null>(null);
-	const headingRef = useRef<HTMLHeadingElement | null>(null);
-	const paragraphRef = useRef<HTMLParagraphElement | null>(null);
-	const ctaRef = useRef<HTMLDivElement | null>(null);
-	const microRef = useRef<HTMLUListElement | null>(null);
 	const shaderUniforms = useMemo(
 		() => ({
 			u_time: { value: 0 },
@@ -157,92 +149,6 @@ const SyntheticHero = ({
 		[],
 	);
 
-	useGSAP(
-		() => {
-			if (!headingRef.current) return;
-            const { SplitText } = gsap;
-
-			document.fonts.ready.then(() => {
-				const split = new SplitText(headingRef.current!, {
-					type: "lines",
-					wordsClass: "hero-lines",
-				});
-
-				gsap.set(split.lines, {
-					filter: "blur(16px)",
-					yPercent: 24,
-					autoAlpha: 0,
-					scale: 1.04,
-					transformOrigin: "50% 100%",
-				});
-
-				if (badgeWrapperRef.current) {
-					gsap.set(badgeWrapperRef.current, { autoAlpha: 0, y: -8 });
-				}
-				if (paragraphRef.current) {
-					gsap.set(paragraphRef.current, { autoAlpha: 0, y: 8 });
-				}
-				if (ctaRef.current) {
-					gsap.set(ctaRef.current, { autoAlpha: 0, y: 8 });
-				}
-
-				const microItems = microRef.current
-					? Array.from(microRef.current.querySelectorAll("li"))
-					: [];
-				if (microItems.length > 0) {
-					gsap.set(microItems, { autoAlpha: 0, y: 6 });
-				}
-
-				const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-				if (badgeWrapperRef.current) {
-					tl.to(
-						badgeWrapperRef.current,
-						{ autoAlpha: 1, y: 0, duration: 0.5 },
-						0,
-					);
-				}
-
-				tl.to(
-					split.lines,
-					{
-						filter: "blur(0px)",
-						yPercent: 0,
-						autoAlpha: 1,
-						scale: 1,
-						duration: 0.9,
-						stagger: 0.12,
-					},
-					0.1,
-				);
-
-				if (paragraphRef.current) {
-					tl.to(
-						paragraphRef.current,
-						{ autoAlpha: 1, y: 0, duration: 0.5 },
-						"-=0.55",
-					);
-				}
-
-				if (ctaRef.current) {
-					tl.to(
-						ctaRef.current,
-						{ autoAlpha: 1, y: 0, duration: 0.5 },
-						"-=0.35",
-					);
-				}
-
-				if (microItems.length > 0) {
-					tl.to(
-						microItems,
-						{ autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1 },
-						"-=0.25",
-					);
-				}
-			});
-		},
-		{ scope: sectionRef },
-	);
 
 	return (
 		<section
@@ -260,7 +166,7 @@ const SyntheticHero = ({
 			</div>
 
 			<div className="relative z-10 flex flex-col items-center text-center px-6">
-				<div ref={badgeWrapperRef}>
+				<div >
 					<Badge className="mb-6 bg-primary/10 hover:bg-white/15 text-primary backdrop-blur-md border border-primary/20 uppercase tracking-wider font-medium flex items-center gap-2 px-4 py-1.5">
 						<span className="text-[10px] font-light tracking-[0.18em] text-primary/80">
 							{badgeLabel}
@@ -273,21 +179,18 @@ const SyntheticHero = ({
 				</div>
 
 				<h1
-					ref={headingRef}
 					className="text-5xl md:text-7xl max-w-4xl font-light tracking-tight text-white mb-4"
 				>
 					{title}
 				</h1>
 
 				<p
-					ref={paragraphRef}
 					className="text-primary/80 text-lg max-w-2xl mx-auto mb-10 font-light"
 				>
 					{description}
 				</p>
 
 				<div
-					ref={ctaRef}
 					className="flex flex-wrap items-center justify-center gap-4"
 				>
 					{ctaButtons.map((button, index) => {
@@ -320,7 +223,6 @@ const SyntheticHero = ({
 
 				{microDetails.length > 0 && (
 					<ul
-						ref={microRef}
 						className="mt-8 flex flex-wrap justify-center gap-6 text-xs font-light tracking-tight text-primary/70"
 					>
 						{microDetails.map((detail, index) => (
