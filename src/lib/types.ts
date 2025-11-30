@@ -72,13 +72,13 @@ export type CaseStudy = {
   summary: string;
   industry: string;
   outcome: string;
-  mainImage: SanityImage; 
+  mainImage: SanityImage | string; 
   content: any;
 };
 
 export type Author = {
     name?: string | null;
-    image?: SanityImage;
+    image?: SanityImage | string;
 };
 
 export type BlogPost = {
@@ -86,7 +86,7 @@ export type BlogPost = {
     slug: { current: string };
     title: string;
     excerpt: string;
-    mainImage: SanityImage;
+    mainImage: SanityImage | string;
     publishedAt: string;
     author: Author;
     body: any;
