@@ -1,136 +1,66 @@
-
-'use client';
-
-import { tools } from "@/lib/data";
-import { notFound } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
-import Image from "next/image";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import React from "react";
-import Autoplay from "embla-carousel-autoplay";
-import type { Tool } from "@/lib/types";
-
-type Props = {
-  tool: Omit<Tool, 'icon'>;
-};
-
-export default function ToolDetailClient({ tool }: Props) {
-  const autoplayPlugin = React.useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
-  );
-
-  const screenshots = tool.screenshots && tool.screenshots.length > 0 ? tool.screenshots : [];
-
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": tool.title,
-    "description": tool.longDescription,
-    "brand": {
-      "@type": "Organization",
-      "name": "DentiSystems"
-    },
-    "image": tool.imageUrl,
-    "url": `https://www.denti.systems/tools/${tool.slug}`,
-    "offers": {
-        "@type": "Offer",
-        "priceCurrency": "USD",
-        "price": "0.00",
-        "priceSpecification": [
-            {
-                "@type": "UnitPriceSpecification",
-                "price": "0.00",
-                "priceCurrency": "USD",
-                "name": "Free Tier"
-            },
-            {
-                "@type": "UnitPriceSpecification",
-                "price": "99.00",
-                "priceCurrency": "USD",
-                "billingIncrement": "1",
-                "unitText": "MONTH",
-                "name": "PRO Plan"
-            }
-        ]
-    }
-  };
-  
-  // Find the correct icon component from the original `tools` array
-  const IconComponent = tools.find(t => t.id === tool.id)?.icon;
-
-  return (
-    <div className="container py-12 md:py-20">
-       <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
-      />
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center space-y-4 mb-12">
-          <div className="inline-block p-4 bg-secondary rounded-xl">
-             {IconComponent && <IconComponent className="h-10 w-10 text-primary" />}
-          </div>
-          <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-            {tool.title}
-          </h1>
-          <p className="text-xl text-muted-foreground">{tool.longDescription}</p>
-        </div>
-        
-        {screenshots.length > 0 && (
-            <div className="mb-16">
-            <Carousel 
-              plugins={[autoplayPlugin.current]}
-              className="w-full"
-              opts={{ loop: true }}
-            >
-                <CarouselContent>
-                {screenshots.map((screenshot) => (
-                    <CarouselItem key={screenshot.id}>
-                    <Card className="overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80">
-                        <CardContent className="p-0 aspect-video relative">
-                        <Image 
-                            src={screenshot.url} 
-                            alt={screenshot.alt} 
-                            fill 
-                            className="object-cover w-full h-auto" 
-                            data-ai-hint={screenshot.hint}
-                        />
-                        </CardContent>
-                    </Card>
-                    </CarouselItem>
-                ))}
-                </CarouselContent>
-                {screenshots.length > 1 && (
-                    <>
-                        <CarouselPrevious className="hidden md:flex -left-12" />
-                        <CarouselNext className="hidden md:flex -right-12" />
-                    </>
-                )}
-            </Carousel>
-            </div>
-        )}
-
-        <div className="text-center bg-secondary/50 p-8 rounded-xl">
-            <h2 className="font-headline text-2xl font-bold text-center mb-4">
-                Access This Tool
-            </h2>
-            <p className="text-muted-foreground mb-6">
-                This tool is part of our standalone collection. An account is required to ensure a secure and integrated experience across all DentiSystems services.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild>
-                    <Link href="/auth">Login to Access</Link>
-                </Button>
-                  <Button size="lg" variant="outline" asChild>
-                    <Link href={tool.url || '#'}>Proceed to Tool</Link>
-                </Button>
-            </div>
-        </div>
-      </div>
-    </div>
-  );
+{
+  "name": "nextn",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "3.8.0",
+    "@radix-ui/react-accordion": "^1.2.0",
+    "@radix-ui/react-alert-dialog": "^1.1.1",
+    "@radix-ui/react-avatar": "^1.1.0",
+    "@radix-ui/react-checkbox": "^1.1.1",
+    "@radix-ui/react-collapsible": "^1.1.0",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-dropdown-menu": "^2.1.1",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-menubar": "^1.1.1",
+    "@radix-ui/react-navigation-menu": "^1.2.0",
+    "@radix-ui/react-popover": "^1.1.1",
+    "@radix-ui/react-progress": "^1.1.0",
+    "@radix-ui/react-radio-group": "^1.2.0",
+    "@radix-ui/react-scroll-area": "^1.1.0",
+    "@radix-ui/react-select": "^2.1.1",
+    "@radix-ui/react-separator": "^1.1.0",
+    "@radix-ui/react-slider": "^1.2.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-switch": "^1.1.0",
+    "@radix-ui/react-tabs": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.1",
+    "@radix-ui/react-tooltip": "^1.1.2",
+    "@sanity/image-url": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "embla-carousel-autoplay": "^8.2.0",
+    "embla-carousel-react": "^8.2.0",
+    "firebase": "^10.12.4",
+    "gsap": "^3.12.5",
+    "lucide-react": "^0.417.0",
+    "next": "14.2.5",
+    "next-sanity": "^9.4.2",
+    "react": "^18.3.1",
+    "react-day-picker": "^8.10.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "7.51.5",
+    "react-intersection-observer": "^9.13.0",
+    "recharts": "^2.12.7",
+    "sanity": "^3.50.2",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/node": "^20",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.2"
+  }
 }

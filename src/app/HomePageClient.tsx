@@ -18,7 +18,7 @@ import { securityAdvisories, blogPosts as staticBlogPosts } from '@/lib/data';
 import React from "react";
 import SafeImage from '@/components/SafeImage';
 import { partners } from '@/lib/partners';
-import SyntheticHero from '@/components/layout/SyntheticHero';
+import ImageHero from '@/components/layout/ImageHero';
 
 const stats = [
   {
@@ -42,20 +42,10 @@ const stats = [
 export default function HomePageClient(): JSX.Element {
   return (
     <div className="flex flex-col min-h-screen">
-       <SyntheticHero 
+       <ImageHero 
+        imageUrl="https://picsum.photos/seed/hero/1920/1080"
         title="REDEFINE YOUR DEFENSE"
         description="Offensive security to fortify your digital defenses."
-        badgeLabel="DentiSystems"
-        badgeText="Cybersecurity"
-        ctaButtons={[
-          { text: "Schedule Demo", href: "/contact", primary: true },
-          { text: "View Threat Report", href: "/threat-intelligence" }
-        ]}
-        microDetails={[
-          "AI-Powered Threat Detection",
-          "Offensive Security",
-          "Resilient Infrastructure",
-        ]}
       />
 
       <section id="services" className="py-20 md:py-32 bg-transparent">
