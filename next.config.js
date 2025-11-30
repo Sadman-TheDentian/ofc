@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverComponentsExternalPackages: ['framer-motion'],
+  },
   images: {
     remotePatterns: [
       {
@@ -28,7 +31,6 @@ const nextConfig = {
       },
     ],
   },
-  serverComponentsExternalPackages: ['framer-motion'],
 };
 
 module.exports = nextConfig;
