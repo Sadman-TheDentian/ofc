@@ -21,6 +21,7 @@ import { partners } from '@/lib/partners';
 import SyntheticHero from '@/components/layout/SyntheticHero';
 import AnimatedSection from '@/components/layout/AnimatedSection';
 import AnimatedHero from '@/components/layout/AnimatedHero';
+import AnimatedHeadline from '@/components/layout/AnimatedHeadline';
 
 const stats = [
   {
@@ -46,7 +47,7 @@ export default function HomePageClient(): JSX.Element {
     <div className="flex flex-col min-h-screen">
       <AnimatedHero>
        <SyntheticHero
-				title="REDEFINE YOUR DEFENSE"
+				title={<AnimatedHeadline text="HACK THE THREAT" />}
 				description="Offensive security to fortify your digital defenses."
 				ctaButtons={[
 					{ text: "Schedule a Consultation", href: "/contact", primary: true },
@@ -260,3 +261,5 @@ export default function HomePageClient(): JSX.Element {
     </div>
   );
 }
+
+    

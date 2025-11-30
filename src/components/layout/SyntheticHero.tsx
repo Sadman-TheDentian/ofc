@@ -2,7 +2,7 @@
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, ReactNode } from "react";
 import * as THREE from "three";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -123,7 +123,7 @@ const fragmentShader = `
 `;
 
 interface HeroProps {
-	title: string;
+	title: string | ReactNode;
 	description: string;
 	badgeText?: string;
 	badgeLabel?: string;
@@ -162,7 +162,7 @@ const SyntheticHero = ({
 
 	useGSAP(
 		() => {
-			if (!headingRef.current) return;
+			if (typeof title !== 'string' || !headingRef.current) return;
 
 			document.fonts.ready.then(() => {
 				const split = new SplitText(headingRef.current!, {
@@ -243,7 +243,7 @@ const SyntheticHero = ({
 				}
 			});
 		},
-		{ scope: sectionRef },
+		{ scope: sectionRef, dependencies: [title] },
 	);
 
 	return (
@@ -262,26 +262,16 @@ const SyntheticHero = ({
 			</div>
 
 			<div className="relative z-10 flex flex-col items-center text-center px-6">
-                {badgeText && badgeLabel && (
-                    <div ref={badgeWrapperRef}>
-                        <Badge className="mb-6 bg-white/10 hover:bg-white/15 text-[#02f840] backdrop-blur-md border border-white/20 uppercase tracking-wider font-medium flex items-center gap-2 px-4 py-1.5">
-                            <span className="text-[10px] font-light tracking-[0.18em] text-[#02f840]/80">
-                                {badgeLabel}
-                            </span>
-                            <span className="h-1 w-1 rounded-full bg-[#02f840]/60" />
-                            <span className="text-xs font-light tracking-tight text-[#02f840]">
-                                {badgeText}
-                            </span>
-                        </Badge>
-                    </div>
-                )}
-
-				<h1
-					ref={headingRef}
-					className="text-5xl md:text-7xl max-w-4xl font-light tracking-tight text-white mb-8"
-				>
-					{title}
-				</h1>
+				{typeof title === 'string' ? (
+					<h1
+						ref={headingRef}
+						className="text-5xl md:text-7xl max-w-4xl font-light tracking-tight text-white mb-8"
+					>
+						{title}
+					</h1>
+				) : (
+					<div className="mb-10">{title}</div>
+				)}
 
 				<p
 					ref={paragraphRef}
@@ -344,3 +334,5 @@ const SyntheticHero = ({
 };
 
 export default SyntheticHero;
+
+    

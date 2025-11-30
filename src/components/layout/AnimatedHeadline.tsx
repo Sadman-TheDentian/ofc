@@ -10,7 +10,7 @@ interface AnimatedHeadlineProps {
 const AnimatedHeadline: React.FC<AnimatedHeadlineProps> = ({ text }) => {
   return (
     <h1
-      className="animated-headline-glitch font-headline text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground"
+      className="animated-headline-glitch font-headline text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl text-white"
       data-text={text}
     >
       {text}
@@ -19,3 +19,5 @@ const AnimatedHeadline: React.FC<AnimatedHeadlineProps> = ({ text }) => {
 };
 
 export default AnimatedHeadline;
+
+    

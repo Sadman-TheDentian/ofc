@@ -158,7 +158,7 @@
   .animated-headline-glitch {
     position: relative;
     text-shadow: 0.05em 0.05em 0 hsl(var(--primary) / 0.3);
-    animation: glitch-skew 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 5s infinite;
+    animation: glitch-skew 7s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
   }
 
   .animated-headline-glitch::before,
@@ -174,11 +174,11 @@
   }
 
   .animated-headline-glitch::before {
-    animation: glitch-anim-1 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 5s infinite;
+    animation: glitch-anim-1 7s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
   }
   
   .animated-headline-glitch::after {
-    animation: glitch-anim-2 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 5s infinite;
+    animation: glitch-anim-2 7s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
   }
 
   @keyframes glitch-skew {
@@ -278,3 +278,5 @@
       animation-delay: 400ms;
   }
 }
+
+    
