@@ -112,11 +112,13 @@ const stats = [
 
 
 export default function HomePageClient({ blogPosts = [], caseStudies = [], partners = [] }: HomePageClientProps) {
-  const autoplayServices = useRef(Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }));
-  const autoplayThreats = useRef(Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true }));
-  const autoplayBlog = useRef(Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true }));
-  const autoplayCaseStudies = useRef(Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true }));
+  const [plugins, setPlugins] = useState<any[]>([]);
 
+  useEffect(() => {
+    setPlugins([
+      Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }),
+    ]);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -147,7 +149,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             </p>
           </div>
            <Carousel
-              plugins={[autoplayServices.current]}
+              plugins={plugins}
               opts={{ align: 'start', loop: true }}
               className="w-full max-w-6xl mx-auto"
             >
@@ -247,7 +249,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
                      <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={[autoplayThreats.current]}
+                        plugins={plugins}
                         className="w-full"
                     >
                        <CarouselContent>
@@ -276,7 +278,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
                       <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={[autoplayBlog.current]}
+                        plugins={plugins}
                         className="w-full"
                       >
                          <CarouselContent>
@@ -323,7 +325,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             {caseStudies.length > 0 && (
                  <Carousel
                     opts={{ align: 'start', loop: true }}
-                    plugins={[autoplayCaseStudies.current]}
+                    plugins={plugins}
                     className="w-full max-w-5xl mx-auto"
                 >
                     <CarouselContent className="-ml-4">
