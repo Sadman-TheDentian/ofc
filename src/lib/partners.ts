@@ -1,7 +1,4 @@
 
-// This file is now deprecated. Partner data is fetched from Sanity.io.
-// The file is kept to prevent breaking changes but can be removed in a future refactor.
-
 import {
   QuantumIncLogo,
   CyberCorpLogo,
@@ -15,38 +12,41 @@ import { SVGProps } from "react";
 export type Partner = {
   id: string;
   name: string;
-  logo: (props: SVGProps<SVGSVGElement>) => JSX.Element;
+  website?: string;
 };
 
 export const partners: Partner[] = [
   {
     id: "quantum",
     name: "Quantum Inc",
-    logo: QuantumIncLogo,
   },
   {
     id: "cybercorp",
     name: "CyberCorp",
-    logo: CyberCorpLogo,
   },
   {
     id: "nexusguard",
     name: "NexusGuard",
-    logo: NexusGuardLogo,
   },
   {
     id: "apex",
     name: "Apex Securities",
-    logo: ApexSecuritiesLogo,
   },
   {
     id: "titan",
     name: "Titan Industries",
-    logo: TitanIndustriesLogo,
   },
   {
     id: "novasys",
     name: "NovaSys",
-    logo: NovaSysLogo,
   },
 ];
+
+export const partnerLogos: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> = {
+  quantum: QuantumIncLogo,
+  cybercorp: CyberCorpLogo,
+  nexusguard: NexusGuardLogo,
+  apex: ApexSecuritiesLogo,
+  titan: TitanIndustriesLogo,
+  novasys: NovaSysLogo
+};

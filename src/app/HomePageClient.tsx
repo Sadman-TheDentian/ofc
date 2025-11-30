@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -18,9 +19,10 @@ import type { Partner } from "@/lib/types";
 import React from "react";
 import SafeImage from '@/components/SafeImage';
 import { Badge } from '@/components/ui/badge';
+import { partners as staticPartners } from '@/lib/partners';
 
 interface HomePageClientProps {
-  partners: Partner[];
+  partners: Omit<Partner, 'logo'>[];
 }
 
 const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean, isPercent?: boolean }): JSX.Element => {
@@ -283,7 +285,7 @@ export default function HomePageClient({ partners = [] }: HomePageClientProps): 
               Powering the World's Most Secure Companies
             </h2>
           </div>
-          <PartnerSlider partners={partners} />
+          <PartnerSlider partners={staticPartners} />
         </div>
       </section>
     </div>

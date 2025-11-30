@@ -1,4 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
+import type { SVGProps } from 'react';
 
 export type Service = {
   id: number;
@@ -62,13 +63,13 @@ export type CaseStudy = {
   summary: string;
   industry: string;
   outcome: string;
-  mainImage: any; // Simplified to avoid Sanity types
+  mainImage: any; 
   content: any;
 };
 
 export type Author = {
     name?: string | null | undefined;
-    image?: any; // Simplified to avoid Sanity types
+    image?: any;
 };
 
 export type BlogPost = {
@@ -76,17 +77,17 @@ export type BlogPost = {
     slug: { current: string };
     title: string;
     excerpt: string;
-    mainImage: any; // Simplified to avoid Sanity types
+    mainImage: any;
     publishedAt: string;
     author: Author;
     body: any;
 };
 
 export type Partner = {
-  _id: string;
+  id: string;
   name: string;
+  logo: (props: SVGProps<SVGSVGElement>) => JSX.Element;
   website?: string;
-  logo: any; // Simplified to avoid Sanity types
 }
 
 export type FirebaseConfig = {
