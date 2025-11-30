@@ -1,11 +1,9 @@
 
-import GlobalHeader from "@/components/GlobalHeader";
-import NeonFooter from "@/components/NeonFooter";
-import ResultCard from "@/components/ResultCard";
-import Recommendations from "@/components/Recommendations";
+import ResultCard from "../components/ResultCard";
+import Recommendations from "../components/Recommendations";
 import { useParams, useLocation, Link } from "react-router-dom";
 import { useMemo } from "react";
-import ShareResult from "@/components/ShareResult";
+import ShareResult from "../components/ShareResult";
 
 // Demo/mock scan result generator
 function mockRiskResult(

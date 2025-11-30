@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Check, Crown, Mail, Zap, Shield, BarChart3, Bell, CreditCard } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';

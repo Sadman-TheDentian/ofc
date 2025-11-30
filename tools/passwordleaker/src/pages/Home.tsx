@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PasswordChecker from '../components/PasswordChecker';
 

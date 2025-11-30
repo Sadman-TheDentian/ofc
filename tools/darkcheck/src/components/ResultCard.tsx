@@ -1,6 +1,6 @@
 
 import { AlertTriangle, CheckCircle, Globe, Calendar, Users, Database } from 'lucide-react';
-import type { BreachResult } from '@/lib/breachCheck';
+import type { BreachResult } from '../lib/breachCheck';
 
 interface ResultCardProps {
   result: BreachResult;
@@ -120,5 +120,3 @@ const ResultCard = ({ result }: ResultCardProps) => {
 };
 
 export default ResultCard;
-
-    

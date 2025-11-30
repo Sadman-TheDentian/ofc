@@ -1,6 +1,6 @@
 
 import { AlertTriangle, CheckCircle, Shield, Eye } from 'lucide-react';
-import type { PasswordResult } from '@/lib/breachCheck';
+import type { PasswordResult } from '../lib/breachCheck';
 
 interface PasswordResultCardProps {
   result: PasswordResult;
@@ -90,5 +90,3 @@ const PasswordResultCard = ({ result }: PasswordResultCardProps) => {
 };
 
 export default PasswordResultCard;
-
-    

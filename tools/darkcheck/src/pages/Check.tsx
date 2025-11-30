@@ -1,11 +1,11 @@
 
 import { useState, useEffect } from 'react';
 import { Search, Loader2, Shield, Key, Mail, Users } from 'lucide-react';
-import { checkEmailForBreaches, checkPasswordForBreaches, BreachResult, PasswordResult } from '@/lib/breachCheck';
-import { isValidEmail } from '@/lib/utils';
-import ResultCard from '@/components/ResultCard';
-import PasswordResultCard from '@/components/PasswordResultCard';
-import ShareResult from '@/components/ShareResult';
+import { checkEmailForBreaches, checkPasswordForBreaches, BreachResult, PasswordResult } from '../lib/breachCheck';
+import { isValidEmail } from '../lib/utils';
+import ResultCard from '../components/ResultCard';
+import PasswordResultCard from '../components/PasswordResultCard';
+import ShareResult from '../components/ShareResult';
 
 const Check = () => {
   const [email, setEmail] = useState('');
