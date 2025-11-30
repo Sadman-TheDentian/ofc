@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StructuredData from "@/components/StructuredData";
@@ -23,7 +24,7 @@ export default async function NewsPostPage({
   };
 
   const postImageUrl = post.mainImage;
-  const authorImageUrl = undefined;
+  const authorImageUrl: string | undefined = undefined;
 
   const jsonLd = {
     '@context': 'https://schema.org',

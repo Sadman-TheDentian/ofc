@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from '@/components/SafeImage';
@@ -44,7 +45,7 @@ export default async function PostPage({
   }
 
   const postImageUrl = post.mainImage ? urlFor(post.mainImage).url() : undefined;
-  const authorImageUrl = post.author?.image ? urlFor(post.author.image).url() : undefined;
+  const authorImageUrl: string | undefined = post.author?.image ? urlFor(post.author.image).url() : undefined;
 
 
   return (

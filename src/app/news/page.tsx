@@ -1,9 +1,19 @@
+
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from "@/components/SafeImage";
+import { SanityImage } from "@/lib/types";
 
-const staticNewsItems = [
+const staticNewsItems: {
+    _id: string;
+    title: string;
+    slug: { current: string; };
+    publishedAt: string;
+    mainImage: string;
+    excerpt: string;
+    author: { name: string; image: SanityImage | null; };
+}[] = [
     {
         _id: '1',
         title: "DentiSystems Launches New AI-Powered Threat Intelligence Platform",
@@ -32,7 +42,7 @@ export default async function NewsPage() {
       <div className="max-w-3xl mx-auto grid gap-12">
         {newsItems.map((item) => {
           const itemImageUrl = item.mainImage;
-          const authorImageUrl = item.author?.image;
+          const authorImageUrl: string | undefined = item.author?.image as string | undefined;
 
           return (
             <Link href={`/news/${item.slug.current}`} key={item._id} className="group block">
