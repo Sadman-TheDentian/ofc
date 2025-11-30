@@ -37,7 +37,7 @@ export default async function NewsPostPage({
     ? urlFor(post.mainImage)?.width(800).height(450).url() ?? null
     : null;
     
-  const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.width(40).height(40).url() ?? null : null;
+  const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.width(40).height(40).url() : null;
 
   // Structured Data for Google News
   const jsonLd = {

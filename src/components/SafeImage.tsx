@@ -4,12 +4,12 @@ import { FC, CSSProperties } from "react";
 
 // Props type
 interface SafeImageProps {
-  src: string | null;
-  alt?: string;
+  src?: string | null;
+  alt?: string | null;
   width?: number;
   height?: number;
   className?: string;
-  fallback?: string; // Optional fallback image URL
+  fallback?: string;
   fill?: boolean;
   style?: CSSProperties;
   'data-ai-hint'?: string;
@@ -27,20 +27,15 @@ const SafeImage: FC<SafeImageProps> = ({
   ...rest
 }) => {
   if (!src) {
-    // Render fallback box or fallback image
-    if (fill) {
-      return (
-        <div className={`bg-gray-200 w-full h-full flex items-center justify-center ${className}`} style={style}>
-          <span className="text-black">No image</span>
-        </div>
-      );
-    }
-    // This fallback logic for non-fill images might need a placeholder in public folder.
-    // For now, it will look for /fallback.png
-    return <Image src={fallback} alt={alt} width={width} height={height} className={className} style={style} {...rest} />;
+    // Render a dark placeholder div when the src is missing
+    return (
+      <div className={`w-full h-full bg-neutral-900 flex items-center justify-center text-neutral-500 ${className}`} style={style}>
+        <span>No Image</span>
+      </div>
+    );
   }
 
-  return <Image src={src} alt={alt} width={width} height={height} className={className} fill={fill} style={style} {...rest} />;
+  return <Image src={src} alt={alt || "Image"} width={width} height={height} className={className} fill={fill} style={style} {...rest} />;
 };
 
 export default SafeImage;
