@@ -23,12 +23,13 @@ import React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import SyntheticHero from '@/components/layout/SyntheticHero';
 import SafeImage from '@/components/SafeImage';
+import type { SanityImageSource } from '@sanity/image-url';
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source) {
+function urlFor(source: SanityImageSource | null): string | null {
   if (!source) return null;
-  return builder.image(source);
+  return builder.image(source).url();
 }
 
 interface HomePageClientProps {
@@ -38,7 +39,7 @@ interface HomePageClientProps {
 }
 
 const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean, isPercent?: boolean }) => {
-  const getFormattedCount = (value) => {
+  const getFormattedCount = (value: number) => {
     if (isMillion) {
       return (value / 1000000).toFixed(1);
     } else if (isPercent) {
@@ -50,7 +51,6 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
 
   return <span>{getFormattedCount(to)}</span>;
 };
-
 
 const DonutChart = ({ value }: { value: number }) => {
   const radius = 80;
@@ -81,7 +81,7 @@ const DonutChart = ({ value }: { value: number }) => {
           r={radius}
           cx="100"
           cy="100"
-          transform="rotate(-90 100 100)"
+          style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%' }}
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">

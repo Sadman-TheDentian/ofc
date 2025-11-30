@@ -339,3 +339,5 @@ const SyntheticHero = ({
 };
 
 export default SyntheticHero;
+
+    
