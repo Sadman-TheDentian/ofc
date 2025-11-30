@@ -28,7 +28,7 @@ export default function ImageHero({ imageUrl, title, description }: ImageHeroPro
             scrollTrigger: {
                 trigger: sectionRef.current,
                 start: "top top",
-                end: "bottom center",
+                end: "bottom top",
                 scrub: true,
             },
         });
