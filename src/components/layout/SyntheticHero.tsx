@@ -125,30 +125,25 @@ const fragmentShader = `
 interface HeroProps {
 	title: string | ReactNode;
 	description: string;
-	badgeText?: string;
-	badgeLabel?: string;
 	ctaButtons?: Array<{ text: string; href?: string; primary?: boolean }>;
 	microDetails?: Array<string>;
 }
 
 const SyntheticHero = ({
-	title = "An experiment in light, motion, and the quiet chaos between.",
-	description = "Experience a new dimension of interaction — fluid, tactile, and alive. Designed for creators who see beauty in motion.",
-	badgeText,
-	badgeLabel,
+	title = "HACK THE THREAT",
+	description = "Offensive security to fortify your digital defenses.",
 	ctaButtons = [
-		{ text: "Explore the Canvas", href: "#explore", primary: true },
-		{ text: "Learn More", href: "#learn-more" },
+		{ text: "Schedule a Consultation", href: "/contact", primary: true },
+		{ text: "View Our Services", href: "/services" },
 	],
 	microDetails = [
-		"Immersive shader landscapes",
-		"Hand-tuned motion easing",
-		"Responsive, tactile feedback",
+		"High-Risk Vendor Recon",
+		"Assurance Services",
+		"Secure Web Development",
 	],
 }: HeroProps) => {
 	const sectionRef = useRef<HTMLElement | null>(null);
-	const badgeWrapperRef = useRef<HTMLDivElement | null>(null);
-	const headingRef = useRef<HTMLHeadingElement | null>(null);
+	const headingContainerRef = useRef<HTMLDivElement>(null);
 	const paragraphRef = useRef<HTMLParagraphElement | null>(null);
 	const ctaRef = useRef<HTMLDivElement | null>(null);
 	const microRef = useRef<HTMLUListElement | null>(null);
@@ -162,12 +157,23 @@ const SyntheticHero = ({
 
 	useGSAP(
 		() => {
-			if (typeof title !== 'string' || !headingRef.current) return;
+			const headingEl = headingContainerRef.current?.querySelector('h1');
+			if (!headingEl) return;
 
+			// Initially hide everything that will be animated
+			gsap.set(headingEl, { autoAlpha: 0 });
+			gsap.set(paragraphRef.current, { autoAlpha: 0, y: 8 });
+			gsap.set(ctaRef.current, { autoAlpha: 0, y: 8 });
+			const microItems = microRef.current ? Array.from(microRef.current.querySelectorAll("li")) : [];
+			if (microItems.length > 0) {
+				gsap.set(microItems, { autoAlpha: 0, y: 6 });
+			}
+
+			// Ensure fonts are loaded before starting animations to prevent layout shifts
 			document.fonts.ready.then(() => {
-				const split = new SplitText(headingRef.current!, {
+				const split = new SplitText(headingEl, {
 					type: "lines",
-					wordsClass: "hero-lines",
+					linesClass: "hero-lines",
 				});
 
 				gsap.set(split.lines, {
@@ -177,33 +183,11 @@ const SyntheticHero = ({
 					scale: 1.04,
 					transformOrigin: "50% 100%",
 				});
+				// Make the heading visible now that it's properly set up for animation
+				gsap.set(headingEl, { autoAlpha: 1 });
 
-				if (badgeWrapperRef.current) {
-					gsap.set(badgeWrapperRef.current, { autoAlpha: 0, y: -8 });
-				}
-				if (paragraphRef.current) {
-					gsap.set(paragraphRef.current, { autoAlpha: 0, y: 8 });
-				}
-				if (ctaRef.current) {
-					gsap.set(ctaRef.current, { autoAlpha: 0, y: 8 });
-				}
-
-				const microItems = microRef.current
-					? Array.from(microRef.current.querySelectorAll("li"))
-					: [];
-				if (microItems.length > 0) {
-					gsap.set(microItems, { autoAlpha: 0, y: 6 });
-				}
 
 				const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-				if (badgeWrapperRef.current && badgeText) {
-					tl.to(
-						badgeWrapperRef.current,
-						{ autoAlpha: 1, y: 0, duration: 0.5 },
-						0,
-					);
-				}
 
 				tl.to(
 					split.lines,
@@ -262,16 +246,9 @@ const SyntheticHero = ({
 			</div>
 
 			<div className="relative z-10 flex flex-col items-center text-center px-6">
-				{typeof title === 'string' ? (
-					<h1
-						ref={headingRef}
-						className="text-5xl md:text-7xl max-w-4xl font-light tracking-tight text-white mb-8"
-					>
-						{title}
-					</h1>
-				) : (
-					<div className="mb-10">{title}</div>
-				)}
+				<div ref={headingContainerRef} className="mb-10">
+					{title}
+				</div>
 
 				<p
 					ref={paragraphRef}
@@ -334,5 +311,3 @@ const SyntheticHero = ({
 };
 
 export default SyntheticHero;
-
-    
