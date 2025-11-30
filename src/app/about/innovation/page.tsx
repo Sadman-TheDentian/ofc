@@ -1,7 +1,7 @@
 
-import Image from "next/image";
 import Link from "next/link";
 import { Check } from "lucide-react";
+import ImageHero from "@/components/layout/ImageHero";
 
 const heroImage = "https://blogger.googleusercontent.com/img/a/AVvXsEgKyvpArELsyfOnQb0iNOF8rSx2neMBe-gD0S7zAsKHKDdp2GTkOBhtRsto8gf07eXLfFhIou6L_X1_-bHuodabFPNHPCcHfgTOrqeOx3BQ0cHZgODohBHz1qPoY1KV42fKBtS9qRu7xQyChHv4dn3uA2QdwtgrVIHSnEi43eSSPsXZlOks59jRJelRbHo=w635-h354";
 
@@ -34,27 +34,11 @@ const techPoints = [
 export default function InnovationPage() {
     return (
         <div className="bg-background text-foreground">
-             <section className="relative w-full py-20 md:py-32 lg:py-40 bg-background overflow-hidden">
-                <div className="absolute inset-0">
-                    <Image
-                        src={heroImage}
-                        alt="Innovation in action"
-                        fill
-                        className="object-cover w-full h-full"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-background/80" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                </div>
-                <div className="container relative z-10 text-center">
-                    <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl max-w-4xl mx-auto">
-                       Innovation: Always Evolving, Always Ahead
-                    </h1>
-                     <p className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground md:text-xl">
-                       The cyber battlefield never sleeps. Threat actors innovate every day — so we must innovate faster.
-                    </p>
-                </div>
-            </section>
+             <ImageHero
+                imageUrl={heroImage}
+                title="Innovation: Always Evolving, Always Ahead"
+                description="The cyber battlefield never sleeps. Threat actors innovate every day — so we must innovate faster."
+             />
             
             <main className="container max-w-4xl mx-auto py-16 px-4">
                 <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-headings:font-headline prose-headings:text-primary prose-a:text-primary prose-strong:text-foreground prose-ul:space-y-2">

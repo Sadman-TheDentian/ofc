@@ -1,7 +1,7 @@
 
-import Image from "next/image";
 import Link from "next/link";
 import { Check } from "lucide-react";
+import ImageHero from "@/components/layout/ImageHero";
 
 const heroImage = "https://blogger.googleusercontent.com/img/a/AVvXsEic3sHUvr_T2_6WSx-BUfO1t9T3BAAfhyiN8dWAsaEJSxP7_-c3w7RgMkF8Bbw4AYKTYrVd9HDQte7HvRjoOQKLPrlSvHOlhOK3hhLHaZQo2gGoi1eT6hznYtFfglkHqhlc3nPDRCGDNMDJhoQewbKrFoE9g5hRsKp8YPog5tabjXe1SDk-OciMupiea3M=w641-h358";
 
@@ -35,27 +35,11 @@ const resultPoints = [
 export default function ExpertisePage() {
     return (
         <div className="bg-background text-foreground">
-             <section className="relative w-full py-20 md:py-32 lg:py-40 bg-background overflow-hidden">
-                <div className="absolute inset-0">
-                    <Image
-                        src={heroImage}
-                        alt="Expertise in action"
-                        fill
-                        className="object-cover w-full h-full"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-background/80" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                </div>
-                <div className="container relative z-10 text-center">
-                    <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl max-w-4xl mx-auto">
-                        Expertise: The Power Behind Our Protection
-                    </h1>
-                     <p className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground md:text-xl">
-                        At DentiSystems, expertise is more than a qualification — it is the engine that drives our entire mission.
-                    </p>
-                </div>
-            </section>
+             <ImageHero
+                imageUrl={heroImage}
+                title="Expertise: The Power Behind Our Protection"
+                description="At DentiSystems, expertise is more than a qualification — it is the engine that drives our entire mission."
+             />
             
             <main className="container max-w-4xl mx-auto py-16 px-4">
                 <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-headings:font-headline prose-headings:text-primary prose-a:text-primary prose-strong:text-foreground prose-ul:space-y-2">
@@ -76,7 +60,7 @@ export default function ExpertisePage() {
                     <p>Every specialist has been tested in real-world cyber operations where precision, speed, and strategy determine success.</p>
 
                     <h3>Mastery of Modern Threats</h3>
-                    <p>Cybersecurity evolves constantly — and so does our expertise. We stay ahead through:</p>
+                    <p>We stay ahead through:</p>
                     <ul>
                          {innovationPoints.map(point => (
                              <li key={point} className="flex items-start">

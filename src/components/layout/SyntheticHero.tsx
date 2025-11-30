@@ -5,12 +5,9 @@ import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from 'next/link';
-
-gsap.registerPlugin(SplitText, useGSAP);
 
 interface ShaderPlaneProps {
 	vertexShader: string;
@@ -147,6 +144,7 @@ const SyntheticHero = ({
 	],
 }: HeroProps) => {
 	const sectionRef = useRef<HTMLElement | null>(null);
+    const contentRef = useRef<HTMLDivElement | null>(null);
 	const badgeWrapperRef = useRef<HTMLDivElement | null>(null);
 	const headingRef = useRef<HTMLHeadingElement | null>(null);
 	const paragraphRef = useRef<HTMLParagraphElement | null>(null);
@@ -162,7 +160,12 @@ const SyntheticHero = ({
 
 	useGSAP(
 		() => {
-			if (!headingRef.current) return;
+            if (typeof window === 'undefined') return;
+            const { SplitText } = require("gsap/SplitText");
+            const { ScrollTrigger } = require("gsap/ScrollTrigger");
+            gsap.registerPlugin(SplitText, ScrollTrigger);
+
+			if (!headingRef.current || !contentRef.current) return;
 
 			document.fonts.ready.then(() => {
 				const split = new SplitText(headingRef.current!, {
@@ -241,9 +244,21 @@ const SyntheticHero = ({
 						"-=0.25",
 					);
 				}
+
+                 gsap.to(contentRef.current, {
+                    opacity: 0,
+                    scale: 0.95,
+                    y: -50,
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top top",
+                        end: "bottom center",
+                        scrub: true,
+                    },
+                });
 			});
 		},
-		{ scope: sectionRef },
+		{ scope: contentRef },
 	);
 
 	return (
@@ -261,7 +276,7 @@ const SyntheticHero = ({
 				</Canvas>
 			</div>
 
-			<div className="relative z-10 flex flex-col items-center text-center px-6">
+			<div ref={contentRef} className="relative z-10 flex flex-col items-center text-center px-6">
 				<div ref={badgeWrapperRef}>
 					<Badge className="mb-6 bg-white/10 hover:bg-white/15 text-primary backdrop-blur-md border border-primary/20 uppercase tracking-wider font-medium flex items-center gap-2 px-4 py-1.5">
 						<span className="text-[10px] font-light tracking-[0.18em] text-primary/80">

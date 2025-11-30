@@ -1,7 +1,7 @@
 
-import Image from "next/image";
 import Link from "next/link";
 import { Check } from "lucide-react";
+import ImageHero from "@/components/layout/ImageHero";
 
 const heroImage = "https://blogger.googleusercontent.com/img/a/AVvXsEg9f_wEbICAyoTey7qzbh9tgOfpc0cQ_JSLxvHqgPG3qTA-Vzv9v_JAwgT-fS0ISQb7lpd0qLEXCEqj4jNQYDpNFgDhhTtviRBdIhcsPYuygiU98p9rzK9ax0rR8CCQPoe7xZ-AkB8zVe06pz7gVu5Q4hukRYqcEuw_uJzHdCfeEMzmHQyOjtnma3Ty-Oc=w631-h353";
 
@@ -22,27 +22,11 @@ const confidentialityPoints = [
 export default function IntegrityPage() {
     return (
         <div className="bg-background text-foreground">
-             <section className="relative w-full py-20 md:py-32 lg:py-40 bg-background overflow-hidden">
-                <div className="absolute inset-0">
-                    <Image
-                        src={heroImage}
-                        alt="Integrity in action"
-                        fill
-                        className="object-cover w-full h-full"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-background/80" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                </div>
-                <div className="container relative z-10 text-center">
-                    <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl max-w-4xl mx-auto">
-                        Integrity: Trust Built Into Every Line of Code
-                    </h1>
-                     <p className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground md:text-xl">
-                        Integrity is the heart of DentiSystems. In a world where cyber threats rise daily, trust is not optional — it is everything.
-                    </p>
-                </div>
-            </section>
+             <ImageHero
+                imageUrl={heroImage}
+                title="Integrity: Trust Built Into Every Line of Code"
+                description="Integrity is the heart of DentiSystems. In a world where cyber threats rise daily, trust is not optional — it is everything."
+             />
             
             <main className="container max-w-4xl mx-auto py-16 px-4">
                 <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-headings:font-headline prose-headings:text-primary prose-a:text-primary prose-strong:text-foreground prose-ul:space-y-2">
