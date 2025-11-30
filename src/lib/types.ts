@@ -1,13 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 import type { Image as SanityImage } from 'sanity';
 
-export type SanityImageSource = SanityImage | {
-    _type: 'image';
-    asset: {
-        _ref: string;
-        _type: 'reference';
-    };
-};
+export type SanityImageSource = SanityImage;
 
 export type Service = {
   id: number;

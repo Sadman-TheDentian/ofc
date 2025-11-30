@@ -21,12 +21,18 @@ const nextConfig = {
         pathname: '/**',
       },
       {
-        protocol: 'https' ,
+        protocol: 'https',
         hostname: 'images.unsplash.com',
         port: '',
         pathname: '/**',
-      }
+      },
     ],
+  },
+  experimental: {
+    // This is the solution to the build error.
+    // `framer-motion` is a dependency of `@sanity/ui` and is not compatible
+    // with Next.js's server components. This excludes it from the server build.
+    serverComponentsExternalPackages: ['framer-motion'],
   },
 };
 
