@@ -1,21 +1,23 @@
+
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import SafeImage from "@/components/SafeImage";
+import { client, urlFor } from "@/lib/sanity-client";
+import { groq } from "next-sanity";
+import { PortableText } from "@portabletext/react";
+import { SanityImage, WhitePaper } from "@/lib/types";
 
-async function getWhitePaper(slug: string) {
-    if (slug === 'example-white-paper') {
-        return {
-            title: "Anatomy of a Zero-Day Exploit",
-            publishedAt: new Date().toISOString(),
-            mainImage: "https://picsum.photos/seed/wp1/1200/800",
-            summary: [
-                { _type: 'block', style: 'normal', children: [{ _type: 'span', text: 'This is a sample white paper summary. Full content would be here.' }] }
-            ],
-            fileURL: "#"
-        };
+
+async function getWhitePaper(slug: string): Promise<WhitePaper | null> {
+    const query = groq`*[_type == "whitePaper" && slug.current == $slug][0]`;
+    const paper = await client.fetch(query, { slug });
+
+    if (paper && paper.fileURL) {
+        const fileAsset = await client.fetch(groq`*[_id == $ref][0]`, { ref: paper.fileURL.asset._ref });
+        paper.fileURL = fileAsset.url;
     }
-    return null;
+    return paper;
 }
 
 export default async function WhitePaperPage({ params }: { params: { slug: string } }) {
@@ -24,6 +26,8 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
     if (!paper) {
         notFound();
     }
+    
+    const imageUrl = paper.mainImage ? urlFor(paper.mainImage as SanityImage).url() : undefined;
 
     return (
         <div className="container py-12 md:py-20">
@@ -40,7 +44,7 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
 
                 <div className="relative h-96 w-full mb-12">
                     <SafeImage 
-                        src={paper.mainImage}
+                        src={imageUrl}
                         alt={paper.title}
                         fill
                         className="object-cover rounded-xl shadow-lg"
@@ -48,7 +52,7 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
                 </div>
                 
                 <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground mb-12">
-                    {paper.summary && <p>{paper.summary[0].children[0].text}</p>}
+                    {paper.summary && <PortableText value={paper.summary} />}
                 </div>
 
                 {paper.fileURL && (
@@ -68,5 +72,6 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
 }
 
 export async function generateStaticParams() {
-  return [{ slug: 'example-white-paper' }];
+  const papers = await client.fetch<WhitePaper[]>(groq`*[_type == "whitePaper"]{"slug": slug.current}`);
+  return papers.map(paper => ({ slug: paper.slug.current }));
 }

@@ -1,18 +1,25 @@
+
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { groq } from "next-sanity";
+import { client, urlFor } from "@/lib/sanity-client";
+import { SanityImage } from "@/lib/types";
 
-const staticPartners = [
-    {
-        _id: "1",
-        name: "Quantum Inc",
-        website: "#",
-        logo: "https://placeholder.com/140x40" // Placeholder
-    }
-];
+type Partner = {
+    _id: string;
+    name: string;
+    website?: string;
+    logo: SanityImage;
+}
+
+async function getPartners(): Promise<Partner[]> {
+    const query = groq`*[_type == "partner"]`;
+    return await client.fetch(query);
+}
 
 export default async function PartnersPage() {
-  const partners = staticPartners;
+  const partners = await getPartners();
   
   return (
     <div className="container py-12 md:py-20">
@@ -31,7 +38,7 @@ export default async function PartnersPage() {
                  <Link key={partner._id} href={partner.website || '#'} target="_blank" rel="noopener noreferrer" className="group">
                   <Card className="h-48 flex items-center justify-center p-6 border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
                      <Image
-                        src={partner.logo}
+                        src={urlFor(partner.logo)?.url() || ''}
                         alt={partner.name}
                         width={200}
                         height={60}

@@ -1,21 +1,22 @@
+
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import SafeImage from "@/components/SafeImage";
+import { client, urlFor } from "@/lib/sanity-client";
+import { groq } from "next-sanity";
+import { PortableText } from "@portabletext/react";
+import { SanityImage, ThreatReport } from "@/lib/types";
 
-async function getReport(slug: string) {
-    if (slug === 'example-report') {
-        return {
-            title: "Example Threat Report",
-            publishedAt: new Date().toISOString(),
-            mainImage: "https://picsum.photos/seed/report1/1200/800",
-            summary: [
-                { _type: 'block', style: 'normal', children: [{ _type: 'span', text: 'This is a summary of the example threat report. Full content would be here.' }] }
-            ],
-            fileURL: "#" // Placeholder link
-        };
+async function getReport(slug: string): Promise<ThreatReport | null> {
+    const query = groq`*[_type == "threatReport" && slug.current == $slug][0]`;
+    const report = await client.fetch(query, { slug });
+    if (report && report.fileURL) {
+        // The fileURL is an object with an asset ref, we need to build the actual URL
+        const fileAsset = await client.fetch(groq`*[_id == $ref][0]`, { ref: report.fileURL.asset._ref });
+        report.fileURL = fileAsset.url;
     }
-    return null;
+    return report;
 }
 
 export default async function ThreatReportPage({ params }: { params: { slug: string } }) {
@@ -24,6 +25,9 @@ export default async function ThreatReportPage({ params }: { params: { slug: str
     if (!report) {
         notFound();
     }
+    
+    const imageUrl = report.mainImage ? urlFor(report.mainImage as SanityImage).url() : undefined;
+
 
     return (
         <div className="container py-12 md:py-20">
@@ -40,7 +44,7 @@ export default async function ThreatReportPage({ params }: { params: { slug: str
 
                 <div className="relative h-96 w-full mb-12">
                     <SafeImage 
-                        src={report.mainImage}
+                        src={imageUrl}
                         alt={report.title}
                         fill
                         className="object-cover rounded-xl shadow-lg"
@@ -48,7 +52,7 @@ export default async function ThreatReportPage({ params }: { params: { slug: str
                 </div>
                 
                 <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground mb-12">
-                    {report.summary && <p>{report.summary[0].children[0].text}</p>}
+                    {report.summary && <PortableText value={report.summary} />}
                 </div>
 
                 {report.fileURL && (
@@ -68,5 +72,6 @@ export default async function ThreatReportPage({ params }: { params: { slug: str
 }
 
 export async function generateStaticParams() {
-  return [{ slug: 'example-report' }];
+    const reports = await client.fetch<ThreatReport[]>(groq`*[_type == "threatReport"]{"slug": slug.current}`);
+    return reports.map(report => ({ slug: report.slug.current }));
 }

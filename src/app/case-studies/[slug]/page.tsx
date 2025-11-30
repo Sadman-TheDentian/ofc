@@ -4,22 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import SafeImage from "@/components/SafeImage";
 import { CaseStudy, SanityImage } from "@/lib/types";
-import { urlFor } from "@/lib/sanity-client";
+import { client, urlFor } from "@/lib/sanity-client";
+import { groq } from "next-sanity";
+import { PortableText } from "@portabletext/react";
+
 
 async function getCaseStudy(slug: string): Promise<CaseStudy | null> {
-    if (slug === 'example-case-study') {
-        return {
-            _id: '1',
-            slug: { current: 'example-case-study' },
-            title: "Example Case Study",
-            summary: "This is an example case study summary.",
-            industry: "Technology",
-            outcome: "Achieved a 99% reduction in security incidents.",
-            mainImage: "https://picsum.photos/seed/cs1/1200/800",
-            content: [{ _type: 'block', children: [{ _type: 'span', text: 'This is sample content for the case study.' }] }],
-        };
-    }
-    return null;
+    const query = groq`*[_type == "caseStudy" && slug.current == $slug][0]`;
+    return await client.fetch(query, { slug });
 }
 
 export default async function CaseStudyPage({ params }: { params: { slug: string } }) {
@@ -29,7 +21,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
         notFound();
     }
 
-    const imageUrl = typeof study.mainImage === 'string' ? study.mainImage : study.mainImage ? urlFor(study.mainImage as SanityImage)?.url() : undefined;
+    const imageUrl = study.mainImage ? urlFor(study.mainImage as SanityImage)?.url() : undefined;
 
     return (
         <div className="container py-12 md:py-20">
@@ -53,7 +45,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
                 <div className="grid md:grid-cols-3 gap-8">
                     <div className="md:col-span-2">
                         <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
-                            {study.content && study.content[0] && study.content[0].children && study.content[0].children[0] && <p>{study.content[0].children[0].text}</p>}
+                            {study.content && <PortableText value={study.content} />}
                         </div>
                     </div>
                      <aside>
@@ -74,5 +66,6 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
 }
 
 export async function generateStaticParams() {
-    return [{ slug: 'example-case-study' }];
+    const studies = await client.fetch<CaseStudy[]>(groq`*[_type == "caseStudy"]{"slug": slug.current}`);
+    return studies.map(study => ({ slug: study.slug.current }));
 }

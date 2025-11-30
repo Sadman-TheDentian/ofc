@@ -3,31 +3,29 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from "@/components/SafeImage";
-import { SanityImage } from "@/lib/types";
-import { urlFor } from "@/lib/sanity-client";
+import { SanityImage, NewsArticle } from "@/lib/types";
+import { client, urlFor } from "@/lib/sanity-client";
+import { groq } from "next-sanity";
 
-const staticNewsItems: {
-    _id: string;
-    title: string;
-    slug: { current: string; };
-    publishedAt: string;
-    mainImage: string;
-    excerpt: string;
-    author: { name: string; image: SanityImage | null | string; };
-}[] = [
-    {
-        _id: '1',
-        title: "DentiSystems Launches New AI-Powered Threat Intelligence Platform",
-        slug: { current: 'dentisystems-launches-ai-platform' },
-        publishedAt: new Date().toISOString(),
-        mainImage: "https://picsum.photos/seed/news1/800/450",
-        excerpt: "Our new platform leverages machine learning to predict and neutralize threats before they impact your business.",
-        author: { name: 'DentiSystems Press', image: null }
-    }
-];
+
+async function getNews(): Promise<NewsArticle[]> {
+    const query = groq`*[_type == "news"] | order(publishedAt desc) {
+        _id,
+        title,
+        slug,
+        publishedAt,
+        mainImage,
+        excerpt,
+        author->{
+            name,
+            image
+        }
+    }`;
+    return await client.fetch(query);
+}
 
 export default async function NewsPage() {
-  const newsItems = staticNewsItems;
+  const newsItems = await getNews();
 
   return (
     <div className="container py-12 md:py-20">
@@ -42,8 +40,8 @@ export default async function NewsPage() {
 
       <div className="max-w-3xl mx-auto grid gap-12">
         {newsItems.map((item) => {
-          const itemImageUrl = item.mainImage;
-          const authorImageUrl = typeof item.author?.image === 'string' ? item.author.image : item.author?.image ? urlFor(item.author.image as SanityImage)?.url() : undefined;
+          const itemImageUrl = item.mainImage ? urlFor(item.mainImage as SanityImage)?.url() : undefined;
+          const authorImageUrl = item.author?.image ? urlFor(item.author.image as SanityImage)?.url() : undefined;
 
           return (
             <Link href={`/news/${item.slug.current}`} key={item._id} className="group block">

@@ -1,20 +1,25 @@
+
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SafeImage from "@/components/SafeImage";
+import { client, urlFor } from "@/lib/sanity-client";
+import { groq } from "next-sanity";
+import { ThreatReport, SanityImage } from "@/lib/types";
 
-const staticReports = [
-    {
-        _id: "1",
-        title: "The Rise of AI-Powered Phishing",
-        slug: { current: "ai-phishing" },
-        mainImage: "https://images.unsplash.com/photo-1677756119517-756a188d2d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMEFJJTIwbmV0d29ya3xlbnwwfHx8fDE3NTg2MDM4MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
-        fileURL: "#"
-    }
-];
+async function getReports(): Promise<ThreatReport[]> {
+    const query = groq`*[_type == "threatReport"] | order(publishedAt desc) {
+        _id,
+        title,
+        slug,
+        mainImage,
+    }`;
+    return await client.fetch(query);
+}
+
 
 export default async function ThreatReportsPage() {
-  const reports = staticReports;
+  const reports = await getReports();
 
   return (
     <div className="container py-12 md:py-20">
@@ -30,7 +35,7 @@ export default async function ThreatReportsPage() {
        {reports && reports.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {reports.map(report => {
-                 const imageUrl = report.mainImage;
+                 const imageUrl = report.mainImage ? urlFor(report.mainImage as SanityImage).url() : undefined;
                 return (
                  <Link key={report._id} href={`/threat-reports/${report.slug.current}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">

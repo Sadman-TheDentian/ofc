@@ -1,5 +1,8 @@
+
 import { MetadataRoute } from 'next'
 import { services } from '@/lib/data'
+import { client } from './lib/sanity-client';
+import { groq } from 'next-sanity';
 
 const staticRoutes: MetadataRoute.Sitemap = [
     { url: 'https://www.denti.systems', lastModified: new Date(), changeFrequency: 'monthly', priority: 1 },
@@ -17,16 +20,31 @@ const staticRoutes: MetadataRoute.Sitemap = [
 ]
  
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    const baseUrl = 'https://www.denti.systems';
 
-    // In a real app, slugs would be fetched from a CMS
-    const dynamicUrls: MetadataRoute.Sitemap = [
-      { url: 'https://www.denti.systems/blog/example-post', lastModified: new Date(), priority: 0.6 },
-      { url: 'https://www.denti.systems/case-studies/example-case-study', lastModified: new Date(), priority: 0.6 },
-      { url: 'https://www.denti.systems/news/example-news', lastModified: new Date(), priority: 0.6 },
-    ];
+    const postUrls = await client.fetch(groq`*[_type == "post"]{"slug": slug.current, "lastModified": _updatedAt}`).then((res) => (
+        res.map(({slug, lastModified}: {slug: string, lastModified: Date}) => ({
+            url: `${baseUrl}/blog/${slug}`,
+            lastModified: lastModified,
+        }))
+    ));
+    
+    const caseStudyUrls = await client.fetch(groq`*[_type == "caseStudy"]{"slug": slug.current, "lastModified": _updatedAt}`).then((res) => (
+        res.map(({slug, lastModified}: {slug: string, lastModified: Date}) => ({
+            url: `${baseUrl}/case-studies/${slug}`,
+            lastModified: lastModified,
+        }))
+    ));
+    
+    const newsUrls = await client.fetch(groq`*[_type == "news"]{"slug": slug.current, "lastModified": _updatedAt}`).then((res) => (
+        res.map(({slug, lastModified}: {slug: string, lastModified: Date}) => ({
+            url: `${baseUrl}/news/${slug}`,
+            lastModified: lastModified,
+        }))
+    ));
 
     const serviceUrls = services.map(service => ({
-        url: `https://www.denti.systems/services/${service.slug}`,
+        url: `${baseUrl}/services/${service.slug}`,
         lastModified: new Date(),
         changeFrequency: 'monthly' as 'monthly',
         priority: 0.7
@@ -34,7 +52,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticRoutes,
-    ...dynamicUrls,
+    ...postUrls,
+    ...caseStudyUrls,
+    ...newsUrls,
     ...serviceUrls,
   ]
 }

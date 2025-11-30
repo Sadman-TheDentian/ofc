@@ -1,4 +1,8 @@
 
+import { client } from "@/lib/sanity-client";
+import { groq } from "next-sanity";
+import { NewsArticle } from "@/lib/types";
+
 const PUBLISHER_NAME = 'DentiSystems';
 const BASE_URL = 'https://www.denti.systems';
 
@@ -12,14 +16,12 @@ function escapeXml(str: string): string {
 }
 
 export async function GET() {
-  // In a real app, this would fetch from a CMS.
-  const newsItems = [
-    {
-      slug: 'dentisystems-launches-ai-platform',
-      title: 'DentiSystems Launches New AI-Powered Threat Intelligence Platform',
-      publishedAt: new Date().toISOString(),
-    }
-  ];
+  const query = groq`*[_type == "news"]{
+    "slug": slug.current,
+    title,
+    publishedAt
+  }`;
+  const newsItems = await client.fetch<NewsArticle[]>(query);
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"

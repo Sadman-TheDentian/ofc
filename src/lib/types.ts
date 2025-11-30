@@ -1,5 +1,7 @@
+
 import type { LucideIcon } from 'lucide-react';
 import type { SVGProps } from 'react';
+import { PortableTextBlock } from 'sanity';
 
 // Define a base type for Sanity images
 export interface SanityImage {
@@ -72,8 +74,8 @@ export type CaseStudy = {
   summary: string;
   industry: string;
   outcome: string;
-  mainImage: SanityImage | string; 
-  content: any;
+  mainImage?: SanityImage | string; 
+  content: PortableTextBlock[];
 };
 
 export type Author = {
@@ -86,11 +88,43 @@ export type BlogPost = {
     slug: { current: string };
     title: string;
     excerpt: string;
-    mainImage: SanityImage | string;
+    mainImage?: SanityImage | string;
     publishedAt: string;
-    author: Author;
-    body: any;
+    author?: Author;
+    body: PortableTextBlock[];
 };
+
+export type NewsArticle = {
+    _id: string;
+    _updatedAt: string;
+    slug: { current: string };
+    title: string;
+    excerpt: string;
+    mainImage?: SanityImage | string;
+    publishedAt: string;
+    author?: Author;
+    body: PortableTextBlock[];
+}
+
+export type ThreatReport = {
+    _id: string;
+    slug: { current: string };
+    title: string;
+    publishedAt: string;
+    mainImage?: SanityImage | string;
+    summary: PortableTextBlock[];
+    fileURL?: any;
+}
+
+export type WhitePaper = {
+    _id: string;
+    slug: { current: string };
+    title: string;
+    publishedAt: string;
+    mainImage?: SanityImage | string;
+    summary: PortableTextBlock[];
+    fileURL?: any;
+}
 
 export type Partner = {
   id: string;

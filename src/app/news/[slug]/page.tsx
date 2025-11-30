@@ -1,32 +1,46 @@
+
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StructuredData from "@/components/StructuredData";
 import SafeImage from "@/components/SafeImage";
-import { urlFor } from "@/lib/sanity-client";
-import { SanityImage } from "@/lib/types";
+import { client, urlFor } from "@/lib/sanity-client";
+import { SanityImage, NewsArticle } from "@/lib/types";
+import { PortableText } from "@portabletext/react";
+import { groq } from "next-sanity";
+import { notFound } from "next/navigation";
 
-// In a real app, you would fetch post data based on the slug.
-const post = {
-    title: "Example News Article",
-    author: { name: "DentiSystems News", image: null as SanityImage | null | string },
-    publishedAt: new Date().toISOString(),
-    _updatedAt: new Date().toISOString(),
-    mainImage: "https://picsum.photos/seed/news1/800/450",
-    slug: { current: 'example-news' },
-    excerpt: "This is a sample news article. In a production environment, this content would be fetched dynamically from a CMS.",
-    body: [
-      { _type: 'block', style: 'normal', children: [{ _type: 'span', text: 'This is sample content for the news article.' }] }
-    ]
-  };
+
+const getNewsArticle = async (slug: string): Promise<NewsArticle | null> => {
+    const query = groq`*[_type == "news" && slug.current == $slug][0]{
+        _id,
+        _updatedAt,
+        title,
+        slug,
+        publishedAt,
+        mainImage,
+        excerpt,
+        body,
+        author->{
+            name,
+            image
+        }
+    }`;
+    return await client.fetch(query, { slug });
+};
 
 export default async function NewsPostPage({
   params,
 }: {
   params: { slug: string };
 }) {
+  const post = await getNewsArticle(params.slug);
 
-  const postImageUrl = post.mainImage;
-  const authorImageUrl = typeof post.author?.image === 'string' ? post.author.image : post.author?.image ? urlFor(post.author.image as SanityImage)?.url() : undefined;
+  if (!post) {
+      notFound();
+  }
+
+  const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
+  const authorImageUrl = post.author?.image ? urlFor(post.author.image as SanityImage)?.url() : undefined;
 
 
   const jsonLd = {
@@ -92,7 +106,7 @@ export default async function NewsPostPage({
           </div>
           
           <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
-            {post.body && post.body[0] && post.body[0].children && post.body[0].children[0] && <p>{post.body[0].children[0].text}</p>}
+            {post.body && <PortableText value={post.body} />}
           </div>
         </article>
       </main>
@@ -101,5 +115,6 @@ export default async function NewsPostPage({
 }
 
 export async function generateStaticParams() {
-  return [{ slug: 'example-news' }];
+  const news = await client.fetch<NewsArticle[]>(groq`*[_type == "news"]{"slug": slug.current}`);
+  return news.map(item => ({ slug: item.slug.current }));
 }

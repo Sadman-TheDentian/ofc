@@ -1,21 +1,25 @@
+
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SafeImage from "@/components/SafeImage";
+import { client, urlFor } from "@/lib/sanity-client";
+import { groq } from "next-sanity";
+import { WhitePaper, SanityImage } from "@/lib/types";
 
-const staticPapers = [
-    {
-        _id: "1",
-        title: "Anatomy of a Zero-Day Exploit",
-        slug: { current: 'zero-day-exploit' },
-        mainImage: "https://picsum.photos/seed/wp1/600/400",
-        fileURL: "#"
-    }
-];
+async function getWhitePapers(): Promise<WhitePaper[]> {
+    const query = groq`*[_type == "whitePaper"] | order(publishedAt desc) {
+        _id,
+        title,
+        slug,
+        mainImage
+    }`;
+    return await client.fetch(query);
+}
 
 
 export default async function WhitePapersPage() {
-  const papers = staticPapers;
+  const papers = await getWhitePapers();
 
   return (
     <div className="container py-12 md:py-20">
@@ -31,7 +35,7 @@ export default async function WhitePapersPage() {
        {papers && papers.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {papers.map(paper => {
-                 const imageUrl = paper.mainImage;
+                 const imageUrl = paper.mainImage ? urlFor(paper.mainImage as SanityImage).url() : undefined;
                 return (
                  <Link key={paper._id} href={`/white-papers/${paper.slug.current}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
