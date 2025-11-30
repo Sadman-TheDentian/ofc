@@ -20,6 +20,7 @@ import SafeImage from '@/components/SafeImage';
 import { partners } from '@/lib/partners';
 import SyntheticHero from '@/components/layout/SyntheticHero';
 import AnimatedSection from '@/components/layout/AnimatedSection';
+import AnimatedHero from '@/components/layout/AnimatedHero';
 
 const stats = [
   {
@@ -43,6 +44,7 @@ const stats = [
 export default function HomePageClient(): JSX.Element {
   return (
     <div className="flex flex-col min-h-screen">
+      <AnimatedHero>
        <SyntheticHero
 				title="REDEFINE YOUR DEFENSE"
 				description="Offensive security to fortify your digital defenses."
@@ -58,6 +60,7 @@ export default function HomePageClient(): JSX.Element {
 					"Secure Web Development",
 				]}
 			/>
+      </AnimatedHero>
 
       <AnimatedSection id="services" className="py-20 md:py-32 bg-transparent">
         <div className="container px-4 md:px-6">
