@@ -33,10 +33,10 @@ export default async function PostPage({
 }) {
   const post = await client.fetch<SanityDocument & { author?: Author }>(POST_QUERY, params, options);
   const postImageUrl = post.mainImage
-    ? urlFor(post.mainImage)?.width(800).height(450).url()
+    ? urlFor(post.mainImage)?.width(800).height(450).url() ?? null
     : null;
     
-  const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.width(40).height(40).url() : null;
+  const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.width(40).height(40).url() ?? null : null;
 
   return (
     <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-8">

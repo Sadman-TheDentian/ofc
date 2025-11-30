@@ -37,34 +37,23 @@ interface HomePageClientProps {
 }
 
 const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean, isPercent?: boolean }) => {
-  const getFormattedCount = (value: number) => {
-    if (isMillion) {
-      return (value / 1000000).toFixed(1);
-    } else if (isPercent) {
-      return value.toFixed(1);
-    } else {
-      return Math.floor(value).toLocaleString();
-    }
-  };
+    const getFormattedCount = (value: number) => {
+        if (isMillion) {
+            return (value / 1000000).toFixed(1);
+        } else if (isPercent) {
+            return value.toFixed(1);
+        } else {
+            return Math.floor(value).toLocaleString();
+        }
+    };
 
-  return <span>{getFormattedCount(to)}</span>;
+    return <span>{getFormattedCount(to)}</span>;
 };
 
-
 const DonutChart = ({ value }: { value: number }) => {
-  const radius = 80;
-  const circumference = 2 * Math.PI * radius;
-  // Initialize offset directly to avoid hydration mismatch
-  const [offset, setOffset] = useState(circumference - (value / 100) * circumference);
-
-  useEffect(() => {
-    // This can be used for animations on the client if needed in the future,
-    // but the initial state is now consistent between server and client.
-    const newOffset = circumference - (value / 100) * circumference;
-    if (offset !== newOffset) {
-        setOffset(newOffset);
-    }
-  }, [value, circumference, offset]);
+    const radius = 80;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (value / 100) * circumference;
 
     return (
         <div className="relative h-48 w-48 mx-auto">
@@ -93,8 +82,8 @@ const DonutChart = ({ value }: { value: number }) => {
                 />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-                 <h3 className="text-4xl font-bold font-headline text-primary">
-                    <Counter to={value} isPercent />%
+                <h3 className="text-4xl font-bold font-headline text-primary">
+                    {value.toFixed(1)}%
                 </h3>
             </div>
         </div>
@@ -291,7 +280,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                         className="w-full"
                       >
                          <CarouselContent>
-                          {blogPosts.slice(0,3).map(post => (
+                          {(blogPosts || []).slice(0,3).map(post => (
                             <CarouselItem key={post._id}>
                                 <Link href={`/blog/${post.slug.current}`} className="group block">
                                     <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">

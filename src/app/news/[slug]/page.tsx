@@ -34,10 +34,10 @@ export default async function NewsPostPage({
 }) {
   const post = await client.fetch<SanityDocument & { author?: Author, excerpt?: string }>(NEWS_POST_QUERY, params, options);
   const postImageUrl = post.mainImage
-    ? urlFor(post.mainImage)?.width(800).height(450).url()
+    ? urlFor(post.mainImage)?.width(800).height(450).url() ?? null
     : null;
     
-  const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.width(40).height(40).url() : null;
+  const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.width(40).height(40).url() ?? null : null;
 
   // Structured Data for Google News
   const jsonLd = {

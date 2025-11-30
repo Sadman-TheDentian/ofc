@@ -50,9 +50,9 @@ export default async function NewsPage() {
       <div className="max-w-3xl mx-auto grid gap-12">
         {newsItems.map((item) => {
           const itemImageUrl = item.mainImage
-            ? urlFor(item.mainImage)?.width(800).height(450).url()
+            ? urlFor(item.mainImage)?.width(800).height(450).url() ?? null
             : null;
-          const authorImageUrl = item.author?.image ? urlFor(item.author.image)?.width(40).height(40).url() : null;
+          const authorImageUrl = item.author?.image ? urlFor(item.author.image)?.width(40).height(40).url() ?? null : null;
 
           return (
             <Link href={`/news/${item.slug.current}`} key={item._id} className="group block">
