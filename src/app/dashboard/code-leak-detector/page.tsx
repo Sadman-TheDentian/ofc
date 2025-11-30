@@ -1,180 +1,73 @@
-
-'use client';
-
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2, ShieldAlert, ShieldCheck, KeyRound } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { CodeLeakDetectorInputSchema, type CodeLeakDetectorInput, type CodeLeakDetectorOutput } from '@/ai/flows/code-leak-detector';
-import { analyzeCodeForLeaks } from '@/app/tools/code-leak-detector/actions';
-import { useAuth } from '@/lib/auth';
-import Link from 'next/link';
-
-export default function CodeLeakDetectorPage() {
-  const [result, setResult] = useState<CodeLeakDetectorOutput | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const { user, loading: authLoading } = useAuth();
-
-  const form = useForm<CodeLeakDetectorInput>({
-    resolver: zodResolver(CodeLeakDetectorInputSchema),
-    defaultValues: {
-      code: `// Example vulnerable code
-const API_KEY = "da_test_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6";
-const dbPassword = "MySuperSecretPassword123!";
-
-function connectToDatabase() {
-  const user = "admin";
-  const password = process.env.DB_PASSWORD || dbPassword;
-  // ... connection logic
-}`,
-    },
-  });
-
-  async function onSubmit(values: CodeLeakDetectorInput) {
-    setIsLoading(true);
-    setResult(null);
-    const analysisResult = await analyzeCodeForLeaks(values);
-    setResult(analysisResult);
-    setIsLoading(false);
+{
+  "name": "nextn",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.1",
+    "@hookform/resolvers": "3.8.0",
+    "@radix-ui/react-accordion": "^1.2.0",
+    "@radix-ui/react-alert-dialog": "^1.1.1",
+    "@radix-ui/react-avatar": "^1.1.0",
+    "@radix-ui/react-checkbox": "^1.1.1",
+    "@radix-ui/react-collapsible": "^1.1.0",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-dropdown-menu": "^2.1.1",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-menubar": "^1.1.1",
+    "@radix-ui/react-navigation-menu": "^1.2.0",
+    "@radix-ui/react-popover": "^1.1.1",
+    "@radix-ui/react-progress": "^1.1.0",
+    "@radix-ui/react-radio-group": "^1.2.0",
+    "@radix-ui/react-scroll-area": "^1.1.0",
+    "@radix-ui/react-select": "^2.1.1",
+    "@radix-ui/react-separator": "^1.1.0",
+    "@radix-ui/react-slider": "^1.2.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-switch": "^1.1.0",
+    "@radix-ui/react-tabs": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.1",
+    "@radix-ui/react-tooltip": "^1.1.2",
+    "@react-three/fiber": "^8.16.8",
+    "@sanity/image-url": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "embla-carousel-autoplay": "^8.2.0",
+    "embla-carousel-react": "^8.2.0",
+    "firebase": "^10.12.4",
+    "gsap": "^3.12.5",
+    "lucide-react": "^0.417.0",
+    "next": "14.2.5",
+    "next-sanity": "^9.4.2",
+    "react": "^18.3.1",
+    "react-day-picker": "^8.10.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "7.51.5",
+    "react-intersection-observer": "^9.13.0",
+    "recharts": "^2.12.7",
+    "sanity": "^3.50.2",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.166.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/node": "^20",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/three": "^0.166.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "overrides": {
+    "immer": "^10.1.1"
   }
-
-  if (authLoading) {
-    return (
-        <div className="container py-12 md:py-20 flex items-center justify-center">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-    )
-  }
-
-  if (!user) {
-    return (
-        <div className="container py-12 md:py-20">
-            <div className="max-w-3xl mx-auto text-center space-y-6 bg-secondary/30 p-8 rounded-xl border border-border">
-                <KeyRound className="h-12 w-12 text-primary mx-auto" />
-                <h1 className="font-headline text-2xl font-bold tracking-tighter sm:text-3xl">
-                    Access Denied
-                </h1>
-                <p className="text-xl text-muted-foreground">
-                    You must be logged in to use the AI Code Leak Detector. This tool is available to all registered DentiSystems users.
-                </p>
-                <div className="flex gap-4 justify-center">
-                    <Button asChild size="lg">
-                        <Link href="/auth">Login</Link>
-                    </Button>
-                </div>
-            </div>
-        </div>
-    )
-  }
-
-  return (
-    <div className="container py-12 md:py-20">
-      <div className="max-w-3xl mx-auto text-center space-y-4 mb-12">
-        <div className="inline-block p-4 bg-secondary rounded-xl">
-          <KeyRound className="h-10 w-10 text-primary" />
-        </div>
-        <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-          AI Code Leak Detector
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          Paste a code snippet below to have our AI agent analyze it for hardcoded secrets like API keys and passwords.
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-        <div className="md:col-span-2 lg:col-span-1">
-            <Card className="md:col-span-1 bg-gradient-to-br from-card to-card/80 border-border/50">
-            <CardHeader>
-                <CardTitle>Code Input</CardTitle>
-                <CardDescription>Enter the code you want to analyze for leaks.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <FormField
-                    control={form.control}
-                    name="code"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel className="sr-only">Code Snippet</FormLabel>
-                        <FormControl>
-                            <Textarea
-                            placeholder="Paste your code here..."
-                            className="min-h-[300px] font-mono text-xs"
-                            {...field}
-                            />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                    <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-                    {isLoading ? (
-                        <>
-                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                        Scanning for Leaks...
-                        </>
-                    ) : (
-                        "Scan Code"
-                    )}
-                    </Button>
-                </form>
-                </Form>
-            </CardContent>
-            </Card>
-        </div>
-        <div className="md:col-span-2 lg:col-span-1">
-            <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
-            <CardHeader>
-                <CardTitle>Analysis Results</CardTitle>
-                <CardDescription>Secrets identified by the AI will appear here.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                {isLoading && (
-                <div className="flex flex-col items-center justify-center text-center text-muted-foreground p-8">
-                    <Loader2 className="h-8 w-8 animate-spin mb-4 text-primary" />
-                    <p className="font-semibold">AI agent is scanning the code for secrets...</p>
-                </div>
-                )}
-                {result && (
-                <div>
-                    {result.leaks.length === 0 ? (
-                    <Alert>
-                        <ShieldCheck className="h-4 w-4" />
-                        <AlertTitle className="text-primary">No Secrets Found</AlertTitle>
-                        <AlertDescription>
-                        The AI agent did not find any hardcoded secrets in the provided code snippet.
-                        </AlertDescription>
-                    </Alert>
-                    ) : (
-                    <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
-                        {result.leaks.map((leak, index) => (
-                        <Alert key={index} variant={leak.type === 'Analysis Failed' ? "destructive" : "default"}>
-                            <ShieldAlert className="h-4 w-4" />
-                            <AlertTitle>{leak.type} Detected (Line: {leak.line})</AlertTitle>
-                            <AlertDescription>
-                                <span className="font-mono bg-secondary px-2 py-1 rounded text-destructive/80 text-xs">{leak.secret}</span>
-                            </AlertDescription>
-                        </Alert>
-                        ))}
-                    </div>
-                    )}
-                </div>
-                )}
-                {!isLoading && !result && (
-                <div className="text-center text-muted-foreground p-8">
-                    <p>Results will be displayed here after analysis.</p>
-                </div>
-                )}
-            </CardContent>
-            </Card>
-        </div>
-      </div>
-    </div>
-  );
 }

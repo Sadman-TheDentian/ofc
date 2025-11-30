@@ -1,52 +1,73 @@
-
-'use server';
-/**
- * @fileOverview A Genkit flow for creating a Coinbase Commerce charge.
- */
-
-import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
-
-const CreateChargeInputSchema = z.object({
-  userId: z.string().describe('The internal user ID of the customer.'),
-  email: z.string().email().describe('The email address of the customer.'),
-  clientOrigin: z.string().url().describe('The origin URL of the client making the request.'),
-});
-export type CreateChargeInput = z.infer<typeof CreateChargeInputSchema>;
-
-const CreateChargeOutputSchema = z.object({
-  charge_code: z.string().describe('The code for the newly created charge.'),
-  hosted_url: z.string().url().describe('The URL where the user can complete the payment.'),
-});
-export type CreateChargeOutput = z.infer<typeof CreateChargeOutputSchema>;
-
-export async function createCoinbaseCharge(input: CreateChargeInput): Promise<CreateChargeOutput> {
-  return createCoinbaseChargeFlow(input);
-}
-
-const createCoinbaseChargeFlow = ai.defineFlow(
-  {
-    name: 'createCoinbaseChargeFlow',
-    inputSchema: CreateChargeInputSchema,
-    outputSchema: CreateChargeOutputSchema,
+{
+  "name": "nextn",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
   },
-  async (input) => {
-    // In a real application, you would use an API key stored securely.
-    // For this demonstration, we are mocking the API response.
-    console.log('Simulating Coinbase Commerce charge creation for:', input.email);
-    
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network delay
-
-    // This is a mock response. In a real application, you would make a POST request
-    // to `https://api.commerce.coinbase.com/charges` with the appropriate payload.
-    const mockChargeCode = `MOCK_${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
-    
-    // Construct the success URL using the client's origin to ensure it works in any environment.
-    const mockHostedUrl = `${input.clientOrigin}/dashboard/payment-success?code=${mockChargeCode}`;
-
-    return {
-      charge_code: mockChargeCode,
-      hosted_url: mockHostedUrl,
-    };
+  "dependencies": {
+    "@gsap/react": "^2.1.1",
+    "@hookform/resolvers": "3.8.0",
+    "@radix-ui/react-accordion": "^1.2.0",
+    "@radix-ui/react-alert-dialog": "^1.1.1",
+    "@radix-ui/react-avatar": "^1.1.0",
+    "@radix-ui/react-checkbox": "^1.1.1",
+    "@radix-ui/react-collapsible": "^1.1.0",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-dropdown-menu": "^2.1.1",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-menubar": "^1.1.1",
+    "@radix-ui/react-navigation-menu": "^1.2.0",
+    "@radix-ui/react-popover": "^1.1.1",
+    "@radix-ui/react-progress": "^1.1.0",
+    "@radix-ui/react-radio-group": "^1.2.0",
+    "@radix-ui/react-scroll-area": "^1.1.0",
+    "@radix-ui/react-select": "^2.1.1",
+    "@radix-ui/react-separator": "^1.1.0",
+    "@radix-ui/react-slider": "^1.2.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-switch": "^1.1.0",
+    "@radix-ui/react-tabs": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.1",
+    "@radix-ui/react-tooltip": "^1.1.2",
+    "@react-three/fiber": "^8.16.8",
+    "@sanity/image-url": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "embla-carousel-autoplay": "^8.2.0",
+    "embla-carousel-react": "^8.2.0",
+    "firebase": "^10.12.4",
+    "gsap": "^3.12.5",
+    "lucide-react": "^0.417.0",
+    "next": "14.2.5",
+    "next-sanity": "^9.4.2",
+    "react": "^18.3.1",
+    "react-day-picker": "^8.10.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "7.51.5",
+    "react-intersection-observer": "^9.13.0",
+    "recharts": "^2.12.7",
+    "sanity": "^3.50.2",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.166.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/node": "^20",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/three": "^0.166.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "overrides": {
+    "immer": "^10.1.1"
   }
-);
+}

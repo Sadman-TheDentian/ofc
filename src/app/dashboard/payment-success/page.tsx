@@ -1,109 +1,73 @@
-
-'use client';
-
-import { useEffect, useState, Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, Loader2, AlertCircle } from 'lucide-react';
-import { useAuth } from '@/lib/auth';
-import { verifyPaymentAndUpgrade } from '../subscriptions/actions';
-import Link from 'next/link';
-
-function PaymentSuccessContent() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const { user, loading: authLoading } = useAuth();
-  
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [apiKey, setApiKey] = useState<string | null>(null);
-
-  useEffect(() => {
-    const chargeCode = searchParams.get('code');
-
-    if (authLoading) {
-      return; // Wait for user data to be available
-    }
-
-    if (!user) {
-      // If user is not logged in, redirect them to login. They'll be redirected back here.
-      router.push('/auth');
-      return;
-    }
-    
-    if (!chargeCode) {
-      setErrorMessage('No payment charge code found.');
-      setStatus('error');
-      return;
-    }
-
-    const verify = async () => {
-      const result = await verifyPaymentAndUpgrade(chargeCode, user.uid);
-      if (result.success) {
-        setStatus('success');
-        if (result.apiKey) {
-            setApiKey(result.apiKey);
-        }
-      } else {
-        setErrorMessage(result.error || 'An unknown error occurred during verification.');
-        setStatus('error');
-      }
-    };
-
-    verify();
-  }, [searchParams, router, user, authLoading]);
-
-  return (
-    <div className="container py-12 md:py-20">
-      <Card className="max-w-md mx-auto bg-gradient-to-br from-card to-card/80 border-border/50">
-        <CardHeader className="text-center">
-          {status === 'loading' && <Loader2 className="h-12 w-12 text-primary mx-auto animate-spin" />}
-          {status === 'success' && <CheckCircle className="h-12 w-12 text-green-500 mx-auto" />}
-          {status === 'error' && <AlertCircle className="h-12 w-12 text-destructive mx-auto" />}
-        </CardHeader>
-        <CardContent className="text-center space-y-4">
-          {status === 'loading' && (
-            <div>
-              <CardTitle>Verifying Payment...</CardTitle>
-              <CardDescription>Please wait while we confirm your transaction.</CardDescription>
-            </div>
-          )}
-          {status === 'success' && (
-            <div>
-              <CardTitle className="text-green-500">Upgrade Successful!</CardTitle>
-              <CardDescription>Your account has been upgraded to PRO. You now have access to all premium features.</CardDescription>
-              {apiKey && (
-                  <div className="mt-4 text-left bg-secondary/50 p-4 rounded-lg">
-                      <p className="text-sm font-bold">Your API Key:</p>
-                      <p className="text-xs text-muted-foreground mb-2">Copy this key and save it. You will not see it again.</p>
-                      <pre className="text-xs bg-background p-2 rounded-md font-mono break-all">{apiKey}</pre>
-                  </div>
-              )}
-              <Button asChild className="mt-6">
-                <Link href="/dashboard">Go to Dashboard</Link>
-              </Button>
-            </div>
-          )}
-          {status === 'error' && (
-            <div>
-              <CardTitle className="text-destructive">Verification Failed</CardTitle>
-              <CardDescription>{errorMessage}</CardDescription>
-               <Button asChild variant="secondary" className="mt-6">
-                <Link href="/contact">Contact Support</Link>
-              </Button>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-export default function PaymentSuccessPage() {
-    return (
-        <Suspense fallback={<div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>}>
-            <PaymentSuccessContent />
-        </Suspense>
-    )
+{
+  "name": "nextn",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.1",
+    "@hookform/resolvers": "3.8.0",
+    "@radix-ui/react-accordion": "^1.2.0",
+    "@radix-ui/react-alert-dialog": "^1.1.1",
+    "@radix-ui/react-avatar": "^1.1.0",
+    "@radix-ui/react-checkbox": "^1.1.1",
+    "@radix-ui/react-collapsible": "^1.1.0",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-dropdown-menu": "^2.1.1",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-menubar": "^1.1.1",
+    "@radix-ui/react-navigation-menu": "^1.2.0",
+    "@radix-ui/react-popover": "^1.1.1",
+    "@radix-ui/react-progress": "^1.1.0",
+    "@radix-ui/react-radio-group": "^1.2.0",
+    "@radix-ui/react-scroll-area": "^1.1.0",
+    "@radix-ui/react-select": "^2.1.1",
+    "@radix-ui/react-separator": "^1.1.0",
+    "@radix-ui/react-slider": "^1.2.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-switch": "^1.1.0",
+    "@radix-ui/react-tabs": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.1",
+    "@radix-ui/react-tooltip": "^1.1.2",
+    "@react-three/fiber": "^8.16.8",
+    "@sanity/image-url": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "embla-carousel-autoplay": "^8.2.0",
+    "embla-carousel-react": "^8.2.0",
+    "firebase": "^10.12.4",
+    "gsap": "^3.12.5",
+    "lucide-react": "^0.417.0",
+    "next": "14.2.5",
+    "next-sanity": "^9.4.2",
+    "react": "^18.3.1",
+    "react-day-picker": "^8.10.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "7.51.5",
+    "react-intersection-observer": "^9.13.0",
+    "recharts": "^2.12.7",
+    "sanity": "^3.50.2",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.166.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/node": "^20",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/three": "^0.166.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "overrides": {
+    "immer": "^10.1.1"
+  }
 }
