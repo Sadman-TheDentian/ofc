@@ -19,10 +19,10 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className, 
     offset: ['start end', 'end start'], // Animate from when the section starts entering the viewport until it fully leaves
   });
 
-  // Fade out as it scrolls out of view (from middle to top of screen)
+  // Start fading out when the section is halfway through the viewport, and be fully faded by the time it leaves.
   const opacity = useTransform(
     scrollYProgress,
-    [0.25, 0.5], // Start fading at 25% of scroll progress, fully faded at 50%
+    [0.4, 0.6], // Start fading at 40% of scroll progress, fully faded at 60%
     [1, 0]
   );
   
