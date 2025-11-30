@@ -1,4 +1,4 @@
-import { client } from "@/lib/sanity";
+import { client } from "@/lib/sanity-client";
 import type { CaseStudy } from "@/lib/types";
 import { notFound } from "next/navigation";
 import imageUrlBuilder from '@sanity/image-url';

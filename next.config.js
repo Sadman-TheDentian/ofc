@@ -33,8 +33,6 @@ const nextConfig = (phase, { defaultConfig }) => {
       ],
     },
     webpack: (config, { isServer }) => {
-      // This is the correct configuration to externalize framer-motion
-      // for the server build, which resolves the "export *" error.
       if (isServer) {
         config.externals.push('framer-motion');
       }

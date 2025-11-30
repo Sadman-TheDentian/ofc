@@ -14,7 +14,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { securityAdvisories } from '@/lib/data';
-import { client } from '@/lib/sanity';
+import { client } from '@/lib/sanity-preview';
 import type { SanityDocument } from "sanity";
 import type { CaseStudy, Partner } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url';

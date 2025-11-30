@@ -1,4 +1,4 @@
-import { client } from "@/lib/sanity";
+import { client } from "@/lib/sanity-client";
 import type { CaseStudy } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
