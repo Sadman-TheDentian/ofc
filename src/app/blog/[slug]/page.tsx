@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from '@/components/SafeImage';
-import { BlogPost } from "@/lib/types";
+import { BlogPost, SanityImage } from "@/lib/types";
+import { urlFor } from "@/lib/sanity-client";
 
 // In a real app, this would fetch from a CMS. For now, we use a placeholder.
 const getPost = async (slug: string): Promise<BlogPost | null> => {
@@ -39,8 +40,8 @@ export default async function PostPage({
     )
   }
 
-  const postImageUrl = post.mainImage as string;
-  const authorImageUrl = post.author?.image as string | undefined;
+  const postImageUrl = typeof post.mainImage === 'string' ? post.mainImage : post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
+  const authorImageUrl = typeof post.author?.image === 'string' ? post.author.image : post.author?.image ? urlFor(post.author.image as SanityImage)?.url() : undefined;
 
 
   return (

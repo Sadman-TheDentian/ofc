@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import SafeImage from "@/components/SafeImage";
-import { CaseStudy } from "@/lib/types";
+import { CaseStudy, SanityImage } from "@/lib/types";
+import { urlFor } from "@/lib/sanity-client";
 
 async function getCaseStudy(slug: string): Promise<CaseStudy | null> {
     if (slug === 'example-case-study') {
@@ -28,7 +29,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
         notFound();
     }
 
-    const imageUrl = study.mainImage as string | undefined;
+    const imageUrl = typeof study.mainImage === 'string' ? study.mainImage : study.mainImage ? urlFor(study.mainImage as SanityImage)?.url() : undefined;
 
     return (
         <div className="container py-12 md:py-20">

@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from "@/components/SafeImage";
-import { BlogPost } from "@/lib/types";
+import { BlogPost, SanityImage } from "@/lib/types";
+import { urlFor } from "@/lib/sanity-client";
 
 
 async function getPosts(): Promise<BlogPost[]> {
@@ -40,8 +41,8 @@ export default async function BlogPage() {
 
       <div className="max-w-3xl mx-auto grid gap-12">
         {posts.map((post) => {
-          const postImageUrl = post.mainImage as string;
-          const authorImageUrl = post.author?.image as string | undefined;
+          const postImageUrl = typeof post.mainImage === 'string' ? post.mainImage : post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
+          const authorImageUrl = typeof post.author?.image === 'string' ? post.author.image : post.author?.image ? urlFor(post.author.image as SanityImage)?.url() : undefined;
 
           return (
             <Link href={`/blog/${post.slug.current}`} key={post._id} className="group block">
