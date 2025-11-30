@@ -75,7 +75,7 @@ export type Author = {
 
 export type BlogPost = {
     _id: string;
-    slug: string;
+    slug: { current: string };
     title: string;
     excerpt: string;
     mainImage: any;
@@ -100,3 +100,4 @@ export type FirebaseConfig = {
     appId: string;
     measurementId?: string;
 };
+

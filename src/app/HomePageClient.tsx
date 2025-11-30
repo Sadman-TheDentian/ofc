@@ -24,12 +24,12 @@ import Autoplay from "embla-carousel-autoplay";
 import SyntheticHero from '@/components/layout/SyntheticHero';
 import SafeImage from '@/components/SafeImage';
 import type { SanityImageSource } from '@sanity/image-url';
+import type { ImageUrlBuilder } from '@sanity/image-url/lib/types/builder';
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: SanityImageSource | null): string | null {
-  if (!source) return null;
-  return builder.image(source).url();
+function urlFor(source: SanityImageSource): ImageUrlBuilder {
+  return builder.image(source);
 }
 
 interface HomePageClientProps {
@@ -50,47 +50,6 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
   };
 
   return <span>{getFormattedCount(to)}</span>;
-};
-
-const DonutChart = ({ value }: { value: number }) => {
-  const radius = 80;
-  const circumference = 2 * Math.PI * radius;
-  const progress = value / 100;
-  const offset = circumference - progress * circumference;
-
-  return (
-    <div className="relative h-48 w-48 mx-auto">
-      <svg className="w-full h-full" viewBox="0 0 200 200">
-        <circle
-          className="text-secondary"
-          strokeWidth="12"
-          stroke="currentColor"
-          fill="transparent"
-          r={radius}
-          cx="100"
-          cy="100"
-        />
-        <circle
-          className={`text-primary`}
-          strokeWidth="12"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-          strokeLinecap="round"
-          stroke="currentColor"
-          fill="transparent"
-          r={radius}
-          cx="100"
-          cy="100"
-          style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%' }}
-        />
-      </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <h3 className="text-4xl font-bold font-headline text-primary">
-          {value.toFixed(1)}%
-        </h3>
-      </div>
-    </div>
-  );
 };
 
 const stats = [
@@ -215,7 +174,11 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                 className="flex flex-col items-center justify-start space-y-4"
               >
                 {stat.type === 'chart' ? (
-                  <DonutChart value={stat.value} />
+                  <div className="relative h-48 w-48 mx-auto flex items-center justify-center">
+                     <h3 className="text-5xl font-bold font-headline text-primary">
+                        {stat.value}%
+                     </h3>
+                  </div>
                 ) : (
                   <h3 className="text-5xl font-bold font-headline text-primary h-48 flex items-center justify-center">
                     <Counter to={stat.value} isMillion={stat.isMillion} isPercent={stat.isPercent} />
@@ -289,7 +252,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                     <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
                                         <div className="flex flex-col">
                                             <div className="relative h-40 w-full flex-shrink-0">
-                                                <SafeImage src={urlFor(post.mainImage)?.width(400).height(250).url()} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                                <SafeImage src={urlFor(post.mainImage)?.width(400).height(250).url() as string | undefined} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
                                             </div>
                                             <div className="p-6">
                                                 <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
@@ -336,7 +299,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                 <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
                                     <div className="relative h-48 w-full">
                                         <SafeImage
-                                            src={urlFor(study.mainImage)?.width(600).height(400).url()}
+                                            src={urlFor(study.mainImage)?.width(600).height(400).url() as string | undefined}
                                             alt={study.title}
                                             fill
                                             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
@@ -386,3 +349,4 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
     </div>
   );
 }
+
