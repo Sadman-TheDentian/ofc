@@ -42,12 +42,21 @@ const stats = [
 export default function HomePageClient(): JSX.Element {
   return (
     <div className="flex flex-col min-h-screen">
-       <SyntheticHero 
-        title="REDEFINE YOUR DEFENSE"
-        description="Offensive security to fortify your digital defenses."
-        cta1={{ text: "Schedule a Consultation", href: "/contact" }}
-        cta2={{ text: "View Our Services", href: "/services" }}
-      />
+       <SyntheticHero
+				title="REDEFINE YOUR DEFENSE"
+				description="Offensive security to fortify your digital defenses."
+				badgeText="DentiSystems"
+				badgeLabel="Security"
+				ctaButtons={[
+					{ text: "Schedule a Consultation", href: "/contact", primary: true },
+					{ text: "View Our Services", href: "/services" },
+				]}
+				microDetails={[
+					"High-Risk Vendor Recon",
+					"Assurance Services",
+					"Secure Web Development",
+				]}
+			/>
 
       <section id="services" className="py-20 md:py-32 bg-transparent">
         <div className="container px-4 md:px-6">
