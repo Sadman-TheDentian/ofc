@@ -16,26 +16,20 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className, 
   
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start center", "end center"],
+    offset: ["start end", "end start"],
   });
 
   const opacity = useTransform(
     scrollYProgress,
-    [0, 0.8], 
-    [1, 0]
+    [0, 0.5, 1], 
+    [0, 1, 0]
     );
-  
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [1, 0.9]
-  );
 
   return (
     <motion.section
       id={id}
       ref={ref}
-      style={{ opacity, scale }}
+      style={{ opacity }}
       className={cn(className)}
     >
       {children}
