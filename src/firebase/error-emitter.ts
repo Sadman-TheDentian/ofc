@@ -62,3 +62,21 @@ function createEventEmitter<T extends Record<string, any>>() {
 
 // Create and export a singleton instance of the emitter, typed with our AppEvents interface.
 export const errorEmitter = createEventEmitter<AppEvents>();
+
+
+/**
+ * A dedicated listener for Firestore permission errors.
+ * @param callback The function to execute when a permission error is caught.
+ * @returns An unsubscribe function to clean up the listener.
+ */
+export function listenForFirestoreErrors(callback: (error: FirestorePermissionError) => void): () => void {
+  const handler = (error: FirestorePermissionError) => {
+    callback(error);
+  };
+  errorEmitter.on('permission-error', handler);
+
+  // Return an unsubscribe function.
+  return () => {
+    errorEmitter.off('permission-error', handler);
+  };
+}

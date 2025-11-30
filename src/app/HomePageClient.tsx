@@ -26,19 +26,19 @@ import SafeImage from '@/components/SafeImage';
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: any) {
+function urlFor(source) {
   if (!source) return null;
   return builder.image(source);
 }
 
 interface HomePageClientProps {
-  blogPosts: (SanityDocument & { author?: { name: string }})[];
+  blogPosts: (SanityDocument & { author?: { name?: string | null } | null })[];
   caseStudies: CaseStudy[];
   partners: Partner[];
 }
 
 const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean, isPercent?: boolean }) => {
-  const getFormattedCount = (value: number) => {
+  const getFormattedCount = (value) => {
     if (isMillion) {
       return (value / 1000000).toFixed(1);
     } else if (isPercent) {
@@ -117,10 +117,9 @@ const stats = [
 
 
 export default function HomePageClient({ blogPosts = [], caseStudies = [], partners = [] }: HomePageClientProps) {
-  const autoplayPlugins = [
-    Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }),
-  ];
-
+    const autoplayPlugins = [
+      Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }),
+    ];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -387,5 +386,3 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
     </div>
   );
 }
-
-    
