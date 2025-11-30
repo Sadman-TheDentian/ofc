@@ -1,7 +1,7 @@
 
 import { MetadataRoute } from 'next'
 import { services } from '@/lib/data'
-import { client } from './lib/sanity-client';
+import { client } from '@/lib/sanity-client';
 import { groq } from 'next-sanity';
 
 const staticRoutes: MetadataRoute.Sitemap = [
