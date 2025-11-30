@@ -1,40 +1,22 @@
 import Link from "next/link";
-import { type SanityDocument } from "sanity";
-import { client } from "@/lib/sanity-client";
-import imageUrlBuilder from "@sanity/image-url";
-import { Author } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from "@/components/SafeImage";
-import type { SanityImageSource } from 'sanity';
-import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 
-const NEWS_QUERY = `*[
-  _type == "news"
-  && defined(slug.current)
-]|order(publishedAt desc){
-  _id,
-  title,
-  slug,
-  publishedAt,
-  mainImage,
-  excerpt,
-  author->{
-    name,
-    image
-  }
-}`;
-
-const { projectId, dataset } = client.config();
-const urlFor = (source: SanityImageSource): ImageUrlBuilder | null =>
-  projectId && dataset
-    ? imageUrlBuilder({ projectId, dataset }).image(source)
-    : null;
-
-const options = { next: { revalidate: 30 } }; // Revalidate every 30 seconds
+const staticNewsItems = [
+    {
+        _id: '1',
+        title: "DentiSystems Launches New AI-Powered Threat Intelligence Platform",
+        slug: { current: 'dentisystems-launches-ai-platform' },
+        publishedAt: new Date().toISOString(),
+        mainImage: "https://picsum.photos/seed/news1/800/450",
+        excerpt: "Our new platform leverages machine learning to predict and neutralize threats before they impact your business.",
+        author: { name: 'DentiSystems Press', image: null }
+    }
+];
 
 export default async function NewsPage() {
-  const newsItems = await client.fetch<(SanityDocument & { author?: Author, excerpt?: string })[]>(NEWS_QUERY, {}, options);
+  const newsItems = staticNewsItems;
 
   return (
     <div className="container py-12 md:py-20">
@@ -49,8 +31,8 @@ export default async function NewsPage() {
 
       <div className="max-w-3xl mx-auto grid gap-12">
         {newsItems.map((item) => {
-          const itemImageUrl = item.mainImage ? urlFor(item.mainImage as SanityImageSource)?.width(800).height(450).url() : null;
-          const authorImageUrl = item.author?.image ? urlFor(item.author.image as SanityImageSource)?.width(40).height(40).url() : null;
+          const itemImageUrl = item.mainImage;
+          const authorImageUrl = item.author?.image;
 
           return (
             <Link href={`/news/${item.slug.current}`} key={item._id} className="group block">
@@ -73,7 +55,7 @@ export default async function NewsPage() {
                         <div className="flex items-center gap-2">
                             <Avatar className="h-6 w-6">
                                 <AvatarImage src={authorImageUrl ?? undefined} alt={item.author.name ?? undefined} />
-                                <AvatarFallback>{item.author.name?.charAt(0) || 'A'}</AvatarFallback>
+                                <AvatarFallback>{item.author.name?.charAt(0) || 'D'}</AvatarFallback>
                             </Avatar>
                             <span>{item.author.name}</span>
                         </div>

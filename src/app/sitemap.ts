@@ -1,16 +1,5 @@
 import { MetadataRoute } from 'next'
-import { client } from '@/lib/sanity-client'
 import { services } from '@/lib/data'
-import { SanityDocument } from 'sanity'
-
-type SanitySlug = {
-    _id: string;
-    slug: {
-        current: string;
-    },
-    publishedAt: string;
-    _type: string;
-}
 
 const staticRoutes: MetadataRoute.Sitemap = [
     { url: 'https://www.denti.systems', lastModified: new Date(), changeFrequency: 'monthly', priority: 1 },
@@ -29,29 +18,12 @@ const staticRoutes: MetadataRoute.Sitemap = [
  
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
-    const sanityQuery = `*[_type in ["post", "caseStudy", "threatReport", "whitePaper", "news"] && defined(slug.current)]{
-        "slug": slug.current,
-        _id,
-        _type,
-        publishedAt
-    }`;
-    const sanitySlugs = await client.fetch<SanitySlug[]>(sanityQuery);
-
-    const dynamicUrls = sanitySlugs.map(item => {
-        let route = '';
-        switch(item._type) {
-            case 'post': route = '/blog'; break;
-            case 'caseStudy': route = '/case-studies'; break;
-            case 'news': route = '/news'; break;
-            default: route = `/${item._type}s`; break;
-        }
-        return {
-            url: `https://www.denti.systems${route}/${item.slug}`,
-            lastModified: new Date(item.publishedAt),
-            changeFrequency: 'yearly' as 'yearly',
-            priority: 0.6
-        }
-    })
+    // In a real app, slugs would be fetched from a CMS
+    const dynamicUrls: MetadataRoute.Sitemap = [
+      { url: 'https://www.denti.systems/blog/example-post', lastModified: new Date(), priority: 0.6 },
+      { url: 'https://www.denti.systems/case-studies/example-case-study', lastModified: new Date(), priority: 0.6 },
+      { url: 'https://www.denti.systems/news/example-news', lastModified: new Date(), priority: 0.6 },
+    ];
 
     const serviceUrls = services.map(service => ({
         url: `https://www.denti.systems/services/${service.slug}`,

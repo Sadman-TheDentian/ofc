@@ -1,33 +1,27 @@
-import { client } from "@/lib/sanity-client";
-import type { CaseStudy } from "@/lib/types";
-import imageUrlBuilder from '@sanity/image-url';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SafeImage from "@/components/SafeImage";
-import type { SanityImageSource } from 'sanity';
-import type { ImageUrlBuilder } from "@sanity/image-url";
 
-const builder = imageUrlBuilder(client);
-
-function urlFor(source: SanityImageSource): ImageUrlBuilder {
-  return builder.image(source);
-}
-
-async function getCaseStudies(): Promise<CaseStudy[]> {
-  const query = `*[_type == "caseStudy" && defined(slug.current)] {
-    _id,
-    title,
-    "slug": slug.current,
-    summary,
-    mainImage
-  }`;
-  const data = await client.fetch(query);
-  return data;
-}
+const staticStudies = [
+    {
+        _id: "1",
+        title: "Securing a Global Financial Network",
+        slug: "example-case-study",
+        summary: "How we implemented a zero-trust architecture for a leading financial institution, reducing attack surface by 80%.",
+        mainImage: "https://picsum.photos/seed/cs1/600/400"
+    },
+    {
+        _id: "2",
+        title: "HIPAA Compliance for a Telehealth Startup",
+        slug: "example-case-study",
+        summary: "Achieving full HIPAA compliance and securing patient data for a rapidly growing telehealth platform.",
+        mainImage: "https://picsum.photos/seed/cs2/600/400"
+    }
+];
 
 export default async function CaseStudiesPage() {
-  const studies = await getCaseStudies();
+  const studies = staticStudies;
   
   return (
     <div className="container py-12 md:py-20">
@@ -48,7 +42,7 @@ export default async function CaseStudiesPage() {
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
                      <div className="relative h-48 w-full">
                         <SafeImage
-                          src={urlFor(study.mainImage).width(600).height(400).url()}
+                          src={study.mainImage}
                           alt={study.title}
                           fill
                           className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
@@ -72,9 +66,6 @@ export default async function CaseStudiesPage() {
         <div className="text-center py-16 border border-dashed rounded-lg">
           <h3 className="font-headline text-xl font-semibold">No Case Studies Found</h3>
           <p className="text-muted-foreground mt-2">Content is being managed in Sanity.io. Publish new case studies in the Studio.</p>
-           <Button asChild variant="secondary" className="mt-4">
-                <Link href="/studio">Go to Studio</Link>
-           </Button>
         </div>
       )}
     </div>

@@ -1,44 +1,30 @@
-import { type SanityDocument } from "next-sanity";
-import imageUrlBuilder from "@sanity/image-url";
-import { client } from "@/lib/sanity-client";
 import Link from "next/link";
-import { Author } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StructuredData from "@/components/StructuredData";
 import SafeImage from "@/components/SafeImage";
-import type { SanityImageSource } from 'sanity';
-import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
-import { PortableText } from "@portabletext/react";
-
-const NEWS_POST_QUERY = `*[_type == "news" && slug.current == $slug][0]{
-  ...,
-  "excerpt": pt::text(body),
-  author->{
-    _id,
-    name,
-    image
-  }
-}`;
-
-const { projectId, dataset } = client.config();
-const urlFor = (source: SanityImageSource): ImageUrlBuilder | null =>
-  projectId && dataset
-    ? imageUrlBuilder({ projectId, dataset }).image(source)
-    : null;
-
-const options = { next: { revalidate: 30 } }; // Revalidate every 30 seconds
 
 export default async function NewsPostPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const post = await client.fetch<SanityDocument & { author?: Author, excerpt?: string }>(NEWS_POST_QUERY, params, options);
-  const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImageSource)?.width(800).height(450).url() : null;
-    
-  const authorImageUrl = post.author?.image ? urlFor(post.author.image as SanityImageSource)?.width(40).height(40).url() : null;
+  // In a real app, you would fetch post data based on the slug.
+  const post = {
+    title: "Example News Article",
+    author: { name: "DentiSystems News" },
+    publishedAt: new Date().toISOString(),
+    _updatedAt: new Date().toISOString(),
+    mainImage: "https://picsum.photos/seed/news1/800/450",
+    slug: { current: params.slug },
+    excerpt: "This is a sample news article. In a production environment, this content would be fetched dynamically from a CMS.",
+    body: [
+      { _type: 'block', style: 'normal', children: [{ _type: 'span', text: 'This is sample content for the news article.' }] }
+    ]
+  };
 
-  // Structured Data for Google News
+  const postImageUrl = post.mainImage;
+  const authorImageUrl = undefined;
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
@@ -68,7 +54,6 @@ export default async function NewsPostPage({
     description: post.excerpt,
   };
 
-
   return (
     <>
       <StructuredData data={jsonLd} />
@@ -83,7 +68,7 @@ export default async function NewsPostPage({
                   <div className="flex items-center gap-3">
                       <Avatar>
                           <AvatarImage src={authorImageUrl ?? undefined} alt={post.author.name ?? undefined} />
-                          <AvatarFallback>{post.author.name?.charAt(0) || 'A'}</AvatarFallback>
+                          <AvatarFallback>{post.author.name?.charAt(0) || 'D'}</AvatarFallback>
                       </Avatar>
                       <span className="font-medium text-muted-foreground">{post.author.name}</span>
                   </div>
@@ -92,7 +77,6 @@ export default async function NewsPostPage({
                   {new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               </p>
           </div>
-
 
           <div className="relative w-full aspect-video mb-8">
               <SafeImage
@@ -104,7 +88,7 @@ export default async function NewsPostPage({
           </div>
           
           <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
-            {Array.isArray(post.body) && <PortableText value={post.body} />}
+            {post.body && <p>{post.body[0].children[0].text}</p>}
           </div>
         </article>
       </main>
@@ -113,8 +97,5 @@ export default async function NewsPostPage({
 }
 
 export async function generateStaticParams() {
-  const posts = await client.fetch<SanityDocument[]>(`*[_type == "news" && defined(slug.current)]{"slug": slug.current}`);
-  return posts
-    .filter(post => post.slug && post.slug.current) // Filter out items with no slug
-    .map(post => ({ slug: post.slug.current }));
+  return [{ slug: 'example-news' }];
 }

@@ -1,27 +1,21 @@
-import { client } from "@/lib/sanity-client";
-import type { SanityDocument } from "sanity";
-import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SafeImage from "@/components/SafeImage";
-import type { SanityImageSource } from 'sanity';
-import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 
-const PAPERS_QUERY = `*[_type == "whitePaper" && defined(slug.current)]|order(publishedAt desc){
-  _id,
-  title,
-  slug,
-  mainImage,
-  "fileURL": documentFile.asset->url
-}`;
+const staticPapers = [
+    {
+        _id: "1",
+        title: "Anatomy of a Zero-Day Exploit",
+        slug: { current: 'zero-day-exploit' },
+        mainImage: "https://picsum.photos/seed/wp1/600/400",
+        fileURL: "#"
+    }
+];
 
-const { projectId, dataset } = client.config();
-const urlFor = (source: SanityImageSource): ImageUrlBuilder | null =>
-  projectId && dataset ? imageUrlBuilder({ projectId, dataset }).image(source) : null;
 
 export default async function WhitePapersPage() {
-  const papers = await client.fetch<SanityDocument[]>(PAPERS_QUERY);
+  const papers = staticPapers;
 
   return (
     <div className="container py-12 md:py-20">
@@ -37,7 +31,7 @@ export default async function WhitePapersPage() {
        {papers && papers.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {papers.map(paper => {
-                 const imageUrl = paper.mainImage ? urlFor(paper.mainImage as SanityImageSource)?.width(600).height(400).url() : null;
+                 const imageUrl = paper.mainImage;
                 return (
                  <Link key={paper._id} href={`/white-papers/${paper.slug.current}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
@@ -67,10 +61,7 @@ export default async function WhitePapersPage() {
       ) : (
         <div className="text-center py-16 border border-dashed rounded-lg">
           <h3 className="font-headline text-xl font-semibold">No White Papers Found</h3>
-          <p className="text-muted-foreground mt-2">Content is being managed in Sanity.io. Publish new white papers in the Studio.</p>
-           <Button asChild variant="secondary" className="mt-4">
-                <Link href="/studio">Go to Studio</Link>
-           </Button>
+          <p className="text-muted-foreground mt-2">Check back soon for new white papers.</p>
         </div>
       )}
     </div>

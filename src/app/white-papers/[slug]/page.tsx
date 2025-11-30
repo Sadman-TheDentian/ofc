@@ -1,27 +1,21 @@
-import { client } from "@/lib/sanity-client";
-import type { SanityDocument } from "sanity";
 import { notFound } from "next/navigation";
-import imageUrlBuilder from '@sanity/image-url';
-import { PortableText } from '@portabletext/react';
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import SafeImage from "@/components/SafeImage";
-import type { SanityImageSource } from 'sanity';
-import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
-
-const builder = imageUrlBuilder(client);
-
-function urlFor(source: SanityImageSource): ImageUrlBuilder {
-  return builder.image(source);
-}
 
 async function getWhitePaper(slug: string) {
-    const query = `*[_type == "whitePaper" && slug.current == $slug][0]{
-      ...,
-      "fileURL": documentFile.asset->url
-    }`;
-    const paper = await client.fetch(query, { slug });
-    return paper;
+    if (slug === 'example-white-paper') {
+        return {
+            title: "Anatomy of a Zero-Day Exploit",
+            publishedAt: new Date().toISOString(),
+            mainImage: "https://picsum.photos/seed/wp1/1200/800",
+            summary: [
+                { _type: 'block', style: 'normal', children: [{ _type: 'span', text: 'This is a sample white paper summary. Full content would be here.' }] }
+            ],
+            fileURL: "#"
+        };
+    }
+    return null;
 }
 
 export default async function WhitePaperPage({ params }: { params: { slug: string } }) {
@@ -46,7 +40,7 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
 
                 <div className="relative h-96 w-full mb-12">
                     <SafeImage 
-                        src={urlFor(paper.mainImage)?.width(1200).height(800).url()}
+                        src={paper.mainImage}
                         alt={paper.title}
                         fill
                         className="object-cover rounded-xl shadow-lg"
@@ -54,7 +48,7 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
                 </div>
                 
                 <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground mb-12">
-                    {paper.summary && <PortableText value={paper.summary} />}
+                    {paper.summary && <p>{paper.summary[0].children[0].text}</p>}
                 </div>
 
                 {paper.fileURL && (
@@ -74,8 +68,5 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
 }
 
 export async function generateStaticParams() {
-  const papers = await client.fetch<SanityDocument[]>(`*[_type == "whitePaper" && defined(slug.current)]{"slug": slug.current}`);
-  return papers
-    .filter(paper => paper.slug?.current)
-    .map(paper => ({ slug: paper.slug.current }));
+  return [{ slug: 'example-white-paper' }];
 }

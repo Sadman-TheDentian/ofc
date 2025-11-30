@@ -1,27 +1,20 @@
-import { client } from "@/lib/sanity-client";
-import type { SanityDocument } from "sanity";
-import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SafeImage from "@/components/SafeImage";
-import type { SanityImageSource } from 'sanity';
-import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 
-const REPORTS_QUERY = `*[_type == "threatReport" && defined(slug.current)]|order(publishedAt desc){
-  _id,
-  title,
-  slug,
-  mainImage,
-  "fileURL": reportFile.asset->url
-}`;
-
-const { projectId, dataset } = client.config();
-const urlFor = (source: SanityImageSource): ImageUrlBuilder | null =>
-  projectId && dataset ? imageUrlBuilder({ projectId, dataset }).image(source) : null;
+const staticReports = [
+    {
+        _id: "1",
+        title: "The Rise of AI-Powered Phishing",
+        slug: { current: "ai-phishing" },
+        mainImage: "https://images.unsplash.com/photo-1677756119517-756a188d2d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMEFJJTIwbmV0d29ya3xlbnwwfHx8fDE3NTg2MDM4MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        fileURL: "#"
+    }
+];
 
 export default async function ThreatReportsPage() {
-  const reports = await client.fetch<SanityDocument[]>(REPORTS_QUERY);
+  const reports = staticReports;
 
   return (
     <div className="container py-12 md:py-20">
@@ -37,7 +30,7 @@ export default async function ThreatReportsPage() {
        {reports && reports.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {reports.map(report => {
-                 const imageUrl = report.mainImage ? urlFor(report.mainImage as SanityImageSource)?.width(600).height(400).url() : null;
+                 const imageUrl = report.mainImage;
                 return (
                  <Link key={report._id} href={`/threat-reports/${report.slug.current}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
@@ -67,10 +60,7 @@ export default async function ThreatReportsPage() {
       ) : (
         <div className="text-center py-16 border border-dashed rounded-lg">
           <h3 className="font-headline text-xl font-semibold">No Threat Reports Found</h3>
-          <p className="text-muted-foreground mt-2">Content is being managed in Sanity.io. Publish new reports in the Studio.</p>
-           <Button asChild variant="secondary" className="mt-4">
-                <Link href="/studio">Go to Studio</Link>
-           </Button>
+          <p className="text-muted-foreground mt-2">Check back soon for new reports.</p>
         </div>
       )}
     </div>

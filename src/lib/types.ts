@@ -1,7 +1,4 @@
 import type { LucideIcon } from 'lucide-react';
-import type { Image as SanityImage } from 'sanity';
-
-export type SanityImageSource = SanityImage;
 
 export type Service = {
   id: number;
@@ -65,13 +62,13 @@ export type CaseStudy = {
   summary: string;
   industry: string;
   outcome: string;
-  mainImage: SanityImageSource;
+  mainImage: any; // Simplified to avoid Sanity types
   content: any;
 };
 
 export type Author = {
     name?: string | null | undefined;
-    image?: SanityImageSource | null | undefined;
+    image?: any; // Simplified to avoid Sanity types
 };
 
 export type BlogPost = {
@@ -79,7 +76,7 @@ export type BlogPost = {
     slug: { current: string };
     title: string;
     excerpt: string;
-    mainImage: SanityImageSource;
+    mainImage: any; // Simplified to avoid Sanity types
     publishedAt: string;
     author: Author;
     body: any;
@@ -89,7 +86,7 @@ export type Partner = {
   _id: string;
   name: string;
   website?: string;
-  logo: SanityImageSource;
+  logo: any; // Simplified to avoid Sanity types
 }
 
 export type FirebaseConfig = {

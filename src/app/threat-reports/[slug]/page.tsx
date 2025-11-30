@@ -1,28 +1,21 @@
-import { client } from "@/lib/sanity-client";
-import type { SanityDocument } from "sanity";
 import { notFound } from "next/navigation";
-import imageUrlBuilder from '@sanity/image-url';
-import { PortableText } from '@portabletext/react';
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Download } from "lucide-react";
 import SafeImage from "@/components/SafeImage";
-import type { SanityImageSource } from 'sanity';
-import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
-
-const builder = imageUrlBuilder(client);
-
-function urlFor(source: SanityImageSource): ImageUrlBuilder {
-  return builder.image(source);
-}
 
 async function getReport(slug: string) {
-    const query = `*[_type == "threatReport" && slug.current == $slug][0]{
-      ...,
-      "fileURL": reportFile.asset->url
-    }`;
-    const report = await client.fetch(query, { slug });
-    return report;
+    if (slug === 'example-report') {
+        return {
+            title: "Example Threat Report",
+            publishedAt: new Date().toISOString(),
+            mainImage: "https://picsum.photos/seed/report1/1200/800",
+            summary: [
+                { _type: 'block', style: 'normal', children: [{ _type: 'span', text: 'This is a summary of the example threat report. Full content would be here.' }] }
+            ],
+            fileURL: "#" // Placeholder link
+        };
+    }
+    return null;
 }
 
 export default async function ThreatReportPage({ params }: { params: { slug: string } }) {
@@ -47,7 +40,7 @@ export default async function ThreatReportPage({ params }: { params: { slug: str
 
                 <div className="relative h-96 w-full mb-12">
                     <SafeImage 
-                        src={urlFor(report.mainImage)?.width(1200).height(800).url()}
+                        src={report.mainImage}
                         alt={report.title}
                         fill
                         className="object-cover rounded-xl shadow-lg"
@@ -55,7 +48,7 @@ export default async function ThreatReportPage({ params }: { params: { slug: str
                 </div>
                 
                 <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground mb-12">
-                    {report.summary && <PortableText value={report.summary} />}
+                    {report.summary && <p>{report.summary[0].children[0].text}</p>}
                 </div>
 
                 {report.fileURL && (
@@ -75,8 +68,5 @@ export default async function ThreatReportPage({ params }: { params: { slug: str
 }
 
 export async function generateStaticParams() {
-  const reports = await client.fetch<SanityDocument[]>(`*[_type == "threatReport" && defined(slug.current)]{"slug": slug.current}`);
-  return reports
-    .filter(report => report.slug?.current)
-    .map(report => ({ slug: report.slug.current }));
+  return [{ slug: 'example-report' }];
 }

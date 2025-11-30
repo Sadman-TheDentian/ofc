@@ -1,40 +1,40 @@
 import Link from "next/link";
-import { type SanityDocument } from "sanity";
-import { client } from "@/lib/sanity-client";
-import imageUrlBuilder from "@sanity/image-url";
-import { Author } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from "@/components/SafeImage";
-import type { SanityImageSource } from 'sanity';
-import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 
-const POSTS_QUERY = `*[
-  _type == "post"
-  && defined(slug.current)
-]|order(publishedAt desc)[0...12]{
-  _id,
-  title,
-  slug,
-  publishedAt,
-  mainImage,
-  excerpt,
-  author->{
-    name,
-    image
-  }
-}`;
-
-const { projectId, dataset } = client.config();
-const urlFor = (source: SanityImageSource): ImageUrlBuilder | null =>
-  projectId && dataset
-    ? imageUrlBuilder({ projectId, dataset }).image(source)
-    : null;
-
-const options = { next: { revalidate: 30 } }; // Revalidate every 30 seconds
+const staticPosts = [
+    {
+        _id: '1',
+        title: "Deconstructing the Latest Social Engineering Scams",
+        slug: { current: "deconstructing-scams" },
+        publishedAt: new Date().toISOString(),
+        mainImage: "https://images.unsplash.com/photo-1555949963-ff9898a73a73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjB0aGlua2luZyUyMHNlY3VyaXR5fGVufDB8fHx8MTc1ODYwMzgyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+        excerpt: "A deep dive into the psychological tactics used by modern phishers and how to build resilient human firewalls.",
+        author: { name: "Jane Doe, Principal Researcher", image: null }
+    },
+    {
+        _id: '2',
+        title: "Securing Your Cloud: Beyond the Basics",
+        slug: { current: "securing-your-cloud" },
+        publishedAt: new Date().toISOString(),
+        mainImage: "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWN1cmUlMjBjbG91ZCUyMGRhdGF8ZW58MHx8fHwxNzU4NjAzODI4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        excerpt: "Moving beyond default configurations to harden your AWS, Azure, or GCP environments against sophisticated threats.",
+        author: { name: "John Smith, Cloud Security Expert", image: null }
+    },
+    {
+        _id: '3',
+        title: "The Future of Zero Trust Architecture",
+        slug: { current: "zero-trust-future" },
+        publishedAt: new Date().toISOString(),
+        mainImage: "https://images.unsplash.com/photo-1518434779774-d94213f80c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxuZXR3b3JrJTIwYXJjaGl0ZWN0dXJlJTIwZGlhZ3JhbXxlbnwwfHx8fDE3NTg2MDM4MTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        excerpt: "Exploring the evolution of 'never trust, always verify' and how it applies to modern, distributed workforces.",
+        author: { name: "Alex Johnson, Network Architect", image: null }
+    }
+];
 
 export default async function BlogPage() {
-  const posts = await client.fetch<(SanityDocument & { author?: Author, excerpt?: string })[]>(POSTS_QUERY, {}, options);
+  const posts = staticPosts;
 
   return (
     <div className="container py-12 md:py-20">
@@ -49,8 +49,8 @@ export default async function BlogPage() {
 
       <div className="max-w-3xl mx-auto grid gap-12">
         {posts.map((post) => {
-          const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImageSource)?.width(800).height(450).url() : null;
-          const authorImageUrl = post.author?.image ? urlFor(post.author.image as SanityImageSource)?.width(40).height(40).url() : null;
+          const postImageUrl = post.mainImage;
+          const authorImageUrl = post.author?.image;
 
           return (
             <Link href={`/blog/${post.slug.current}`} key={post._id} className="group block">

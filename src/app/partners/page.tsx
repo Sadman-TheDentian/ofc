@@ -1,31 +1,18 @@
-import { client } from "@/lib/sanity-client";
-import type { Partner } from "@/lib/types";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import imageUrlBuilder from "@sanity/image-url";
-import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
-import { SanityImageSource } from "sanity";
 
-const builder = imageUrlBuilder(client);
-
-function urlFor(source: SanityImageSource): ImageUrlBuilder {
-  return builder.image(source);
-}
-
-async function getPartners(): Promise<Partner[]> {
-  const query = `*[_type == "partner"]{
-    _id,
-    name,
-    website,
-    logo
-  }`;
-  const data = await client.fetch(query);
-  return data;
-}
+const staticPartners = [
+    {
+        _id: "1",
+        name: "Quantum Inc",
+        website: "#",
+        logo: "https://placeholder.com/140x40" // Placeholder
+    }
+];
 
 export default async function PartnersPage() {
-  const partners = await getPartners();
+  const partners = staticPartners;
   
   return (
     <div className="container py-12 md:py-20">
@@ -44,7 +31,7 @@ export default async function PartnersPage() {
                  <Link key={partner._id} href={partner.website || '#'} target="_blank" rel="noopener noreferrer" className="group">
                   <Card className="h-48 flex items-center justify-center p-6 border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
                      <Image
-                        src={urlFor(partner.logo).height(60).url()!}
+                        src={partner.logo}
                         alt={partner.name}
                         width={200}
                         height={60}

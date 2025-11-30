@@ -13,26 +13,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { securityAdvisories } from '@/lib/data';
-import { client } from '@/lib/sanity-preview';
-import type { SanityDocument } from "sanity";
-import type { CaseStudy, Partner } from "@/lib/types";
-import imageUrlBuilder from '@sanity/image-url';
+import { securityAdvisories, blogPosts as staticBlogPosts } from '@/lib/data';
+import type { Partner } from "@/lib/types";
 import React from "react";
 import SafeImage from '@/components/SafeImage';
-import type { ImageUrlBuilder } from '@sanity/image-url';
 import { Badge } from '@/components/ui/badge';
 
-const builder = imageUrlBuilder(client);
-
-function urlFor(source: any): ImageUrlBuilder | null {
-  if (!source) return null;
-  return builder.image(source);
-}
-
 interface HomePageClientProps {
-  blogPosts: (SanityDocument & { author?: { name?: string | null } | null })[];
-  caseStudies: CaseStudy[];
   partners: Partner[];
 }
 
@@ -72,7 +59,7 @@ const stats = [
 ];
 
 
-export default function HomePageClient({ blogPosts = [], caseStudies = [], partners = [] }: HomePageClientProps): JSX.Element {
+export default function HomePageClient({ partners = [] }: HomePageClientProps): JSX.Element {
   return (
     <div className="flex flex-col min-h-screen">
        <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-background">
@@ -238,17 +225,17 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                         className="w-full"
                       >
                          <CarouselContent>
-                          {(blogPosts || []).slice(0,3).map(post => (
-                            <CarouselItem key={post._id}>
-                                <Link href={`/blog/${post.slug.current}`} className="group block">
+                          {staticBlogPosts.map(post => (
+                            <CarouselItem key={post.title}>
+                                <Link href={post.url} className="group block">
                                     <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
                                         <div className="flex flex-col">
                                             <div className="relative h-40 w-full flex-shrink-0">
-                                                <SafeImage src={urlFor(post.mainImage)?.width(400).height(250).url()} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                                <SafeImage src={post.imageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" data-ai-hint={post.imageHint} />
                                             </div>
                                             <div className="p-6">
                                                 <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
-                                                <p className="text-xs text-muted-foreground mt-2">{post.author?.name}</p>
+                                                <p className="text-xs text-muted-foreground mt-2">{post.author}</p>
                                             </div>
                                         </div>
                                     </Card>
@@ -278,44 +265,6 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
               fortify their digital defenses.
             </p>
           </div>
-            {caseStudies.length > 0 && (
-                 <Carousel
-                    opts={{ align: 'start', loop: true }}
-                    className="w-full max-w-5xl mx-auto"
-                >
-                    <CarouselContent className="-ml-4">
-                        {caseStudies.map((study) => (
-                             <CarouselItem key={study._id} className="pl-4 md:basis-1/2 group">
-                                <Link href={`/case-studies/${study.slug.current}`} className="block">
-                                <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
-                                    <div className="relative h-48 w-full">
-                                        <SafeImage
-                                            src={urlFor(study.mainImage)?.width(600).height(400).url()}
-                                            alt={study.title ?? 'Case Study Image'}
-                                            fill
-                                            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                                            style={{ objectFit: 'cover' }}
-                                        />
-                                    </div>
-                                    <CardHeader>
-                                    <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">
-                                        {study.title}
-                                    </CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="flex-grow">
-                                    <p className="text-muted-foreground text-sm">
-                                        {study.summary}
-                                    </p>
-                                    </CardContent>
-                                </Card>
-                                </Link>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="hidden md:flex" />
-                    <CarouselNext className="hidden md:flex" />
-                </Carousel>
-            )}
           <div className="text-center mt-12">
             <Button asChild size="lg">
               <Link href="/case-studies">View All Case Studies</Link>

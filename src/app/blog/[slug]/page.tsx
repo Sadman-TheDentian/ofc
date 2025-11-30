@@ -1,40 +1,23 @@
-import { type SanityDocument } from "sanity";
-import { PortableText } from "@portabletext/react";
-import imageUrlBuilder from "@sanity/image-url";
-import { client } from "@/lib/sanity-client";
 import Link from "next/link";
-import { Author } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from '@/components/SafeImage';
-import type { Image as SanityImageSource } from 'sanity';
-import type { ImageUrlBuilder } from '@sanity/image-url';
-
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
-  ...,
-  author->{
-    _id,
-    name,
-    image
-  }
-}`;
-
-const { projectId, dataset } = client.config();
-const urlFor = (source: SanityImageSource): ImageUrlBuilder | null =>
-  projectId && dataset
-    ? imageUrlBuilder({ projectId, dataset }).image(source)
-    : null;
-
-const options = { next: { revalidate: 30 } }; // Revalidate every 30 seconds
 
 export default async function PostPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const post = await client.fetch<SanityDocument & { author?: Author }>(POST_QUERY, params, options);
-  const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImageSource)?.width(800).height(450).url() : null;
-    
-  const authorImageUrl = post.author?.image ? urlFor(post.author.image as SanityImageSource)?.width(40).height(40).url() : null;
+  const post = {
+    title: "Example Blog Post",
+    author: { name: "Jane Doe" },
+    publishedAt: new Date().toISOString(),
+    mainImage: "https://picsum.photos/seed/blog1/800/450",
+    body: [
+      { _type: 'block', style: 'normal', children: [{ _type: 'span', text: 'This is a sample blog post. Content would be fetched from a CMS in a real application.' }] }
+    ]
+  };
+  const postImageUrl = post.mainImage;
+  const authorImageUrl = undefined;
 
   return (
     <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-8">
@@ -69,7 +52,7 @@ export default async function PostPage({
         </div>
         
         <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
-          {Array.isArray(post.body) && <PortableText value={post.body} />}
+          {post.body && <p>{post.body[0].children[0].text}</p>}
         </div>
       </article>
     </main>
@@ -77,8 +60,7 @@ export default async function PostPage({
 }
 
 export async function generateStaticParams() {
-  const posts = await client.fetch<SanityDocument[]>(`*[_type == "post" && defined(slug.current)]{"slug": slug.current}`);
-  return posts
-    .filter(post => post.slug && post.slug.current) // Filter out items with no slug
-    .map(post => ({ slug: post.slug.current }));
+  // In a real app, this would fetch slugs from a CMS.
+  // For now, we return a sample slug.
+  return [{ slug: 'example-post' }];
 }
