@@ -3,7 +3,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, BrainCircuit, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { services } from '@/lib/data';
 import PartnerSlider from '@/components/layout/PartnerSlider';
@@ -21,7 +21,6 @@ import type { CaseStudy, Partner } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url';
 import React, { useState, useEffect, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
-import AnimatedHeadline from '@/components/layout/AnimatedHeadline';
 import SyntheticHero from '@/components/layout/SyntheticHero';
 import SafeImage from '@/components/SafeImage';
 
@@ -53,9 +52,19 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
 
 
 const DonutChart = ({ value }: { value: number }) => {
-    const radius = 80;
-    const circumference = 2 * Math.PI * radius;
-    const offset = circumference - (value / 100) * circumference;
+  const radius = 80;
+  const circumference = 2 * Math.PI * radius;
+  // Initialize offset directly to avoid hydration mismatch
+  const [offset, setOffset] = useState(circumference - (value / 100) * circumference);
+
+  useEffect(() => {
+    // This can be used for animations on the client if needed in the future,
+    // but the initial state is now consistent between server and client.
+    const newOffset = circumference - (value / 100) * circumference;
+    if (offset !== newOffset) {
+        setOffset(newOffset);
+    }
+  }, [value, circumference, offset]);
 
     return (
         <div className="relative h-48 w-48 mx-auto">
@@ -114,11 +123,11 @@ const stats = [
 
 
 export default function HomePageClient({ blogPosts = [], caseStudies = [], partners = [] }: HomePageClientProps) {
-  const [plugins, setPlugins] = useState<any[]>([]);
+  const autoplayServices = useRef(Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }));
+  const autoplayThreats = useRef(Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true }));
+  const autoplayBlog = useRef(Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true }));
+  const autoplayCaseStudies = useRef(Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true }));
 
-  useEffect(() => {
-    setPlugins([Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })]);
-  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -149,7 +158,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             </p>
           </div>
            <Carousel
-              plugins={plugins}
+              plugins={[autoplayServices.current]}
               opts={{ align: 'start', loop: true }}
               className="w-full max-w-6xl mx-auto"
             >
@@ -249,7 +258,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
                      <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={plugins}
+                        plugins={[autoplayThreats.current]}
                         className="w-full"
                     >
                        <CarouselContent>
@@ -278,7 +287,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
                       <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={plugins}
+                        plugins={[autoplayBlog.current]}
                         className="w-full"
                       >
                          <CarouselContent>
@@ -325,7 +334,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             {caseStudies.length > 0 && (
                  <Carousel
                     opts={{ align: 'start', loop: true }}
-                    plugins={plugins}
+                    plugins={[autoplayCaseStudies.current]}
                     className="w-full max-w-5xl mx-auto"
                 >
                     <CarouselContent className="-ml-4">

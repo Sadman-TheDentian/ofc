@@ -4,7 +4,7 @@ import { FC, CSSProperties } from "react";
 
 // Props type
 interface SafeImageProps {
-  src: any;        // Can be null
+  src: string | null;
   alt?: string;
   width?: number;
   height?: number;
