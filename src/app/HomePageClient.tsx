@@ -15,17 +15,16 @@ import {
 } from '@/components/ui/carousel';
 import { securityAdvisories } from '@/lib/data';
 import { client } from '@/lib/sanity';
-import type { SanityDocument, SanityImageSource } from "sanity";
+import type { SanityDocument } from "sanity";
 import type { CaseStudy, Partner } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url';
 import React from "react";
-import SyntheticHero from '@/components/layout/SyntheticHero';
 import SafeImage from '@/components/SafeImage';
 import type { ImageUrlBuilder } from '@sanity/image-url';
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: SanityImageSource | null): ImageUrlBuilder | null {
+function urlFor(source: any): ImageUrlBuilder | null {
   if (!source) return null;
   return builder.image(source);
 }
@@ -75,21 +74,31 @@ const stats = [
 export default function HomePageClient({ blogPosts = [], caseStudies = [], partners = [] }: HomePageClientProps): JSX.Element {
   return (
     <div className="flex flex-col min-h-screen">
-       <SyntheticHero 
-          title="REDEFINE YOUR DEFENSE"
-          description="Offensive security to fortify your digital defenses."
-          badgeText="DentiSystems"
-          badgeLabel="Cybersecurity"
-          ctaButtons={[
-            { text: 'Schedule Demo', href: '/contact', primary: true },
-            { text: 'View Threat Report', href: '/threat-intelligence' },
-          ]}
-          microDetails={[
-            "AI-Powered Threat Detection",
-            "Offensive Security",
-            "Resilient Infrastructure"
-          ]}
-       />
+       <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-background">
+          <div className="absolute inset-0 z-0 bg-animated-hero-gradient"></div>
+          <div className="relative z-10 flex flex-col items-center text-center px-6">
+              <Badge className="mb-6 bg-primary/10 hover:bg-white/15 text-primary backdrop-blur-md border border-primary/20 uppercase tracking-wider font-medium flex items-center gap-2 px-4 py-1.5">
+                  <span className="text-[10px] font-light tracking-[0.18em] text-primary/80">DentiSystems</span>
+                  <span className="h-1 w-1 rounded-full bg-primary/60" />
+                  <span className="text-xs font-light tracking-tight text-primary">Cybersecurity</span>
+              </Badge>
+              <h1 className="text-5xl md:text-7xl max-w-4xl font-light tracking-tight text-white mb-4">REDEFINE YOUR DEFENSE</h1>
+              <p className="text-primary/80 text-lg max-w-2xl mx-auto mb-10 font-light">Offensive security to fortify your digital defenses.</p>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                  <Button size="lg" asChild>
+                      <Link href="/contact">Schedule Demo</Link>
+                  </Button>
+                  <Button size="lg" variant="outline" asChild>
+                      <Link href="/threat-intelligence">View Threat Report</Link>
+                  </Button>
+              </div>
+              <ul className="mt-8 flex flex-wrap justify-center gap-6 text-xs font-light tracking-tight text-primary/70">
+                  <li className="flex items-center gap-2"><span className="h-1 w-1 rounded-full bg-primary/60" />AI-Powered Threat Detection</li>
+                  <li className="flex items-center gap-2"><span className="h-1 w-1 rounded-full bg-primary/60" />Offensive Security</li>
+                  <li className="flex items-center gap-2"><span className="h-1 w-1 rounded-full bg-primary/60" />Resilient Infrastructure</li>
+              </ul>
+          </div>
+        </section>
 
       <section id="services" className="py-20 md:py-32 bg-transparent">
         <div className="container px-4 md:px-6">
@@ -110,7 +119,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                   <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                       <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group bg-gradient-to-br from-card to-card/80 border-border/50">
                           <div className="relative h-48 w-full">
-                              <SafeImage 
+                              <SafeImage
                                   src={service.imageUrl}
                                   alt={service.title}
                                   fill
