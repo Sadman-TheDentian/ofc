@@ -18,7 +18,7 @@ import { securityAdvisories, blogPosts as staticBlogPosts } from '@/lib/data';
 import React from "react";
 import SafeImage from '@/components/SafeImage';
 import { partners } from '@/lib/partners';
-import ImageHero from '@/components/layout/ImageHero';
+import SyntheticHero from '@/components/layout/SyntheticHero';
 
 const stats = [
   {
@@ -42,10 +42,11 @@ const stats = [
 export default function HomePageClient(): JSX.Element {
   return (
     <div className="flex flex-col min-h-screen">
-       <ImageHero 
-        imageUrl="https://picsum.photos/seed/hero/1920/1080"
+       <SyntheticHero 
         title="REDEFINE YOUR DEFENSE"
         description="Offensive security to fortify your digital defenses."
+        cta1={{ text: "Schedule a Consultation", href: "/contact" }}
+        cta2={{ text: "View Our Services", href: "/services" }}
       />
 
       <section id="services" className="py-20 md:py-32 bg-transparent">

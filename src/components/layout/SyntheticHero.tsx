@@ -1,66 +1,126 @@
-{
-  "name": "nextn",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@hookform/resolvers": "3.8.0",
-    "@radix-ui/react-accordion": "^1.2.0",
-    "@radix-ui/react-alert-dialog": "^1.1.1",
-    "@radix-ui/react-avatar": "^1.1.0",
-    "@radix-ui/react-checkbox": "^1.1.1",
-    "@radix-ui/react-collapsible": "^1.1.0",
-    "@radix-ui/react-dialog": "^1.1.1",
-    "@radix-ui/react-dropdown-menu": "^2.1.1",
-    "@radix-ui/react-label": "^2.1.0",
-    "@radix-ui/react-menubar": "^1.1.1",
-    "@radix-ui/react-navigation-menu": "^1.2.0",
-    "@radix-ui/react-popover": "^1.1.1",
-    "@radix-ui/react-progress": "^1.1.0",
-    "@radix-ui/react-radio-group": "^1.2.0",
-    "@radix-ui/react-scroll-area": "^1.1.0",
-    "@radix-ui/react-select": "^2.1.1",
-    "@radix-ui/react-separator": "^1.1.0",
-    "@radix-ui/react-slider": "^1.2.0",
-    "@radix-ui/react-slot": "^1.1.0",
-    "@radix-ui/react-switch": "^1.1.0",
-    "@radix-ui/react-tabs": "^1.1.0",
-    "@radix-ui/react-toast": "^1.2.1",
-    "@radix-ui/react-tooltip": "^1.1.2",
-    "@sanity/image-url": "^1.0.2",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
-    "date-fns": "^3.6.0",
-    "embla-carousel-autoplay": "^8.2.0",
-    "embla-carousel-react": "^8.2.0",
-    "firebase": "^10.12.4",
-    "gsap": "^3.12.5",
-    "lucide-react": "^0.417.0",
-    "next": "14.2.5",
-    "next-sanity": "^9.4.2",
-    "react": "^18.3.1",
-    "react-day-picker": "^8.10.1",
-    "react-dom": "^18.3.1",
-    "react-hook-form": "7.51.5",
-    "react-intersection-observer": "^9.13.0",
-    "recharts": "^2.12.7",
-    "sanity": "^3.50.2",
-    "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7"
-  },
-  "devDependencies": {
-    "@tailwindcss/typography": "^0.5.13",
-    "@types/node": "^20",
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.4",
-    "typescript": "^5.5.2"
-  }
+"use client";
+
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useMemo, useRef } from "react";
+import * as THREE from "three";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+
+const DUST_COUNT = 5000;
+
+function DustParticles() {
+  const { size } = useThree();
+  const dustMesh = useRef<THREE.Points>(null!);
+
+  const particles = useMemo(() => {
+    const p = new Float32Array(DUST_COUNT * 3);
+    for (let i = 0; i < DUST_COUNT; i++) {
+      const i3 = i * 3;
+      p[i3 + 0] = (Math.random() - 0.5) * 15;
+      p[i3 + 1] = (Math.random() - 0.5) * 15;
+      p[i3 + 2] = (Math.random() - 0.5) * 10;
+    }
+    return p;
+  }, []);
+
+  const dustMaterial = useMemo(
+    () =>
+      new THREE.PointsMaterial({
+        size: 0.005,
+        color: "#4d4d4d",
+      }),
+    []
+  );
+
+  useFrame((state) => {
+    const { clock } = state;
+    if (dustMesh.current) {
+      dustMesh.current.rotation.y = clock.getElapsedTime() * 0.05;
+    }
+  });
+
+  return (
+    <points ref={dustMesh} material={dustMaterial}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={particles.length / 3}
+          array={particles}
+          itemSize={3}
+        />
+      </bufferGeometry>
+    </points>
+  );
+}
+
+function Ground() {
+    return (
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
+            <planeGeometry args={[100, 100]} />
+            <meshStandardMaterial color="#1a1a1a" />
+        </mesh>
+    );
+}
+
+
+export default function SyntheticHero({ title, description, badgeText, cta1, cta2 }: { title: string, description: string, badgeText?: string, cta1: { text: string, href: string }, cta2?: { text: string, href: string }}) {
+  const heroRef = useRef<HTMLDivElement>(null);
+  
+  useGSAP(() => {
+     if(!heroRef.current) return;
+    gsap.fromTo(heroRef.current.querySelectorAll("[data-animate]"), 
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: 0.2, delay: 0.5 }
+    );
+  }, { scope: heroRef });
+
+  return (
+    <section className="relative w-full py-20 md:py-32 lg:py-40 bg-background overflow-hidden h-[80vh] min-h-[600px] flex items-center justify-center">
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 1, 5], fov: 60 }}>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} />
+          <DustParticles />
+          <Ground />
+        </Canvas>
+      </div>
+      <div 
+        ref={heroRef}
+        className="container relative z-10 text-center"
+      >
+        {badgeText && (
+          <div data-animate>
+             <Badge className="mb-4 text-sm py-1 px-3">{badgeText}</Badge>
+          </div>
+        )}
+        <h1 
+          data-animate
+          className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl max-w-4xl mx-auto"
+        >
+          {title}
+        </h1>
+        <p 
+          data-animate
+          className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground md:text-xl"
+        >
+          {description}
+        </p>
+        <div 
+          data-animate
+          className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
+        >
+          <Button size="lg" asChild>
+            <a href={cta1.href}>{cta1.text}</a>
+          </Button>
+          {cta2 && (
+            <Button size="lg" variant="secondary" asChild>
+              <a href={cta2.href}>{cta2.text}</a>
+            </Button>
+          )}
+        </div>
+      </div>
+    </section>
+  );
 }
