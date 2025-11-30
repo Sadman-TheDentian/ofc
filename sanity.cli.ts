@@ -5,8 +5,9 @@
 * https://www.sanity.io/docs/cli-configuration
 */
 import { defineCliConfig } from 'sanity/cli'
-import { dataset, projectId } from './src/lib/sanity-client'
 
+const projectId = "9x2bbr6u";
+const dataset = "production";
 
 export default defineCliConfig({
  api: {
