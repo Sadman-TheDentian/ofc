@@ -32,11 +32,9 @@ export default async function PostPage({
   params: { slug: string };
 }) {
   const post = await client.fetch<SanityDocument & { author?: Author }>(POST_QUERY, params, options);
-  const postImageUrl = post.mainImage
-    ? urlFor(post.mainImage)?.width(800).height(450).url() ?? null
-    : null;
+  const postImageUrl = urlFor(post.mainImage)?.width(800).height(450).url();
     
-  const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.width(40).height(40).url() : null;
+  const authorImageUrl = urlFor(post.author?.image)?.width(40).height(40).url();
 
   return (
     <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-8">
@@ -49,7 +47,7 @@ export default async function PostPage({
             {post.author && (
                 <div className="flex items-center gap-3">
                     <Avatar>
-                        {authorImageUrl && <AvatarImage src={authorImageUrl} alt={post.author.name || ""} />}
+                        <AvatarImage src={authorImageUrl} alt={post.author.name} />
                         <AvatarFallback>{post.author.name?.charAt(0) || 'A'}</AvatarFallback>
                     </Avatar>
                     <span className="font-medium text-muted-foreground">{post.author.name}</span>
@@ -64,7 +62,7 @@ export default async function PostPage({
         <div className="relative w-full aspect-video mb-8">
           <SafeImage
             src={postImageUrl}
-            alt={post.title || ""}
+            alt={post.title}
             fill
             className="rounded-xl object-cover"
           />

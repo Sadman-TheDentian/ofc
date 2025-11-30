@@ -45,7 +45,7 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
 
                 <div className="relative h-96 w-full mb-12">
                     <SafeImage 
-                        src={paper.mainImage ? urlFor(paper.mainImage).width(1200).height(800).url() : null}
+                        src={urlFor(paper.mainImage)?.width(1200).height(800).url()}
                         alt={paper.title}
                         fill
                         className="object-cover rounded-xl shadow-lg"

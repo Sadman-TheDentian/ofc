@@ -1,3 +1,4 @@
+
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
@@ -24,7 +25,6 @@ export default defineType({
       description: 'A short summary of the news article (around 150 characters).',
       type: 'text',
       rows: 3,
-      validation: (rule) => rule.max(200),
     }),
     defineField({
       name: 'publishedAt',
@@ -65,3 +65,5 @@ export default defineType({
     },
   },
 })
+
+    

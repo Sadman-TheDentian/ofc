@@ -62,7 +62,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
 
                 <div className="relative h-96 w-full mb-12">
                     <SafeImage 
-                        src={study.mainImage ? urlFor(study.mainImage).width(1200).height(800).url() : null}
+                        src={urlFor(study.mainImage).width(1200).height(800).url()}
                         alt={study.title}
                         fill
                         className="object-cover rounded-xl shadow-lg"
@@ -98,5 +98,3 @@ export async function generateStaticParams() {
     .filter(study => study.slug && study.slug.current) // Filter out items with no slug
     .map(study => ({ slug: study.slug.current }));
 }
-
-    

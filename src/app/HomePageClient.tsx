@@ -27,6 +27,7 @@ import SafeImage from '@/components/SafeImage';
 const builder = imageUrlBuilder(client);
 
 function urlFor(source: any) {
+  if (!source) return null;
   return builder.image(source);
 }
 
@@ -50,45 +51,46 @@ const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean
   return <span>{getFormattedCount(to)}</span>;
 };
 
-const DonutChart = ({ value }: { value: number }) => {
-    const radius = 80;
-    const circumference = 2 * Math.PI * radius;
-    const progress = value / 100;
-    const offset = circumference - progress * circumference;
 
-    return (
-        <div className="relative h-48 w-48 mx-auto">
-            <svg className="w-full h-full" viewBox="0 0 200 200">
-                <circle
-                    className="text-secondary"
-                    strokeWidth="12"
-                    stroke="currentColor"
-                    fill="transparent"
-                    r={radius}
-                    cx="100"
-                    cy="100"
-                />
-                <circle
-                    className={`text-primary`}
-                    strokeWidth="12"
-                    strokeDasharray={circumference}
-                    strokeDashoffset={offset}
-                    strokeLinecap="round"
-                    stroke="currentColor"
-                    fill="transparent"
-                    r={radius}
-                    cx="100"
-                    cy="100"
-                    transform="rotate(-90 100 100)"
-                />
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-                <h3 className="text-4xl font-bold font-headline text-primary">
-                    {value.toFixed(1)}%
-                </h3>
-            </div>
-        </div>
-    );
+const DonutChart = ({ value }: { value: number }) => {
+  const radius = 80;
+  const circumference = 2 * Math.PI * radius;
+  const progress = value / 100;
+  const offset = circumference - progress * circumference;
+
+  return (
+    <div className="relative h-48 w-48 mx-auto">
+      <svg className="w-full h-full" viewBox="0 0 200 200">
+        <circle
+          className="text-secondary"
+          strokeWidth="12"
+          stroke="currentColor"
+          fill="transparent"
+          r={radius}
+          cx="100"
+          cy="100"
+        />
+        <circle
+          className={`text-primary`}
+          strokeWidth="12"
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+          stroke="currentColor"
+          fill="transparent"
+          r={radius}
+          cx="100"
+          cy="100"
+          transform="rotate(-90 100 100)"
+        />
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <h3 className="text-4xl font-bold font-headline text-primary">
+          {value.toFixed(1)}%
+        </h3>
+      </div>
+    </div>
+  );
 };
 
 const stats = [
@@ -115,13 +117,9 @@ const stats = [
 
 
 export default function HomePageClient({ blogPosts = [], caseStudies = [], partners = [] }: HomePageClientProps) {
-  const [plugins, setPlugins] = useState<any[]>([]);
-
-  useEffect(() => {
-    setPlugins([
-      Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }),
-    ]);
-  }, []);
+  const plugins = useRef([
+    Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }),
+  ]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -152,7 +150,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             </p>
           </div>
            <Carousel
-              plugins={plugins}
+              plugins={plugins.current}
               opts={{ align: 'start', loop: true }}
               className="w-full max-w-6xl mx-auto"
             >
@@ -252,7 +250,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
                      <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={plugins}
+                        plugins={plugins.current}
                         className="w-full"
                     >
                        <CarouselContent>
@@ -281,7 +279,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
                       <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={plugins}
+                        plugins={plugins.current}
                         className="w-full"
                       >
                          <CarouselContent>
@@ -291,7 +289,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                     <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
                                         <div className="flex flex-col">
                                             <div className="relative h-40 w-full flex-shrink-0">
-                                                <SafeImage src={post.mainImage ? urlFor(post.mainImage).width(400).height(250).url() : null} alt={post.title || ""} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                                <SafeImage src={urlFor(post.mainImage)?.width(400).height(250).url()} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
                                             </div>
                                             <div className="p-6">
                                                 <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
@@ -328,7 +326,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             {caseStudies.length > 0 && (
                  <Carousel
                     opts={{ align: 'start', loop: true }}
-                    plugins={plugins}
+                    plugins={plugins.current}
                     className="w-full max-w-5xl mx-auto"
                 >
                     <CarouselContent className="-ml-4">
@@ -338,7 +336,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                 <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
                                     <div className="relative h-48 w-full">
                                         <SafeImage
-                                            src={study.mainImage ? urlFor(study.mainImage).width(600).height(400).url() : null}
+                                            src={urlFor(study.mainImage)?.width(600).height(400).url()}
                                             alt={study.title}
                                             fill
                                             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"

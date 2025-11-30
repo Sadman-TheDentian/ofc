@@ -49,10 +49,8 @@ export default async function BlogPage() {
 
       <div className="max-w-3xl mx-auto grid gap-12">
         {posts.map((post) => {
-          const postImageUrl = post.mainImage
-            ? urlFor(post.mainImage)?.width(800).height(450).url() ?? null
-            : null;
-          const authorImageUrl = post.author?.image ? urlFor(post.author.image)?.width(40).height(40).url() : null;
+          const postImageUrl = urlFor(post.mainImage)?.width(800).height(450).url();
+          const authorImageUrl = urlFor(post.author?.image)?.width(40).height(40).url();
 
           return (
             <Link href={`/blog/${post.slug.current}`} key={post._id} className="group block">
@@ -60,7 +58,7 @@ export default async function BlogPage() {
                 <div className="relative w-full aspect-video">
                   <SafeImage
                     src={postImageUrl}
-                    alt={post.title || ""}
+                    alt={post.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform"
                   />
@@ -74,7 +72,7 @@ export default async function BlogPage() {
                     {post.author && (
                         <div className="flex items-center gap-2">
                             <Avatar className="h-6 w-6">
-                                {authorImageUrl && <AvatarImage src={authorImageUrl} alt={post.author.name || ""} />}
+                                <AvatarImage src={authorImageUrl} alt={post.author.name} />
                                 <AvatarFallback>{post.author.name?.charAt(0) || 'A'}</AvatarFallback>
                             </Avatar>
                             <span>{post.author.name}</span>

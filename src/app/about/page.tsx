@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
 import React from "react";
+import SafeImage from "@/components/SafeImage";
 
 const statsData = [
   { subject: 'Threats Analyzed', value: 120, fullMark: 150, displayValue: "1.2M+" },
@@ -158,7 +159,7 @@ export default function AboutPage() {
               <Link href={value.href} key={value.title} className="group">
                 <Card className="overflow-hidden bg-gradient-to-br from-card to-card/80 border-border/50 h-full flex flex-col transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
                     <div className="relative h-40 w-full">
-                         <Image src={value.imageUrl} alt={value.title} fill style={{objectFit: 'cover'}} className="group-hover:scale-105 transition-transform" />
+                         <SafeImage src={value.imageUrl} alt={value.title} fill style={{objectFit: 'cover'}} className="group-hover:scale-105 transition-transform" />
                     </div>
                      <div className="p-6 text-center flex-grow flex flex-col">
                         <h3 className="font-headline text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{value.title}</h3>
@@ -188,7 +189,7 @@ export default function AboutPage() {
                         <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
                             <CardHeader className="p-0">
                                 <div className="relative h-48 w-full">
-                                    <Image
+                                    <SafeImage
                                         src={resource.imageUrl}
                                         alt={resource.title}
                                         fill
@@ -220,7 +221,7 @@ export default function AboutPage() {
           {TeamMembers.map((member) => (
             <Card key={member.id} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center">
               <CardContent className="p-6">
-                <Image
+                <SafeImage
                   src={member.imageUrl}
                   alt={member.name}
                   width={120}
@@ -250,3 +251,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+    

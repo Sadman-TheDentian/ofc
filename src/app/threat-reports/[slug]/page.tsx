@@ -46,7 +46,7 @@ export default async function ThreatReportPage({ params }: { params: { slug: str
 
                 <div className="relative h-96 w-full mb-12">
                     <SafeImage 
-                        src={report.mainImage ? urlFor(report.mainImage).width(1200).height(800).url() : null}
+                        src={urlFor(report.mainImage)?.width(1200).height(800).url()}
                         alt={report.title}
                         fill
                         className="object-cover rounded-xl shadow-lg"

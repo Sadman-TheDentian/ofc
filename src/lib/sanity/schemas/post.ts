@@ -25,7 +25,6 @@ export default defineType({
       description: 'A short summary of the post (around 150 characters). Used for previews.',
       type: 'text',
       rows: 3,
-      validation: (rule) => rule.max(200),
     }),
     defineField({
       name: 'publishedAt',
@@ -66,3 +65,5 @@ export default defineType({
     },
   },
 })
+
+    

@@ -35,13 +35,15 @@ export default async function WhitePapersPage() {
 
        {papers && papers.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {papers.map(paper => (
+            {papers.map(paper => {
+                 const imageUrl = urlFor(paper.mainImage)?.width(600).height(400).url();
+                return (
                  <Link key={paper._id} href={`/white-papers/${paper.slug.current}`} className="group">
                   <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
                      <div className="relative h-48 w-full">
                         <SafeImage
-                          src={paper.mainImage ? urlFor(paper.mainImage).width(600).height(400).url() : null}
-                          alt={paper.title || ""}
+                          src={imageUrl}
+                          alt={paper.title}
                           fill
                           className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                         />
@@ -58,7 +60,8 @@ export default async function WhitePapersPage() {
                     </CardContent>
                   </Card>
                 </Link>
-            ))}
+                )
+            })}
         </div>
       ) : (
         <div className="text-center py-16 border border-dashed rounded-lg">

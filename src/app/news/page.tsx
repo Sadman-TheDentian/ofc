@@ -49,10 +49,8 @@ export default async function NewsPage() {
 
       <div className="max-w-3xl mx-auto grid gap-12">
         {newsItems.map((item) => {
-          const itemImageUrl = item.mainImage
-            ? urlFor(item.mainImage)?.width(800).height(450).url() ?? null
-            : null;
-          const authorImageUrl = item.author?.image ? urlFor(item.author.image)?.width(40).height(40).url() : null;
+          const itemImageUrl = urlFor(item.mainImage)?.width(800).height(450).url();
+          const authorImageUrl = urlFor(item.author?.image)?.width(40).height(40).url();
 
           return (
             <Link href={`/news/${item.slug.current}`} key={item._id} className="group block">
@@ -60,7 +58,7 @@ export default async function NewsPage() {
                 <div className="relative w-full aspect-video">
                   <SafeImage
                     src={itemImageUrl}
-                    alt={item.title || ""}
+                    alt={item.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform"
                   />
@@ -74,7 +72,7 @@ export default async function NewsPage() {
                     {item.author && (
                         <div className="flex items-center gap-2">
                             <Avatar className="h-6 w-6">
-                                {authorImageUrl && <AvatarImage src={authorImageUrl} alt={item.author.name || ""} />}
+                                <AvatarImage src={authorImageUrl} alt={item.author.name} />
                                 <AvatarFallback>{item.author.name?.charAt(0) || 'A'}</AvatarFallback>
                             </Avatar>
                             <span>{item.author.name}</span>
