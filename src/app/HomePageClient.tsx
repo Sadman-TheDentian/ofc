@@ -19,7 +19,7 @@ import { client } from '@/lib/sanity';
 import { type SanityDocument } from "next-sanity";
 import type { CaseStudy, Partner } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url';
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import SyntheticHero from '@/components/layout/SyntheticHero';
 import SafeImage from '@/components/SafeImage';
@@ -117,9 +117,10 @@ const stats = [
 
 
 export default function HomePageClient({ blogPosts = [], caseStudies = [], partners = [] }: HomePageClientProps) {
-  const plugins = useRef([
+  const autoplayPlugins = [
     Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }),
-  ]);
+  ];
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -150,7 +151,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             </p>
           </div>
            <Carousel
-              plugins={plugins.current}
+              plugins={autoplayPlugins}
               opts={{ align: 'start', loop: true }}
               className="w-full max-w-6xl mx-auto"
             >
@@ -250,7 +251,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
                      <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={plugins.current}
+                        plugins={autoplayPlugins}
                         className="w-full"
                     >
                        <CarouselContent>
@@ -279,7 +280,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
                       <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={plugins.current}
+                        plugins={autoplayPlugins}
                         className="w-full"
                       >
                          <CarouselContent>
@@ -326,7 +327,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             {caseStudies.length > 0 && (
                  <Carousel
                     opts={{ align: 'start', loop: true }}
-                    plugins={plugins.current}
+                    plugins={autoplayPlugins}
                     className="w-full max-w-5xl mx-auto"
                 >
                     <CarouselContent className="-ml-4">
@@ -386,3 +387,5 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
     </div>
   );
 }
+
+    

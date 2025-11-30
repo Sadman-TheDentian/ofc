@@ -41,7 +41,7 @@ export type Tool = {
   title: string;
   description: string;
   longDescription: string;
-  icon?: LucideIcon;
+  icon: LucideIcon;
   url?: string;
   imageUrl: string;
   embedCode?: string;
@@ -69,8 +69,8 @@ export type CaseStudy = {
 };
 
 export type Author = {
-    name: string;
-    image: any;
+    name?: string | null | undefined;
+    image?: any | null | undefined;
 };
 
 export type BlogPost = {

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { tools } from "@/lib/data";
@@ -15,7 +16,7 @@ import Autoplay from "embla-carousel-autoplay";
 import type { Tool } from "@/lib/types";
 
 type Props = {
-  tool: Tool;
+  tool: Omit<Tool, 'icon'>;
 };
 
 export default function ToolDetailClient({ tool }: Props) {

@@ -1,3 +1,4 @@
+
 import { tools } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -31,12 +32,9 @@ export default function ToolDetailPage({ params }: Props) {
   }
 
   // Create a serializable version of the tool object without the icon component
-  const serializableTool = {
-    ...tool,
-    icon: undefined, // Remove the icon component
-  };
+  const { icon, ...serializableTool } = tool;
 
-  return <ToolDetailClient tool={serializableTool as Tool} />;
+  return <ToolDetailClient tool={serializableTool as Omit<Tool, 'icon'>} />;
 }
 
 export async function generateStaticParams() {
