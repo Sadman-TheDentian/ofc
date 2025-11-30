@@ -1,4 +1,3 @@
-
 import type { LucideIcon } from 'lucide-react';
 import type { SVGProps } from 'react';
 import { PortableTextBlock } from 'sanity';
