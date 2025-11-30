@@ -1,4 +1,3 @@
-
 import { client } from "@/lib/sanity";
 import type { Partner } from "@/lib/types";
 import { Card, CardContent } from "@/components/ui/card";

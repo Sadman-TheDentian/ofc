@@ -21,6 +21,7 @@ import imageUrlBuilder from '@sanity/image-url';
 import React from "react";
 import SafeImage from '@/components/SafeImage';
 import type { ImageUrlBuilder } from '@sanity/image-url';
+import { Badge } from '@/components/ui/badge';
 
 const builder = imageUrlBuilder(client);
 

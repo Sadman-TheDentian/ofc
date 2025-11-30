@@ -1,6 +1,5 @@
-
 import { client } from "@/lib/sanity";
-import type { SanityDocument } from "next-sanity";
+import type { SanityDocument } from "sanity";
 import { notFound } from "next/navigation";
 import imageUrlBuilder from '@sanity/image-url';
 import { PortableText } from '@portabletext/react';

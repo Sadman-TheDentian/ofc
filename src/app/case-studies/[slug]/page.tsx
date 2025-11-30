@@ -1,4 +1,3 @@
-
 import { client } from "@/lib/sanity";
 import type { CaseStudy } from "@/lib/types";
 import { notFound } from "next/navigation";

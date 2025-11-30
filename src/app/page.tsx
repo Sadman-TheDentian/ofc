@@ -1,6 +1,5 @@
-
 import { client } from '@/lib/sanity';
-import type { SanityDocument } from "next-sanity";
+import type { SanityDocument } from "sanity";
 import type { CaseStudy, Partner } from "@/lib/types";
 import HomePageClient from './HomePageClient';
 import StructuredData from '@/components/StructuredData';

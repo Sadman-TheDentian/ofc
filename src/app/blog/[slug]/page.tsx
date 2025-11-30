@@ -1,5 +1,4 @@
-
-import { type SanityDocument } from "next-sanity";
+import { type SanityDocument } from "sanity";
 import { PortableText } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/lib/sanity";

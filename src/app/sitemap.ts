@@ -1,7 +1,7 @@
-
 import { MetadataRoute } from 'next'
 import { client } from '@/lib/sanity'
 import { services } from '@/lib/data'
+import { SanityDocument } from 'sanity'
 
 type SanitySlug = {
     _id: string;

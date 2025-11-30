@@ -1,6 +1,5 @@
-
 import Link from "next/link";
-import { type SanityDocument } from "next-sanity";
+import { type SanityDocument } from "sanity";
 import { client } from "@/lib/sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import { Author } from "@/lib/types";

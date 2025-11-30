@@ -1,4 +1,3 @@
-
 import { PortableText, type SanityDocument } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "@/lib/sanity";

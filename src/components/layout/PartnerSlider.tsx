@@ -1,4 +1,3 @@
-
 'use client'
 import { type Partner } from "@/lib/types";
 import imageUrlBuilder from "@sanity/image-url";
