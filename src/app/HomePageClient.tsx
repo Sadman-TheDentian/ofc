@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -16,13 +15,12 @@ import {
 } from '@/components/ui/carousel';
 import { securityAdvisories } from '@/lib/data';
 import { client } from '@/lib/sanity';
-import { type SanityDocument } from "next-sanity";
+import type { SanityDocument, SanityImageSource } from "sanity";
 import type { CaseStudy, Partner } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url';
 import React from "react";
 import SyntheticHero from '@/components/layout/SyntheticHero';
 import SafeImage from '@/components/SafeImage';
-import type { Image as SanityImage, SanityImageSource } from 'sanity';
 import type { ImageUrlBuilder } from '@sanity/image-url';
 
 const builder = imageUrlBuilder(client);
@@ -167,7 +165,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                 key={index}
                 className="flex flex-col items-center justify-start space-y-4"
               >
-                <h3 className="text-5xl font-bold font-headline text-primary h-48 flex items-center justify-center">
+                <h3 className="text-5xl font-bold font-headline text-primary h-24 flex items-center justify-center">
                     <Counter to={stat.value} isMillion={stat.isMillion} isPercent={stat.isPercent} />
                     {stat.isMillion ? "M+" : (stat.suffix || '')}
                 </h3>
@@ -236,7 +234,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                     <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
                                         <div className="flex flex-col">
                                             <div className="relative h-40 w-full flex-shrink-0">
-                                                <SafeImage src={urlFor(post.mainImage as SanityImage | null)?.width(400).height(250).url() ?? undefined} alt={post.title ?? 'Blog Post Image'} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                                <SafeImage src={urlFor(post.mainImage)?.width(400).height(250).url()} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
                                             </div>
                                             <div className="p-6">
                                                 <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
@@ -282,7 +280,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                 <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
                                     <div className="relative h-48 w-full">
                                         <SafeImage
-                                            src={urlFor(study.mainImage as SanityImage | null)?.width(600).height(400).url() ?? undefined}
+                                            src={urlFor(study.mainImage)?.width(600).height(400).url()}
                                             alt={study.title ?? 'Case Study Image'}
                                             fill
                                             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
@@ -332,5 +330,3 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
     </div>
   );
 }
-
-    

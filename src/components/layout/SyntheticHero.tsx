@@ -6,11 +6,8 @@ import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-
-gsap.registerPlugin(SplitText);
 
 interface ShaderPlaneProps {
 	vertexShader: string;
@@ -163,6 +160,7 @@ const SyntheticHero = ({
 	useGSAP(
 		() => {
 			if (!headingRef.current) return;
+            const { SplitText } = gsap;
 
 			document.fonts.ready.then(() => {
 				const split = new SplitText(headingRef.current!, {

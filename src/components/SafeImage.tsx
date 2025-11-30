@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { FC, CSSProperties } from "react";
 
@@ -29,7 +28,10 @@ const SafeImage: FC<SafeImageProps> = ({
   if (!src) {
     // Render a dark placeholder div when the src is missing
     return (
-      <div className={`w-full h-full bg-neutral-900 flex items-center justify-center text-neutral-500 ${className}`} style={style}>
+      <div 
+        className={`w-full h-full bg-neutral-900 flex items-center justify-center text-neutral-500 ${className || ''}`} 
+        style={style}
+      >
         <span>No Image</span>
       </div>
     );

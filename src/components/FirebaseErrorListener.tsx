@@ -27,3 +27,4 @@ export function FirebaseErrorListener(): null {
 
   return null;
 }
+

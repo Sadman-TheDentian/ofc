@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -41,7 +40,6 @@ import {
 } from "@/components/ui/accordion"
 import React from 'react';
 import { tools, services } from '@/lib/data';
-import type { SanityImageSource } from 'sanity';
 
 const logoUrl =
   'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png';
@@ -121,7 +119,11 @@ export default function Header(): JSX.Element {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   const UserMenu = () => {
-    if (loading) return null;
+    if (loading) {
+      return (
+        <div className="h-8 w-8 rounded-full bg-muted animate-pulse" />
+      );
+    }
 
     if (user) {
       return (
@@ -159,8 +161,17 @@ export default function Header(): JSX.Element {
         </DropdownMenu>
       );
     }
-
-    return null;
+    
+    return (
+        <div className="hidden md:flex items-center space-x-2">
+            <Button variant="ghost" asChild>
+            <Link href="/auth">Login</Link>
+            </Button>
+            <Button asChild>
+            <Link href="/contact">Contact Sales</Link>
+            </Button>
+        </div>
+    );
   };
 
   const DesktopNav = () => (
@@ -310,15 +321,7 @@ export default function Header(): JSX.Element {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
-           <div className="hidden md:flex items-center space-x-2">
-              <Button variant="ghost" asChild>
-                <Link href="/auth">Login</Link>
-              </Button>
-              <Button asChild>
-                <Link href="/contact">Contact Sales</Link>
-              </Button>
-              <UserMenu />
-          </div>
+            <UserMenu />
         </div>
 
         {/* Mobile Menu */}
@@ -445,5 +448,3 @@ export default function Header(): JSX.Element {
     </header>
   );
 }
-
-    
