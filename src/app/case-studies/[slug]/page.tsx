@@ -1,3 +1,4 @@
+
 import { notFound } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -47,7 +48,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
                 <div className="grid md:grid-cols-3 gap-8">
                     <div className="md:col-span-2">
                         <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
-                            {study.content && <p>{study.content[0].children[0].text}</p>}
+                            {study.content && study.content[0] && study.content[0].children && study.content[0].children[0] && <p>{study.content[0].children[0].text}</p>}
                         </div>
                     </div>
                      <aside>

@@ -89,7 +89,7 @@ export default async function NewsPostPage({
           </div>
           
           <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
-            {post.body && <p>{post.body[0].children[0].text}</p>}
+            {post.body && post.body[0] && post.body[0].children && post.body[0].children[0] && <p>{post.body[0].children[0].text}</p>}
           </div>
         </article>
       </main>
