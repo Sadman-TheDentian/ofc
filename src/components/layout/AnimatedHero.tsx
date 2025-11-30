@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -23,8 +24,9 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({ children, className, id }) 
   });
 
   // We transform the scroll progress (a value from 0 to 1) into an opacity value.
-  // As scrollYProgress goes from 0 to 1, opacity will go from 1 (fully visible) to 0 (fully faded out).
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  // As scrollYProgress goes from 0 to 0.8 (80% of the element's scroll height), opacity will go from 1 (fully visible) to 0 (fully faded out).
+  // This makes the fade-out much slower.
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <motion.div

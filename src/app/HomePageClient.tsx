@@ -48,8 +48,6 @@ export default function HomePageClient(): JSX.Element {
        <SyntheticHero
 				title="REDEFINE YOUR DEFENSE"
 				description="Offensive security to fortify your digital defenses."
-				badgeText="DentiSystems"
-				badgeLabel="Security"
 				ctaButtons={[
 					{ text: "Schedule a Consultation", href: "/contact", primary: true },
 					{ text: "View Our Services", href: "/services" },
