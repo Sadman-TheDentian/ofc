@@ -49,6 +49,7 @@
     "genkit": "^1.24.0",
     "lucide-react": "^0.417.0",
     "next": "14.2.5",
+    "next-sanity": "9.4.2",
     "random-string": "^0.2.0",
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",

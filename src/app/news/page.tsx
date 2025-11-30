@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { type SanityDocument } from "sanity";
-import { client } from "@/lib/sanity";
+import { client } from "@/lib/sanity-client";
 import imageUrlBuilder from "@sanity/image-url";
 import { Author } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

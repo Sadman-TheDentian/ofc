@@ -1,4 +1,4 @@
-import { client } from "@/lib/sanity";
+import { client } from "@/lib/sanity-client";
 import type { SanityDocument } from "sanity";
 import { notFound } from "next/navigation";
 import imageUrlBuilder from '@sanity/image-url';

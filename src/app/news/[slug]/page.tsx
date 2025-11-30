@@ -1,6 +1,6 @@
-import { PortableText, type SanityDocument } from "next-sanity";
+import { type SanityDocument } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
-import { client } from "@/lib/sanity";
+import { client } from "@/lib/sanity-client";
 import Link from "next/link";
 import { Author } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -8,6 +8,7 @@ import StructuredData from "@/components/StructuredData";
 import SafeImage from "@/components/SafeImage";
 import type { SanityImageSource } from 'sanity';
 import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
+import { PortableText } from "@portabletext/react";
 
 const NEWS_POST_QUERY = `*[_type == "news" && slug.current == $slug][0]{
   ...,

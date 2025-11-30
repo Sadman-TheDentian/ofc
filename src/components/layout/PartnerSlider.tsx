@@ -3,7 +3,7 @@ import { type Partner } from "@/lib/types";
 import imageUrlBuilder from "@sanity/image-url";
 import Image from "next/image";
 import Link from "next/link";
-import { client } from "@/lib/sanity";
+import { client } from "@/lib/sanity-preview";
 import type { ImageUrlBuilder } from "@sanity/image-url";
 import { SanityImageSource } from "sanity";
 

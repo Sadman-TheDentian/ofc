@@ -1,5 +1,5 @@
 
-import { client } from '@/lib/sanity';
+import { client } from '@/lib/sanity-client';
 import type { SanityDocument } from 'next-sanity';
 
 // The publisher name

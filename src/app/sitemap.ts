@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { client } from '@/lib/sanity'
+import { client } from '@/lib/sanity-client'
 import { services } from '@/lib/data'
 import { SanityDocument } from 'sanity'
 

@@ -5,7 +5,7 @@ import { client } from "@/lib/sanity-client";
 import Link from "next/link";
 import { Author } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import SafeImage from "@/components/SafeImage";
+import SafeImage from '@/components/SafeImage';
 import type { Image as SanityImageSource } from 'sanity';
 import type { ImageUrlBuilder } from '@sanity/image-url';
 
