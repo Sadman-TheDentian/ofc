@@ -8,7 +8,7 @@ import { SanityImage } from "@/lib/types";
 // In a real app, you would fetch post data based on the slug.
 const post = {
     title: "Example News Article",
-    author: { name: "DentiSystems News", image: null as SanityImage | null },
+    author: { name: "DentiSystems News", image: null as SanityImage | null | string },
     publishedAt: new Date().toISOString(),
     _updatedAt: new Date().toISOString(),
     mainImage: "https://picsum.photos/seed/news1/800/450",
@@ -26,7 +26,7 @@ export default async function NewsPostPage({
 }) {
 
   const postImageUrl = post.mainImage;
-  const authorImageUrl: string | undefined = post.author?.image ? urlFor(post.author.image)?.url() : undefined;
+  const authorImageUrl = typeof post.author?.image === 'string' ? post.author.image : post.author?.image ? urlFor(post.author.image as SanityImage)?.url() : undefined;
 
 
   const jsonLd = {

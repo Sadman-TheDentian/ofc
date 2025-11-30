@@ -13,7 +13,7 @@ const staticNewsItems: {
     publishedAt: string;
     mainImage: string;
     excerpt: string;
-    author: { name: string; image: SanityImage | null; };
+    author: { name: string; image: SanityImage | null | string; };
 }[] = [
     {
         _id: '1',
@@ -43,7 +43,7 @@ export default async function NewsPage() {
       <div className="max-w-3xl mx-auto grid gap-12">
         {newsItems.map((item) => {
           const itemImageUrl = item.mainImage;
-          const authorImageUrl = item.author?.image ? urlFor(item.author.image)?.url() : undefined;
+          const authorImageUrl = typeof item.author?.image === 'string' ? item.author.image : item.author?.image ? urlFor(item.author.image as SanityImage)?.url() : undefined;
 
           return (
             <Link href={`/news/${item.slug.current}`} key={item._id} className="group block">
