@@ -1,4 +1,3 @@
-
 import { tools } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
@@ -19,10 +18,12 @@ export default function ToolsPage() {
       </div>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {tools.map((tool) => (
-           <Link 
-              href={`/tools/${tool.slug}`} 
+           <a 
+              href={tool.url}
               key={tool.id} 
-              className="group" 
+              className="group"
+              target="_blank"
+              rel="noopener noreferrer"
             >
             <Card className="flex flex-col h-full hover:border-primary/50 transition-colors overflow-hidden bg-gradient-to-br from-card to-card/80 border-border/50">
                 <div className="relative h-48 w-full bg-secondary/30 flex items-center justify-center p-8">
@@ -48,7 +49,7 @@ export default function ToolsPage() {
                 </div>
               </CardContent>
             </Card>
-           </Link>
+           </a>
         ))}
       </div>
     </div>

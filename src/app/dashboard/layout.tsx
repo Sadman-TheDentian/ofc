@@ -1,12 +1,10 @@
-
 'use client';
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
-  ShieldHalf,
-  KeyRound,
+  CreditCard,
   PanelLeft,
   Loader2,
   MailWarning,
@@ -26,14 +24,9 @@ const sidebarNavItems = [
     icon: LayoutDashboard,
   },
   {
-    title: 'Vulnerability Scanner',
-    href: '/dashboard/code-scanner',
-    icon: ShieldHalf,
-  },
-  {
-    title: 'Leak Detector',
-    href: '/dashboard/code-leak-detector',
-    icon: KeyRound,
+    title: 'Subscriptions',
+    href: '/dashboard/subscriptions',
+    icon: CreditCard,
   },
 ];
 

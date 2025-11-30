@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from '@/components/SafeImage';
 import { client, urlFor } from "@/lib/sanity-client";
-import { BlogPost } from "@/lib/types";
+import { BlogPost, SanityImage } from "@/lib/types";
 
 async function getPost(slug: string): Promise<BlogPost | null> {
   const query = `*[_type == "post" && slug.current == $slug][0]{
@@ -89,7 +89,7 @@ export default async function PostPage({
 
 export async function generateStaticParams() {
   try {
-    const slugs = await client.fetch<string[]>(`*[_type == "post"].slug.current`);
+    const slugs = await client.fetch<string[]>(`*[_type == "post"]{ "slug": slug.current }.slug`);
     return slugs.map(slug => ({ slug }));
   } catch (error) {
     console.error("Failed to generate static params for posts:", error);

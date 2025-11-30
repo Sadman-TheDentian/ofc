@@ -1,4 +1,3 @@
-
 import type { Service, Tool } from "./types";
 import {
   ShieldCheck,
@@ -7,6 +6,9 @@ import {
   KeyRound,
   ShieldHalf,
   Siren,
+  FileCode,
+  Scan,
+  Users,
 } from "lucide-react";
 
 export const services: Service[] = [
@@ -155,22 +157,42 @@ export const services: Service[] = [
 export const tools: Tool[] = [
   {
     id: 5,
-    slug: "code-leak-detector",
-    title: "AI Code Leak Detector",
-    description: "Use AI to analyze code snippets for hardcoded secrets.",
-    longDescription: "Our AI-powered Code Leak Detector allows developers to quickly check their code for secrets like API keys and passwords. Get instant feedback and suggestions for remediation.",
+    slug: "darkcheck",
+    title: "DarkCheck",
+    description: "Scan the dark web for email and password leaks.",
+    longDescription: "DarkCheck is a free tool that scans public data breaches and dark web marketplaces to see if your credentials have been compromised, helping you stay ahead of account takeovers.",
     icon: KeyRound,
-    url: "/tools/code-leak-detector",
+    url: "https://darkcheck.denti.systems",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
   },
    {
     id: 6,
-    slug: "code-scanner",
-    title: "Code Vulnerability Scanner",
-    description: "Use AI to analyze code snippets for common security vulnerabilities.",
-    longDescription: "Our AI-powered Code Vulnerability Scanner allows developers to quickly check their code for issues like SQL Injection, XSS, and more. Get instant feedback and suggestions for remediation directly in your workflow.",
+    slug: "leakscan",
+    title: "LeakScan",
+    description: "Discover exposed assets and sensitive information.",
+    longDescription: "LeakScan performs a comprehensive scan of a domain to find exposed login pages, sensitive files, and other information that could be leveraged by attackers.",
     icon: ShieldHalf,
-    url: "/tools/code-scanner",
+    url: "https://leakscan.denti.systems",
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
+  },
+  {
+    id: 7,
+    slug: "phishrisk",
+    title: "PhishRisk",
+    description: "Assess the phishing risk score of any domain.",
+    longDescription: "PhishRisk analyzes domain registration data, SSL certificates, and other factors to generate a phishing risk score, helping you identify potentially malicious websites.",
+    icon: Siren,
+    url: "https://phishrisk.denti.systems",
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
+  },
+  {
+    id: 8,
+    slug: "passwordleaker",
+    title: "Password Leaker",
+    description: "Check if your passwords have been leaked in data breaches.",
+    longDescription: "Password Leaker allows you to securely check if your passwords have appeared in known data breaches, using k-anonymity to protect your privacy.",
+    icon: Code,
+    url: "https://passwordleaker.denti.systems",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
   }
 ];

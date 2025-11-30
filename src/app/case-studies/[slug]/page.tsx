@@ -69,7 +69,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
 
 export async function generateStaticParams() {
     try {
-        const slugs = await client.fetch<string[]>(`*[_type == "caseStudy"].slug.current`);
+        const slugs = await client.fetch<string[]>(`*[_type == "caseStudy"]{ "slug": slug.current }.slug`);
         return slugs.map(slug => ({ slug }));
     } catch (error) {
         console.error("Failed to generate static params for case studies:", error);

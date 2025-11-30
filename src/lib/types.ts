@@ -1,6 +1,14 @@
 import type { LucideIcon } from 'lucide-react';
 import type { SVGProps } from 'react';
-import { SanityImageSource } from '@sanity/image-url/lib/types/types';
+
+// Define a base type for Sanity images
+export interface SanityImage {
+  _type: 'image';
+  asset: {
+    _ref: string;
+    _type: 'reference';
+  };
+}
 
 export type Service = {
   id: number;
@@ -64,13 +72,13 @@ export type CaseStudy = {
   summary: string;
   industry: string;
   outcome: string;
-  mainImage: SanityImageSource; 
+  mainImage: SanityImage; 
   content: any;
 };
 
 export type Author = {
     name?: string | null;
-    image?: SanityImageSource;
+    image?: SanityImage;
 };
 
 export type BlogPost = {
@@ -78,7 +86,7 @@ export type BlogPost = {
     slug: { current: string };
     title: string;
     excerpt: string;
-    mainImage: SanityImageSource;
+    mainImage: SanityImage;
     publishedAt: string;
     author: Author;
     body: any;

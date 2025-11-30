@@ -1,4 +1,3 @@
-
 import { tools } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -31,7 +30,6 @@ export default function ToolDetailPage({ params }: Props) {
     notFound();
   }
 
-  // Create a serializable version of the tool object without the icon component
   const { icon, ...serializableTool } = tool;
 
   return <ToolDetailClient tool={serializableTool as Omit<Tool, 'icon'>} />;

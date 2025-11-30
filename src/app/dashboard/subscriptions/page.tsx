@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,13 +11,14 @@ import { useState } from "react";
 import { createCoinbaseCharge } from "./actions";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function SubscriptionsPage() {
     const { user, loading: authLoading } = useAuth();
     const { firestore } = useFirebase();
     const { toast } = useToast();
+    const router = useRouter();
 
-    // Memoize the document reference to prevent re-renders
     const userDocRef = firestore && user ? doc(firestore, 'users', user.uid) : null;
     const { data: userData, isLoading: userLoading } = useDoc(userDocRef);
 
@@ -37,22 +37,15 @@ export default function SubscriptionsPage() {
         }
         setIsRedirecting(true);
         try {
-            const result = await createCoinbaseCharge({ 
-                userId: user.uid, 
-                email: user.email,
-                clientOrigin: window.location.origin,
-            });
-            if (result.success && "hosted_url" in result) {
-                window.location.href = result.hosted_url;
-            } else {
-                throw new Error(result.error || 'Failed to create payment session.');
-            }
+            // This is now a placeholder and will redirect to the pricing page
+            router.push('/pricing');
+            
         } catch (error) {
-            console.error('Payment initiation error:', error);
+            console.error('Upgrade initiation error:', error);
             toast({
                 variant: 'destructive',
-                title: 'Payment Failed',
-                description: error instanceof Error ? error.message : 'Could not initiate payment. Please try again.',
+                title: 'Error',
+                description: 'Could not proceed to upgrade. Please try again.',
             });
             setIsRedirecting(false);
         }
@@ -66,8 +59,7 @@ export default function SubscriptionsPage() {
         );
     }
     
-    // @ts-ignore
-    const userPlan = userData?.plan || 'free';
+    const userPlan = (userData as { plan: string } | null)?.plan || 'free';
     const isPro = userPlan === 'pro';
 
     return (
@@ -94,10 +86,6 @@ export default function SubscriptionsPage() {
                                 </div>
                             ))}
                         </CardContent>
-                        <CardFooter className="flex flex-col items-start">
-                            <p className="text-sm font-bold">Payment successfully processed.</p>
-                            <p className="text-sm text-muted-foreground">Thank you for your purchase.</p>
-                        </CardFooter>
                     </Card>
                 ) : (
                     <Card className="border-primary/50 border-2 shadow-lg shadow-primary/10 flex flex-col bg-gradient-to-br from-card to-card/90">
@@ -106,7 +94,7 @@ export default function SubscriptionsPage() {
                             <CardDescription>Unlock unlimited access and powerful features.</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-3 flex-grow">
-                             <p className="text-4xl font-bold text-primary">$0.99<span className="text-lg font-medium text-muted-foreground">/ one-time</span></p>
+                             <p className="text-4xl font-bold text-primary">$2.99<span className="text-lg font-medium text-muted-foreground">/month</span></p>
                             {proFeatures.map((feature, index) => (
                                 <div key={index} className="flex items-start gap-3">
                                     <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
@@ -117,7 +105,7 @@ export default function SubscriptionsPage() {
                         <CardFooter>
                             <Button className="w-full" onClick={handleUpgrade} disabled={isRedirecting}>
                                 {isRedirecting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                {isRedirecting ? 'Redirecting to Payment...' : 'Upgrade with Crypto'}
+                                {isRedirecting ? 'Proceeding...' : 'Upgrade Now'}
                             </Button>
                         </CardFooter>
                     </Card>
