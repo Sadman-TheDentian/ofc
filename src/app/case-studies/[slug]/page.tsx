@@ -7,10 +7,12 @@ import { PortableText } from '@portabletext/react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import SafeImage from "@/components/SafeImage";
+import type { SanityImageSource } from 'sanity';
+import type { ImageUrlBuilder } from '@sanity/image-url';
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource): ImageUrlBuilder {
   return builder.image(source);
 }
 

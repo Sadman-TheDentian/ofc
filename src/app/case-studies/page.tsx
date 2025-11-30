@@ -6,10 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SafeImage from "@/components/SafeImage";
+import type { SanityImageSource } from 'sanity';
+import type { ImageUrlBuilder } from "@sanity/image-url";
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource): ImageUrlBuilder {
   return builder.image(source);
 }
 

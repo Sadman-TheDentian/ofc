@@ -145,7 +145,7 @@ const SyntheticHero = ({
 		"Hand-tuned motion easing",
 		"Responsive, tactile feedback",
 	],
-}: HeroProps) => {
+}: HeroProps): JSX.Element => {
 	const sectionRef = useRef<HTMLElement | null>(null);
 	const badgeWrapperRef = useRef<HTMLDivElement | null>(null);
 	const headingRef = useRef<HTMLHeadingElement | null>(null);
@@ -339,5 +339,3 @@ const SyntheticHero = ({
 };
 
 export default SyntheticHero;
-
-    

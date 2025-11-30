@@ -5,10 +5,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import imageUrlBuilder from "@sanity/image-url";
+import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
+import { SanityImageSource } from "sanity";
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource): ImageUrlBuilder {
   return builder.image(source);
 }
 

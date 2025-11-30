@@ -3,11 +3,12 @@ import Link from "next/link";
 import { type SanityDocument } from "next-sanity";
 import { client } from "@/lib/sanity";
 import imageUrlBuilder from "@sanity/image-url";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { Author } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SafeImage from "@/components/SafeImage";
+import type { SanityImageSource } from 'sanity';
+import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 
 const POSTS_QUERY = `*[
   _type == "post"
@@ -26,7 +27,7 @@ const POSTS_QUERY = `*[
 }`;
 
 const { projectId, dataset } = client.config();
-const urlFor = (source: SanityImageSource) =>
+const urlFor = (source: SanityImageSource): ImageUrlBuilder | null =>
   projectId && dataset
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
@@ -49,15 +50,15 @@ export default async function BlogPage() {
 
       <div className="max-w-3xl mx-auto grid gap-12">
         {posts.map((post) => {
-          const postImageUrl = urlFor(post.mainImage)?.width(800).height(450).url();
-          const authorImageUrl = urlFor(post.author?.image)?.width(40).height(40).url();
+          const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImageSource)?.width(800).height(450).url() : null;
+          const authorImageUrl = post.author?.image ? urlFor(post.author.image as SanityImageSource)?.width(40).height(40).url() : null;
 
           return (
             <Link href={`/blog/${post.slug.current}`} key={post._id} className="group block">
               <Card className="flex flex-col overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80 transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-1">
                 <div className="relative w-full aspect-video">
                   <SafeImage
-                    src={postImageUrl}
+                    src={postImageUrl ?? undefined}
                     alt={post.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform"
@@ -72,7 +73,7 @@ export default async function BlogPage() {
                     {post.author && (
                         <div className="flex items-center gap-2">
                             <Avatar className="h-6 w-6">
-                                <AvatarImage src={authorImageUrl} alt={post.author.name} />
+                                <AvatarImage src={authorImageUrl ?? undefined} alt={post.author.name ?? undefined} />
                                 <AvatarFallback>{post.author.name?.charAt(0) || 'A'}</AvatarFallback>
                             </Avatar>
                             <span>{post.author.name}</span>

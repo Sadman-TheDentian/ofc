@@ -1,13 +1,14 @@
 
 import { PortableText, type SanityDocument } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/lib/sanity";
 import Link from "next/link";
 import { Author } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StructuredData from "@/components/StructuredData";
 import SafeImage from "@/components/SafeImage";
+import type { SanityImageSource } from 'sanity';
+import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 
 const NEWS_POST_QUERY = `*[_type == "news" && slug.current == $slug][0]{
   ...,
@@ -20,7 +21,7 @@ const NEWS_POST_QUERY = `*[_type == "news" && slug.current == $slug][0]{
 }`;
 
 const { projectId, dataset } = client.config();
-const urlFor = (source: SanityImageSource) =>
+const urlFor = (source: SanityImageSource): ImageUrlBuilder | null =>
   projectId && dataset
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
@@ -33,9 +34,9 @@ export default async function NewsPostPage({
   params: { slug: string };
 }) {
   const post = await client.fetch<SanityDocument & { author?: Author, excerpt?: string }>(NEWS_POST_QUERY, params, options);
-  const postImageUrl = urlFor(post.mainImage)?.width(800).height(450).url();
+  const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImageSource)?.width(800).height(450).url() : null;
     
-  const authorImageUrl = urlFor(post.author?.image)?.width(40).height(40).url();
+  const authorImageUrl = post.author?.image ? urlFor(post.author.image as SanityImageSource)?.width(40).height(40).url() : null;
 
   // Structured Data for Google News
   const jsonLd = {
@@ -81,7 +82,7 @@ export default async function NewsPostPage({
               {post.author && (
                   <div className="flex items-center gap-3">
                       <Avatar>
-                          <AvatarImage src={authorImageUrl} alt={post.author.name} />
+                          <AvatarImage src={authorImageUrl ?? undefined} alt={post.author.name ?? undefined} />
                           <AvatarFallback>{post.author.name?.charAt(0) || 'A'}</AvatarFallback>
                       </Avatar>
                       <span className="font-medium text-muted-foreground">{post.author.name}</span>
@@ -95,7 +96,7 @@ export default async function NewsPostPage({
 
           <div className="relative w-full aspect-video mb-8">
               <SafeImage
-                  src={postImageUrl}
+                  src={postImageUrl ?? undefined}
                   alt={post.title}
                   fill
                   className="rounded-xl object-cover"

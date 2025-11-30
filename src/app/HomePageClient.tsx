@@ -20,15 +20,15 @@ import { type SanityDocument } from "next-sanity";
 import type { CaseStudy, Partner } from "@/lib/types";
 import imageUrlBuilder from '@sanity/image-url';
 import React from "react";
-import Autoplay from "embla-carousel-autoplay";
 import SyntheticHero from '@/components/layout/SyntheticHero';
 import SafeImage from '@/components/SafeImage';
-import type { SanityImageSource } from '@sanity/image-url';
-import type { ImageUrlBuilder } from '@sanity/image-url/lib/types/builder';
+import type { Image as SanityImage, SanityImageSource } from 'sanity';
+import type { ImageUrlBuilder } from '@sanity/image-url';
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: SanityImageSource): ImageUrlBuilder {
+function urlFor(source: SanityImageSource | null): ImageUrlBuilder | null {
+  if (!source) return null;
   return builder.image(source);
 }
 
@@ -38,7 +38,7 @@ interface HomePageClientProps {
   partners: Partner[];
 }
 
-const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean, isPercent?: boolean }) => {
+const Counter = ({ to, isMillion, isPercent }: { to: number, isMillion?: boolean, isPercent?: boolean }): JSX.Element => {
   const getFormattedCount = (value: number) => {
     if (isMillion) {
       return (value / 1000000).toFixed(1);
@@ -60,7 +60,6 @@ const stats = [
     isMillion: true,
   },
   {
-    type: 'chart',
     value: 99.8,
     label: "Breach Prevention Rate",
     description: "Proactive threat hunting and vulnerability management to secure your perimeter and prevent incidents."
@@ -75,11 +74,7 @@ const stats = [
 ];
 
 
-export default function HomePageClient({ blogPosts = [], caseStudies = [], partners = [] }: HomePageClientProps) {
-    const autoplayPlugins = [
-      Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }),
-    ];
-
+export default function HomePageClient({ blogPosts = [], caseStudies = [], partners = [] }: HomePageClientProps): JSX.Element {
   return (
     <div className="flex flex-col min-h-screen">
        <SyntheticHero 
@@ -109,7 +104,6 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             </p>
           </div>
            <Carousel
-              plugins={autoplayPlugins}
               opts={{ align: 'start', loop: true }}
               className="w-full max-w-6xl mx-auto"
             >
@@ -173,18 +167,10 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                 key={index}
                 className="flex flex-col items-center justify-start space-y-4"
               >
-                {stat.type === 'chart' ? (
-                  <div className="relative h-48 w-48 mx-auto flex items-center justify-center">
-                     <h3 className="text-5xl font-bold font-headline text-primary">
-                        {stat.value}%
-                     </h3>
-                  </div>
-                ) : (
-                  <h3 className="text-5xl font-bold font-headline text-primary h-48 flex items-center justify-center">
+                <h3 className="text-5xl font-bold font-headline text-primary h-48 flex items-center justify-center">
                     <Counter to={stat.value} isMillion={stat.isMillion} isPercent={stat.isPercent} />
                     {stat.isMillion ? "M+" : (stat.suffix || '')}
-                  </h3>
-                )}
+                </h3>
                 
                 <h4 className="font-semibold text-foreground text-xl">{stat.label}</h4>
                 <p className="text-muted-foreground max-w-xs">{stat.description}</p>
@@ -213,7 +199,6 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
                      <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={autoplayPlugins}
                         className="w-full"
                     >
                        <CarouselContent>
@@ -242,7 +227,6 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
                       <Carousel 
                         opts={{ align: 'start', loop: true }} 
-                        plugins={autoplayPlugins}
                         className="w-full"
                       >
                          <CarouselContent>
@@ -252,7 +236,7 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                     <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
                                         <div className="flex flex-col">
                                             <div className="relative h-40 w-full flex-shrink-0">
-                                                <SafeImage src={urlFor(post.mainImage)?.width(400).height(250).url() as string | undefined} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                                <SafeImage src={urlFor(post.mainImage as SanityImage | null)?.width(400).height(250).url() ?? undefined} alt={post.title ?? 'Blog Post Image'} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
                                             </div>
                                             <div className="p-6">
                                                 <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
@@ -289,7 +273,6 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
             {caseStudies.length > 0 && (
                  <Carousel
                     opts={{ align: 'start', loop: true }}
-                    plugins={autoplayPlugins}
                     className="w-full max-w-5xl mx-auto"
                 >
                     <CarouselContent className="-ml-4">
@@ -299,8 +282,8 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
                                 <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
                                     <div className="relative h-48 w-full">
                                         <SafeImage
-                                            src={urlFor(study.mainImage)?.width(600).height(400).url() as string | undefined}
-                                            alt={study.title}
+                                            src={urlFor(study.mainImage as SanityImage | null)?.width(600).height(400).url() ?? undefined}
+                                            alt={study.title ?? 'Case Study Image'}
                                             fill
                                             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                                             style={{ objectFit: 'cover' }}
@@ -350,3 +333,4 @@ export default function HomePageClient({ blogPosts = [], caseStudies = [], partn
   );
 }
 
+    

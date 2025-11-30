@@ -41,6 +41,7 @@ import {
 } from "@/components/ui/accordion"
 import React from 'react';
 import { tools, services } from '@/lib/data';
+import type { SanityImageSource } from 'sanity';
 
 const logoUrl =
   'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png';
@@ -114,11 +115,10 @@ const resources = [
 ];
 
 
-export default function Header() {
+export default function Header(): JSX.Element {
   const pathname = usePathname();
   const { user, loading, signOut } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-
 
   const UserMenu = () => {
     if (loading) return null;
@@ -160,16 +160,7 @@ export default function Header() {
       );
     }
 
-    return (
-      <nav className="hidden md:flex items-center space-x-2">
-        <Button variant="ghost" asChild>
-          <Link href="/auth">Login</Link>
-        </Button>
-        <Button asChild>
-          <Link href="/contact">Contact Sales</Link>
-        </Button>
-      </nav>
-    );
+    return null;
   };
 
   const DesktopNav = () => (
@@ -319,8 +310,14 @@ export default function Header() {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
-           <div className="hidden md:flex">
-            <UserMenu />
+           <div className="hidden md:flex items-center space-x-2">
+              <Button variant="ghost" asChild>
+                <Link href="/auth">Login</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/contact">Contact Sales</Link>
+              </Button>
+              <UserMenu />
           </div>
         </div>
 
@@ -448,3 +445,5 @@ export default function Header() {
     </header>
   );
 }
+
+    
