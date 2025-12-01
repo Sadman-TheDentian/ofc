@@ -1,3 +1,4 @@
+
 import type { LucideIcon } from 'lucide-react';
 import type { SVGProps } from 'react';
 import { PortableTextBlock } from 'sanity';
@@ -123,6 +124,15 @@ export type WhitePaper = {
     mainImage?: SanityImage | string;
     summary: PortableTextBlock[];
     fileURL?: any;
+}
+
+export type SecurityDivision = {
+  _id: string;
+  slug: { current: string };
+  title: string;
+  description: string;
+  icon: string;
+  order: number;
 }
 
 export type Partner = {
