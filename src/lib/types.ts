@@ -136,9 +136,9 @@ export type SecurityDivision = {
 }
 
 export type Partner = {
-  id: string;
+  _id: string;
   name: string;
-  logo: (props: SVGProps<SVGSVGElement>) => JSX.Element;
+  logo: SanityImage;
   website?: string;
 }
 

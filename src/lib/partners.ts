@@ -1,51 +1,11 @@
-import {
-  QuantumIncLogo,
-  CyberCorpLogo,
-  NexusGuardLogo,
-  ApexSecuritiesLogo,
-  TitanIndustriesLogo,
-  NovaSysLogo
-} from "@/components/icons/Partners";
+
 import { SVGProps } from "react";
+
+// This file is now deprecated as partners are fetched from Sanity.
+// It is kept for reference but is no longer used by the PartnerSlider component.
 
 export type Partner = {
   id: string;
   name: string;
   website?: string;
-};
-
-export const partners: Omit<Partner, 'logo'>[] = [
-  {
-    id: "quantum",
-    name: "Quantum Inc",
-  },
-  {
-    id: "cybercorp",
-    name: "CyberCorp",
-  },
-  {
-    id: "nexusguard",
-    name: "NexusGuard",
-  },
-  {
-    id: "apex",
-    name: "Apex Securities",
-  },
-  {
-    id: "titan",
-    name: "Titan Industries",
-  },
-  {
-    id: "novasys",
-    name: "NovaSys",
-  },
-];
-
-export const partnerLogos: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> = {
-  quantum: QuantumIncLogo,
-  cybercorp: CyberCorpLogo,
-  nexusguard: NexusGuardLogo,
-  apex: ApexSecuritiesLogo,
-  titan: TitanIndustriesLogo,
-  novasys: NovaSysLogo
 };

@@ -16,13 +16,12 @@ import {
 } from '@/components/ui/carousel';
 import React from "react";
 import SafeImage from '@/components/SafeImage';
-import { partners } from '@/lib/partners';
 import SyntheticHero from '@/components/layout/SyntheticHero';
 import AnimatedSection from '@/components/layout/AnimatedSection';
 import AnimatedHero from '@/components/layout/AnimatedHero';
 import AnimatedHeadline from '@/components/layout/AnimatedHeadline';
 import Autoplay from "embla-carousel-autoplay";
-import { BlogPost, SanityImage, SecurityDivision, NewsArticle } from '@/lib/types';
+import { BlogPost, SanityImage, SecurityDivision, NewsArticle, Partner as SanityPartner } from '@/lib/types';
 import { urlFor } from '@/lib/sanity-client';
 import * as LucideIcons from 'lucide-react';
 
@@ -51,7 +50,7 @@ const Icon = ({ name, ...props }: { name: string } & LucideIcons.LucideProps) =>
 };
 
 
-export default function HomePageClient({ blogPosts, securityDivisions, newsArticles }: { blogPosts: BlogPost[], securityDivisions: SecurityDivision[], newsArticles: NewsArticle[] }): JSX.Element {
+export default function HomePageClient({ blogPosts, securityDivisions, newsArticles, partners }: { blogPosts: BlogPost[], securityDivisions: SecurityDivision[], newsArticles: NewsArticle[], partners: SanityPartner[] }): JSX.Element {
     const autoplayPlugin = React.useRef(
         Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
     );
@@ -214,7 +213,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                         className="w-full"
                     >
                        <CarouselContent>
-                          {newsArticles.map(post => {
+                          {newsArticles && newsArticles.map(post => {
                              const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
                              return (
                                 <CarouselItem key={post.title}>
@@ -245,7 +244,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                         className="w-full"
                       >
                          <CarouselContent>
-                          {blogPosts.map(post => {
+                          {blogPosts && blogPosts.map(post => {
                             const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
                             return (
                                 <CarouselItem key={post.title}>
