@@ -14,7 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { securityAdvisories, blogPosts as staticBlogPosts } from '@/lib/data';
+import { securityAdvisories } from '@/lib/data';
 import React from "react";
 import SafeImage from '@/components/SafeImage';
 import { partners } from '@/lib/partners';
@@ -22,6 +22,9 @@ import SyntheticHero from '@/components/layout/SyntheticHero';
 import AnimatedSection from '@/components/layout/AnimatedSection';
 import AnimatedHero from '@/components/layout/AnimatedHero';
 import AnimatedHeadline from '@/components/layout/AnimatedHeadline';
+import Autoplay from "embla-carousel-autoplay";
+import { BlogPost, SanityImage } from '@/lib/types';
+import { urlFor } from '@/lib/sanity-client';
 
 const stats = [
   {
@@ -42,7 +45,11 @@ const stats = [
 ];
 
 
-export default function HomePageClient(): JSX.Element {
+export default function HomePageClient({ blogPosts }: { blogPosts: BlogPost[] }): JSX.Element {
+    const autoplayPlugin = React.useRef(
+        Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
+    );
+
   return (
     <div className="flex flex-col min-h-screen">
       <AnimatedHero>
@@ -73,6 +80,7 @@ export default function HomePageClient(): JSX.Element {
           </div>
            <Carousel
               opts={{ align: 'start', loop: true }}
+              plugins={[autoplayPlugin.current]}
               className="w-full max-w-6xl mx-auto"
             >
               <CarouselContent className="-ml-4">
@@ -166,6 +174,7 @@ export default function HomePageClient(): JSX.Element {
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
                      <Carousel 
                         opts={{ align: 'start', loop: true }} 
+                        plugins={[autoplayPlugin.current]}
                         className="w-full"
                     >
                        <CarouselContent>
@@ -194,26 +203,30 @@ export default function HomePageClient(): JSX.Element {
                     <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>From Our Research Blog</h3>
                       <Carousel 
                         opts={{ align: 'start', loop: true }} 
+                        plugins={[autoplayPlugin.current]}
                         className="w-full"
                       >
                          <CarouselContent>
-                          {staticBlogPosts.map(post => (
-                            <CarouselItem key={post.title}>
-                                <Link href={post.url} className="group block">
-                                    <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
-                                        <div className="flex flex-col">
-                                            <div className="relative h-40 w-full flex-shrink-0">
-                                                <SafeImage src={post.imageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" data-ai-hint={post.imageHint} />
+                          {blogPosts.map(post => {
+                            const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
+                            return (
+                                <CarouselItem key={post.title}>
+                                    <Link href={`/blog/${post.slug.current}`} className="group block">
+                                        <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
+                                            <div className="flex flex-col">
+                                                <div className="relative h-40 w-full flex-shrink-0">
+                                                    <SafeImage src={postImageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                                </div>
+                                                <div className="p-6">
+                                                    <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
+                                                    <p className="text-xs text-muted-foreground mt-2">{post.author?.name}</p>
+                                                </div>
                                             </div>
-                                            <div className="p-6">
-                                                <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
-                                                <p className="text-xs text-muted-foreground mt-2">{post.author}</p>
-                                            </div>
-                                        </div>
-                                    </Card>
-                                </Link>
-                              </CarouselItem>
-                          ))}
+                                        </Card>
+                                    </Link>
+                                </CarouselItem>
+                            )
+                          })}
                         </CarouselContent>
                       </Carousel>
                 </div>
