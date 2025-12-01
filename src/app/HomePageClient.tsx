@@ -3,7 +3,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Swords, ShieldCheck, BrainCircuit, Code2 } from 'lucide-react';
 import Link from 'next/link';
 import { services } from '@/lib/data';
 import PartnerSlider from '@/components/layout/PartnerSlider';
@@ -42,6 +42,29 @@ const stats = [
     label: "Faster Incident Response",
     description: "Drastically reduce mean time to respond (MTTR) with our expert-led incident response services.",
   }
+];
+
+const divisions = [
+    {
+        icon: Swords,
+        title: "Offensive Security",
+        description: "Our Red Team simulates real-world attacks to identify vulnerabilities before adversaries do. We think like hackers to make you more secure."
+    },
+    {
+        icon: ShieldCheck,
+        title: "Defensive Security",
+        description: "The Blue Team provides 24/7 monitoring, incident response, and threat hunting to protect your assets and ensure operational resilience."
+    },
+    {
+        icon: BrainCircuit,
+        title: "Threat Intelligence",
+        description: "We analyze global threats and emerging attack vectors to provide actionable intelligence that keeps you ahead of the curve."
+    },
+    {
+        icon: Code2,
+        title: "Secure Development",
+        description: "Our Purple Team bridges the gap between development and security, embedding secure coding practices and automating security in your SDLC."
+    }
 ];
 
 
@@ -155,10 +178,38 @@ export default function HomePageClient({ blogPosts }: { blogPosts: BlogPost[] })
         </div>
       </AnimatedSection>
 
+      <AnimatedSection id="divisions" className="py-20 md:py-32 bg-transparent">
+        <div className="container px-4 md:px-6">
+            <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
+                <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+                    Our Security Divisions
+                </h2>
+                <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl">
+                    Specialized teams working in concert to provide a holistic and proactive security posture for your organization.
+                </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                {divisions.map((division) => (
+                    <Card key={division.title} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center p-6 flex flex-col items-center">
+                        <div className="mb-4 inline-block p-4 bg-secondary rounded-full border-2 border-primary/20">
+                            <division.icon className="h-8 w-8 text-primary" />
+                        </div>
+                        <CardHeader className="p-0">
+                            <CardTitle className="font-headline text-xl mb-2">{division.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0 flex-grow">
+                            <p className="text-muted-foreground text-sm">{division.description}</p>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+        </div>
+      </AnimatedSection>
+
 
       <AnimatedSection
         id="threat-intelligence"
-        className="py-20 md:py-32 border-b border-border/50 bg-asymmetrical-gradient bg-card/80 backdrop-blur-sm"
+        className="py-20 md:py-32 border-t border-border/50 bg-asymmetrical-gradient bg-card/80 backdrop-blur-sm"
       >
         <div className="container px-4 md:px-6">
            <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
@@ -274,5 +325,3 @@ export default function HomePageClient({ blogPosts }: { blogPosts: BlogPost[] })
     </div>
   );
 }
-
-    
