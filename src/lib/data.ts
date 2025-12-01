@@ -1,3 +1,4 @@
+
 import type { Service, Tool } from "./types";
 import {
   ShieldCheck,
@@ -228,7 +229,7 @@ export const blogPosts = [
         title: "Securing Your Cloud: Beyond the Basics",
         author: "John Smith, Cloud Security Expert",
         url: "/blog/post-2",
-        imageUrl: "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWN1cmUlMjBjbG91ZCUyMGRhdGF8ZW58MHx8fHwxNzU4NjAzODI4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        imageUrl: "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWN1cmUlMjBjbG91ZCUyMGRhdGF8ZW58MHx8fHwxNzU4NjAzODI4fDA&ixlib-rb-4.1.0&q=80&w=1080",
         imageHint: "secure cloud data"
     },
      {
@@ -239,3 +240,5 @@ export const blogPosts = [
         imageHint: "network architecture diagram"
     },
 ];
+
+    

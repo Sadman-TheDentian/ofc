@@ -2,10 +2,10 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { ArrowRight, ShieldAlert } from 'lucide-react';
 import Link from 'next/link';
-import { services } from '@/lib/data';
+import { services, securityAdvisories, blogPosts as staticBlogPosts } from '@/lib/data';
 import PartnerSlider from '@/components/layout/PartnerSlider';
 import {
   Carousel,
@@ -222,40 +222,87 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                   Stay ahead of adversaries with real-time alerts and research from the front lines of cybersecurity.
                 </p>
             </div>
-            <div className="max-w-4xl mx-auto">
-                 <div className='space-y-4'>
-                    <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Latest News</h3>
-                     <Carousel 
-                        opts={{ align: 'start', loop: true }} 
-                        plugins={[autoplayPlugin.current]}
-                        className="w-full"
-                    >
-                       <CarouselContent>
-                          {newsArticles && newsArticles.map(post => {
-                             const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
-                             return (
-                                <CarouselItem key={post.title} className="md:basis-1/2">
-                                    <Link href={`/news/${post.slug.current}`} className="group block p-2">
-                                        <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
-                                            <div className="flex flex-col md:flex-row">
-                                                <div className="relative h-40 w-full md:w-48 flex-shrink-0">
-                                                    <SafeImage src={postImageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform rounded-t-xl md:rounded-l-xl md:rounded-t-none" />
+
+            <div className="grid lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2 space-y-8">
+                    <div>
+                        <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4 mb-4'>Latest News</h3>
+                         <Carousel 
+                            opts={{ align: 'start', loop: true }} 
+                            plugins={[autoplayPlugin.current]}
+                            className="w-full"
+                        >
+                           <CarouselContent>
+                              {newsArticles && newsArticles.map(post => {
+                                 const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
+                                 return (
+                                    <CarouselItem key={post.title} className="md:basis-1/2">
+                                        <Link href={`/news/${post.slug.current}`} className="group block p-2">
+                                            <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
+                                                <div className="flex flex-col md:flex-row">
+                                                    <div className="relative h-40 w-full md:w-48 flex-shrink-0">
+                                                        <SafeImage src={postImageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform rounded-t-xl md:rounded-l-xl md:rounded-t-none" />
+                                                    </div>
+                                                    <div className="p-6">
+                                                        <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
+                                                        <p className="text-xs text-muted-foreground mt-2">{new Date(post.publishedAt).toLocaleDateString()}</p>
+                                                    </div>
                                                 </div>
-                                                <div className="p-6">
-                                                    <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
-                                                    <p className="text-xs text-muted-foreground mt-2">{new Date(post.publishedAt).toLocaleDateString()}</p>
-                                                </div>
+                                            </Card>
+                                        </Link>
+                                    </CarouselItem>
+                                 )
+                              })}
+                            </CarouselContent>
+                         </Carousel>
+                    </div>
+                     <div>
+                        <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4 mb-4'>From The Blog</h3>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            {blogPosts && blogPosts.slice(0, 2).map(post => {
+                                const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
+                                return (
+                                     <Link href={`/blog/${post.slug.current}`} key={post._id} className="group">
+                                        <Card className="overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50 h-full">
+                                            <div className="relative h-40 w-full">
+                                                <SafeImage src={postImageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                            </div>
+                                            <div className="p-6">
+                                                <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
+                                                <p className="text-xs text-muted-foreground mt-2">{post.author?.name}</p>
                                             </div>
                                         </Card>
-                                    </Link>
-                                </CarouselItem>
-                             )
-                          })}
-                        </CarouselContent>
-                     </Carousel>
+                                     </Link>
+                                )
+                            })}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="space-y-4">
+                    <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4 mb-4'>Security Advisories</h3>
+                    <div className="space-y-4">
+                        {securityAdvisories.map(advisory => (
+                            <Card key={advisory.id} className="bg-gradient-to-br from-card to-card/80 border-border/50 hover:border-primary/50 transition-colors">
+                                <CardHeader>
+                                    <div className="flex justify-between items-start">
+                                        <div>
+                                            <CardTitle className="font-headline text-md">{advisory.title}</CardTitle>
+                                            <CardDescription>{advisory.id} • {advisory.date}</CardDescription>
+                                        </div>
+                                        <div className={`text-xs font-bold uppercase px-3 py-1 rounded-full text-white ${advisory.severityColor}`}>{advisory.severity}</div>
+                                    </div>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-muted-foreground text-sm">{advisory.description}</p>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
                 </div>
             </div>
-             <div className="text-center mt-12">
+
+             <div className="text-center mt-16">
                 <Button asChild size="lg" variant="secondary">
                     <Link href="/threat-intelligence">Visit Threat Intelligence Center</Link>
                 </Button>
@@ -279,3 +326,5 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
     </div>
   );
 }
+
+    
