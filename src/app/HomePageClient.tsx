@@ -14,7 +14,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { securityAdvisories } from '@/lib/data';
 import React from "react";
 import SafeImage from '@/components/SafeImage';
 import { partners } from '@/lib/partners';
@@ -23,7 +22,7 @@ import AnimatedSection from '@/components/layout/AnimatedSection';
 import AnimatedHero from '@/components/layout/AnimatedHero';
 import AnimatedHeadline from '@/components/layout/AnimatedHeadline';
 import Autoplay from "embla-carousel-autoplay";
-import { BlogPost, SanityImage, SecurityDivision } from '@/lib/types';
+import { BlogPost, SanityImage, SecurityDivision, NewsArticle } from '@/lib/types';
 import { urlFor } from '@/lib/sanity-client';
 import * as LucideIcons from 'lucide-react';
 
@@ -52,7 +51,7 @@ const Icon = ({ name, ...props }: { name: string } & LucideIcons.LucideProps) =>
 };
 
 
-export default function HomePageClient({ blogPosts, securityDivisions }: { blogPosts: BlogPost[], securityDivisions: SecurityDivision[] }): JSX.Element {
+export default function HomePageClient({ blogPosts, securityDivisions, newsArticles }: { blogPosts: BlogPost[], securityDivisions: SecurityDivision[], newsArticles: NewsArticle[] }): JSX.Element {
     const autoplayPlugin = React.useRef(
         Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
     );
@@ -208,31 +207,33 @@ export default function HomePageClient({ blogPosts, securityDivisions }: { blogP
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                  <div className='space-y-4'>
-                    <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Security Advisories</h3>
+                    <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4'>Latest News</h3>
                      <Carousel 
                         opts={{ align: 'start', loop: true }} 
                         plugins={[autoplayPlugin.current]}
                         className="w-full"
                     >
                        <CarouselContent>
-                          {securityAdvisories.map(advisory => (
-                            <CarouselItem key={advisory.id}>
-                                <Card className="bg-gradient-to-br from-card to-card/80 border-border/50 hover:border-primary/50 transition-colors">
-                                    <CardHeader>
-                                        <div className="flex justify-between items-start">
-                                            <div>
-                                                <CardTitle className="font-headline text-lg">{advisory.title}</CardTitle>
-                                                <p className='text-muted-foreground text-sm'>{advisory.id} • {advisory.date}</p>
+                          {newsArticles.map(post => {
+                             const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
+                             return (
+                                <CarouselItem key={post.title}>
+                                    <Link href={`/news/${post.slug.current}`} className="group block">
+                                        <Card className="h-full overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50">
+                                            <div className="flex flex-col">
+                                                <div className="relative h-40 w-full flex-shrink-0">
+                                                    <SafeImage src={postImageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                                </div>
+                                                <div className="p-6">
+                                                    <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
+                                                    <p className="text-xs text-muted-foreground mt-2">{new Date(post.publishedAt).toLocaleDateString()}</p>
+                                                </div>
                                             </div>
-                                            <div className={`text-xs font-bold uppercase px-3 py-1 rounded-full text-white ${advisory.severityColor}`}>{advisory.severity}</div>
-                                        </div>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <p className="text-muted-foreground text-sm">{advisory.description}</p>
-                                    </CardContent>
-                                </Card>
-                            </CarouselItem>
-                          ))}
+                                        </Card>
+                                    </Link>
+                                </CarouselItem>
+                             )
+                          })}
                         </CarouselContent>
                      </Carousel>
                 </div>
@@ -273,25 +274,6 @@ export default function HomePageClient({ blogPosts, securityDivisions }: { blogP
                     <Link href="/threat-intelligence">Visit Threat Intelligence Center</Link>
                 </Button>
             </div>
-        </div>
-      </AnimatedSection>
-
-      <AnimatedSection id="case-studies" className="py-20 md:py-32 bg-transparent">
-        <div className="container px-4 md:px-6">
-          <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
-            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-              Trusted by Industry Leaders
-            </h2>
-            <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl">
-              See how we've helped organizations like yours mitigate risks and
-              fortify their digital defenses.
-            </p>
-          </div>
-          <div className="text-center mt-12">
-            <Button asChild size="lg">
-              <Link href="/case-studies">View All Case Studies</Link>
-            </Button>
-          </div>
         </div>
       </AnimatedSection>
 

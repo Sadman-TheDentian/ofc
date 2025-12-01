@@ -2,11 +2,11 @@
 import HomePageClient from './HomePageClient';
 import StructuredData from '@/components/StructuredData';
 import { client } from '@/lib/sanity-client';
-import { BlogPost, SecurityDivision } from '@/lib/types';
+import { BlogPost, NewsArticle, SecurityDivision } from '@/lib/types';
 import { groq } from 'next-sanity';
 
 
-async function getData(): Promise<{ posts: BlogPost[], divisions: SecurityDivision[] }> {
+async function getData(): Promise<{ posts: BlogPost[], divisions: SecurityDivision[], news: NewsArticle[] }> {
     const query = groq`{
       "posts": *[_type == "post"] | order(publishedAt desc) [0...5] {
         _id,
@@ -26,6 +26,17 @@ async function getData(): Promise<{ posts: BlogPost[], divisions: SecurityDivisi
         description,
         icon,
         slug
+      },
+      "news": *[_type == "news"] | order(publishedAt desc) [0...5] {
+        _id,
+        title,
+        slug,
+        publishedAt,
+        mainImage,
+        author->{
+          name,
+          image
+        }
       }
     }`;
     return await client.fetch(query);
@@ -33,12 +44,12 @@ async function getData(): Promise<{ posts: BlogPost[], divisions: SecurityDivisi
 
 
 export default async function Home() {
-  const { posts, divisions } = await getData();
+  const { posts, divisions, news } = await getData();
 
   return (
     <>
       <StructuredData />
-      <HomePageClient blogPosts={posts} securityDivisions={divisions} />
+      <HomePageClient blogPosts={posts} securityDivisions={divisions} newsArticles={news} />
     </>
   );
 }
