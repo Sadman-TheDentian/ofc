@@ -75,7 +75,7 @@ export type CaseStudy = {
   industry: string;
   outcome: string;
   mainImage?: SanityImage | string; 
-  content: PortableTextBlock[];
+  content?: PortableTextBlock[];
 };
 
 export type Author = {

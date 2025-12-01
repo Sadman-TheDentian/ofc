@@ -2,11 +2,11 @@
 import HomePageClient from './HomePageClient';
 import StructuredData from '@/components/StructuredData';
 import { client } from '@/lib/sanity-client';
-import { BlogPost, NewsArticle, SecurityDivision, Partner as SanityPartner } from '@/lib/types';
+import { BlogPost, NewsArticle, SecurityDivision, Partner as SanityPartner, CaseStudy } from '@/lib/types';
 import { groq } from 'next-sanity';
 
 
-async function getData(): Promise<{ posts: BlogPost[], divisions: SecurityDivision[], news: NewsArticle[], partners: SanityPartner[] }> {
+async function getData(): Promise<{ posts: BlogPost[], divisions: SecurityDivision[], news: NewsArticle[], partners: SanityPartner[], caseStudies: CaseStudy[] }> {
     const query = groq`{
       "posts": *[_type == "post"] | order(publishedAt desc) [0...5] {
         _id,
@@ -43,6 +43,13 @@ async function getData(): Promise<{ posts: BlogPost[], divisions: SecurityDivisi
         name,
         website,
         logo
+      },
+      "caseStudies": *[_type == "caseStudy"] {
+        _id,
+        title,
+        slug,
+        summary,
+        mainImage
       }
     }`;
     return await client.fetch(query);
@@ -50,12 +57,12 @@ async function getData(): Promise<{ posts: BlogPost[], divisions: SecurityDivisi
 
 
 export default async function Home() {
-  const { posts, divisions, news, partners } = await getData();
+  const { posts, divisions, news, partners, caseStudies } = await getData();
 
   return (
     <>
       <StructuredData />
-      <HomePageClient blogPosts={posts} securityDivisions={divisions} newsArticles={news} partners={partners} />
+      <HomePageClient blogPosts={posts} securityDivisions={divisions} newsArticles={news} partners={partners} caseStudies={caseStudies} />
     </>
   );
 }

@@ -21,7 +21,7 @@ import AnimatedSection from '@/components/layout/AnimatedSection';
 import AnimatedHero from '@/components/layout/AnimatedHero';
 import AnimatedHeadline from '@/components/layout/AnimatedHeadline';
 import Autoplay from "embla-carousel-autoplay";
-import { BlogPost, SanityImage, SecurityDivision, NewsArticle, Partner as SanityPartner } from '@/lib/types';
+import { BlogPost, SanityImage, SecurityDivision, NewsArticle, Partner as SanityPartner, CaseStudy } from '@/lib/types';
 import { urlFor } from '@/lib/sanity-client';
 import * as LucideIcons from 'lucide-react';
 
@@ -50,7 +50,7 @@ const Icon = ({ name, ...props }: { name: string } & LucideIcons.LucideProps) =>
 };
 
 
-export default function HomePageClient({ blogPosts, securityDivisions, newsArticles, partners }: { blogPosts: BlogPost[], securityDivisions: SecurityDivision[], newsArticles: NewsArticle[], partners: SanityPartner[] }): JSX.Element {
+export default function HomePageClient({ blogPosts, securityDivisions, newsArticles, partners, caseStudies }: { blogPosts: BlogPost[], securityDivisions: SecurityDivision[], newsArticles: NewsArticle[], partners: SanityPartner[], caseStudies: CaseStudy[] }): JSX.Element {
     const autoplayPlugin = React.useRef(
         Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
     );
@@ -160,14 +160,14 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         </div>
       </AnimatedSection>
 
-      <AnimatedSection id="blog" className="py-20 md:py-32 bg-transparent">
+      <AnimatedSection id="case-studies" className="py-20 md:py-32 bg-transparent">
         <div className="container px-4 md:px-6">
           <div className="text-center space-y-4 mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-              From Our Research Blog
+              Success Stories
             </h2>
             <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl">
-              Insights on cybersecurity, web engineering, and the evolving threat landscape.
+              See how we've helped leading companies fortify their defenses and achieve their security goals.
             </p>
           </div>
           <Carousel
@@ -176,20 +176,19 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
             className="w-full max-w-6xl mx-auto"
           >
             <CarouselContent className="-ml-4">
-              {blogPosts && blogPosts.map(post => {
-                const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
+              {caseStudies && caseStudies.map(study => {
+                const imageUrl = study.mainImage ? urlFor(study.mainImage as SanityImage)?.url() : undefined;
                 return (
-                  <CarouselItem key={post.title} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <Link href={`/blog/${post.slug.current}`} className="group block h-full">
+                  <CarouselItem key={study._id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <Link href={`/case-studies/${study.slug.current}`} className="group block h-full">
                       <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 group bg-gradient-to-br from-card to-card/80 border-border/50">
                         <div className="relative h-48 w-full">
-                          <SafeImage src={postImageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                          <SafeImage src={imageUrl} alt={study.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
                         </div>
                         <div className='p-6 flex flex-col flex-grow'>
                             <CardTitle className="font-headline text-xl group-hover:text-primary transition-colors flex-grow">
-                                {post.title}
+                                {study.title}
                             </CardTitle>
-                            <p className="text-xs text-muted-foreground mt-2">{post.author?.name}</p>
                         </div>
                       </Card>
                     </Link>
@@ -202,7 +201,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
           </Carousel>
            <div className="text-center mt-12">
                 <Button asChild size="lg" variant="secondary">
-                    <Link href="/blog">Visit The Full Blog</Link>
+                    <Link href="/case-studies">Explore All Case Studies</Link>
                 </Button>
             </div>
         </div>
