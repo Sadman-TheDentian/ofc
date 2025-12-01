@@ -4,9 +4,11 @@
 import { useState, useEffect } from 'react';
 
 export default function TermsOfServicePage() {
-  const [lastUpdated, setLastUpdated] = useState('');
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
 
   useEffect(() => {
+    // This code runs only on the client, after the component has mounted.
+    // This avoids a mismatch between the server-rendered and client-rendered HTML.
     setLastUpdated(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
   }, []);
 
@@ -17,9 +19,11 @@ export default function TermsOfServicePage() {
             <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
             Terms of Service
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground">
-            Last updated: {lastUpdated}
-            </p>
+            {lastUpdated && (
+                <p className="mt-4 text-lg text-muted-foreground">
+                    Last updated: {lastUpdated}
+                </p>
+            )}
         </div>
 
         <div className="prose prose-invert max-w-none text-foreground/90 prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
