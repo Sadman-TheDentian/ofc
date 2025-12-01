@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ArrowRight, ShieldAlert } from 'lucide-react';
 import Link from 'next/link';
-import { services, securityAdvisories, blogPosts as staticBlogPosts } from '@/lib/data';
+import { services, securityAdvisories } from '@/lib/data';
 import PartnerSlider from '@/components/layout/PartnerSlider';
 import {
   Carousel,
@@ -257,24 +257,32 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                     </div>
                      <div>
                         <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4 mb-4'>From The Blog</h3>
-                        <div className="grid md:grid-cols-2 gap-4">
-                            {blogPosts && blogPosts.slice(0, 2).map(post => {
-                                const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
-                                return (
-                                     <Link href={`/blog/${post.slug.current}`} key={post._id} className="group">
-                                        <Card className="overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50 h-full">
-                                            <div className="relative h-40 w-full">
-                                                <SafeImage src={postImageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
-                                            </div>
-                                            <div className="p-6">
-                                                <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
-                                                <p className="text-xs text-muted-foreground mt-2">{post.author?.name}</p>
-                                            </div>
-                                        </Card>
-                                     </Link>
-                                )
-                            })}
-                        </div>
+                         <Carousel
+                            opts={{ align: 'start', loop: true }}
+                            plugins={[autoplayPlugin.current]}
+                            className="w-full"
+                         >
+                            <CarouselContent>
+                                {blogPosts && blogPosts.slice(0, 4).map(post => {
+                                    const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
+                                    return (
+                                        <CarouselItem key={post._id} className="md:basis-1/2">
+                                            <Link href={`/blog/${post.slug.current}`} className="group block p-2">
+                                                <Card className="overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 rounded-xl bg-gradient-to-br from-card to-card/80 border-border/50 h-full">
+                                                    <div className="relative h-40 w-full">
+                                                        <SafeImage src={postImageUrl} alt={post.title} fill style={{ objectFit: 'cover' }} className="group-hover:scale-105 transition-transform" />
+                                                    </div>
+                                                    <div className="p-6">
+                                                        <CardTitle className="text-md font-headline group-hover:text-primary transition-colors">{post.title}</CardTitle>
+                                                        <p className="text-xs text-muted-foreground mt-2">{post.author?.name}</p>
+                                                    </div>
+                                                </Card>
+                                            </Link>
+                                        </CarouselItem>
+                                    )
+                                })}
+                            </CarouselContent>
+                        </Carousel>
                     </div>
                 </div>
 
