@@ -51,9 +51,11 @@ const Icon = ({ name, ...props }: { name: string } & LucideIcons.LucideProps) =>
 
 
 export default function HomePageClient({ blogPosts, securityDivisions, newsArticles, partners, caseStudies }: { blogPosts: BlogPost[], securityDivisions: SecurityDivision[], newsArticles: NewsArticle[], partners: SanityPartner[], caseStudies: CaseStudy[] }): JSX.Element {
-    const autoplayPlugin = React.useRef(
-        Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true })
-    );
+    const servicesAutoplay = React.useRef(Autoplay({ delay: 3000, stopOnInteraction: true, stopOnMouseEnter: true }));
+    const caseStudiesAutoplay = React.useRef(Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true }));
+    const newsAutoplay = React.useRef(Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true }));
+    const blogAutoplay = React.useRef(Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true }));
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -85,7 +87,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
           </div>
            <Carousel
               opts={{ align: 'start', loop: true }}
-              plugins={[autoplayPlugin.current]}
+              plugins={[servicesAutoplay.current]}
               className="w-full max-w-6xl mx-auto"
             >
               <CarouselContent className="-ml-4">
@@ -172,7 +174,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
           </div>
           <Carousel
             opts={{ align: 'start', loop: true }}
-            plugins={[autoplayPlugin.current]}
+            plugins={[caseStudiesAutoplay.current]}
             className="w-full max-w-6xl mx-auto"
           >
             <CarouselContent className="-ml-4">
@@ -228,7 +230,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                         <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4 mb-4'>Latest News</h3>
                          <Carousel 
                             opts={{ align: 'start', loop: true }} 
-                            plugins={[autoplayPlugin.current]}
+                            plugins={[newsAutoplay.current]}
                             className="w-full"
                         >
                            <CarouselContent>
@@ -259,7 +261,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                         <h3 className='font-headline text-2xl font-bold border-l-4 border-primary pl-4 mb-4'>From The Blog</h3>
                          <Carousel
                             opts={{ align: 'start', loop: true }}
-                            plugins={[autoplayPlugin.current]}
+                            plugins={[blogAutoplay.current]}
                             className="w-full"
                          >
                             <CarouselContent>
@@ -333,5 +335,3 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
     </div>
   );
 }
-
-    
