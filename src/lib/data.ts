@@ -49,41 +49,6 @@ export const services: Service[] = [
     }
   },
   {
-    id: 2,
-    slug: "assurance-services",
-    title: "Assurance Services",
-    headline: "Proactive Defense Through Simulated Attacks",
-    description:
-      "Comprehensive penetration testing and ransomware resilience assessments to fortify your defenses.",
-    longDescription:
-      "DentiSystems' Assurance Services are designed to rigorously test and validate your security controls. Our expert team conducts realistic penetration tests, simulating attacks from sophisticated adversaries to identify exploitable vulnerabilities in your network, applications, and cloud infrastructure. We also provide ransomware resilience assessments, evaluating your ability to withstand and recover from a ransomware attack. Our detailed reports provide actionable recommendations to strengthen your security posture and minimize your attack surface.",
-    icon: "Zap",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtbBCKuZskvSJPiQYyaPMimovP5jgPOcsmUYtZS1JzbbiloKv5z39TYUYSVYVQ3LgGvi8aW_l8oKUBolxG3nrLiJzvnzqbXCPVI4Xa1pLZrTTQ1eFUyIQ3neGm4jz6v6V_UeSumgcCG1Kh3YMxI5gA_Ws2ZzZHNjpxOmTI7kIb3P-FhixMA0DrRf16RN4/w641-h358/Assurance%20Services.jpg",
-    imageHint: "network infrastructure",
-    challenge: {
-        title: "Are Your Defenses Truly Battle-Tested?",
-        description: "Compliance checklists and automated scanners can provide a false sense of security. Sophisticated attackers exploit gaps that only a manual, intelligence-driven testing approach can uncover.",
-        stat: "93%",
-        statLabel: "of successful attacks bypass traditional antivirus and firewalls."
-    },
-    capabilities: [
-        { icon: "Network", title: "Network Penetration Testing", description: "Simulating real-world attacks to identify vulnerabilities in your internal and external networks." },
-        { icon: "Smartphone", title: "Web & Mobile Application Testing", description: "Finding flaws in your applications before attackers do, from XSS to insecure authentication." },
-        { icon: "Cloud", title: "Cloud Security Assessment", description: "Evaluating your AWS, Azure, or GCP configuration for misconfigurations and security gaps." }
-    ],
-    approach: [
-        { step: 1, title: "Scope & Rules of Engagement", description: "We define the testing scope and objectives to align with your business goals." },
-        { step: 2, title: "Intelligence-Led Testing", description: "Our testers use adversary tactics (TTPs) relevant to your industry to simulate realistic threats." },
-        { step: 3, title: "Exploitation & Analysis", description: "We safely exploit vulnerabilities to demonstrate business impact and identify root causes." },
-        { step: 4, title: "Strategic Debrief & Reporting", description: "You receive a detailed report with a strategic executive summary and tactical remediation guidance." }
-    ],
-    socialProof: {
-        quote: "The penetration test from DentiSystems was the most thorough we've ever experienced. Their report was clear, actionable, and helped us secure critical infrastructure.",
-        author: "Head of Security",
-        company: "Fintech Innovations Inc."
-    }
-  },
-  {
     id: 3,
     slug: "secure-web-development",
     title: "Secure Web Development",
@@ -157,6 +122,16 @@ export const services: Service[] = [
 
 export const tools: Tool[] = [
   {
+    id: 2,
+    slug: "vulnerability-assessment",
+    title: "Vulnerability Assessment",
+    description: "Comprehensive testing to fortify your defenses.",
+    longDescription: "DentiSystems' Vulnerability Assessment service is designed to rigorously test and validate your security controls. Our expert team conducts realistic penetration tests to identify exploitable vulnerabilities in your network, applications, and cloud infrastructure.",
+    icon: Zap,
+    url: "/tools/vulnerability-assessment",
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtbBCKuZskvSJPiQYyaPMimovP5jgPOcsmUYtZS1JzbbiloKv5z39TYUYSVYVQ3LgGvi8aW_l8oKUBolxG3nrLiJzvnzqbXCPVI4Xa1pLZrTTQ1eFUyIQ3neGm4jz6v6V_UeSumgcCG1Kh3YMxI5gA_Ws2ZzZHNjpxOmTI7kIb3P-FhixMA0DrRf16RN4/w641-h358/Assurance%20Services.jpg",
+  },
+  {
     id: 5,
     slug: "darkcheck",
     title: "DarkCheck",
@@ -222,7 +197,7 @@ export const blogPosts = [
         title: "Deconstructing the Latest Social Engineering Scams",
         author: "Jane Doe, Principal Researcher",
         url: "/blog/post-1",
-        imageUrl: "https://images.unsplash.com/photo-1555949963-ff9898a73a73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjB0aGlua2luZyUyMHNlY3VyaXR5fGVufDB8fHx8MTc1ODYwMzgyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+        imageUrl: "https://images.unsplash.com/photo-1555949963-ff9898a73a73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjB0aGlua2luZyUyMHNlY3VyaXR5fGVufDB8fHx8MTc1ODYwMzgyOHww&ixlib-rb-4.1.0&q=80&w=1080",
         imageHint: "person thinking security"
     },
     {
@@ -236,9 +211,11 @@ export const blogPosts = [
         title: "The Future of Zero Trust Architecture",
         author: "Alex Johnson, Network Architect",
         url: "/blog/post-3",
-        imageUrl: "https://images.unsplash.com/photo-1518434779774-d94213f80c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxuZXR3b3JrJTIwYXJjaGl0ZWN0dXJlJTIwZGlhZ3JhbXxlbnwwfHx8fDE3NTg2MDM4MTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        imageUrl: "https://images.unsplash.com/photo-1518434779774-d94213f80c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxuZXR3b3JrJTIwYXJjaGl0ZWN0dXJlJTIwZGlhZ3JhbXxlbnwwfHx8fDE3NTg2MDM4MTh8MA&ixlib-rb-4.1.0&q=80&w=1080",
         imageHint: "network architecture diagram"
     },
 ];
+
+    
 
     

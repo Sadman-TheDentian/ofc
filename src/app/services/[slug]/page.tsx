@@ -32,7 +32,12 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 }
 
 export async function generateStaticParams() {
-  return services.map((service) => ({
+  // Filter out any service that now has a dedicated page under /tools
+  const filteredServices = services.filter(service => service.slug !== 'vulnerability-assessment');
+  
+  return filteredServices.map((service) => ({
     slug: service.slug,
   }));
 }
+
+    
