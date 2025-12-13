@@ -49,6 +49,41 @@ export const services: Service[] = [
     }
   },
   {
+    id: 2,
+    slug: "vulnerability-assessment",
+    title: "Vulnerability Assessment",
+    headline: "Comprehensive Testing to Fortify Your Defenses",
+    description:
+      "Comprehensive testing to identify, classify, and remediate vulnerabilities across your digital assets.",
+    longDescription:
+      "DentiSystems' Vulnerability Assessment service is designed to rigorously test and validate your security controls. Our expert team conducts realistic penetration tests to identify exploitable vulnerabilities in your network, applications, and cloud infrastructure. We provide a detailed report with actionable recommendations to help you prioritize and fix weaknesses before they can be exploited by attackers.",
+    icon: "Zap",
+    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtbBCKuZskvSJPiQYyaPMimovP5jgPOcsmUYtZS1JzbbiloKv5z39TYUYSVYVQ3LgGvi8aW_l8oKUBolxG3nrLiJzvnzqbXCPVI4Xa1pLZrTTQ1eFUyIQ3neGm4jz6v6V_UeSumgcCG1Kh3YMxI5gA_Ws2ZzZHNjpxOmTI7kIb3P-FhixMA0DrRf16RN4/w641-h358/Assurance%20Services.jpg",
+    imageHint: "security shield technology",
+    challenge: {
+        title: "You Can't Protect What You Can't See",
+        description: "Without regular, in-depth testing, hidden vulnerabilities can linger in your systems for months or even years, providing an open door for attackers. Annual check-ups are no longer sufficient in today's threat landscape.",
+        stat: "250+",
+        statLabel: "days is the average time to identify a breach"
+    },
+    capabilities: [
+        { icon: "Network", title: "Network Penetration Testing", description: "Simulating real-world attacks to find weaknesses in your internal and external network infrastructure." },
+        { icon: "Smartphone", title: "Web & Mobile App Testing", description: "In-depth security testing for your web and mobile applications to uncover flaws like injection, XSS, and broken authentication." },
+        { icon: "Cloud", title: "Cloud Security Assessment", description: "Reviewing your cloud configuration (AWS, Azure, GCP) for misconfigurations and security gaps." }
+    ],
+    approach: [
+        { step: 1, title: "Scoping & Reconnaissance", description: "We define the testing scope and gather information about your systems, just as a real attacker would." },
+        { step: 2, title: "Scanning & Enumeration", description: "Using automated tools and manual techniques to identify potential vulnerabilities and map the attack surface." },
+        { step: 3, title: "Exploitation & Analysis", description: "Our experts attempt to safely exploit identified vulnerabilities to confirm their impact and severity." },
+        { step: 4, title: "Reporting & Remediation", description: "We provide a comprehensive report with prioritized findings and clear, actionable steps for remediation." }
+    ],
+    socialProof: {
+        quote: "The penetration test from DentiSystems was the most thorough and professional we've ever had. Their report was clear, actionable, and helped us secure our platform before a major product launch.",
+        author: "CTO",
+        company: "Fintech Innovators Inc."
+    }
+  },
+  {
     id: 3,
     slug: "secure-web-development",
     title: "Secure Web Development",
@@ -122,16 +157,6 @@ export const services: Service[] = [
 
 export const tools: Tool[] = [
   {
-    id: 2,
-    slug: "vulnerability-assessment",
-    title: "Vulnerability Assessment",
-    description: "Comprehensive testing to fortify your defenses.",
-    longDescription: "DentiSystems' Vulnerability Assessment service is designed to rigorously test and validate your security controls. Our expert team conducts realistic penetration tests to identify exploitable vulnerabilities in your network, applications, and cloud infrastructure.",
-    icon: Zap,
-    url: "/tools/vulnerability-assessment",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtbBCKuZskvSJPiQYyaPMimovP5jgPOcsmUYtZS1JzbbiloKv5z39TYUYSVYVQ3LgGvi8aW_l8oKUBolxG3nrLiJzvnzqbXCPVI4Xa1pLZrTTQ1eFUyIQ3neGm4jz6v6V_UeSumgcCG1Kh3YMxI5gA_Ws2ZzZHNjpxOmTI7kIb3P-FhixMA0DrRf16RN4/w641-h358/Assurance%20Services.jpg",
-  },
-  {
     id: 5,
     slug: "darkcheck",
     title: "DarkCheck",
@@ -197,14 +222,14 @@ export const blogPosts = [
         title: "Deconstructing the Latest Social Engineering Scams",
         author: "Jane Doe, Principal Researcher",
         url: "/blog/post-1",
-        imageUrl: "https://images.unsplash.com/photo-1555949963-ff9898a73a73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjB0aGlua2luZyUyMHNlY3VyaXR5fGVufDB8fHx8MTc1ODYwMzgyOHww&ixlib-rb-4.1.0&q=80&w=1080",
+        imageUrl: "https://images.unsplash.com/photo-1555949963-ff9898a73a73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjB0aGlua2luZyUyMHNlY3VyaXR5fGVufDB8fHx8MTc1ODYwMzgyOHww&ixlib=rb-4.1.0&q=80&w=1080",
         imageHint: "person thinking security"
     },
     {
         title: "Securing Your Cloud: Beyond the Basics",
         author: "John Smith, Cloud Security Expert",
         url: "/blog/post-2",
-        imageUrl: "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWN1cmUlMjBjbG91ZCUyMGRhdGF8ZW58MHx8fHwxNzU4NjAzODI4fDA&ixlib-rb-4.1.0&q=80&w=1080",
+        imageUrl: "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWN1cmUlMjBjbG91ZCUyMGRhdGF8ZW58MHx8fHwxNzU4NjAzODI4fDA&ixlib=rb-4.1.0&q=80&w=1080",
         imageHint: "secure cloud data"
     },
      {
