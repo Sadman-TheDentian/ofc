@@ -13,6 +13,11 @@ export const client = createClient({
   dataset,
   apiVersion,
   useCdn,
+  // Time-based revalidation. Every 60 seconds, Next.js will re-fetch data.
+  // This ensures your Sanity updates appear on the site without needing a rebuild.
+  next: {
+    revalidate: 60,
+  }
 });
 
 const builder = imageUrlBuilder(client);
