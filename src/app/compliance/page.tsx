@@ -3,7 +3,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, ShieldCheck, Gavel, FileText, CheckCircle2, ShieldAlert, Lock, Zap } from "lucide-react";
+import { ArrowLeft, ShieldCheck, Gavel, FileText, CheckCircle2, ShieldAlert, Lock, Zap, Database, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import RevealText from "@/components/RevealText";
 import Magnetic from "@/components/Magnetic";

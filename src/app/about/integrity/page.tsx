@@ -1,5 +1,5 @@
+'use client';
 
-import { Shield, Gavel } from "lucide-react";
 import AboutSubpageClient from "../AboutSubpageClient";
 
 const heroImage = "https://blogger.googleusercontent.com/img/a/AVvXsEg9f_wEbICAyoTey7qzbh9tgOfpc0cQ_JSLxvHqgPG3qTA-Vzv9v_JAwgT-fS0ISQb7lpd0qLEXCEqj4jNQYDpNFgDhhTtviRBdIhcsPYuygiU98p9rzK9ax0rR8CCQPoe7xZ-AkB8zVe06pz7gVu5Q4hukRYqcEuw_uJzHdCfeEMzmHQyOjtnma3Ty-Oc=w631-h353";
@@ -25,12 +25,12 @@ export default function IntegrityPage() {
             subtitle="TRUST"
             description="Integrity is the heart of DentiSystems. In a world of volatility, trust is our most robust architectural foundation."
             heroImage={heroImage}
-            icon={Shield}
+            icon="Shield"
             tag="ETHICS // GOVERNANCE"
             mainPoints={ethicsPoints}
             secondaryTitle="CONFIDENTIALITY_METRICS"
             secondaryPoints={confidentialityPoints}
-            secondaryIcon={Gavel}
+            secondaryIcon="Gavel"
         />
     );
 }

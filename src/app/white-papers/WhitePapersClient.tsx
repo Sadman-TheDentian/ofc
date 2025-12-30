@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, FileText, Newspaper, ShieldAlert, Mail, Activity, Target, Zap, Lock, Radio, Shield } from "lucide-react";
+import { ArrowRight, FileText, Newspaper, ShieldAlert, Mail, Activity, Target, Zap, Lock, Radio, Shield, ChevronRight, ChevronLeft } from "lucide-react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';

@@ -1,16 +1,6 @@
 
 import type { Service, Tool } from "./types";
-import {
-  ShieldCheck,
-  Zap,
-  Code,
-  KeyRound,
-  ShieldHalf,
-  Siren,
-  FileCode,
-  Scan,
-  Users,
-} from "lucide-react";
+
 
 export const services: Service[] = [
   {
@@ -162,7 +152,7 @@ export const tools: Tool[] = [
     title: "DarkCheck",
     description: "Scan the dark web for email and password leaks.",
     longDescription: "DarkCheck is a free tool that scans public data breaches and dark web marketplaces to see if your credentials have been compromised, helping you stay ahead of account takeovers.",
-    icon: KeyRound,
+    icon: "KeyRound",
     url: "https://darkcheck.denti.systems",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
   },
@@ -172,7 +162,7 @@ export const tools: Tool[] = [
     title: "LeakScan",
     description: "Discover exposed assets and sensitive information.",
     longDescription: "LeakScan performs a comprehensive scan of a domain to find exposed login pages, sensitive files, and other information that could be leveraged by attackers.",
-    icon: ShieldHalf,
+    icon: "ShieldHalf",
     url: "https://leakscan.denti.systems",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
   },
@@ -182,7 +172,7 @@ export const tools: Tool[] = [
     title: "PhishRisk",
     description: "Assess the phishing risk score of any domain.",
     longDescription: "PhishRisk analyzes domain registration data, SSL certificates, and other factors to generate a phishing risk score, helping you identify potentially malicious websites.",
-    icon: Siren,
+    icon: "Siren",
     url: "https://phishrisk.denti.systems",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
   },
@@ -192,7 +182,7 @@ export const tools: Tool[] = [
     title: "Password Leaker",
     description: "Check if your passwords have been leaked in data breaches.",
     longDescription: "Password Leaker allows you to securely check if your passwords have appeared in known data breaches, using k-anonymity to protect your privacy.",
-    icon: Code,
+    icon: "Code",
     url: "https://passwordleaker.denti.systems",
     imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
   }

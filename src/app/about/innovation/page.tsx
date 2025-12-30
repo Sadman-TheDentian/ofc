@@ -1,5 +1,5 @@
+'use client';
 
-import { Zap, Workflow } from "lucide-react";
 import AboutSubpageClient from "../AboutSubpageClient";
 
 const heroImage = "https://blogger.googleusercontent.com/img/a/AVvXsEgKyvpArELsyfOnQb0iNOF8rSx2neMBe-gD0S7zAsKHKDdp2GTkOBhtRsto8gf07eXLfFhIou6L_X1_-bHuodabFPNHPCcHfgTOrqeOx3BQ0cHZgODohBHz1qPoY1KV42fKBtS9qRu7xQyChHv4dn3uA2QdwtgrVIHSnEi43eSSPsXZlOks59jRJelRbHo=w635-h354";
@@ -27,12 +27,12 @@ export default function InnovationPage() {
             subtitle="FORGED"
             description="The cyber battlefield never sleeps. Threat actors innovate every day—so we architect the future to stay lightyears ahead."
             heroImage={heroImage}
-            icon={Zap}
+            icon="Zap"
             tag="EVOLUTION // RESEARCH"
             mainPoints={rndPoints}
             secondaryTitle="NEURAL_MODELS"
             secondaryPoints={aiPoints}
-            secondaryIcon={Workflow}
+            secondaryIcon="Workflow"
         />
     );
 }

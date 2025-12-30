@@ -51,7 +51,7 @@ export type Tool = {
   title: string;
   description: string;
   longDescription: string;
-  icon: LucideIcon;
+  icon: string;
   url?: string;
   imageUrl: string;
   embedCode?: string;

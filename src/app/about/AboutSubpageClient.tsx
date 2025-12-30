@@ -4,22 +4,29 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import SafeImage from '@/components/SafeImage';
-import { ArrowLeft, Check, LucideIcon, Activity } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
+import { ArrowLeft, Check, Activity } from 'lucide-react';
 import RevealText from '@/components/RevealText';
 import Magnetic from '@/components/Magnetic';
 import { useRef } from 'react';
+
+const IconComponent = ({ name, className }: { name: string; className?: string }) => {
+    const Icon = LucideIcons[name as keyof typeof LucideIcons] as LucideIcons.LucideIcon;
+    if (!Icon) return <Activity className={className} />;
+    return <Icon className={className} />;
+};
 
 interface AboutSubpageProps {
     title: string;
     subtitle: string;
     description: string;
     heroImage: string;
-    icon: LucideIcon;
+    icon: string;
     tag: string;
     mainPoints: string[];
     secondaryTitle: string;
     secondaryPoints: string[];
-    secondaryIcon: LucideIcon;
+    secondaryIcon: string;
 }
 
 export default function AboutSubpageClient({
@@ -27,12 +34,12 @@ export default function AboutSubpageClient({
     subtitle,
     description,
     heroImage,
-    icon: Icon,
+    icon: iconName,
     tag,
     mainPoints,
     secondaryTitle,
     secondaryPoints,
-    secondaryIcon: SecondaryIcon
+    secondaryIcon: secondaryIconName
 }: AboutSubpageProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
@@ -60,7 +67,7 @@ export default function AboutSubpageClient({
 
                         <div className="flex items-center gap-6 mb-8">
                             <div className="h-12 w-12 rounded-3xl bg-[#00FF41]/10 border border-[#00FF41]/20 flex items-center justify-center">
-                                <Icon className="h-6 w-6 text-[#00FF41]" />
+                                <IconComponent name={iconName} className="h-6 w-6 text-[#00FF41]" />
                             </div>
                             <RevealText text={tag} className="text-[10px] font-bold tracking-[0.8em] text-[#00FF41] uppercase" />
                         </div>
@@ -129,7 +136,7 @@ export default function AboutSubpageClient({
                     <div className="sticky top-40">
                         <div className="bg-white/[0.02] border border-white/10 rounded-[4rem] p-16 md:p-20 backdrop-blur-3xl relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-12 opacity-[0.03] scale-150 rotate-12">
-                                <SecondaryIcon className="h-64 w-64 text-[#00FF41]" />
+                                <IconComponent name={secondaryIconName} className="h-64 w-64 text-[#00FF41]" />
                             </div>
 
                             <div className="relative z-10">

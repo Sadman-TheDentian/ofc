@@ -3,7 +3,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { ArrowRight, ShieldAlert, Zap, Globe, Lock, ExternalLink, Activity, Network, Box, ShieldCheck, Cpu } from 'lucide-react';
+import { ArrowRight, ShieldAlert, Zap, Globe, Lock, ExternalLink, Activity, Network, Box, ShieldCheck, Cpu, KeyRound, ShieldHalf, Siren, Code } from 'lucide-react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { services, securityAdvisories, tools, blogPosts as staticBlogPosts } from '@/lib/data';
@@ -25,6 +25,13 @@ import { urlFor } from '@/lib/sanity-client';
 import ServiceCard from '@/components/ServiceCard';
 import Magnetic from '@/components/Magnetic';
 import TechnicalIcon from '@/components/TechnicalIcon';
+
+const iconMap = {
+  KeyRound,
+  ShieldHalf,
+  Siren,
+  Code
+};
 
 
 export default function HomePageClient({ blogPosts, securityDivisions, newsArticles, partners, caseStudies }: { blogPosts: BlogPost[], securityDivisions: SecurityDivision[], newsArticles: NewsArticle[], partners: SanityPartner[], caseStudies: CaseStudy[] }): JSX.Element {
@@ -317,7 +324,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                 <Link href={tool.url} target="_blank">
                   <div className="bg-white/[0.02] border border-white/10 rounded-[4rem] p-12 h-full hover:bg-white/[0.05] hover:border-[#00FF41]/30 transition-all duration-700 flex flex-col items-center text-center">
                     <div className="mb-12">
-                      <TechnicalIcon icon={tool.icon as any} glowColor="#00FF41" />
+                      <TechnicalIcon icon={iconMap[tool.icon as keyof typeof iconMap] || ShieldAlert} glowColor="#00FF41" />
                     </div>
                     <h3 className="text-3xl font-[900] text-white italic uppercase tracking-tight mb-6">{tool.title}</h3>
                     <p className="text-white/30 text-sm font-light leading-relaxed mb-8 italic">{tool.description}</p>
