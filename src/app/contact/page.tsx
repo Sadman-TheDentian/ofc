@@ -8,22 +8,24 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, Building, Loader2, MessageSquare } from "lucide-react";
+import { Mail, Phone, Building, Loader2, MessageSquare, ArrowRight, ShieldCheck } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { submitInquiry } from "./actions";
-
+import { motion } from "framer-motion";
+import Magnetic from "@/components/Magnetic";
+import TechnicalIcon from "@/components/TechnicalIcon";
 
 const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  company: z.string().optional(),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }).max(1000, { message: "Message must be under 1000 characters."}),
+    name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+    email: z.string().email({ message: "Please enter a valid email address." }),
+    company: z.string().optional(),
+    message: z.string().min(10, { message: "Message must be at least 10 characters." }).max(1000, { message: "Message must be under 1000 characters." }),
 });
 
 export default function ContactPage() {
     const { toast } = useToast();
-    
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -39,179 +41,181 @@ export default function ContactPage() {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
             const result = await submitInquiry(values);
-            if(result.success) {
+            if (result.success) {
                 toast({
-                    title: "Inquiry Submitted!",
-                    description: "Thank you for contacting us. We'll get back to you shortly.",
+                    title: "PROTOCOL INITIATED",
+                    description: "Your inquiry has been encrypted and transmitted successfully.",
                 });
                 form.reset();
             } else {
-                 toast({
+                toast({
                     variant: "destructive",
-                    title: "Submission Failed",
-                    description: result.message || "An unknown error occurred. Please try again.",
+                    title: "TRANSMISSION ERROR",
+                    description: result.message || "Encryption failed. Please try again.",
                 });
             }
         } catch (error) {
-             toast({
+            toast({
                 variant: "destructive",
-                title: "Submission Failed",
-                description: "An unexpected error occurred. Please try again later.",
+                title: "SYSTEM CRITICAL",
+                description: "An unexpected error occurred. Please contact us via alternative channels.",
             });
         }
     }
 
-
-  return (
-    <div className="container py-12 md:py-20">
-      <div className="text-center space-y-4 mb-12 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
-        <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-          Get in Touch
-        </h1>
-        <p className="max-w-2xl mx-auto text-muted-foreground md:text-xl">
-          Have a question or a project in mind? We'd love to hear from you.
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-        <Card className="border-border/50 bg-gradient-to-br from-card to-card/80">
-          <CardHeader>
-            <CardTitle className="font-headline">Send us a Message</CardTitle>
-            <CardDescription>
-              Fill out the form and we'll get back to you as soon as possible.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                        <FormField
-                            control={form.control}
-                            name="name"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>Name</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="John Doe" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="john@example.com" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                     <FormField
-                        control={form.control}
-                        name="company"
-                        render={({ field }) => (
-                            <FormItem>
-                            <FormLabel>Company (Optional)</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Your Company Inc." {...field} />
-                            </FormControl>
-                            <FormMessage />
-                            </FormItem>
-                        )}
-                        />
-                    <FormField
-                        control={form.control}
-                        name="message"
-                        render={({ field }) => (
-                            <FormItem>
-                            <FormLabel>Message</FormLabel>
-                            <FormControl>
-                                <Textarea placeholder="Your message..." className="min-h-[120px]" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                            </FormItem>
-                        )}
-                        />
-                    <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                        {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                        Submit Inquiry
-                    </Button>
-                </form>
-            </Form>
-          </CardContent>
-        </Card>
-
-        <div className="space-y-8">
-            <div>
-                <h3 className="font-headline text-xl font-semibold border-l-4 border-primary pl-4 mb-4">
-                    Contact Information
-                </h3>
-                <p className="text-muted-foreground mb-6">
-                    Reach out to us directly through the channels below.
-                </p>
-                <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                        <div className="p-2 bg-secondary rounded-md mt-1">
-                            <Mail className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                            <h4 className="font-semibold">Email</h4>
-                            <p className="text-muted-foreground">General Inquiries</p>
-                            <a href="mailto:help@denti.systems" className="text-primary hover:underline">
-                                help@denti.systems
-                            </a>
-                        </div>
-                    </div>
-                     <div className="flex items-start gap-4">
-                        <div className="p-2 bg-secondary rounded-md mt-1">
-                            <Phone className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                            <h4 className="font-semibold">Phone</h4>
-                            <p className="text-muted-foreground">24/7 Support</p>
-                            <p>+8801308539526</p>
-                        </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                        <div className="p-2 bg-secondary rounded-md mt-1">
-                            <MessageSquare className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                            <h4 className="font-semibold">WhatsApp</h4>
-                            <p className="text-muted-foreground">Direct Message</p>
-                            <p>+6289506801621</p>
-                        </div>
-                    </div>
-                     <div className="flex items-start gap-4">
-                        <div className="p-2 bg-secondary rounded-md mt-1">
-                            <Building className="h-5 w-5 text-primary" />
-                        </div>
-                        <div className="space-y-2">
-                            <h4 className="font-semibold">Headquarters</h4>
-                            <div>
-                                <p className="text-muted-foreground">DentiSystems HQ</p>
-                                <p>101 Kallang Ave, Singapore</p>
+    return (
+        <div className="min-h-screen bg-black pt-40 pb-20">
+            <div className="container px-4">
+                <div className="flex flex-col lg:flex-row gap-32 items-start mb-60">
+                    <div className="lg:w-1/2">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1 }}
+                        >
+                            <div className="flex items-center gap-8 mb-12">
+                                <div className="h-0.5 w-16 bg-white/20" />
+                                <span className="text-[10px] font-[900] tracking-[1.2em] text-[#00FF41] block uppercase">COMMUNICATIONS // SECURE_CHANNEL</span>
                             </div>
-                            <div>
-                                <p className="text-muted-foreground">Bangladesh Office</p>
-                                <p>Jahaj Company More, Ranngpur Sadar, Bangladesh</p>
+                            <h1 className="text-7xl md:text-[10vw] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-16">
+                                ESTABLISH <br /><span className="text-white/10">CONTACT.</span>
+                            </h1>
+                            <p className="max-w-xl text-white/40 text-2xl md:text-3xl font-light leading-relaxed mb-20 italic">
+                                Open a direct line to our intelligence units for mission-critical security inquiries and high-fidelity project coordination.
+                            </p>
+
+                            <div className="space-y-20 border-l-2 border-white/5 pl-12">
+                                <div className="flex items-start gap-12 group">
+                                    <div className="scale-125">
+                                        <TechnicalIcon icon={Mail} glowColor="#00FF41" />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-[11px] font-[900] tracking-[0.5em] text-[#00FF41]/40 uppercase mb-4">Direct_Telemetry</h4>
+                                        <p className="text-3xl font-[900] text-white group-hover:translate-x-4 transition-transform duration-500 italic uppercase tracking-tighter">help@denti.systems</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-12 group">
+                                    <div className="scale-125">
+                                        <TechnicalIcon icon={Phone} glowColor="#00FF41" />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-[11px] font-[900] tracking-[0.5em] text-[#00FF41]/40 uppercase mb-4">Live_Command</h4>
+                                        <p className="text-3xl font-[900] text-white group-hover:translate-x-4 transition-transform duration-500 italic uppercase tracking-tighter">+8801308539526</p>
+                                    </div>
+                                </div>
                             </div>
-                             <div>
-                                <p className="text-muted-foreground">Technology Hub</p>
-                                <p>6/B Mohona Tower, Suihari, Dinajpur Sadar, Bangladesh</p>
+                        </motion.div>
+                    </div>
+
+                    <div className="lg:w-1/2 w-full lg:mt-0 mt-12 relative">
+                        {/* Architectural Glow behind form */}
+                        <div className="absolute -inset-10 bg-[#00FF41]/5 rounded-full blur-[120px] pointer-events-none opacity-50" />
+
+                        <Card className="bg-white/[0.02] border border-white/5 rounded-[3rem] p-10 md:p-16 backdrop-blur-3xl relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 p-12 opacity-5 scale-150 rotate-12">
+                                <ShieldCheck className="h-40 w-40 text-[#00FF41]" />
                             </div>
-                        </div>
+                            <CardHeader className="p-0 mb-12 relative z-10">
+                                <CardTitle className="text-3xl font-black text-white uppercase tracking-tight italic">Mission_Briefing</CardTitle>
+                                <CardDescription className="text-white/20 text-sm tracking-widest uppercase mt-4">Required fields for protocol validation</CardDescription>
+                            </CardHeader>
+                            <CardContent className="p-0 relative z-10">
+                                <Form {...form}>
+                                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 text-black">
+                                        <div className="grid sm:grid-cols-2 gap-8">
+                                            <FormField
+                                                control={form.control}
+                                                name="name"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormControl>
+                                                            <Input placeholder="IDENT_NAME" className="h-16 bg-white/[0.02] border-white/10 rounded-2xl text-white placeholder:text-white/10 px-6 focus:border-[#00FF41]/50 tracking-widest uppercase font-bold text-xs" {...field} />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="email"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormControl>
+                                                            <Input placeholder="TELEMETRY_EMAIL" className="h-16 bg-white/[0.02] border-white/10 rounded-2xl text-white placeholder:text-white/10 px-6 focus:border-[#00FF41]/50 tracking-widest uppercase font-bold text-xs" {...field} />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
+                                        <FormField
+                                            control={form.control}
+                                            name="company"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <Input placeholder="ORGANIZATION_ENTITY" className="h-16 bg-white/[0.02] border-white/10 rounded-2xl text-white placeholder:text-white/10 px-6 focus:border-[#00FF41]/50 tracking-widest uppercase font-bold text-xs" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="message"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <Textarea placeholder="TRANSMISSION_DATA" className="min-h-[160px] bg-white/[0.02] border-white/10 rounded-[2rem] text-white placeholder:text-white/10 p-6 focus:border-[#00FF41]/50 tracking-wider uppercase font-bold text-xs italic" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <Magnetic strength={0.25} className="w-full">
+                                            <Button type="submit" size="lg" className="h-20 w-full rounded-full bg-white text-black font-black uppercase tracking-[0.4em] text-[13px] hover:bg-[#00FF41] transition-all shadow-2xl" disabled={isSubmitting}>
+                                                {isSubmitting ? <Loader2 className="mr-4 h-6 w-6 animate-spin" /> : "TRANSMIT INQUIRY"}
+                                            </Button>
+                                        </Magnetic>
+                                    </form>
+                                </Form>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
+
+                {/* Tactical Locations Grid */}
+                <div className="pt-40 border-t border-white/5">
+                    <div className="max-w-2xl mb-24">
+                        <span className="text-[10px] font-bold tracking-[0.8em] text-[#00FF41] mb-8 block uppercase">GLOBAL_PRESENCE // NODES</span>
+                        <h2 className="text-5xl font-black text-white uppercase italic leading-none">THE NETWORK CENTERS</h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-16 mt-[10vh]">
+                        {[
+                            { city: "SINGAPORE", loc: "101 Kallang Ave", type: "HQ" },
+                            { city: "BANGLADESH", loc: "Jahaj Company More", type: "OPS" },
+                            { city: "TEK_HUB", loc: "Mohona Tower", type: "LAB" }
+                        ].map((loc, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.1 }}
+                                className="p-16 bg-white/[0.01] border border-white/10 rounded-[4rem] group hover:bg-white/[0.02] hover:border-[#00FF41]/20 transition-all duration-700 relative overflow-hidden"
+                            >
+                                <div className="text-[11px] font-[900] text-[#00FF41] tracking-[0.6em] mb-8 uppercase flex items-center gap-4">
+                                    <span className="h-2 w-2 bg-[#00FF41] rounded-full animate-pulse shadow-[0_0_10px_#00FF41]" />
+                                    {loc.type}_UNIT
+                                </div>
+                                <h4 className="text-4xl font-[900] text-white uppercase italic tracking-tighter mb-6 group-hover:translate-x-4 transition-transform duration-500 leading-none">{loc.city}</h4>
+                                <p className="text-white/20 text-lg font-light italic leading-relaxed">{loc.loc}</p>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }

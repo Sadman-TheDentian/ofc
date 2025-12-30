@@ -1,126 +1,10 @@
-
 "use client";
 
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useMemo, useRef, ReactNode } from "react";
-import * as THREE from "three";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
+import { ReactNode, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-
-gsap.registerPlugin(SplitText, useGSAP);
-
-interface ShaderPlaneProps {
-	vertexShader: string;
-	fragmentShader: string;
-	uniforms: { [key: string]: { value: unknown } };
-}
-
-const ShaderPlane = ({
-	vertexShader,
-	fragmentShader,
-	uniforms,
-}: ShaderPlaneProps) => {
-	const meshRef = useRef<THREE.Mesh>(null);
-	const { size } = useThree();
-
-	useFrame((state) => {
-		if (meshRef.current) {
-			const material = meshRef.current.material as THREE.ShaderMaterial;
-			material.uniforms.u_time.value = state.clock.elapsedTime * 0.5;
-			material.uniforms.u_resolution.value.set(size.width, size.height, 1.0);
-		}
-	});
-
-	return (
-		<mesh ref={meshRef}>
-			<planeGeometry args={[2, 2]} />
-			<shaderMaterial
-				attach="material"
-				args={[
-					{
-						vertexShader,
-						fragmentShader,
-						uniforms,
-						side: THREE.FrontSide,
-						depthTest: false,
-						depthWrite: false,
-					},
-				]}
-			/>
-		</mesh>
-	);
-};
-
-const vertexShader = `
-  varying vec2 vUv;
-  void main() {
-    vUv = uv;
-    gl_Position = vec4(position, 1.0);
-  }
-`;
-
-const fragmentShader = `
-  precision highp float;
-
-  varying vec2 vUv;
-  uniform float u_time;
-  uniform vec3 u_resolution;
-  uniform sampler2D u_channel0;
-
-  vec2 toPolar(vec2 p) {
-      float r = length(p);
-      float a = atan(p.y, p.x);
-      return vec2(r, a);
-  }
-
-  vec2 fromPolar(vec2 polar) {
-      return vec2(cos(polar.y), sin(polar.y)) * polar.x;
-  }
-
-  void mainImage(out vec4 fragColor, in vec2 fragCoord) {
-      vec2 p = 6.0 * ((fragCoord.xy - 0.5 * u_resolution.xy) / u_resolution.y);
-
-      vec2 polar = toPolar(p);
-      float r = polar.x;
-      float a = polar.y;
-
-      vec2 i = p;
-      float c = 0.0;
-      float rot = r + u_time + p.x * 0.100;
-      for (float n = 0.0; n < 4.0; n++) {
-          float rr = r + 0.15 * sin(u_time*0.7 + float(n) + r*2.0);
-          p *= mat2(
-              cos(rot - sin(u_time / 10.0)), sin(rot),
-              -sin(cos(rot) - u_time / 10.0), cos(rot)
-          ) * -0.25;
-
-          float t = r - u_time / (n + 30.0);
-          i -= p + sin(t - i.y) + rr;
-
-          c += 2.2 / length(vec2(
-              (sin(i.x + t) / 0.15),
-              (cos(i.y + t) / 0.15)
-          ));
-      }
-
-      c /= 8.0;
-
-      vec3 baseColor = vec3(0.0078, 0.9725, 0.2510); // #02f840
-      vec3 finalColor = baseColor * smoothstep(0.0, 1.0, c * 0.6);
-
-      fragColor = vec4(finalColor, 1.0);
-  }
-
-  void main() {
-      vec4 fragColor;
-      vec2 fragCoord = vUv * u_resolution.xy;
-      mainImage(fragColor, fragCoord);
-      gl_FragColor = fragColor;
-  }
-`;
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface HeroProps {
 	title: string | ReactNode;
@@ -130,181 +14,169 @@ interface HeroProps {
 }
 
 const SyntheticHero = ({
-	title = "HACK THE THREAT",
-	description = "Offensive security to fortify your digital defenses.",
+	title = "DIGITAL SOVEREIGNTY",
+	description = "Elite offensive security and predictive intelligence for the world's most critical infrastructures.",
 	ctaButtons = [
-		{ text: "Schedule a Consultation", href: "/contact", primary: true },
-		{ text: "View Our Services", href: "/services" },
+		{ text: "INITIATE PROTOCOL", href: "/contact", primary: true },
+		{ text: "CAPABILITIES", href: "/services" },
 	],
 	microDetails = [
-		"High-Risk Vendor Recon",
-		"Assurance Services",
-		"Secure Web Development",
+		"OFFENSIVE_RESEARCH",
+		"SECURE_ARCHITECTURE",
+		"INTELLIGENCE_MINING",
 	],
 }: HeroProps) => {
-	const sectionRef = useRef<HTMLElement | null>(null);
-	const headingContainerRef = useRef<HTMLDivElement>(null);
-	const paragraphRef = useRef<HTMLParagraphElement | null>(null);
-	const ctaRef = useRef<HTMLDivElement | null>(null);
-	const microRef = useRef<HTMLUListElement | null>(null);
-	const shaderUniforms = useMemo(
-		() => ({
-			u_time: { value: 0 },
-			u_resolution: { value: new THREE.Vector3(1, 1, 1) },
-		}),
-		[],
-	);
-
-	useGSAP(
-		() => {
-			const headingEl = headingContainerRef.current?.querySelector('h1');
-			if (!headingEl) return;
-
-			// Initially hide everything that will be animated
-			gsap.set(headingEl, { autoAlpha: 0 });
-			gsap.set(paragraphRef.current, { autoAlpha: 0, y: 8 });
-			gsap.set(ctaRef.current, { autoAlpha: 0, y: 8 });
-			const microItems = microRef.current ? Array.from(microRef.current.querySelectorAll("li")) : [];
-			if (microItems.length > 0) {
-				gsap.set(microItems, { autoAlpha: 0, y: 6 });
-			}
-
-			// Ensure fonts are loaded before starting animations to prevent layout shifts
-			document.fonts.ready.then(() => {
-				const split = new SplitText(headingEl, {
-					type: "lines",
-					linesClass: "hero-lines",
-				});
-
-				gsap.set(split.lines, {
-					filter: "blur(16px)",
-					yPercent: 24,
-					autoAlpha: 0,
-					scale: 1.04,
-					transformOrigin: "50% 100%",
-				});
-				// Make the heading visible now that it's properly set up for animation
-				gsap.set(headingEl, { autoAlpha: 1 });
-
-
-				const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-				tl.to(
-					split.lines,
-					{
-						filter: "blur(0px)",
-						yPercent: 0,
-						autoAlpha: 1,
-						scale: 1,
-						duration: 0.9,
-						stagger: 0.12,
-					},
-					0.1,
-				);
-
-				if (paragraphRef.current) {
-					tl.to(
-						paragraphRef.current,
-						{ autoAlpha: 1, y: 0, duration: 0.5 },
-						"-=0.55",
-					);
-				}
-
-				if (ctaRef.current) {
-					tl.to(
-						ctaRef.current,
-						{ autoAlpha: 1, y: 0, duration: 0.5 },
-						"-=0.35",
-					);
-				}
-
-				if (microItems.length > 0) {
-					tl.to(
-						microItems,
-						{ autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1 },
-						"-=0.25",
-					);
-				}
-			});
-		},
-		{ scope: sectionRef, dependencies: [title] },
-	);
+	const containerRef = useRef<HTMLElement | null>(null);
+	const { scrollY } = useScroll();
+	const y1 = useTransform(scrollY, [0, 500], [0, 150]);
+	const opacity = useTransform(scrollY, [0, 400], [1, 0]);
 
 	return (
-		<section
-			ref={sectionRef}
-			className="relative flex items-center justify-center min-h-screen overflow-hidden"
-		>
-			<div className="absolute inset-0 z-0">
-				<Canvas>
-					<ShaderPlane
-						vertexShader={vertexShader}
-						fragmentShader={fragmentShader}
-						uniforms={shaderUniforms}
-					/>
-				</Canvas>
-			</div>
+		<section ref={containerRef} className="relative min-h-[110vh] w-full bg-black overflow-hidden flex items-center justify-center pt-32 pb-20">
+			{/* Architectural Lighting */}
+			<motion.div
+				style={{ y: y1, opacity }}
+				className="absolute inset-0 z-0"
+			>
+				<div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-full h-[800px] bg-gradient-to-b from-[#00FF41]/5 via-transparent to-transparent blur-[120px] pointer-events-none"></div>
+				<div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[140px] pointer-events-none"></div>
+				<div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-[#00FF41]/5 rounded-full blur-[140px] pointer-events-none"></div>
 
-			<div className="relative z-10 flex flex-col items-center text-center px-6">
-				<div ref={headingContainerRef} className="mb-10">
-					{title}
+				{/* Neural Particles / Data Streams */}
+				{[...Array(50)].map((_, i) => (
+					<motion.div
+						key={i}
+						animate={{
+							opacity: [0, 0.4, 0],
+							scale: [0, 1.2, 0],
+							y: [0, -100 - Math.random() * 200]
+						}}
+						transition={{
+							duration: 10 + Math.random() * 20,
+							repeat: Infinity,
+							delay: Math.random() * 10,
+							ease: "linear"
+						}}
+						className="absolute h-[1px] w-[1px] bg-[#00FF41]/40 rounded-full"
+						style={{
+							left: `${Math.random() * 100}%`,
+							top: `${70 + Math.random() * 30}%`
+						}}
+					/>
+				))}
+
+				{/* Architectural Specifications (Visual Depth) */}
+				{[
+					"DENTI_SYNC_PROTOCOL_v7.4",
+					"CORE_SUBSTRATE_VERIFIED",
+					"NEURAL_MESH_ACTIVE",
+					"ZERO_TRUST_ENFORCEMENT",
+					"MISSION_CRITICAL_HUD",
+					"Sovereign_Link_Active"
+				].map((label, i) => (
+					<motion.div
+						key={`code-${i}`}
+						initial={{ opacity: 0 }}
+						animate={{ opacity: [0, 0.05, 0], x: [0, 30, 0] }}
+						transition={{ duration: 15, repeat: Infinity, delay: i * 2 }}
+						className="absolute text-[8px] font-black tracking-[0.3em] text-[#00FF41]/40 select-none pointer-events-none uppercase italic"
+						style={{
+							left: `${10 + (i * 15) % 80}%`,
+							top: `${20 + (i * 12) % 65}%`
+						}}
+					>
+						{label}
+					</motion.div>
+				))}
+			</motion.div>
+
+			<div className="container relative z-20 px-4 flex flex-col items-center">
+
+				<div className="space-y-6 mb-12 max-w-7xl w-full text-center">
+					{typeof title === "string" ? (
+						<motion.h1
+							initial={{ y: 100, opacity: 0, filter: "blur(20px)" }}
+							animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+							transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+							className="text-[14vw] sm:text-[12vw] lg:text-[180px] font-[900] tracking-[-0.07em] text-white uppercase leading-[0.7] mix-blend-difference"
+							style={{ fontFamily: "'Outfit', sans-serif" }}
+						>
+							{title.split(' ').map((word, i) => (
+								<span key={i} className={i % 2 !== 0 ? "text-white/10" : "text-white"}>{word} </span>
+							))}
+						</motion.h1>
+					) : (
+						title
+					)}
 				</div>
 
-				<p
-					ref={paragraphRef}
-					className="text-[#02f840]/80 text-lg max-w-2xl mx-auto mb-10 font-light"
+				<motion.p
+					initial={{ y: 20, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{ duration: 1, delay: 0.7 }}
+					className="max-w-2xl mx-auto text-lg md:text-xl text-white/40 mb-16 font-light leading-relaxed text-center tracking-wide"
 				>
 					{description}
-				</p>
+				</motion.p>
 
-				<div
-					ref={ctaRef}
-					className="flex flex-wrap items-center justify-center gap-4"
+				<motion.div
+					initial={{ y: 20, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{ duration: 1, delay: 0.9 }}
+					className="flex flex-col sm:flex-row gap-10 justify-center items-center"
 				>
-					{ctaButtons.map((button, index) => {
-						const isPrimary = button.primary ?? index === 0;
-						const classes = isPrimary
-							? "px-8 py-3 rounded-xl text-base font-medium backdrop-blur-lg bg-[#02f840]/80 hover:bg-[#02f840]/60 shadow-lg transition-all cursor-pointer"
-							: "px-8 py-3 rounded-xl text-base font-medium border-white/30 text-white hover:bg-white/10 backdrop-blur-lg transition-all cursor-pointer";
-
-						if (button.href) {
-							return (
-								<Button
-									key={index}
-									variant={isPrimary ? undefined : "outline"}
-									className={classes}
-									asChild
-								>
-									<a href={button.href}>{button.text}</a>
-								</Button>
-							);
-						}
-
-						return (
+					{ctaButtons?.map((btn, idx) => (
+						<motion.div
+							key={idx}
+							whileHover={{ scale: 1.05, y: -2 }}
+							whileTap={{ scale: 0.98 }}
+						>
 							<Button
-								key={index}
-								variant={isPrimary ? undefined : "outline"}
-								className={classes}
+								asChild
+								size="lg"
+								className={`h-16 px-14 rounded-full text-[13px] font-bold uppercase tracking-[0.2em] transition-all duration-500 border-0 ${btn.primary
+									? "bg-white text-black hover:bg-[#00FF41] hover:text-black shadow-[0_20px_40px_rgba(255,255,255,0.1)] hover:shadow-[0_20px_60px_rgba(0,255,65,0.3)]"
+									: "bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] text-white backdrop-blur-md"
+									}`}
 							>
-								{button.text}
+								<Link href={btn.href || "#"}>
+									{btn.text}
+									{btn.primary && (
+										<ArrowRight className="ml-3 h-5 w-5" />
+									)}
+								</Link>
 							</Button>
-						);
-					})}
-				</div>
+						</motion.div>
+					))}
+				</motion.div>
 
-				{microDetails.length > 0 && (
-					<ul
-						ref={microRef}
-						className="mt-8 flex flex-wrap justify-center gap-6 text-xs font-light tracking-tight text-[#02f840]/70"
-					>
-						{microDetails.map((detail, index) => (
-							<li key={index} className="flex items-center gap-2">
-								<span className="h-1 w-1 rounded-full bg-[#02f840]/60" />
+				{/* Micro-Details / Status Stream */}
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 2, delay: 1.5 }}
+					className="mt-32 flex flex-wrap justify-center gap-x-20 gap-y-10"
+				>
+					{microDetails?.map((detail, idx) => (
+						<div key={idx} className="flex flex-col items-center gap-3 group">
+							<span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20 group-hover:text-[#00FF41] transition-colors duration-500">
 								{detail}
-							</li>
-						))}
-					</ul>
-				)}
+							</span>
+							<div className="h-[1px] w-8 bg-white/10 group-hover:bg-[#00FF41] transition-all duration-500"></div>
+						</div>
+					))}
+				</motion.div>
+			</div>
+
+			{/* Architectural Shadows */}
+			<div className="absolute bottom-0 left-0 right-0 h-[30vh] bg-gradient-to-t from-black via-black/90 to-transparent z-20"></div>
+			<div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-30 opacity-20">
+				<span className="text-[8px] tracking-[0.8em] font-bold text-white uppercase translate-x-1">SCROLL_TO_EXPLORE</span>
+				<motion.div
+					animate={{ y: [0, 10, 0] }}
+					transition={{ repeat: Infinity, duration: 2 }}
+					className="h-12 w-[1px] bg-gradient-to-b from-white to-transparent"
+				/>
 			</div>
 		</section>
 	);

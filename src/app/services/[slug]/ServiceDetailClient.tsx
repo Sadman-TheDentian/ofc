@@ -1,3 +1,4 @@
+
 'use client';
 
 import { notFound } from 'next/navigation';
@@ -9,7 +10,8 @@ import * as LucideIcons from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import React, { useRef } from 'react';
 import type { Service } from '@/lib/types';
-
+import { motion, useScroll, useTransform } from 'framer-motion';
+import SafeImage from '@/components/SafeImage';
 
 const Icon = ({ name, ...props }: { name: string } & LucideIcons.LucideProps) => {
   const LucideIcon = LucideIcons[name as keyof typeof LucideIcons] as LucideIcons.LucideIcon;
@@ -18,206 +20,237 @@ const Icon = ({ name, ...props }: { name: string } & LucideIcons.LucideProps) =>
 };
 
 export default function ServiceDetailClient({ service }: { service: Service }) {
-  const heroRef = useRef(null);
-  const challengeRef = useRef(null);
-  const capabilitiesRef = useRef(null);
-  const approachRef = useRef(null);
-  const ctaRef = useRef(null);
-  
-  const approachContainerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
 
   if (!service) {
     notFound();
   }
 
-  const serviceSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    serviceType: service.title,
-    name: service.title,
-    description: service.longDescription,
-    provider: {
-      '@type': 'Organization',
-      name: 'DentiSystems',
-    },
-    image: service.imageUrl,
-    url: `https://www.denti.systems/services/${service.slug}`,
-  };
-  
-
   return (
-    <div className="flex flex-col">
-       <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
-      
-      {/* Hero Section */}
-       <section ref={heroRef} className="relative w-full py-20 md:py-32 lg:py-40 bg-background overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
+    <div ref={containerRef} className="flex flex-col bg-black min-h-screen">
+      {/* Cinematic Hero */}
+      <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <SafeImage
             src={service.imageUrl}
             alt={service.title}
             fill
-            className="object-cover w-full h-full"
+            className="object-cover opacity-20 grayscale"
             data-ai-hint={service.imageHint}
-            priority
           />
-           <div 
-            className="absolute inset-0 bg-background/80"
-           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-black" />
+
+          {/* Neural lines/particles would go here */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: '100px 100px'
+          }} />
         </div>
-         <div 
-            className="container relative z-10 text-center"
-        >
-          <div>
-            <Badge className="mb-4 text-sm py-1 px-3">Our Services</Badge>
-          </div>
-          <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl max-w-4xl mx-auto">
-            {service.headline}
-          </h1>
-          <p className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground md:text-xl">
-            {service.description}
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
-              <Link href="/contact">Schedule a Consultation</Link>
+
+        <div className="container relative z-10 px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-12"
+          >
+            <span className="text-[10px] font-bold tracking-[0.6em] text-[#00FF41] uppercase block mb-6">
+              SERVICE_PROTOCOL // ARCHIVE_v4.2
+            </span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="text-6xl md:text-9xl font-[900] tracking-[-0.06em] text-white uppercase leading-[0.8] mb-12 max-w-6xl mx-auto"
+            style={{ fontFamily: "'Outfit', sans-serif" }}
+          >
+            {service.title.split(' ').map((word, i) => (
+              <span key={i} className={i % 2 !== 0 ? "text-white/20" : "text-white"}>{word} </span>
+            ))}
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="max-w-2xl mx-auto text-white/40 text-lg md:text-xl font-light italic leading-relaxed"
+          >
+            "{service.description}"
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="mt-16 flex flex-wrap gap-8 justify-center"
+          >
+            <Button size="lg" className="h-16 px-12 rounded-full bg-white text-black font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#00FF41] transition-all shadow-2xl" asChild>
+              <Link href="/contact">INITIATE DEPLOYMENT</Link>
             </Button>
-            <Button size="lg" variant="secondary" asChild>
-              <Link href="/pricing">View Pricing</Link>
+            <Button size="lg" variant="outline" className="h-16 px-12 rounded-full border-white/10 text-white/60 hover:text-white hover:bg-white/5 tracking-[0.2em] text-[11px] uppercase backdrop-blur-3xl" asChild>
+              <Link href="/contact">ACQUIRE SPECIFICATIONS</Link>
             </Button>
-          </div>
+          </motion.div>
         </div>
+
+        {/* HUD Line */}
+        <div className="absolute bottom-0 left-0 right-0 hud-line opacity-20" />
       </section>
-      
-      {/* The Challenge Section */}
-       <section ref={challengeRef} className="py-20 md:py-32 border-t border-border/50">
-        <div 
-            className="container px-4 md:px-6"
-        >
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-4">
-              <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl text-primary">
+
+      {/* Challenge Section - Instrumental Minimalism */}
+      <section className="py-40 bg-black border-b border-white/5">
+        <div className="container px-4">
+          <div className="grid lg:grid-cols-2 gap-32 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+            >
+              <span className="text-[10px] font-bold tracking-[0.5em] text-[#00FF41] mb-8 block uppercase">01 // THE_CHALLENGE</span>
+              <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic leading-tight mb-8">
                 {service.challenge.title}
               </h2>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-white/30 text-xl font-light leading-relaxed max-w-xl">
                 {service.challenge.description}
               </p>
-            </div>
+            </motion.div>
+
             {service.challenge.stat && (
-              <div className="text-center lg:text-right">
-                <p className="text-7xl lg:text-8xl font-bold text-primary">{service.challenge.stat}</p>
-                <p className="text-lg text-muted-foreground">{service.challenge.statLabel}</p>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="relative group h-full flex items-center justify-center lg:justify-end"
+              >
+                <div className="absolute -inset-20 bg-[#00FF41]/5 rounded-full blur-[100px] pointer-events-none group-hover:opacity-100 opacity-0 transition-opacity duration-1000" />
+                <div className="text-right">
+                  <div className="text-[140px] md:text-[200px] font-black leading-none text-white/5 group-hover:text-white transition-colors duration-1000 tracking-tighter cursor-default">
+                    {service.challenge.stat}
+                  </div>
+                  <p className="text-[10px] font-bold text-white/20 tracking-[0.6em] uppercase mt-4 mr-4 italic">{service.challenge.statLabel}</p>
+                </div>
+              </motion.div>
             )}
           </div>
         </div>
       </section>
 
-      {/* Key Capabilities Section */}
-       <section ref={capabilitiesRef} className="py-20 md:py-32 bg-card/50 backdrop-blur-sm border-y border-border/50">
-        <div 
-            className="container px-4 md:px-6"
-        >
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-              Our Solution & Capabilities
+      {/* Capabilities Section - High-Fidelity Grid */}
+      <section className="py-40 bg-black">
+        <div className="container px-4">
+          <div className="max-w-3xl mb-32">
+            <span className="text-[10px] font-bold tracking-[0.5em] text-[#00FF41] mb-8 block uppercase">02 // CAPABILITIES</span>
+            <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic leading-none mb-12">
+              TACTICAL <span className="text-white/20">SOLUTIONS</span>
             </h2>
-            <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl">
-              We provide a multi-faceted approach to address your security challenges head-on.
-            </p>
+            <div className="h-px w-full bg-gradient-to-r from-white/10 to-transparent" />
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
             {service.capabilities.map((cap, index) => (
-              <div
+              <motion.div
                 key={index}
-                style={{ perspective: 800 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
               >
-                  <div
-                    className="h-full"
-                  >
-                    <Card className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center p-6 h-full transition-all duration-300">
-                        <div className="mb-4 inline-block p-4 bg-secondary rounded-full">
-                        <Icon name={cap.icon} className="h-8 w-8 text-primary" />
-                        </div>
-                        <h3 className="font-headline text-xl font-semibold mb-2">{cap.title}</h3>
-                        <p className="text-muted-foreground text-sm">{cap.description}</p>
-                    </Card>
+                <Card className="bg-white/[0.01] border-white/5 rounded-[2.5rem] p-12 h-full hover:border-[#00FF41]/30 transition-all duration-700 relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-8">
+                    <Icon name={cap.icon} className="h-12 w-12 text-white/5 group-hover:text-[#00FF41] transition-colors duration-700" />
                   </div>
-              </div>
+                  <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-6 mt-12 group-hover:translate-x-2 transition-transform duration-500">{cap.title}</h3>
+                  <p className="text-white/30 text-base font-light leading-relaxed group-hover:text-white/50 transition-colors duration-500">{cap.description}</p>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-       {/* Our Approach Section */}
-       <section ref={approachRef} className="py-20 md:py-32">
-         <div className="container px-4 md:px-6">
-            <div 
-                className="text-center space-y-4 mb-24"
-            >
-                <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-                    Our Methodical Approach
-                </h2>
-                <p className="max-w-3xl mx-auto text-muted-foreground md:text-xl">
-                   Our process is transparent, structured, and designed for maximum impact and clear communication.
-                </p>
+      {/* Analytical Process Section */}
+      <section className="py-40 bg-black border-y border-white/5 overflow-hidden">
+        <div className="container px-4">
+          <div className="flex flex-col lg:flex-row gap-24 items-start">
+            <div className="lg:w-1/3 sticky top-32">
+              <span className="text-[10px] font-bold tracking-[0.5em] text-[#00FF41] mb-8 block uppercase">03 // ARCHITECTURE</span>
+              <h2 className="text-5xl font-black text-white uppercase italic leading-tight mb-8">
+                THE <span className="text-white/20">PROCESS</span>
+              </h2>
+              <p className="text-white/30 text-lg font-light leading-relaxed">
+                A rigorous, multi-layered methodology engineered for mission success.
+              </p>
             </div>
-            <div ref={approachContainerRef} className="relative max-w-5xl mx-auto">
-                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {service.approach.map((item, index) => {
-                        return (
-                            <div key={item.step}>
-                                <div className="p-6 bg-gradient-to-br from-card to-card/80 border-border/50 rounded-xl">
-                                    <div className="flex items-center gap-4 mb-4">
-                                        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-secondary border-2 border-primary/50 text-primary font-bold text-lg">
-                                            {item.step}
-                                        </div>
-                                        <h3 className="font-headline text-xl font-bold text-primary">{item.title}</h3>
-                                    </div>
-                                    <p className="text-muted-foreground">{item.description}</p>
-                                </div>
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
-         </div>
-      </section>
 
-      {/* Social Proof Section */}
-      <section className="py-20 md:py-32 bg-secondary/30 border-y border-border/50">
-        <div className="container px-4 md:px-6">
-            <div 
-                className="max-w-3xl mx-auto text-center"
-            >
-                <p className="text-2xl font-medium italic text-foreground">
-                    "{service.socialProof.quote}"
-                </p>
-                <p className="mt-6 font-semibold text-primary">{service.socialProof.author}</p>
-                <p className="text-sm text-muted-foreground">{service.socialProof.company}</p>
+            <div className="lg:w-2/3 space-y-12">
+              {service.approach.map((item, index) => (
+                <motion.div
+                  key={item.step}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex gap-12 group"
+                >
+                  <div className="flex-shrink-0 w-24 h-24 rounded-full border border-white/10 flex items-center justify-center text-4xl font-black text-white/10 group-hover:text-[#00FF41] group-hover:border-[#00FF41] transition-all duration-700">
+                    {item.step}
+                  </div>
+                  <div className="pt-4">
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-4 group-hover:translate-x-2 transition-transform">{item.title}</h3>
+                    <p className="text-white/30 text-lg font-light leading-relaxed">{item.description}</p>
+                    <div className="h-[1px] w-full bg-white/5 mt-12 group-hover:bg-white/10 transition-colors" />
+                  </div>
+                </motion.div>
+              ))}
             </div>
+          </div>
         </div>
       </section>
 
-      {/* Final CTA Section */}
-       <section ref={ctaRef} className="py-20 md:py-32">
-        <div 
-            className="container"
-        >
-            <div className="max-w-3xl mx-auto text-center bg-card p-8 md:p-12 rounded-xl border border-primary/50 shadow-2xl shadow-primary/10">
-                <h2 className="font-headline text-3xl font-bold mb-4">Ready to Fortify Your Defenses?</h2>
-                <p className="text-muted-foreground mb-8">
-                    Let's discuss how our {service.title} can be tailored to your organization's unique security needs.
-                </p>
-                <Button size="lg" asChild>
-                    <Link href="/contact">Talk to an Expert</Link>
-                </Button>
+      {/* Social Proof - Atmospheric */}
+      <motion.section
+        className="py-40 bg-black relative flex items-center justify-center text-center"
+      >
+        <div className="container px-4 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <span className="text-[40px] md:text-[60px] font-black text-white/10 absolute -top-12 left-0 tracking-tighter leading-none italic select-none">TRUST_TELEMETRY</span>
+            <p className="text-2xl md:text-4xl font-light italic text-white/80 leading-relaxed mb-16">
+              "{service.socialProof.quote}"
+            </p>
+            <div className="flex flex-col items-center">
+              <h4 className="text-[11px] font-bold tracking-[0.5em] text-[#00FF41] uppercase mb-2">{service.socialProof.author}</h4>
+              <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest">{service.socialProof.company} // SECTOR_COMMAND</p>
             </div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Final Deployment CTA */}
+      <section className="py-40 bg-black border-t border-white/5">
+        <div className="container px-4">
+          <div className="bg-[#00FF41]/5 border border-[#00FF41]/20 rounded-[3rem] p-16 md:p-32 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#00FF41]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            <div className="relative z-10 text-center max-w-3xl mx-auto">
+              <h2 className="text-5xl md:text-7xl font-[900] text-white uppercase tracking-tighter mb-8 leading-none">
+                READY_FOR <br /> <span className="text-[#00FF41]">DEPLOYMENT?</span>
+              </h2>
+              <p className="text-white/40 text-xl font-light mb-16 italic">
+                Establish your digital perimeter with our elite security protocols.
+              </p>
+              <Button size="lg" className="h-20 px-16 rounded-full bg-white text-black font-black uppercase tracking-[0.3em] text-[13px] hover:bg-[#00FF41] transition-all" asChild>
+                <Link href="/contact">TALK_TO_COMMAND <LucideIcons.ArrowRight className="ml-4 h-6 w-6" /></Link>
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
-
     </div>
   );
 }

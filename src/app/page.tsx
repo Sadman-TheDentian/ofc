@@ -7,7 +7,7 @@ import { groq } from 'next-sanity';
 
 
 async function getData(): Promise<{ posts: BlogPost[], divisions: SecurityDivision[], news: NewsArticle[], partners: SanityPartner[], caseStudies: CaseStudy[] }> {
-    const query = groq`{
+  const query = groq`{
       "posts": *[_type == "post"] | order(publishedAt desc) [0...5] {
         _id,
         title,
@@ -25,6 +25,7 @@ async function getData(): Promise<{ posts: BlogPost[], divisions: SecurityDivisi
         title,
         description,
         icon,
+        mainImage,
         slug
       },
       "news": *[_type == "news"] | order(publishedAt desc) [0...5] {
@@ -52,7 +53,7 @@ async function getData(): Promise<{ posts: BlogPost[], divisions: SecurityDivisi
         mainImage
       }
     }`;
-    return await client.fetch(query);
+  return await client.fetch(query);
 }
 
 

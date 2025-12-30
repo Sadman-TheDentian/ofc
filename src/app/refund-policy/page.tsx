@@ -1,78 +1,105 @@
-
 'use client';
 
-import { useState, useEffect } from 'react';
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowLeft, RefreshCcw, Shield, Lock, FileText } from 'lucide-react';
+import TechnicalIcon from "@/components/TechnicalIcon";
 
 export default function RefundPolicyPage() {
-  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
-
-  useEffect(() => {
-    // This code runs only on the client, after the component has mounted.
-    // This avoids a mismatch between the server-rendered and client-rendered HTML.
-    setLastUpdated(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
-  }, []);
-
   return (
-    <div className="container py-12 md:py-20">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
-            <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-            Refund Policy
+    <div className="min-h-screen bg-black pt-40 pb-20 overflow-hidden">
+      <div className="container px-4">
+        <div className="max-w-7xl mb-60 relative">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <Link href="/" className="group flex items-center gap-3 text-[10px] font-black text-white/30 uppercase tracking-[0.5em] mb-16 hover:text-[#00FF41] transition-colors">
+              <ArrowLeft className="h-4 w-4 transform group-hover:-translate-x-2 transition-transform" />
+              BAK_TO_COLLECTIVE
+            </Link>
+            <div className="flex items-center gap-8 mb-12">
+              <TechnicalIcon icon={RefreshCcw} glowColor="#00FF41" className="scale-75 origin-left" />
+              <span className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase">FISCAL_PROTOCOL // REVERSION</span>
+            </div>
+            <h1 className="text-7xl md:text-[14vw] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-16">
+              REFUND <br /><span className="text-white/10">MANUAL.</span>
             </h1>
-            {lastUpdated && (
-                <p className="mt-4 text-lg text-muted-foreground">
-                Last updated: {lastUpdated}
-                </p>
-            )}
+            <p className="max-w-4xl text-white/40 text-2xl md:text-3xl font-light italic leading-relaxed">
+              Rules of engagement for financial reversal requests. Our commitment is transparency in every transaction.
+            </p>
+          </motion.div>
         </div>
 
-        <div className="prose prose-invert max-w-none text-foreground/90 prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
-          <h2>1. Overview</h2>
-          <p>
-            Thank you for choosing DentiSystems. Our mission is to provide powerful and accessible security tools. This Refund Policy outlines our policy on refunds for our PRO plan subscription.
-          </p>
+        <div className="grid lg:grid-cols-12 gap-24 px-4 overflow-visible">
+          <aside className="lg:col-span-4 hidden lg:block sticky top-32 h-fit">
+            <nav className="space-y-6">
+              {["1. ELIGIBILITY", "2. SERVICE_UNITS", "3. PROCESSING", "4. DISPUTES"].map((item, idx) => (
+                <div key={idx} className="group cursor-pointer">
+                  <div className="h-[1px] w-8 bg-white/10 group-hover:w-full group-hover:bg-[#00FF41] transition-all duration-700 mb-4" />
+                  <span className="text-[10px] font-black tracking-[0.5em] text-white/20 group-hover:text-white transition-colors">{item}</span>
+                </div>
+              ))}
+            </nav>
+          </aside>
 
-          <h2>2. One-Time Payment for Digital Services</h2>
-          <p>
-            Our DentiSystems PRO plan is offered as a <strong>one-time payment for lifetime access</strong> to the PRO features available at the time of your purchase. This model is designed to be simple and transparent.
-          </p>
-          
-          <h2>3. No Refunds</h2>
-          <p>
-            Due to the nature of our services being digital products and the use of cryptocurrency for transactions, which are irreversible, we have a strict <strong>no-refund policy</strong>.
-          </p>
-          <p>
-            All sales are final. Once you have purchased the PRO plan and your payment is confirmed on the blockchain, you will have immediate and lifetime access to the features, and we are unable to offer a refund, exchange, or cancellation.
-          </p>
-          
-           <h2>4. Why We Have This Policy</h2>
-          <ul>
-            <li>
-              <strong>Irreversible Transactions:</strong> Cryptocurrency transactions are, by their nature, irreversible. Once a payment is sent and confirmed, it cannot be reversed.
-            </li>
-            <li>
-             <strong>Immediate Access:</strong> You receive immediate access to the benefits and features of the PRO plan upon successful payment.
-            </li>
-             <li>
-             <strong>Digital Product:</strong> Unlike physical goods, digital products cannot be "returned." Once access is granted, it cannot be revoked in a way that ensures the service is no longer used.
-            </li>
-          </ul>
+          <div className="lg:col-span-8 prose prose-invert max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:italic prose-headings:tracking-tighter prose-p:text-white/40 prose-p:font-light prose-p:leading-relaxed prose-li:text-white/40 prose-li:font-light prose-strong:text-white prose-strong:font-black">
+            <section id="eligibility" className="mb-24">
+              <h2 className="text-4xl mb-10 flex items-center gap-6">
+                <span className="text-white/10">01</span> ELIGIBILITY_BOUNDARIES
+              </h2>
+              <p>
+                Reversion of digital service fees is strictly governed by the following operational boundaries. Due to the high-compute nature of DentiSystems' offensive recon, some units are non-reversible once deployment is initiated.
+              </p>
+              <ul>
+                <li>Initial subscription activation is 100% reversible within 24 hours if no intelligence queries have been executed.</li>
+                <li>Sovereign-level custom deployments are subject to the terms of the specific MSA (Master Service Agreement).</li>
+                <li>Pay-per-scan modules are non-refundable once the scanning node has established connection with the target.</li>
+              </ul>
+            </section>
 
+            <section id="service_units" className="mb-24">
+              <h2 className="text-4xl mb-10 flex items-center gap-6">
+                <span className="text-white/10">02</span> SERVICE_UNIT_AUDIT
+              </h2>
+              <p>
+                Every refund request triggers a mandatory telemetry audit. We will review the system logs to determine if the resources allocated (compute time, proxy nodes, decryption attempts) have been substantially utilized.
+              </p>
+              <div className="bg-white/[0.02] border border-white/5 p-10 rounded-[2.5rem] my-12 backdrop-blur-3xl italic">
+                "If the intelligence has been delivered and viewed, the service unit is considered consumed. Refunding delivered intelligence is structurally impossible."
+              </div>
+            </section>
 
-          <h2>5. Exceptional Circumstances</h2>
-          <p>
-            We do not provide refunds, but we are committed to customer satisfaction. If you experience technical issues that prevent you from accessing or using the PRO features you purchased, please contact our support team. We will work with you to resolve the issue. Cases of non-delivery of service will be investigated on a case-by-case basis.
-          </p>
+            <section id="processing" className="mb-24">
+              <h2 className="text-4xl mb-10 flex items-center gap-6">
+                <span className="text-white/10">03</span> PROCESSING_PHASES
+              </h2>
+              <p>
+                Once a request is validated, processing follows these time-locked phases:
+              </p>
+              <ol>
+                <li>Validation Audit (24-48 Hours)</li>
+                <li>Finance Unit Trigger (12 Hours)</li>
+                <li>Gateway Sync (3-7 Business Days)</li>
+              </ol>
+            </section>
 
-           <h2>6. Contact Us</h2>
-          <p>
-            If you have questions about this Refund Policy or are experiencing technical difficulties with your PRO account, please
-            contact us at:
-          </p>
-          <p>
-            DentiSystems Inc. <br />
-            Email: help@denti.systems
-          </p>
+            <section id="disputes" className="pb-40">
+              <h2 className="text-4xl mb-10 flex items-center gap-6">
+                <span className="text-white/10">04</span> DISPUTE_CHANNELS
+              </h2>
+              <p>
+                All financial disputes should be channeled directly to our Legal Unit at <strong>billing@denti.systems</strong>. Bypassing this protocol with external chargebacks will result in immediate and permanent termination of all sovereign node access.
+              </p>
+            </section>
+          </div>
+        </div>
+
+        {/* HUD Assurance */}
+        <div className="mt-40 pt-12 border-t border-white/5 flex justify-between items-center opacity-10">
+          <div className="text-[8px] font-bold tracking-[0.5em] text-white uppercase font-mono">FISCAL_UNIT_LOGS // READY</div>
+          <p className="text-[8px] font-bold tracking-[0.4em] text-white uppercase italic">" TRANSPARENCY IS THE ROOT OF STABILITY. "</p>
         </div>
       </div>
     </div>

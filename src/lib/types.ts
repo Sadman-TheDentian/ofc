@@ -74,56 +74,56 @@ export type CaseStudy = {
   summary: string;
   industry: string;
   outcome: string;
-  mainImage?: SanityImage | string; 
+  mainImage?: SanityImage | string;
   content?: PortableTextBlock[];
 };
 
 export type Author = {
-    name?: string | null;
-    image?: SanityImage | string;
+  name?: string | null;
+  image?: SanityImage | string;
 };
 
 export type BlogPost = {
-    _id: string;
-    slug: { current: string };
-    title: string;
-    excerpt: string;
-    mainImage?: SanityImage | string;
-    publishedAt: string;
-    author?: Author;
-    body: PortableTextBlock[];
+  _id: string;
+  slug: { current: string };
+  title: string;
+  excerpt: string;
+  mainImage?: SanityImage | string;
+  publishedAt: string;
+  author?: Author;
+  body: PortableTextBlock[];
 };
 
 export type NewsArticle = {
-    _id: string;
-    _updatedAt: string;
-    slug: { current: string };
-    title: string;
-    excerpt: string;
-    mainImage?: SanityImage | string;
-    publishedAt: string;
-    author?: Author;
-    body: PortableTextBlock[];
+  _id: string;
+  _updatedAt: string;
+  slug: { current: string };
+  title: string;
+  excerpt: string;
+  mainImage?: SanityImage | string;
+  publishedAt: string;
+  author?: Author;
+  body: PortableTextBlock[];
 }
 
 export type ThreatReport = {
-    _id: string;
-    slug: { current: string };
-    title: string;
-    publishedAt: string;
-    mainImage?: SanityImage | string;
-    summary: PortableTextBlock[];
-    fileURL?: any;
+  _id: string;
+  slug: { current: string };
+  title: string;
+  publishedAt: string;
+  mainImage?: SanityImage | string;
+  summary: PortableTextBlock[];
+  fileURL?: any;
 }
 
 export type WhitePaper = {
-    _id: string;
-    slug: { current: string };
-    title: string;
-    publishedAt: string;
-    mainImage?: SanityImage | string;
-    summary: PortableTextBlock[];
-    fileURL?: any;
+  _id: string;
+  slug: { current: string };
+  title: string;
+  publishedAt: string;
+  mainImage?: SanityImage | string;
+  summary: PortableTextBlock[];
+  fileURL?: any;
 }
 
 export type SecurityDivision = {
@@ -132,6 +132,7 @@ export type SecurityDivision = {
   title: string;
   description: string;
   icon: string;
+  mainImage?: SanityImage;
   order: number;
 }
 
@@ -143,11 +144,11 @@ export type Partner = {
 }
 
 export type FirebaseConfig = {
-    apiKey: string;
-    authDomain: string;
-    projectId: string;
-    storageBucket: string;
-    messagingSenderId: string;
-    appId: string;
-    measurementId?: string;
+  apiKey: string;
+  authDomain: string;
+  projectId: string;
+  storageBucket: string;
+  messagingSenderId: string;
+  appId: string;
+  measurementId?: string;
 };

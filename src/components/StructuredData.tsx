@@ -71,6 +71,15 @@ const organizationSchema = {
       "@type": "Offer",
       "itemOffered": {
         "@type": "SoftwareApplication",
+        "name": "PhishRisk",
+        "applicationCategory": "SecurityApplication",
+        "description": "Domain risk assessment and phishing intelligence tool."
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "SoftwareApplication",
         "name": "PasswordLeaker",
         "applicationCategory": "SecurityApplication",
         "description": "Security testing tool for identifying compromised credentials."

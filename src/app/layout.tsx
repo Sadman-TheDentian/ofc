@@ -13,13 +13,36 @@ const logoUrl =
 
 
 export const metadata: Metadata = {
-  title: "DentiSystems — Elite Cybersecurity & Custom Web Engineering",
+  title: "DentiSystems | Sovereign Offensive Security & Predictive Intel",
   description:
-    "High-risk vendor recon, breach monitoring, and secure web development that reduces operational risk.",
+    "Elite offensive security research, high-risk vendor reconnaissance, and breach monitoring. Reducing global operational risk through secure web engineering and telemetric intelligence mining.",
+  keywords: ["cybersecurity", "offensive security", "vendor recon", "breach monitoring", "secure web development", "zero trust architecture"],
+  authors: [{ name: "DentiSystems Engineering" }],
+  openGraph: {
+    title: "DentiSystems | Sovereign Offensive Security",
+    description: "Elite tactical intelligence and defensive engineering.",
+    url: "https://denti.systems",
+    siteName: "DentiSystems",
+    images: [
+      {
+        url: logoUrl,
+        width: 1200,
+        height: 630,
+        alt: "DentiSystems Sovereign Link",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
   icons: {
     icon: logoUrl,
   }
 };
+
+import GrainOverlay from "@/components/layout/GrainOverlay";
+import PageWrapper from "@/components/layout/PageWrapper";
+import Preloader from "@/components/layout/Preloader";
+import StructuredData from "@/components/StructuredData";
 
 export default function RootLayout({
   children,
@@ -29,7 +52,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -37,25 +59,27 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Outfit:wght@300;400;700;900&display=swap"
           rel="stylesheet"
         />
         <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcHfdkrAAAAACT50f21UCQfGiRAoDzPQeKXhbGp" async defer></script>
-        
+
         {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-52G6ZBH1ZM"></script>
-        <script dangerouslySetInnerHTML={{ __html: `
+        <script dangerouslySetInnerHTML={{
+          __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', 'G-52G6ZBH1ZM');
         `}} />
-        
+
         {/* Subscribe with Google */}
         <script async type="application/javascript"
-        src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
-        <script dangerouslySetInnerHTML={{ __html: `
+          src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
           (self.SWG_BASIC = self.SWG_BASIC || []).push( basicSubscriptions => {
             basicSubscriptions.init({
               type: "NewsArticle",
@@ -66,17 +90,23 @@ export default function RootLayout({
           });
         `}} />
 
+        <StructuredData />
       </head>
       <body
         className={cn(
-          "min-h-screen bg-transparent font-body antialiased flex flex-col"
+          "min-h-screen bg-black font-body antialiased flex flex-col selection:bg-[#00FF41]/20"
         )}
         suppressHydrationWarning={true}
       >
         <FirebaseClientProvider>
           <AuthProvider>
+            <GrainOverlay />
             <Header />
-            <main className="flex-grow z-10">{children}</main>
+            <main className="flex-grow z-10">
+              <PageWrapper>
+                {children}
+              </PageWrapper>
+            </main>
             <Footer />
             <Toaster />
           </AuthProvider>

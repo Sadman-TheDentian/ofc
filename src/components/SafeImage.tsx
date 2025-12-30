@@ -26,13 +26,15 @@ const SafeImage: FC<SafeImageProps> = ({
   ...rest
 }) => {
   if (!src) {
-    // Render a dark placeholder div when the src is missing
+    // Render a high-fidelity dark placeholder for missing telemetry assets
     return (
-      <div 
-        className={`w-full h-full bg-neutral-900 flex items-center justify-center text-neutral-500 ${className || ''}`} 
+      <div
+        className={`w-full h-full bg-[#050505] flex flex-col items-center justify-center border border-white/5 relative overflow-hidden ${className || ''}`}
         style={style}
       >
-        <span>No Image</span>
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00FF41]/10 to-transparent" />
+        <span className="text-[8px] font-black text-white/20 tracking-[0.4em] uppercase mb-2">SIGNAL_LOST</span>
+        <span className="text-[7px] font-bold text-white/5 tracking-widest uppercase italic">MSN_REF_NULL</span>
       </div>
     );
   }

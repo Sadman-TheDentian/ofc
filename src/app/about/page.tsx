@@ -2,254 +2,206 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Award, Handshake, BrainCircuit } from "lucide-react";
-import Image from "next/image";
+import { Users, Award, Handshake, BrainCircuit, ArrowRight, ShieldCheck, Activity, Target, Zap } from "lucide-react";
 import Link from "next/link";
 import { TeamMembers } from "@/lib/placeholder-images";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from "recharts";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import Autoplay from "embla-carousel-autoplay";
-import React from "react";
+import React, { useRef } from "react";
 import SafeImage from "@/components/SafeImage";
+import { motion, useScroll, useTransform } from "framer-motion";
+import RevealText from "@/components/RevealText";
+import TechnicalIcon from "@/components/TechnicalIcon";
+import { Cpu, ShieldPlus, Globe2 } from "lucide-react";
 
 const statsData = [
-  { subject: 'Threats Analyzed', value: 120, fullMark: 150, displayValue: "1.2M+" },
-  { subject: 'Enterprises Secured', value: 100, fullMark: 150, displayValue: "150+" },
-  { subject: 'Ransomware Resilience', value: 99.8, fullMark: 100, displayValue: "99.8%" },
+  { subject: 'Encryption Depth', value: 120, displayValue: "AES-256" },
+  { subject: 'Threat Intelligence', value: 140, displayValue: "99.9%" },
+  { subject: 'Verification Nodes', value: 100, displayValue: "4k+" },
+  { subject: 'Protocol Latency', value: 130, displayValue: "0.02ms" },
+  { subject: 'Substrate Health', value: 110, displayValue: "OPTIMAL" },
 ];
-
-const values = [
-    {
-        icon: Award,
-        title: "Expertise",
-        description: "Our team comprises industry veterans with decades of combined experience in offensive security, threat intelligence, and secure software development.",
-        imageUrl: "https://blogger.googleusercontent.com/img/a/AVvXsEic3sHUvr_T2_6WSx-BUfO1t9T3BAAfhyiN8dWAsaEJSxP7_-c3w7RgMkF8Bbw4AYKTYrVd9HDQte7HvRjoOQKLPrlSvHOlhOK3hhLHaZQo2gGoi1eT6hznYtFfglkHqhlc3nPDRCGDNMDJhoQewbKrFoE9g5hRsKp8YPog5tabjXe1SDk-OciMupiea3M=w641-h358",
-        href: "/about/expertise"
-    },
-    {
-        icon: Handshake,
-        title: "Integrity",
-        description: "We operate with the highest ethical standards, prioritizing our clients' trust and confidentiality above all else. Your security is our bond.",
-        imageUrl: "https://blogger.googleusercontent.com/img/a/AVvXsEg9f_wEbICAyoTey7qzbh9tgOfpc0cQ_JSLxvHqgPG3qTA-Vzv9v_JAwgT-fS0ISQb7lpd0qLEXCEqj4jNQYDpNFgDhhTtviRBdIhcsPYuygiU98p9rzK9ax0rR8CCQPoe7xZ-AkB8zVe06pz7gVu5Q4hukRYqcEuw_uJzHdCfeEMzmHQyOjtnma3Ty-Oc=w631-h353",
-        href: "/about/integrity"
-    },
-    {
-        icon: BrainCircuit,
-        title: "Innovation",
-        description: "The threat landscape is always evolving, and so are we. We are committed to continuous research and development to stay ahead of adversaries.",
-        imageUrl: "https://blogger.googleusercontent.com/img/a/AVvXsEgKyvpArELsyfOnQb0iNOF8rSx2neMBe-gD0S7zAsKHKDdp2GTkOBhtRsto8gf07eXLfFhIou6L_X1_-bHuodabFPNHPCcHfgTOrqeOx3BQ0cHZgODohBHz1qPoY1KV42fKBtS9qRu7xQyChHv4dn3uA2QdwtgrVIHSnEi43eSSPsXZlOks59jRJelRbHo=w635-h354",
-        href: "/about/innovation"
-    }
-];
-
-const resources = [
-    {
-        title: "Whitepaper: The Anatomy of a Zero-Day Exploit",
-        description: "A deep dive into how zero-day vulnerabilities are discovered, weaponized, and deployed by advanced persistent threat actors.",
-        imageUrl: "https://picsum.photos/seed/res1/600/400",
-        imageHint: "abstract code security"
-    },
-    {
-        title: "Report: 2024 Global Threat Landscape",
-        description: "Our annual report analyzing the year's most significant cyber threats, attack vectors, and defensive trends across industries.",
-        imageUrl: "https://picsum.photos/seed/res2/600/400",
-        imageHint: "digital world map"
-    },
-    {
-        title: "Guide: Building a Resilient Security Culture",
-        description: "Actionable steps for fostering a security-first mindset within your organization to combat social engineering and insider threats.",
-        imageUrl: "https://picsum.photos/seed/res3/600/400",
-        imageHint: "team collaboration security"
-    }
-]
-
-const CustomTooltip = ({ active, payload, label }: any) => {
-  if (active && payload && payload.length) {
-    const data = payload[0].payload;
-    return (
-      <div className="bg-card/80 p-2 border border-border/50 rounded-lg">
-        <p className="font-bold text-primary">{`${data.subject}`}</p>
-        <p className="text-sm text-foreground">{`Value: ${data.displayValue}`}</p>
-      </div>
-    );
-  }
-
-  return null;
-};
-
 
 export default function AboutPage() {
-    const resourcesAutoplayPlugin = React.useRef(
-        Autoplay({
-          delay: 4000,
-          stopOnInteraction: true,
-          stopOnMouseEnter: true,
-        })
-    );
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -100]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+
   return (
-    <div className="container py-12 md:py-20">
-      <div className="text-center max-w-3xl mx-auto mb-16 bg-background/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
-        <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-          About DentiSystems
-        </h1>
-        <p className="mt-4 text-xl text-muted-foreground">
-          We are a collective of elite security researchers, ethical hackers, and
-          web engineers dedicated to fortifying the digital world.
-        </p>
-      </div>
+    <div ref={containerRef} className="min-h-screen bg-black overflow-hidden selection:bg-[#00FF41]/30">
 
-      <section className="mb-20">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <Card className="bg-gradient-to-br from-card to-card/80 border-border/50 p-6 space-y-6">
-            <h2 className="font-headline text-2xl font-bold border-l-4 border-primary pl-4">
-              Our Mission
-            </h2>
-            <p className="text-muted-foreground">
-              In a world of escalating digital threats, passive defense is no
-              longer enough. Our mission is to provide organizations with an attacker&apos;s advantage. We combine deep offensive security expertise
-              with secure development practices to build digital experiences
-              that are not just functional, but fundamentally resilient.
+      {/* 01 // CINEMATIC HERO - ASYMMETRIC SPLIT */}
+      <section className="relative min-h-screen flex items-center pt-40 pb-32">
+        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="container px-4 grid lg:grid-cols-2 gap-32 items-center z-10">
+          <div className="max-w-4xl">
+            <div className="flex items-center gap-6 mb-12">
+              <div className="h-0.5 w-16 bg-[#00FF41]" />
+              <RevealText text="THE_ORIGIN_STORY" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] uppercase" />
+            </div>
+            <h1 className="text-7xl md:text-[14vw] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-16">
+              ALPHA <br /> <span className="text-white/20">UNITS.</span>
+            </h1>
+            <p className="max-w-2xl text-white/40 text-2xl md:text-3xl font-light italic leading-relaxed mb-16">
+              We are the architecture behind the silence. A specialized collective of intelligence architects redesigning the boundaries of digital sovereignty.
             </p>
-            <p className="text-muted-foreground">
-              We don&apos;t just patch vulnerabilities; we re-engineer the very
-              foundation of your web presence to eliminate entire classes of
-              risk, ensuring your operations, data, and reputation are secure
-              from the ground up.
-            </p>
-          </Card>
-          <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
-             <CardHeader>
-                <CardTitle>By the Numbers</CardTitle>
-                <CardDescription>A testament to our impact and expertise.</CardDescription>
-             </CardHeader>
-              <CardContent>
-                 <ResponsiveContainer width="100%" height={350}>
-                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={statsData}>
-                        <defs>
-                            <radialGradient id="radarGradient">
-                                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
-                                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1}/>
-                            </radialGradient>
-                        </defs>
-                        <PolarGrid stroke="hsl(var(--border) / 0.5)" />
-                        <PolarAngleAxis dataKey="subject" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} />
-                        <PolarRadiusAxis angle={30} domain={[0, 150]} tick={false} axisLine={false} />
-                        <Radar name="DentiSystems" dataKey="value" stroke="hsl(var(--primary))" fill="url(#radarGradient)" fillOpacity={0.8} />
-                        <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1, strokeDasharray: "3 3" }} />
-                    </RadarChart>
+            <div className="flex flex-wrap gap-12">
+              <Button size="lg" className="h-20 px-16 rounded-full bg-white text-black font-[900] uppercase text-[12px] tracking-[0.4em] hover:bg-[#00FF41] transition-all" asChild>
+                <Link href="/contact">INITIATE_SYNC</Link>
+              </Button>
+              <div className="flex items-center gap-6 text-[10px] font-[900] text-white/20 tracking-[0.5em] uppercase italic">
+                <TechnicalIcon icon={Activity} glowColor="#00FF41" className="scale-75" />
+                NODE_ACTIVE_v4.2
+              </div>
+            </div>
+          </div>
+          <div className="relative hidden lg:block">
+            <div className="absolute -inset-20 bg-[#00FF41]/5 blur-[120px] rounded-full animate-pulse-slow" />
+            <div className="relative aspect-square rounded-[6rem] overflow-hidden border border-white/5 bg-white/[0.02] rotate-3 hover:rotate-0 transition-transform duration-1000 p-3">
+              <div className="h-full w-full rounded-[5.5rem] overflow-hidden">
+                <SafeImage src="/images/about-hero.png" alt="DentiSystems Operations Center" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-110" />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Background Layered Text */}
+        <div className="absolute bottom-0 right-0 overflow-hidden pointer-events-none select-none opacity-[0.02]">
+          <span className="text-[30vw] font-black text-white italic leading-none translate-y-1/4 inline-block">ARCHITECT</span>
+        </div>
+      </section>
+
+      {/* 02 // MISSION BROADCAST - CINEMATIC FULL BLEED */}
+      <section className="py-40 relative">
+        <div className="container px-4">
+          <div className="bg-white/[0.02] border border-white/5 rounded-[5rem] p-12 md:p-32 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#00FF41]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            <div className="grid lg:grid-cols-2 gap-20 items-center relative z-10">
+              <div>
+                <h2 className="text-5xl md:text-8xl font-black text-white uppercase italic tracking-tighter leading-none mb-12">
+                  THE <span className="text-[#00FF41]">MISSION</span> PROTOCOL
+                </h2>
+                <div className="space-y-8 text-white/40 text-xl font-light italic leading-relaxed">
+                  <p>
+                    In an era of hyper-escalated digital warfare, legacy defense is obsolete. DentiSystems was forged as a response to the fragmentation of global security.
+                  </p>
+                  <p className="text-white border-l-2 border-[#00FF41] pl-8 py-4 bg-white/[0.02] rounded-r-3xl">
+                    "We re-engineer the foundational trust of the web, ensuring that every interaction is architecturally sound and fundamentally impenetrable."
+                  </p>
+                </div>
+              </div>
+              <div className="h-[400px] w-full relative">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={statsData}>
+                    <PolarGrid stroke="rgba(0,255,65,0.05)" />
+                    <PolarAngleAxis dataKey="subject" tick={{ fill: 'rgba(255,255,255,0.2)', fontSize: 9, fontWeight: 900, letterSpacing: '0.2em' }} />
+                    <Radar name="Unit_Capacity" dataKey="value" stroke="#00FF41" fill="#00FF41" fillOpacity={0.1} strokeWidth={2} />
+                  </RadarChart>
                 </ResponsiveContainer>
-              </CardContent>
-            </Card>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
+                  <span className="text-[9px] font-bold text-white/20 tracking-widest uppercase">STABILITY_TARGET</span>
+                  <div className="text-2xl font-black text-[#00FF41]">0.99</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
-      
-      <section className="mb-20">
-        <h2 className="font-headline text-3xl font-bold tracking-tighter text-center mb-12">
-            Our Core Values
-        </h2>
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {values.map((value) => (
-              <Link href={value.href} key={value.title} className="group">
-                <Card className="overflow-hidden bg-gradient-to-br from-card to-card/80 border-border/50 h-full flex flex-col transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
-                    <div className="relative h-40 w-full">
-                         <SafeImage src={value.imageUrl} alt={value.title} fill style={{objectFit: 'cover'}} className="group-hover:scale-105 transition-transform" />
-                    </div>
-                     <div className="p-6 text-center flex-grow flex flex-col">
-                        <h3 className="font-headline text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{value.title}</h3>
-                        <p className="text-muted-foreground text-sm flex-grow">{value.description}</p>
-                     </div>
-                </Card>
-              </Link>
-            ))}
-        </div>
-      </section>
-      
-       <section className="mb-20">
-        <h2 className="font-headline text-3xl font-bold tracking-tighter text-center mb-12">
-            From Our Research Desk
-        </h2>
-        <Carousel
-            plugins={[resourcesAutoplayPlugin.current]}
-            className="w-full max-w-5xl mx-auto"
-            opts={{
-                align: 'start',
-                loop: true,
-            }}
-        >
-            <CarouselContent className="-ml-4">
-                {resources.map((resource) => (
-                    <CarouselItem key={resource.title} className="pl-4 md:basis-1/2 group">
-                        <Card className="overflow-hidden h-full flex flex-col border-border transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 rounded-xl hover:-translate-y-2 bg-gradient-to-br from-card to-card/80 border-border/50">
-                            <CardHeader className="p-0">
-                                <div className="relative h-48 w-full">
-                                    <SafeImage
-                                        src={resource.imageUrl}
-                                        alt={resource.title}
-                                        fill
-                                        style={{objectFit: "cover"}}
-                                        className="group-hover:scale-105 transition-transform duration-300"
-                                        data-ai-hint={resource.imageHint}
-                                    />
-                                </div>
-                            </CardHeader>
-                            <CardContent className="p-6 flex-grow flex flex-col">
-                                <h3 className="font-headline text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{resource.title}</h3>
-                                <p className="text-muted-foreground text-sm mb-4 flex-grow">{resource.description}</p>
-                                <Button variant="link" className="p-0 self-start">Read More</Button>
-                            </CardContent>
-                        </Card>
-                    </CarouselItem>
-                ))}
-            </CarouselContent>
-             <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-        </Carousel>
       </section>
 
-      <section className="text-center">
-        <h2 className="font-headline text-3xl font-bold tracking-tighter mb-12">
-          Meet the Experts
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mb-12">
-          {TeamMembers.map((member) => (
-            <Card key={member.id} className="bg-gradient-to-br from-card to-card/80 border-border/50 text-center">
-              <CardContent className="p-6">
-                <SafeImage
-                  src={member.imageUrl}
-                  alt={member.name}
-                  width={120}
-                  height={120}
-                  className="rounded-full mx-auto mb-4 border-2 border-primary/50 object-cover w-32 h-32"
-                  data-ai-hint={member.imageHint}
-                />
-                <h3 className="font-headline text-xl font-semibold">
-                  {member.name}
-                </h3>
-                <p className="text-primary text-sm font-medium mb-2">
-                  {member.title}
-                </p>
-                <p className="text-muted-foreground text-sm">{member.bio}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-        <div className="bg-secondary/50 rounded-lg p-8 max-w-4xl mx-auto">
-            <h3 className="font-headline text-2xl font-bold mb-3">Join Our Mission</h3>
-            <p className="text-muted-foreground mb-6">We are always looking for exceptional talent to join our ranks. If you live and breathe cybersecurity and want to make a real-world impact, we want to hear from you.</p>
-            <Button size="lg" asChild>
-                <Link href="/contact">View Open Positions</Link>
-            </Button>
+      {/* 03 // CORE VALUES - GEOMETRIC OVERLAP */}
+      <section className="py-60 md:py-80 bg-black relative border-t border-white/5">
+        <div className="container px-4">
+          <div className="max-w-3xl mb-32">
+            <span className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] mb-12 block uppercase">FOUNDATIONAL_PILLARS</span>
+            <h2 className="text-6xl md:text-[8vw] font-[900] text-white uppercase italic tracking-tighter leading-none">CORE VALUES</h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-16">
+            {[
+              { icon: Cpu, title: "EXPERTISE_LEVEL", desc: "Decades of high-fidelity offensive intelligence and research.", color: "text-[#00FF41]" },
+              { icon: ShieldPlus, title: "INTEGRITY_INDEX", desc: "Zero-compromise ethical standards in every mission-critical operation.", color: "text-[#00FF41]" },
+              { icon: Globe2, title: "NETWORK_MESH", desc: "Continuous development of proprietary neural defensive protocols.", color: "text-[#00FF41]" }
+            ].map((v, i) => (
+              <div key={i} className="group relative pt-24">
+                <div className="absolute top-0 left-0 text-9xl font-black text-white/[0.02] select-none italic tracking-tighter">0{i + 1}</div>
+                <div className="bg-white/[0.02] border border-white/10 rounded-[5rem] p-16 hover:bg-white/[0.03] hover:border-[#00FF41]/30 transition-all duration-700 h-full relative z-10 flex flex-col">
+                  <div className="mb-16">
+                    <TechnicalIcon icon={v.icon as any} glowColor="#00FF41" />
+                  </div>
+                  <h3 className="text-4xl font-[900] text-white italic uppercase tracking-tighter mb-8 group-hover:translate-x-4 transition-transform duration-500 leading-none">{v.title}</h3>
+                  <p className="text-white/30 text-xl font-light italic leading-relaxed">{v.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* 04 // OPERATIONAL UNITS - HEX GRID / CLIPPED */}
+      <section className="py-40 bg-white/[0.01] border-y border-white/5">
+        <div className="container px-4 text-center mb-40">
+          <span className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] mb-12 block uppercase">OPERATIONAL_CREW</span>
+          <h2 className="text-6xl md:text-[8vw] font-[900] text-white underline decoration-[#00FF41]/20 underline-offset-[30px] uppercase italic tracking-tighter leading-none">THE COLLECTIVE</h2>
+        </div>
+
+        <div className="container px-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-20 gap-y-32">
+            {TeamMembers.map((member, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="group"
+              >
+                <div className="relative h-64 w-full mb-10 overflow-hidden clip-polygon group-hover:clip-polygon-none transition-all duration-700">
+                  <div className="absolute inset-0 bg-[#00FF41]/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 mix-blend-overlay" />
+                  <SafeImage src={member.imageUrl} alt={member.name} fill className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000" />
+                </div>
+                <div className="text-left px-4">
+                  <h3 className="text-2xl font-black text-white uppercase italic mb-2 tracking-tighter">{member.name}</h3>
+                  <div className="text-[10px] font-bold text-[#00FF41] tracking-[0.4em] uppercase mb-4 opacity-40">{member.title}</div>
+                  <p className="text-white/20 text-sm italic font-light line-clamp-2">"{member.bio}"</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <style jsx>{`
+            .clip-polygon {
+                clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            }
+            .clip-polygon-none {
+                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 100%, 0% 100%);
+            }
+        `}</style>
+      </section>
+
+      {/* 05 // FINAL CTA - DEEP SKEUOMORPHIC BUTTON */}
+      <section className="py-60 md:py-[20vh] bg-black relative border-t border-white/5">
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none pointer-events-none">
+          <span className="text-[25vw] font-black text-white uppercase italic tracking-tighter">IDENTITY</span>
+        </div>
+        <div className="container px-4 text-center relative z-10">
+          <h2 className="text-6xl md:text-[12vw] font-[900] text-white italic uppercase tracking-tighter leading-[0.8] mb-20">
+            SEEKING <span className="text-[#00FF41]">ALPHA</span> TALENT.
+          </h2>
+          <p className="max-w-xl mx-auto text-white/40 text-xl font-light italic leading-relaxed mb-16 px-4">
+            The collective is expanding. We are scouting for specialized intelligence units with zero-day research capabilities.
+          </p>
+          <div className="flex justify-center">
+            <Button size="lg" className="h-24 px-20 rounded-full bg-[#00FF41] text-black font-black uppercase text-sm tracking-[0.5em] hover:scale-110 transition-all shadow-[0_0_50px_rgba(0,255,65,0.4)]" asChild>
+              <Link href="/careers">SUBMIT_CREDENTIALS <Zap className="ml-4 h-6 w-6" /></Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
-
-    

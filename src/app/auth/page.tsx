@@ -1,5 +1,5 @@
 
-"use client";
+'use client';
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Github, Chrome, Loader2 } from "lucide-react";
+import { Github, Chrome, Loader2, ArrowRight, Lock, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -29,55 +29,34 @@ import {
 } from "@/components/ui/form";
 import { FirebaseError } from "firebase/app";
 import { verifyRecaptcha } from "./actions";
+import { motion } from "framer-motion";
 
 declare const grecaptcha: any;
 
 const signUpSchema = z.object({
-  email: z.string().email({ message: "Invalid email address." }),
+  email: z.string().email({ message: "Invalid email deployment." }),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters." }),
+    .min(8, { message: "Security protocol requires 8+ chars." }),
 });
 
 const signInSchema = z.object({
-  email: z.string().email({ message: "Invalid email address." }),
-  password: z.string().min(1, { message: "Password is required." }),
+  email: z.string().email({ message: "Invalid email." }),
+  password: z.string().min(1, { message: "Key required." }),
 });
 
 const getAuthErrorMessage = (error: FirebaseError | Error) => {
-    if ('code' in error) { // It's a FirebaseError
-        switch (error.code) {
-            case 'auth/invalid-email':
-                return 'Invalid email address format.';
-            case 'auth/user-disabled':
-                return 'This user account has been disabled.';
-            case 'auth/user-not-found':
-            case 'auth/wrong-password':
-            case 'auth/invalid-credential':
-                return 'Invalid email or password. Please check your credentials and try again.';
-            case 'auth/email-already-in-use':
-                return 'An account with this email address already exists. Please sign in instead.';
-            case 'auth/weak-password':
-                return 'The password is too weak. It must be at least 8 characters long.';
-            case 'auth/operation-not-allowed':
-                return 'This sign-in method is not enabled. Please contact support.';
-            case 'auth/popup-closed-by-user':
-                return 'The authentication popup was closed before completing the sign-in. Please try again.';
-            case 'auth/cancelled-popup-request':
-                return 'Multiple login attempts detected. Please complete one before trying another.';
-            case 'auth/popup-blocked':
-                return 'Authentication popup was blocked by the browser. Please allow popups for this site.';
-            case 'auth/invalid-api-key':
-                 return 'Authentication failed: Invalid API Key. Please contact support.';
-            case 'auth/network-request-failed':
-                return 'A network error occurred. Please check your internet connection and try again.';
-            default:
-                console.error('Unhandled Firebase Auth Error:', error);
-                return 'An unexpected authentication error occurred. Please try again later.';
-        }
+  if ('code' in error) {
+    switch (error.code) {
+      case 'auth/user-not-found':
+      case 'auth/wrong-password':
+      case 'auth/invalid-credential':
+        return 'PROTOCOL_DENIED: Invalid Credentials.';
+      default:
+        return `SYSTEM_ERROR: ${error.code}`;
     }
-    // It's a general Error (like our disposable email error or reCAPTCHA error)
-    return error.message;
+  }
+  return error.message;
 }
 
 export default function AuthPage() {
@@ -108,221 +87,181 @@ export default function AuthPage() {
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Sign In Failed",
+        title: "PROTOCOL_DENIED",
         description: getAuthErrorMessage(error as FirebaseError),
       });
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
   const handleSignUp = async (data: z.infer<typeof signUpSchema>) => {
     setLoading(true);
     try {
-      if (typeof grecaptcha === 'undefined' || !grecaptcha.enterprise) {
-        throw new Error("reCAPTCHA not loaded. Please refresh and try again.");
-      }
-      
-      const token = await grecaptcha.enterprise.execute('6LcHfdkrAAAAACT50f21UCQfGiRAoDzPQeKXhbGp', {action: 'SIGNUP'});
-      
+      const token = await grecaptcha.enterprise.execute('6LcHfdkrAAAAACT50f21UCQfGiRAoDzPQeKXhbGp', { action: 'SIGNUP' });
       const recaptchaResult = await verifyRecaptcha(token);
-      if (!recaptchaResult.success) {
-          throw new Error(recaptchaResult.error || "reCAPTCHA verification failed.");
+      if (!recaptchaResult.success || recaptchaResult.score < 0.7) {
+        throw new Error("RECAPTCHA_FAILED: Low security score.");
       }
-      if (recaptchaResult.score < 0.7) { // Recommended threshold
-          console.warn(`Low reCAPTCHA score: ${recaptchaResult.score}. Blocking signup.`);
-          throw new Error("Your request was flagged as suspicious. Please try again.");
-      }
-
-      // If reCAPTCHA is successful and score is high enough, proceed with signup
       await signUpWithEmail(data.email, data.password);
-
     } catch (error) {
-        toast({
-            variant: "destructive",
-            title: "Sign Up Failed",
-            description: getAuthErrorMessage(error as FirebaseError | Error),
-        });
+      toast({
+        variant: "destructive",
+        title: "PROTOCOL_FAILURE",
+        description: getAuthErrorMessage(error as FirebaseError | Error),
+      });
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
-  
+
   const handleSocialLogin = async (provider: 'google' | 'github') => {
     setSocialLoading(provider);
     try {
-        if(provider === 'google') await signInWithGoogle();
-        if(provider === 'github') await signInWithGithub();
+      if (provider === 'google') await signInWithGoogle();
+      if (provider === 'github') await signInWithGithub();
     } catch (error) {
-       console.error(`Social login error (${provider}):`, error);
-        toast({
-            variant: "destructive",
-            title: "Authentication Failed",
-            description: getAuthErrorMessage(error as FirebaseError),
-        });
+      toast({
+        variant: "destructive",
+        title: "AUTHENTICATION_FAULT",
+        description: getAuthErrorMessage(error as FirebaseError),
+      });
     } finally {
-        setSocialLoading(null);
+      setSocialLoading(null);
     }
   }
 
   return (
-    <div className="container flex items-center justify-center min-h-[calc(100vh-200px)] py-12">
-      <Tabs defaultValue="signin" className="w-full max-w-md">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="signin">Sign In</TabsTrigger>
-          <TabsTrigger value="signup">Sign Up</TabsTrigger>
-        </TabsList>
-        <TabsContent value="signin">
-          <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
-            <CardHeader className="text-center">
-              <CardTitle className="font-headline text-2xl">
-                Access Your Dashboard
-              </CardTitle>
-              <CardDescription>
-                Enter your credentials to manage your security tools.
-              </CardDescription>
-            </CardHeader>
-            <Form {...signInForm}>
-              <form onSubmit={signInForm.handleSubmit(handleSignIn)}>
-                <CardContent className="space-y-4">
-                  <FormField
-                    control={signInForm.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="user@denti.systems"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={signInForm.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl>
-                          <Input type="password" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </CardContent>
-                <CardFooter className="flex flex-col gap-4">
-                  <Button type="submit" className="w-full" disabled={loading || !!socialLoading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Sign In
+    <div className="min-h-screen bg-black flex flex-col items-center justify-center pt-32 pb-20 relative overflow-hidden">
+      {/* Background Architectures */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-radial-gradient from-[#00FF41]/5 via-transparent to-transparent opacity-50 blur-[100px]" />
+        <div className="absolute inset-0 opacity-[0.02]" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '80px 80px'
+        }} />
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full max-w-xl relative z-10 px-4"
+      >
+        <div className="text-center mb-12">
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="inline-flex h-12 w-12 rounded-full bg-[#00FF41]/10 border border-[#00FF41]/20 items-center justify-center mb-8"
+          >
+            <Lock className="h-5 w-5 text-[#00FF41]" />
+          </motion.div>
+          <h1 className="text-5xl font-black text-white italic tracking-tighter uppercase mb-4 leading-none">IDENTITY <span className="text-white/20">VAULT</span></h1>
+          <p className="text-white/30 text-xs tracking-[0.4em] uppercase font-bold italic font-mono">Secure_Entry_Protocol_v9.2</p>
+        </div>
+
+        <Tabs defaultValue="signin" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 bg-white/[0.03] border border-white/5 rounded-full p-2 mb-12 h-16">
+            <TabsTrigger value="signin" className="rounded-full text-[11px] font-bold tracking-widest uppercase data-[state=active]:bg-white data-[state=active]:text-black transition-all">Sign_In</TabsTrigger>
+            <TabsTrigger value="signup" className="rounded-full text-[11px] font-bold tracking-widest uppercase data-[state=active]:bg-white data-[state=active]:text-black transition-all">Register_Protocol</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="signin">
+            <Card className="bg-white/[0.02] border border-white/5 rounded-[3rem] p-10 md:p-14 backdrop-blur-3xl shadow-none hover:border-white/10 transition-all duration-700">
+              <Form {...signInForm}>
+                <form onSubmit={signInForm.handleSubmit(handleSignIn)} className="space-y-8">
+                  <div className="space-y-6">
+                    <FormField
+                      control={signInForm.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input placeholder="OPERATOR_EMAIL" className="h-16 bg-white/[0.02] border-white/10 rounded-2xl text-white placeholder:text-white/10 px-6 focus:border-[#00FF41]/50 tracking-widest uppercase font-bold text-xs" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={signInForm.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input type="password" placeholder="SECURITY_KEY" className="h-16 bg-white/[0.02] border-white/10 rounded-2xl text-white placeholder:text-white/10 px-6 focus:border-[#00FF41]/50 tracking-widest uppercase font-bold text-xs" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <Button type="submit" className="h-20 w-full rounded-full bg-white text-black font-black uppercase tracking-[0.4em] text-[13px] hover:bg-[#00FF41] transition-all shadow-2xl" disabled={loading || !!socialLoading}>
+                    {loading ? <Loader2 className="h-6 w-6 animate-spin" /> : "AUTHENTICATE"}
                   </Button>
-                </CardFooter>
-              </form>
-            </Form>
-            <CardFooter className="flex flex-col gap-4">
-              <div className="relative w-full">
+                </form>
+              </Form>
+
+              <div className="relative my-12">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
+                  <span className="w-full border-t border-white/5" />
                 </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">
-                    Or continue with
-                  </span>
+                <div className="relative flex justify-center text-[8px] uppercase tracking-[0.5em] font-bold text-white/10">
+                  <span className="bg-black/0 px-4">Federated_Access</span>
                 </div>
               </div>
-              <div className="w-full grid grid-cols-2 gap-4">
-                <Button variant="outline" onClick={() => handleSocialLogin('github')} disabled={!!socialLoading || loading}>
-                  {socialLoading === 'github' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Github className="mr-2 h-4 w-4" />}
-                  GitHub
+
+              <div className="grid grid-cols-2 gap-6">
+                <Button variant="outline" className="h-16 rounded-full border-white/10 bg-white/5 text-white/40 hover:text-white hover:border-[#00FF41]/50 transition-all font-bold tracking-widest text-[9px]" onClick={() => handleSocialLogin('github')} disabled={!!socialLoading || loading}>
+                  {socialLoading === 'github' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Github className="mr-3 h-4 w-4" />} GITHUB
                 </Button>
-                <Button variant="outline" onClick={() => handleSocialLogin('google')} disabled={!!socialLoading || loading}>
-                   {socialLoading === 'google' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Chrome className="mr-2 h-4 w-4" />}
-                  Google
+                <Button variant="outline" className="h-16 rounded-full border-white/10 bg-white/5 text-white/40 hover:text-white hover:border-[#00FF41]/50 transition-all font-bold tracking-widest text-[9px]" onClick={() => handleSocialLogin('google')} disabled={!!socialLoading || loading}>
+                  {socialLoading === 'google' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Chrome className="mr-3 h-4 w-4" />} GOOGLE
                 </Button>
               </div>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-        <TabsContent value="signup">
-          <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
-            <CardHeader className="text-center">
-              <CardTitle className="font-headline text-2xl">
-                Create an Account
-              </CardTitle>
-              <CardDescription>
-                Join DentiSystems to access our suite of security tools.
-              </CardDescription>
-            </CardHeader>
-            <Form {...signUpForm}>
-              <form onSubmit={signUpForm.handleSubmit(handleSignUp)}>
-                <CardContent className="space-y-4">
-                  <FormField
-                    control={signUpForm.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="user@denti.systems"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={signUpForm.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl>
-                          <Input type="password" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </CardContent>
-                <CardFooter className="flex flex-col gap-4">
-                  <Button type="submit" className="w-full" disabled={loading || !!socialLoading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Sign Up
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="signup">
+            <Card className="bg-white/[0.02] border border-white/5 rounded-[3rem] p-10 md:p-14 backdrop-blur-3xl shadow-none">
+              <Form {...signUpForm}>
+                <form onSubmit={signUpForm.handleSubmit(handleSignUp)} className="space-y-8">
+                  <div className="space-y-6">
+                    <FormField
+                      control={signUpForm.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input placeholder="RECON_EMAIL" className="h-16 bg-white/[0.02] border-white/10 rounded-2xl text-white placeholder:text-white/10 px-6 focus:border-[#00FF41]/50 tracking-widest uppercase font-bold text-xs" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={signUpForm.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input type="password" placeholder="MASTER_PASSPHRASE" className="h-16 bg-white/[0.02] border-white/10 rounded-2xl text-white placeholder:text-white/10 px-6 focus:border-[#00FF41]/50 tracking-widest uppercase font-bold text-xs" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <Button type="submit" className="h-20 w-full rounded-full bg-white text-black font-black uppercase tracking-[0.4em] text-[13px] hover:bg-[#00FF41] transition-all shadow-2xl" disabled={loading || !!socialLoading}>
+                    {loading ? <Loader2 className="h-6 w-6 animate-spin" /> : "DEPLOY_IDENTITY"}
                   </Button>
-                </CardFooter>
-              </form>
-            </Form>
-             <CardFooter className="flex flex-col gap-4">
-              <div className="relative w-full">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">
-                    Or sign up with
-                  </span>
-                </div>
-              </div>
-              <div className="w-full grid grid-cols-2 gap-4">
-                <Button variant="outline" onClick={() => handleSocialLogin('github')} disabled={!!socialLoading || loading}>
-                  {socialLoading === 'github' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Github className="mr-2 h-4 w-4" />}
-                  GitHub
-                </Button>
-                <Button variant="outline" onClick={() => handleSocialLogin('google')} disabled={!!socialLoading || loading}>
-                   {socialLoading === 'google' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Chrome className="mr-2 h-4 w-4" />}
-                  Google
-                </Button>
-              </div>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                </form>
+              </Form>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </motion.div>
     </div>
   );
 }

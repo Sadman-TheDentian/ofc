@@ -1,5 +1,5 @@
 
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'securityDivision',
@@ -36,17 +36,26 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-        name: 'order',
-        title: 'Order',
-        type: 'number',
-        description: 'A number to determine the order of the divisions on the page (e.g., 1, 2, 3).',
-        validation: (rule) => rule.required().integer().positive(),
+      name: 'mainImage',
+      title: 'Main Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: 'order',
+      title: 'Order',
+      type: 'number',
+      description: 'A number to determine the order of the divisions on the page (e.g., 1, 2, 3).',
+      validation: (rule) => rule.required().integer().positive(),
     }),
   ],
   preview: {
     select: {
       title: 'title',
       subtitle: 'description',
+      media: 'mainImage',
     },
   },
 })

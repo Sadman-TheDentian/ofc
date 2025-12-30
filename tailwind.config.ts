@@ -111,6 +111,8 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "pan-gradient": "pan-gradient 15s ease-in-out infinite",
         scroll: 'scroll 40s linear infinite',
+        "spin-slow": "spin 20s linear infinite",
+        "pulse-slow": "pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },

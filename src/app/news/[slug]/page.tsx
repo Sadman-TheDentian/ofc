@@ -1,17 +1,13 @@
 
-import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StructuredData from "@/components/StructuredData";
-import SafeImage from "@/components/SafeImage";
 import { client, urlFor } from "@/lib/sanity-client";
 import { SanityImage, NewsArticle } from "@/lib/types";
-import { PortableText } from "@portabletext/react";
 import { groq } from "next-sanity";
 import { notFound } from "next/navigation";
-
+import NewsDetailClient from "./NewsDetailClient";
 
 const getNewsArticle = async (slug: string): Promise<NewsArticle | null> => {
-    const query = groq`*[_type == "news" && slug.current == $slug][0]{
+  const query = groq`*[_type == "news" && slug.current == $slug][0]{
         _id,
         _updatedAt,
         title,
@@ -25,7 +21,7 @@ const getNewsArticle = async (slug: string): Promise<NewsArticle | null> => {
             image
         }
     }`;
-    return await client.fetch(query, { slug });
+  return await client.fetch(query, { slug });
 };
 
 export default async function NewsPostPage({
@@ -36,12 +32,10 @@ export default async function NewsPostPage({
   const post = await getNewsArticle(params.slug);
 
   if (!post) {
-      notFound();
+    notFound();
   }
 
   const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
-  const authorImageUrl = post.author?.image ? urlFor(post.author.image as SanityImage)?.url() : undefined;
-
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -75,41 +69,7 @@ export default async function NewsPostPage({
   return (
     <>
       <StructuredData data={jsonLd} />
-      <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-8">
-        <Link href="/news" className="text-primary hover:underline">
-          ← Back to News
-        </Link>
-        <article>
-          <h1 className="text-4xl font-bold font-headline mb-4">{post.title}</h1>
-          <div className="flex items-center gap-4 mb-8">
-              {post.author && (
-                  <div className="flex items-center gap-3">
-                      <Avatar>
-                          <AvatarImage src={authorImageUrl} alt={post.author.name ?? undefined} />
-                          <AvatarFallback>{post.author.name?.charAt(0) || 'D'}</AvatarFallback>
-                      </Avatar>
-                      <span className="font-medium text-muted-foreground">{post.author.name}</span>
-                  </div>
-              )}
-              <p className="text-muted-foreground">
-                  {new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-              </p>
-          </div>
-
-          <div className="relative w-full aspect-video mb-8">
-              <SafeImage
-                  src={postImageUrl ?? undefined}
-                  alt={post.title}
-                  fill
-                  className="rounded-xl object-cover"
-              />
-          </div>
-          
-          <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground">
-            {post.body && <PortableText value={post.body} />}
-          </div>
-        </article>
-      </main>
+      <NewsDetailClient post={post} />
     </>
   );
 }
