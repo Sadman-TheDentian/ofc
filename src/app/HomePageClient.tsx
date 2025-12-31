@@ -26,6 +26,7 @@ import { urlFor } from '@/lib/sanity-client';
 import ServiceCard from '@/components/ServiceCard';
 import Magnetic from '@/components/Magnetic';
 import TechnicalIcon from '@/components/TechnicalIcon';
+import GlitchText from '@/components/GlitchText';
 
 const iconMap = {
   KeyRound,
