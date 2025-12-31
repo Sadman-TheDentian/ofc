@@ -16,22 +16,22 @@ interface ServicesClientProps {
 
 export default function ServicesClient({ services }: ServicesClientProps) {
     return (
-        <div className="min-h-screen bg-black pt-40 pb-20 overflow-hidden relative">
-            <div className="container relative z-10 px-4">
-                <div className="text-left mb-80 max-w-7xl relative">
+        <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden">
+            <div className="container px-4">
+                <div className="max-w-7xl mb-24 md:mb-60 relative">
                     <motion.div
-                        initial={{ opacity: 0, x: -40 }}
+                        initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 1 }}
                     >
                         <div className="flex items-center gap-8 mb-12">
                             <div className="h-2 w-2 bg-[#00FF41] rounded-full animate-pulse shadow-[0_0_15px_#00FF41]" />
                             <RevealText text="CAPABILITY_RECON // CORE_V6.4" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] uppercase" />
                         </div>
-                        <h1 className="text-7xl md:text-[14vw] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-16" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16" style={{ fontFamily: "'Outfit', sans-serif" }}>
                             ELITE <br /><span className="text-white/20">PROTOCOLS</span>
                         </h1>
-                        <p className="max-w-4xl text-white/40 text-2xl md:text-4xl font-light leading-relaxed mb-20 italic">
+                        <p className="max-w-4xl text-white/40 text-xl md:text-4xl font-light leading-relaxed mb-12 md:mb-20 italic">
                             "Proprietary offensive and defensive methodologies engineered back-to-zero for absolute digital sovereignty."
                         </p>
 

@@ -38,10 +38,10 @@ const trainingModules = [
 
 export default function TrainingPage() {
   return (
-    <div className="min-h-screen bg-black pt-40 pb-20 overflow-hidden">
+    <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
       <div className="container px-4">
         {/* Academic Header */}
-        <div className="max-w-7xl mb-60 relative">
+        <div className="max-w-7xl mb-24 md:mb-60 relative">
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -51,10 +51,10 @@ export default function TrainingPage() {
               <div className="h-0.5 w-16 bg-[#00FF41]" />
               <RevealText text="CAPACITY_BUILDING_NODE" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] uppercase" />
             </div>
-            <h1 className="text-7xl md:text-[14vw] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-16">
+            <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
               FORGE <br /><span className="text-white/10">OPERATORS.</span>
             </h1>
-            <p className="max-w-4xl text-white/40 text-2xl md:text-3xl font-light italic leading-relaxed">
+            <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed">
               Certification protocols engineered to elevate defensive and offensive capacity at scale.
             </p>
           </motion.div>
@@ -71,7 +71,7 @@ export default function TrainingPage() {
               transition={{ delay: idx * 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className={`lg:col-span-${idx === 2 ? '12' : '6'} group`}
             >
-              <div className="bg-white/[0.01] border border-white/10 rounded-[6rem] p-16 md:p-24 flex flex-col h-full hover:bg-white/[0.03] hover:border-[#00FF41]/20 transition-all duration-700 relative overflow-hidden">
+              <div className="bg-white/[0.01] border border-white/10 rounded-[3rem] md:rounded-[6rem] p-8 md:p-16 lg:p-24 flex flex-col h-full hover:bg-white/[0.03] hover:border-[#00FF41]/20 transition-all duration-700 relative overflow-hidden">
                 <div className="flex flex-col md:flex-row gap-16 items-start justify-between relative z-10 mb-16">
                   <div className="scale-125">
                     <TechnicalIcon icon={module.icon as any} glowColor={module.color} />
@@ -97,8 +97,8 @@ export default function TrainingPage() {
 
                 <div className="mt-auto relative z-10">
                   <Magnetic>
-                    <Button size="lg" className="h-24 px-16 rounded-full bg-white text-black font-[900] uppercase text-[12px] tracking-[0.5em] hover:bg-[#00FF41] transition-all group-hover:shadow-[0_0_50px_rgba(0,255,65,0.2)]">
-                      INITIATE_MODULE_v1.0 <ArrowRight className="ml-6 h-6 w-6" />
+                    <Button size="lg" className="h-20 md:h-24 px-12 md:px-16 rounded-full bg-white text-black font-[900] uppercase text-[10px] md:text-[12px] tracking-[0.5em] hover:bg-[#00FF41] transition-all group-hover:shadow-[0_0_50px_rgba(0,255,65,0.2)]">
+                      INITIATE_MODULE_v1.0 <ArrowRight className="ml-6 h-4 w-4 md:h-6 md:w-6" />
                     </Button>
                   </Magnetic>
                 </div>

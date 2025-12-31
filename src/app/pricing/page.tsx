@@ -62,9 +62,9 @@ const plans = [
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-black pt-40 pb-20">
+    <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
       <div className="container px-4">
-        <div className="max-w-7xl mb-60 relative">
+        <div className="max-w-7xl mb-24 md:mb-60 relative">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -74,10 +74,10 @@ export default function PricingPage() {
               <div className="h-0.5 w-16 bg-white/20" />
               <span className="text-[10px] font-[900] tracking-[1.2em] text-[#00FF41] block uppercase">FINANCIAL_MODEL // ECONOMICS</span>
             </div>
-            <h1 className="text-7xl md:text-[14vw] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-16">
+            <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
               SERVICE <br /><span className="text-white/10">ECONOMICS.</span>
             </h1>
-            <p className="max-w-4xl text-white/40 text-2xl md:text-4xl font-light italic leading-relaxed">
+            <p className="max-w-4xl text-white/40 text-xl md:text-4xl font-light italic leading-relaxed">
               Precision engineering requires transparent resource allocation. Choose the protocol that aligns with your operational requirements.
             </p>
           </motion.div>
@@ -110,7 +110,7 @@ export default function PricingPage() {
                 <CardHeader className="p-0 mb-16">
                   <h3 className="text-[11px] font-[900] tracking-[0.5em] text-[#00FF41]/40 uppercase mb-8 group-hover:text-[#00FF41] transition-colors">{plan.name}</h3>
                   <div className="flex items-baseline gap-4 mb-8">
-                    <span className="text-7xl font-[900] text-white italic tracking-tighter">{plan.price}</span>
+                    <span className="text-5xl md:text-7xl font-[900] text-white italic tracking-tighter">{plan.price}</span>
                     <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.5em]">{plan.period}</span>
                   </div>
                   <p className="text-white/40 text-xl font-light leading-relaxed italic line-clamp-2">
