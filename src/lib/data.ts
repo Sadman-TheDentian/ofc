@@ -154,7 +154,7 @@ export const tools: Tool[] = [
     longDescription: "DarkCheck is a free tool that scans public data breaches and dark web marketplaces to see if your credentials have been compromised, helping you stay ahead of account takeovers.",
     icon: "KeyRound",
     url: "https://darkcheck.denti.systems",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
+    imageUrl: "/images/tools/darkcheck.svg",
   },
   {
     id: 6,
@@ -164,7 +164,7 @@ export const tools: Tool[] = [
     longDescription: "LeakScan performs a comprehensive scan of a domain to find exposed login pages, sensitive files, and other information that could be leveraged by attackers.",
     icon: "ShieldHalf",
     url: "https://leakscan.denti.systems",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
+    imageUrl: "/images/tools/leakscan.svg",
   },
   {
     id: 7,
@@ -174,7 +174,7 @@ export const tools: Tool[] = [
     longDescription: "PhishRisk analyzes domain registration data, SSL certificates, and other factors to generate a phishing risk score, helping you identify potentially malicious websites.",
     icon: "Siren",
     url: "https://phishrisk.denti.systems",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
+    imageUrl: "/images/tools/phishrisk.svg",
   },
   {
     id: 8,
@@ -184,7 +184,7 @@ export const tools: Tool[] = [
     longDescription: "Password Leaker allows you to securely check if your passwords have appeared in known data breaches, using k-anonymity to protect your privacy.",
     icon: "Code",
     url: "https://passwordleaker.denti.systems",
-    imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgC1T9VEOh8KS203i5YYu12JL6YCG05OG9sx842IhkPl2jtLXNmkHmsl3aesCEWEvmrx1pOIb7Lof2YW-aYHZ-1Ccs4wbr6jxIbKqOVHIPYyHf4p8r6plyAsfrY7Kork98eFxZLQgT8teoUefQiukF_o8xI51HdNJYkavpZtjFzuP9NpbLjxvaEc_pjEKU/s320/DentiScan.png",
+    imageUrl: "/images/tools/passwordleaker.svg",
   }
 ];
 

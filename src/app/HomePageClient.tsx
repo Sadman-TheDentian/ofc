@@ -16,6 +16,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import React, { useState, useRef } from "react";
+import Image from 'next/image';
 import SafeImage from '@/components/SafeImage';
 import SyntheticHero from '@/components/layout/SyntheticHero';
 import RevealText from '@/components/RevealText';
@@ -55,7 +56,6 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
 
   return (
     <div className="flex flex-col min-h-screen bg-black relative overflow-visible">
-      {/* Dynamic Hero with Spring Scaling */}
       <motion.div style={{ scale, opacity }}>
         <SyntheticHero
           title="DIGITAL SOVEREIGNTY"
@@ -87,8 +87,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         </div>
       </section>
 
-      {/* NEW SECTION: Global Telemetry Hub */}
-      <section className="py-32 md:py-64 bg-black relative overflow-hidden border-y border-white/5">
+      <section className="py-24 md:py-48 bg-black relative overflow-hidden border-y border-white/5">
         <div
           className="absolute inset-0 pointer-events-none z-0 opacity-[0.035] mix-blend-overlay"
           style={{
@@ -96,12 +95,12 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
           }}
         />
         <div className="container px-4 relative z-10">
-          <div className="bg-white/[0.01] border border-white/10 rounded-[4rem] p-16 md:p-32 overflow-hidden relative">
+          <div className="bg-white/[0.01] border border-white/10 rounded-[3rem] md:rounded-[4rem] p-8 md:p-32 overflow-hidden relative">
             <div className="absolute top-0 right-0 p-40 bg-blue-500/5 blur-[120px] rounded-full" />
-            <div className="grid lg:grid-cols-2 gap-32 items-center">
+            <div className="grid lg:grid-cols-2 gap-20 md:gap-32 items-center">
               <div>
                 <span className="text-[9px] font-bold tracking-[1em] text-[#00FF41] mb-12 block uppercase">LIVE_TELEMETRY</span>
-                <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter mb-16 leading-[0.85]">GLOBAL_COMMAND_LINK</h2>
+                <h2 className="text-4xl md:text-8xl font-black text-white italic uppercase tracking-tighter mb-12 md:mb-16 leading-[0.85]">GLOBAL_COMMAND_LINK</h2>
                 <p className="text-white/30 text-xl font-light leading-relaxed mb-16 italic max-w-xl">
                   Active nodes across 74 sovereign territories maintaining 99.99% core sync latency. Our predictive architecture identifies threats 450ms before edge infiltration.
                 </p>
@@ -128,22 +127,21 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         </div>
       </section>
 
-      {/* IMPROVED SECTION: The Architecture Pinned Scroll Track */}
-      <section ref={archRef} className="relative h-[250vh] bg-black border-t border-white/5 pt-40" id="resonance-stack">
+      <section ref={archRef} className="relative h-[250vh] bg-black border-t border-white/5 pt-20 md:pt-40" id="resonance-stack">
         <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.01] to-transparent pointer-events-none" />
 
           <div className="container px-4">
-            <div className="grid lg:grid-cols-12 gap-32 items-center">
+            <div className="grid lg:grid-cols-12 gap-12 md:gap-32 items-center">
 
               {/* Left Column: Pinned Intelligence Intro */}
-              <div className="lg:col-span-4 py-20 relative z-10">
+              <div className="lg:col-span-4 py-12 md:py-20 relative z-10">
                 <motion.div>
                   <div className="flex items-center gap-4 mb-8">
                     <RevealText text="SYSTEM_ARCHITECTURE" className="text-[10px] font-bold tracking-[0.8em] text-[#00FF41] uppercase" />
-                    <div className="h-px w-20 bg-[#00FF41]/20" />
+                    <div className="h-px w-12 md:w-20 bg-[#00FF41]/20" />
                   </div>
-                  <h2 className="text-6xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-[0.85] mb-12">
+                  <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-[0.85] mb-8 md:mb-12">
                     THE <span className="text-white/20">RESONANCE</span> STACK
                   </h2>
                   <p className="text-white/40 text-xl font-light italic leading-relaxed mb-12 max-w-sm">
@@ -244,24 +242,23 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         </div>
       </section>
 
-      {/* REFINED SECTION: Impact Wall (Bento Grid Style) */}
-      <section className="py-60 bg-black relative border-t border-white/5">
+      <section className="py-32 md:py-60 bg-black relative border-t border-white/5 overflow-hidden">
         <div className="absolute top-0 right-0 p-40 opacity-[0.02] filter blur-3xl rounded-full bg-[#00FF41] pointer-events-none" />
         <div className="container px-4">
-          <div className="grid lg:grid-cols-12 gap-6">
+          <div className="grid lg:grid-cols-12 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              className="lg:col-span-7 bg-white/[0.02] border border-white/10 rounded-[4rem] p-16 md:p-32 relative overflow-hidden group/card"
+              className="lg:col-span-7 bg-white/[0.02] border border-white/10 rounded-[3rem] md:rounded-[4rem] p-8 md:p-32 relative overflow-hidden group/card"
             >
-              <div className="absolute -top-12 -right-12 text-[300px] font-black text-white/[0.01] leading-none select-none tracking-tighter group-hover/card:text-[#00FF41]/[0.02] transition-colors duration-1000">SOV_99</div>
+              <div className="absolute -top-12 -right-12 text-[150px] md:text-[300px] font-black text-white/[0.01] leading-none select-none tracking-tighter group-hover/card:text-[#00FF41]/[0.02] transition-colors duration-1000">SOV_99</div>
               <div className="relative z-10">
-                <div className="mb-16">
+                <div className="mb-12 md:mb-16">
                   <TechnicalIcon icon={ShieldAlert} glowColor="#00FF41" />
                 </div>
-                <h2 className="text-7xl md:text-[10vw] font-[900] text-white italic uppercase tracking-tighter leading-none mb-10">99.8%</h2>
-                <h3 className="text-xl md:text-2xl font-bold text-white tracking-[0.4em] uppercase mb-10">PREVENTION_RECORDS</h3>
+                <h2 className="text-6xl md:text-[10vw] lg:text-[140px] font-[900] text-white italic uppercase tracking-tighter leading-none mb-4 md:mb-10">99.8%</h2>
+                <h3 className="text-lg md:text-2xl font-bold text-white tracking-[0.4em] uppercase mb-8 md:mb-10">PREVENTION_RECORDS</h3>
                 <p className="max-w-md text-white/30 text-lg md:text-2xl font-light leading-relaxed italic">
                   Our sovereign nodes have established a domain of absolute denial against zero-day exploits. No unauthorized packet has breached our secondary layer in 740+ days.
                 </p>
@@ -298,15 +295,14 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         </div>
       </section>
 
-      {/* NEW SECTION: Sovereign Utility Suite (Tools) */}
-      <section className="py-40 md:py-80 relative border-t border-white/5">
+      <section className="py-24 md:py-80 relative border-t border-white/5 overflow-hidden">
         <div className="container px-4">
-          <div className="grid lg:grid-cols-2 gap-32 items-end mb-32">
+          <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-end mb-16 md:mb-32">
             <div>
-              <RevealText text="UTILITY_CORE" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] mb-12 block" />
-              <h2 className="text-6xl md:text-[10vw] font-[900] text-white italic uppercase tracking-tighter leading-none">RECON_TOOLS</h2>
+              <RevealText text="UTILITY_CORE" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] mb-8 md:mb-12 block" />
+              <h2 className="text-5xl md:text-[10vw] lg:text-[140px] font-[900] text-white italic uppercase tracking-tighter leading-none">RECON_TOOLS</h2>
             </div>
-            <p className="max-w-md text-white/30 text-2xl font-light italic leading-relaxed">
+            <p className="max-w-md text-white/30 text-xl md:text-2xl font-light italic leading-relaxed">
               Proprietary reconnaissance modules deployed for immediate threat surfaced analysis and architectural auditing.
             </p>
           </div>
@@ -323,8 +319,9 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
               >
                 <Link href={tool.url} target="_blank">
                   <div className="bg-white/[0.02] border border-white/10 rounded-[4rem] p-12 h-full hover:bg-white/[0.05] hover:border-[#00FF41]/30 transition-all duration-700 flex flex-col items-center text-center">
-                    <div className="mb-12">
-                      <TechnicalIcon icon={iconMap[tool.icon as keyof typeof iconMap] || ShieldAlert} glowColor="#00FF41" />
+                    <div className="mb-12 h-24 w-24 flex items-center justify-center relative">
+                      <div className="absolute inset-0 bg-[#00FF41]/10 blur-2xl rounded-full group-hover:bg-[#00FF41]/20 transition-all duration-700" />
+                      <Image src={tool.imageUrl} alt={tool.title} width={80} height={80} className="relative z-10 grayscale brightness-[2] group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700" />
                     </div>
                     <h3 className="text-3xl font-[900] text-white italic uppercase tracking-tight mb-6">{tool.title}</h3>
                     <p className="text-white/30 text-sm font-light leading-relaxed mb-8 italic">{tool.description}</p>
@@ -338,15 +335,14 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         </div>
       </section>
 
-      {/* Mission Reports (Horizontal Grid with Different Layout) */}
-      <section className="py-40 md:py-60 border-t border-white/5">
+      <section className="py-24 md:py-60 border-t border-white/5 overflow-hidden">
         <div className="container px-4">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
             <div>
-              <span className="text-[10px] font-bold tracking-[0.8em] text-white/20 mb-8 block font-mono">ARCHIVE_QUERY // SUCCESS_STORIES</span>
-              <h2 className="text-6xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none">MISSION_LOGS</h2>
+              <span className="text-[10px] font-bold tracking-[0.8em] text-white/20 mb-6 md:mb-8 block font-mono">ARCHIVE_QUERY // SUCCESS_STORIES</span>
+              <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none">MISSION_LOGS</h2>
             </div>
-            <Button variant="outline" className="h-16 px-12 rounded-full border-white/5 bg-white/[0.02] text-white/40 hover:text-[#00FF41] transition-all text-xs font-black tracking-widest uppercase" asChild>
+            <Button variant="outline" className="h-14 md:h-16 px-10 md:px-12 rounded-full border-white/5 bg-white/[0.02] text-white/40 hover:text-[#00FF41] transition-all text-[10px] font-black tracking-widest uppercase" asChild>
               <Link href="/case-studies">EXPORT_ALL_REPORTS</Link>
             </Button>
           </div>
@@ -388,13 +384,12 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         </div>
       </section>
 
-      {/* NEW SECTION: Sovereign Intelligence (Blog Posts) */}
-      <section className="py-40 md:py-60 bg-white/[0.01] border-y border-white/5">
+      <section className="py-24 md:py-60 bg-white/[0.01] border-y border-white/5 overflow-hidden">
         <div className="container px-4">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
             <div>
-              <RevealText text="RESEARCH_SUBSYSTEM" className="text-[10px] font-bold tracking-[1em] text-[#00FF41] mb-8 block" />
-              <h2 className="text-6xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none">INTEL_ARCHIVE</h2>
+              <RevealText text="RESEARCH_SUBSYSTEM" className="text-[10px] font-bold tracking-[1em] text-[#00FF41] mb-6 md:mb-8 block" />
+              <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none">INTEL_ARCHIVE</h2>
             </div>
           </div>
 
@@ -505,16 +500,16 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
       </section>
 
       {/* High-End Global Network */}
-      <section className="py-40 md:py-60 bg-black relative border-t border-white/5">
+      <section className="py-24 md:py-60 bg-black relative border-t border-white/5 overflow-hidden">
         <div className="container px-4">
-          <div className="text-center mb-32">
-            <RevealText text="SOVEREIGN_ALLIANCES" className="text-[10px] font-bold tracking-[1em] text-white/20 uppercase mb-8" />
-            <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">GLOBAL TRUST NETWORK</h2>
+          <div className="text-center mb-16 md:mb-32">
+            <RevealText text="SOVEREIGN_ALLIANCES" className="text-[10px] font-bold tracking-[1em] text-white/20 uppercase mb-6 md:mb-8" />
+            <h2 className="text-3xl md:text-6xl font-black text-white italic uppercase tracking-tighter">GLOBAL TRUST NETWORK</h2>
           </div>
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="bg-white/[0.01] border border-white/5 rounded-[4rem] p-20 backdrop-blur-3xl"
+            className="bg-white/[0.01] border border-white/5 rounded-[3rem] md:rounded-[4rem] p-8 md:p-20 backdrop-blur-3xl"
           >
             <PartnerSlider partners={partners} />
           </motion.div>
@@ -522,30 +517,30 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
       </section>
 
       {/* The Substrate Teaser */}
-      <section className="py-40 bg-black relative overflow-hidden border-t border-white/5">
+      <section className="py-24 md:py-40 bg-black relative overflow-hidden border-t border-white/5">
         <div className="absolute inset-0 z-0 opacity-[0.02]" style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
           backgroundSize: '100px 100px'
         }} />
         <div className="container px-4 relative z-10">
-          <div className="bg-white/[0.02] border border-white/5 rounded-[5rem] p-16 md:p-32 flex flex-col md:flex-row items-center justify-between gap-16 group">
-            <div className="max-w-2xl">
-              <span className="text-[10px] font-black tracking-[1em] text-[#00FF41] mb-12 block uppercase">SYSTEM_SUBSTRATE</span>
-              <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none mb-12">
+          <div className="bg-white/[0.02] border border-white/5 rounded-[3rem] md:rounded-[5rem] p-8 md:p-32 flex flex-col md:flex-row items-center justify-between gap-16 group">
+            <div className="max-w-2xl text-center md:text-left">
+              <span className="text-[10px] font-black tracking-[1em] text-[#00FF41] mb-8 md:mb-12 block uppercase">SYSTEM_SUBSTRATE</span>
+              <h2 className="text-5xl md:text-8xl lg:text-[140px] font-black text-white italic uppercase tracking-tighter leading-none mb-8 md:mb-12">
                 ENGINEERED FOR <br /><span className="text-white/20">SOVEREIGNTY.</span>
               </h2>
-              <p className="text-white/30 text-xl font-light italic leading-relaxed mb-16">
+              <p className="text-white/30 text-xl font-light italic leading-relaxed mb-12 md:mb-16">
                 Deep technical specifications of the DentiSystems neural mesh and distributed intelligence substrate. Absolute digital authority, back-to-zero.
               </p>
               <Magnetic>
-                <Button asChild size="lg" className="h-20 px-16 rounded-full bg-white text-black font-black uppercase text-xs tracking-[0.4em] hover:bg-[#00FF41] transition-all">
+                <Button asChild size="lg" className="h-16 md:h-20 px-10 md:px-16 rounded-full bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] hover:bg-[#00FF41] transition-all">
                   <Link href="/technology">EXPLORE_THE_SUBSTRATE <ArrowRight className="ml-4 h-5 w-5" /></Link>
                 </Button>
               </Magnetic>
             </div>
-            <div className="relative">
+            <div className="relative pointer-events-none">
               <div className="absolute -inset-20 bg-[#00FF41]/10 blur-[100px] rounded-full animate-pulse" />
-              <Cpu className="h-64 w-64 text-white opacity-10 group-hover:opacity-20 transition-opacity duration-1000 rotate-12 group-hover:rotate-0" />
+              <Cpu className="h-32 w-32 md:h-64 md:h-64 text-white opacity-10 group-hover:opacity-20 transition-opacity duration-1000 rotate-12 group-hover:rotate-0" />
             </div>
           </div>
         </div>

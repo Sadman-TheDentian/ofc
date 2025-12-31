@@ -11,12 +11,28 @@ import RevealText from "@/components/RevealText";
 import Magnetic from "@/components/Magnetic";
 import TechnicalIcon from "@/components/TechnicalIcon";
 
+import { useState, useMemo } from "react";
+
 export default function CaseStudiesClient({ studies }: { studies: CaseStudy[] }) {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [activeFilter, setActiveFilter] = useState("ALL");
+
+    const industries = ["ALL", ...Array.from(new Set(studies.map(s => s.industry).filter(Boolean)))];
+
+    const filteredStudies = useMemo(() => {
+        return studies.filter(study => {
+            const matchesSearch = study.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                study.summary.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesFilter = activeFilter === "ALL" || study.industry === activeFilter;
+            return matchesSearch && matchesFilter;
+        });
+    }, [studies, searchQuery, activeFilter]);
+
     return (
         <div className="min-h-screen bg-black pt-40 pb-20 overflow-hidden">
             <div className="container px-4">
                 {/* Intelligence Table Header */}
-                <div className="max-w-7xl mb-60 relative">
+                <div className="max-w-7xl mb-32 relative">
                     <motion.div
                         initial={{ opacity: 0, x: -40 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -35,9 +51,37 @@ export default function CaseStudiesClient({ studies }: { studies: CaseStudy[] })
                     </motion.div>
                 </div>
 
+                {/* Filter HUD */}
+                <div className="mb-24 flex flex-col md:flex-row gap-12 items-end justify-between border-b border-white/5 pb-16">
+                    <div className="w-full md:w-96">
+                        <span className="text-[10px] font-black tracking-[0.4em] text-white/20 uppercase mb-4 block italic">SEARCH_QUERY // KEYWORD</span>
+                        <input
+                            type="text"
+                            placeholder="QUERY_CORE_ARCHIVE..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full bg-white/[0.02] border border-white/10 rounded-2xl h-16 px-8 text-white font-black tracking-widest uppercase text-xs focus:border-[#00FF41]/50 outline-none transition-all"
+                        />
+                    </div>
+                    <div className="flex flex-wrap gap-4">
+                        {industries.map(industry => (
+                            <button
+                                key={industry}
+                                onClick={() => setActiveFilter(industry)}
+                                className={`px-8 py-3 rounded-full border text-[10px] font-black tracking-[0.3em] uppercase transition-all ${activeFilter === industry
+                                        ? "bg-[#00FF41] border-[#00FF41] text-black"
+                                        : "bg-transparent border-white/10 text-white/20 hover:border-white/30 hover:text-white"
+                                    }`}
+                            >
+                                {industry}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
                 {/* Intelligence Strip Layout */}
                 <div className="space-y-12">
-                    {studies.map((study, idx) => {
+                    {filteredStudies.map((study, idx) => {
                         const imageUrl = study.mainImage ? urlFor(study.mainImage as SanityImage)?.url() : undefined;
                         return (
                             <motion.div

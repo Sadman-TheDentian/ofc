@@ -32,7 +32,7 @@ const SyntheticHero = ({
 	const opacity = useTransform(scrollY, [0, 400], [1, 0]);
 
 	return (
-		<section ref={containerRef} className="relative min-h-[110vh] w-full bg-black overflow-hidden flex items-center justify-center pt-32 pb-20">
+		<section ref={containerRef} className="relative min-h-[110vh] w-full bg-black overflow-hidden flex items-center justify-center pt-24 md:pt-32 pb-20">
 			{/* Architectural Lighting */}
 			<motion.div
 				style={{ y: y1, opacity }}
@@ -98,7 +98,7 @@ const SyntheticHero = ({
 							initial={{ y: 100, opacity: 0, filter: "blur(20px)" }}
 							animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
 							transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-							className="text-[14vw] sm:text-[12vw] lg:text-[180px] font-[900] tracking-[-0.07em] text-white uppercase leading-[0.7] mix-blend-difference"
+							className="text-[12vw] md:text-[8vw] lg:text-[160px] font-[900] tracking-[-0.07em] text-white uppercase leading-[0.7] mix-blend-difference"
 							style={{ fontFamily: "'Outfit', sans-serif" }}
 						>
 							{title.split(' ').map((word, i) => (
@@ -114,7 +114,7 @@ const SyntheticHero = ({
 					initial={{ y: 20, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ duration: 1, delay: 0.7 }}
-					className="max-w-2xl mx-auto text-lg md:text-xl text-white/40 mb-16 font-light leading-relaxed text-center tracking-wide"
+					className="max-w-2xl mx-auto text-base md:text-xl text-white/40 mb-12 md:mb-16 font-light leading-relaxed text-center tracking-wide px-4"
 				>
 					{description}
 				</motion.p>
@@ -178,7 +178,7 @@ const SyntheticHero = ({
 					className="h-12 w-[1px] bg-gradient-to-b from-white to-transparent"
 				/>
 			</div>
-		</section>
+		</section >
 	);
 };
 

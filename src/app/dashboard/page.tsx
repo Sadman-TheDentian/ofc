@@ -10,34 +10,36 @@ import {
 import { Shield, KeyRound, Siren, Code, Activity, Target, Zap, Globe, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 const tools = [
   {
     title: 'DarkCheck',
     description: 'Deep-web intelligence module. Scans global data breaches for compromised identities.',
-    icon: KeyRound,
+    logo: '/images/tools/darkcheck.svg',
     href: 'https://darkcheck.denti.systems',
     tag: 'INTEL_NODE'
   },
   {
     title: 'LeakScan',
     description: 'Automated exposure analysis. Identifies misconfigured assets and leakage points.',
-    icon: Shield,
+    logo: '/images/tools/leakscan.svg',
     href: 'https://leakscan.denti.systems',
     tag: 'SURFACE_RECON'
   },
   {
     title: 'PhishRisk',
     description: 'Domain integrity assessment. Generates high-fidelity risk scores for external targets.',
-    icon: Siren,
+    logo: '/images/tools/phishrisk.svg',
     href: 'https://phishrisk.denti.systems',
     tag: 'VALIDATION_UNIT'
   },
   {
     title: 'Password Leaker',
     description: 'Credential validation service. Checks for leaked password hashes in the sovereign collective.',
-    icon: Code,
+    logo: '/images/tools/passwordleaker.svg',
     href: 'https://passwordleaker.denti.systems',
     tag: 'CRYPT_VALID'
   }
@@ -98,6 +100,68 @@ export default function DashboardOverviewPage() {
         ))}
       </div>
 
+      {/* 24/7 Telemetry Visualization */}
+      <section className="relative">
+        <div className="flex items-center gap-6 mb-16 px-4">
+          <h2 className="text-[10px] font-black tracking-[0.6em] text-white uppercase italic whitespace-nowrap">LIVE_TELEMETRY // SOVEREIGN_MESH</h2>
+          <div className="h-px flex-grow bg-white/5" />
+        </div>
+
+        <div className="bg-white/[0.01] border border-white/5 rounded-[4rem] p-12 md:p-20 relative overflow-hidden h-[400px]">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, rgba(0, 255, 65, 0.15) 1px, transparent 0)`,
+              backgroundSize: '40px 40px'
+            }} />
+          </div>
+
+          <div className="relative h-full w-full flex items-center justify-center">
+            {/* Pulsing Core */}
+            <div className="h-32 w-32 rounded-full bg-[#00FF41]/10 border border-[#00FF41]/20 flex items-center justify-center relative">
+              <motion.div
+                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity }}
+                className="absolute inset-0 rounded-full bg-[#00FF41]/10 blur-xl"
+              />
+              <Activity className="h-10 w-10 text-[#00FF41]" />
+            </div>
+
+            {/* Orbital Nodes */}
+            {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+              <motion.div
+                key={i}
+                initial={{ rotate: angle }}
+                animate={{ rotate: angle + 360 }}
+                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                className="absolute h-[280px] w-[280px] pointer-events-none"
+              >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2">
+                  <div className="h-2 w-2 rounded-full bg-white/20" />
+                  <motion.div
+                    animate={{ height: [20, 40, 20] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
+                    className="w-px bg-gradient-to-b from-white/20 to-transparent mx-auto mt-2"
+                  />
+                </div>
+              </motion.div>
+            ))}
+
+            <div className="absolute bottom-8 left-8 flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <div className="h-1.5 w-1.5 bg-[#00FF41] rounded-full animate-pulse" />
+                <span className="text-[10px] font-mono text-white/40 tracking-[0.4em] uppercase">SYSTEM_STABLE</span>
+              </div>
+              <div className="text-3xl font-black text-white italic tracking-tighter uppercase leading-none">NO_THREATS_DETECTED</div>
+            </div>
+
+            <div className="absolute top-8 right-8 text-right hidden md:block">
+              <div className="text-[8px] font-black text-white/10 tracking-[1em] uppercase mb-2">LATENCY_CORE</div>
+              <div className="text-xl font-bold text-[#00FF41] italic">1.2ms</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Tool Arsenal */}
       <div>
         <div className="flex items-center gap-6 mb-16 px-4">
@@ -119,12 +183,12 @@ export default function DashboardOverviewPage() {
             >
               <div className="bg-white/[0.01] border border-white/5 rounded-[3.5rem] p-12 h-full hover:border-[#00FF41]/30 transition-all duration-700 backdrop-blur-3xl relative overflow-hidden flex flex-col items-start text-left">
                 <div className="absolute top-0 right-0 p-12 opacity-[0.02] scale-150 rotate-12 group-hover:opacity-[0.05] transition-opacity">
-                  <tool.icon className="h-32 w-32 text-white" />
+                  <Image src={tool.logo} alt={tool.title} width={128} height={128} className="grayscale" />
                 </div>
 
                 <div className="mb-10 flex items-center justify-between w-full relative z-10">
-                  <div className="h-16 w-16 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center text-white/30 group-hover:text-[#00FF41] group-hover:border-[#00FF41]/30 transition-all duration-500">
-                    <tool.icon className="h-8 w-8" />
+                  <div className="h-20 w-20 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center p-4 group-hover:border-[#00FF41]/30 transition-all duration-500 overflow-hidden">
+                    <Image src={tool.logo} alt={tool.title} width={64} height={64} className="grayscale brightness-200 group-hover:grayscale-0 transition-all duration-700" />
                   </div>
                   <span className="text-[8px] font-black text-white/5 tracking-[0.5em] uppercase group-hover:text-[#00FF41]/30 transition-colors">
                     {tool.tag} // READY

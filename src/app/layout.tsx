@@ -43,6 +43,9 @@ import GrainOverlay from "@/components/layout/GrainOverlay";
 import PageWrapper from "@/components/layout/PageWrapper";
 import Preloader from "@/components/layout/Preloader";
 import StructuredData from "@/components/StructuredData";
+import CustomCursor from "@/components/CustomCursor";
+import KernelTerminal from "@/components/KernelTerminal";
+import InteractiveSubstrate from "@/components/InteractiveSubstrate";
 
 export default function RootLayout({
   children,
@@ -101,7 +104,10 @@ export default function RootLayout({
         <FirebaseClientProvider>
           <AuthProvider>
             <GrainOverlay />
+            <InteractiveSubstrate />
             <Header />
+            <CustomCursor />
+            <KernelTerminal />
             <main className="flex-grow z-10">
               <PageWrapper>
                 {children}

@@ -303,10 +303,22 @@ export default function DashboardLayout({
           </div>
         </main>
 
-        <footer className="px-12 py-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 opacity-30">
-          <div className="text-[8px] font-bold text-white/20 tracking-[0.5em] uppercase">SYSTEM_STATE: OPERATIONAL // ENCRYPTION: AES-GCM-256</div>
+        <footer className="px-12 py-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 opacity-30 group hover:opacity-100 transition-opacity duration-700">
+          <div className="flex items-center gap-6">
+            <div className="text-[8px] font-bold text-white/20 tracking-[0.5em] uppercase">SYSTEM_STATE: <span className="text-[#00FF41]">OPERATIONAL</span></div>
+            <div className="h-4 w-px bg-white/5" />
+            <div className="flex items-center gap-3 overflow-hidden w-64">
+              <motion.div
+                animate={{ x: ["100%", "-100%"] }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                className="text-[8px] font-mono text-white/10 uppercase whitespace-nowrap tracking-widest"
+              >
+                KERNEL_STREAM: INITIALIZING_NODE_SYNC... DEPLOYING_ZERO_TRUST_LAYER... ENCRYPTING_BIDIRECTIONAL_TUNNELS...
+              </motion.div>
+            </div>
+          </div>
           <div className="flex gap-12 text-[8px] font-bold text-white/20 tracking-[0.4em] uppercase italic">
-            " TRUST THROUGH VERIFICATION. "
+            " SECURE // VERIFIED // SOVEREIGN "
           </div>
         </footer>
       </div>

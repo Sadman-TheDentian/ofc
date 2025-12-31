@@ -49,11 +49,11 @@ export default function Header(): JSX.Element {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-[100] pt-10 flex justify-center px-4 md:px-8 pointer-events-none"
+      className="fixed top-0 left-0 right-0 z-[100] pt-6 md:pt-10 flex justify-center px-4 md:px-8 pointer-events-none"
     >
       <div
         className={cn(
-          "w-full max-w-7xl flex items-center justify-between pointer-events-auto h-20 px-8 transition-all duration-700 relative overflow-hidden",
+          "w-full max-w-7xl flex items-center justify-between pointer-events-auto h-16 md:h-20 px-6 md:px-8 transition-all duration-700 relative overflow-hidden",
           scrolled
             ? "bg-black/60 backdrop-blur-3xl border border-white/10 rounded-full shadow-2xl"
             : "bg-transparent border-b border-white/5"

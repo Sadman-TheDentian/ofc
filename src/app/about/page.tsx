@@ -140,7 +140,76 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 04 // OPERATIONAL UNITS - HEX GRID / CLIPPED */}
+      {/* 03.5 // SECTOR PRESENCE - INDUSTRIAL BLUEPRINT */}
+      <section className="py-40 md:py-80 bg-black relative border-y border-white/5 overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-[0.05]" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.1) 1px, transparent 0)`,
+          backgroundSize: '32px 32px'
+        }} />
+        <div className="container px-4 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-32 items-center">
+            <div className="relative aspect-square">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#00FF41]/20 to-transparent blur-[120px] rounded-full animate-pulse" />
+              <div className="absolute inset-0 border border-white/5 rounded-[6rem] backdrop-blur-3xl overflow-hidden group">
+                <div className="absolute inset-0 bg-white/[0.01] group-hover:bg-white/[0.03] transition-colors" />
+                <div className="p-16 h-full flex flex-col justify-between">
+                  <div className="flex justify-between items-start">
+                    <span className="text-[10px] font-black tracking-[0.6em] text-[#00FF41] uppercase">NODE_STATUS: ACTIVE</span>
+                    <div className="flex gap-1">
+                      {[1, 2, 3, 4].map(i => <div key={i} className="h-1 w-4 bg-[#00FF41]/20" />)}
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-8">
+                    {[
+                      { node: "ALPHA_UNIT", loc: "Singapore_Sector", health: "98%" },
+                      { node: "DELTA_UNIT", loc: "Berlin_Substrate", health: "99%" },
+                      { node: "EPSILON_UNIT", loc: "New_York_Vertex", health: "97%" }
+                    ].map((n, i) => (
+                      <div key={i} className="flex items-center justify-between group/node">
+                        <div className="flex flex-col">
+                          <span className="text-[8px] font-black text-white/20 tracking-widest uppercase mb-1">{n.node}</span>
+                          <span className="text-xl font-bold text-white italic tracking-tighter uppercase">{n.loc}</span>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-[10px] font-black text-[#00FF41] block">{n.health}</span>
+                          <div className="h-1 w-24 bg-white/5 rounded-full mt-2 overflow-hidden">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              whileInView={{ width: n.health }}
+                              transition={{ duration: 2, delay: i * 0.2 }}
+                              className="h-full bg-[#00FF41]"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <span className="text-[10px] font-bold tracking-[1em] text-[#00FF41] mb-12 block uppercase">GEOSPATIAL_SUBSTRATE</span>
+              <h2 className="text-6xl md:text-9xl font-[900] text-white italic uppercase tracking-tighter leading-[0.85] mb-12">
+                SECTOR <span className="text-white/20">PRESENCE.</span>
+              </h2>
+              <p className="text-white/30 text-2xl font-light italic leading-relaxed mb-16 max-w-xl">
+                Digital sovereignty knows no borders. Our collective is distributed across planetary sectors to ensure sub-ms response times and regulatory alignment in every jurisdiction.
+              </p>
+              <div className="pt-12 border-t border-white/5">
+                <div className="flex items-center gap-8 group cursor-pointer">
+                  <div className="h-16 w-16 rounded-full border border-white/10 flex items-center justify-center text-white/30 group-hover:text-[#00FF41] group-hover:border-[#00FF41] transition-all">
+                    <Globe2 className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-black text-white/20 tracking-[0.5em] uppercase group-hover:text-white transition-colors">VIEW_OPERATIONAL_MAP</span>
+                    <div className="mt-2 text-sm font-bold text-white italic opacity-0 group-hover:opacity-100 transition-opacity">74_LIVE_NODES // 03_COMMAND_CENTERS</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="py-40 bg-white/[0.01] border-y border-white/5">
         <div className="container px-4 text-center mb-40">
           <span className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] mb-12 block uppercase">OPERATIONAL_CREW</span>

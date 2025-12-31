@@ -41,7 +41,7 @@ export default function Footer() {
   const [currentYear] = useState(new Date().getFullYear());
 
   return (
-    <footer className="bg-black border-t border-white/5 pt-40 pb-40 relative overflow-hidden">
+    <footer className="bg-black border-t border-white/5 pt-24 md:pt-40 pb-24 md:pb-40 relative overflow-hidden">
       {/* Background Architectural Grid (Selective) */}
       <div className="absolute bottom-0 left-0 right-0 h-[800px] opacity-[0.03] pointer-events-none overflow-hidden select-none">
         <div className="absolute inset-0" style={{
