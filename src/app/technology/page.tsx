@@ -19,18 +19,18 @@ export default function TechnologyPage() {
 
             <div className="container px-4 relative z-10">
                 {/* Tech Header */}
-                <div className="max-w-7xl mb-24 md:mb-60 relative">
+                <div className="max-w-7xl mb-12 md:mb-32 relative">
                     <motion.div
-                        initial={{ opacity: 0, x: -40 }}
+                        initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 1 }}
                     >
-                        <Link href="/" className="group flex items-center gap-4 text-[10px] font-black text-white/30 uppercase tracking-[0.5em] mb-12 md:mb-20 hover:text-[#00FF41] transition-colors">
+                        <Link href="/" className="group flex items-center gap-4 text-[10px] font-black text-white/30 uppercase tracking-[0.5em] mb-12 md:mb-16 hover:text-[#00FF41] transition-colors">
                             <ArrowLeft className="h-5 w-5 transform group-hover:-translate-x-3 transition-transform" />
                             BAK_TO_COLLECTIVE
                         </Link>
 
-                        <div className="flex items-center gap-8 mb-12">
+                        <div className="flex items-center gap-8 mb-8 md:mb-12">
                             <div className="h-0.5 w-16 bg-[#00FF41]" />
                             <RevealText text="CORE_SUBSTRATE // ENGINEERING_SPEC" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] uppercase" />
                         </div>
@@ -39,7 +39,7 @@ export default function TechnologyPage() {
                             THE <br /><span className="text-white/10">SUBSTRATE.</span>
                         </h1>
 
-                        <p className="max-w-4xl text-white/40 text-xl md:text-4xl font-light italic leading-relaxed">
+                        <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed">
                             DentiSystems operates on a proprietary technological foundation engineered back-to-zero for absolute digital sovereignty.
                         </p>
                     </motion.div>

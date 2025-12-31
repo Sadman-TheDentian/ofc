@@ -14,7 +14,7 @@ export default function PrivacyPolicyPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black pt-40 pb-20 relative overflow-hidden">
+    <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 relative overflow-hidden">
       {/* Background Architectural Grid */}
       <div className="absolute inset-0 z-0 opacity-[0.03]" style={{
         backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
@@ -22,17 +22,17 @@ export default function PrivacyPolicyPage() {
       }} />
 
       <div className="container px-4 relative z-10">
-        <div className="max-w-7xl mb-60 relative">
+        <div className="max-w-7xl mb-12 md:mb-32 relative">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
           >
-            <div className="flex items-center gap-8 mb-12">
+            <div className="flex items-center gap-8 mb-8 md:mb-12">
               <TechnicalIcon icon={Shield} glowColor="#00FF41" className="scale-75 origin-left" />
               <span className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase">DATA_PROTECTION // GOVERNANCE</span>
             </div>
-            <h1 className="text-7xl md:text-[14vw] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-16">
+            <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
               PRIVACY <br /><span className="text-white/10">PROTOCOL.</span>
             </h1>
             {lastUpdated && (

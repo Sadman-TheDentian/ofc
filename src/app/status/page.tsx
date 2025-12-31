@@ -20,18 +20,18 @@ export default function StatusPage() {
   return (
     <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
       <div className="container px-4 relative z-10">
-        <div className="max-w-7xl mb-24 md:mb-60 relative">
+        <div className="max-w-7xl mb-12 md:mb-32 relative">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1 }}
           >
-            <Link href="/" className="group flex items-center gap-3 text-[10px] font-black text-white/30 uppercase tracking-[0.5em] mb-16 hover:text-[#00FF41] transition-colors px-4">
+            <Link href="/" className="group flex items-center gap-3 text-[10px] font-black text-white/30 uppercase tracking-[0.5em] mb-12 md:mb-16 hover:text-[#00FF41] transition-colors px-4">
               <ArrowLeft className="h-4 w-4 transform group-hover:-translate-x-2 transition-transform" />
               BAK_TO_COLLECTIVE
             </Link>
 
-            <div className="flex items-center gap-8 mb-12">
+            <div className="flex items-center gap-8 mb-8 md:mb-12">
               <TechnicalIcon icon={Activity} glowColor="#00FF41" className="scale-75 origin-left" />
               <RevealText text="SYSTEM_STATE // REALTIME_TELEMETRY" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase" />
             </div>
@@ -44,11 +44,11 @@ export default function StatusPage() {
               <div className="flex items-center gap-6 md:gap-8 group">
                 <div className="h-3 w-3 bg-[#00FF41] rounded-full animate-pulse shadow-[0_0_20px_#00FF41]" />
                 <div>
-                  <div className="text-[8px] font-black text-white/20 tracking-widest uppercase mb-1">AGGREGATE_EFFICIENCY</div>
+                  <div className="text-[8px] font-black text-white/20 tracking-[1.2em] uppercase mb-1">AGGREGATE_EFFICIENCY</div>
                   <div className="text-xl md:text-2xl font-[900] text-white tracking-[0.1em] uppercase italic group-hover:text-[#00FF41] transition-colors">98.4%_NOMINAL</div>
                 </div>
               </div>
-              <div className="text-[11px] font-black text-white/20 tracking-[0.5em] uppercase bg-white/[0.03] px-10 py-4 rounded-full border border-white/10 flex items-center gap-6 hover:border-[#00FF41]/30 transition-all cursor-crosshair">
+              <div className="text-[11px] font-black text-white/20 tracking-[1.2em] uppercase bg-white/[0.03] px-10 py-4 rounded-full border border-white/10 flex items-center gap-6 hover:border-[#00FF41]/30 transition-all cursor-crosshair">
                 <RefreshCcw className="h-4 w-4 animate-spin-slow text-[#00FF41]" />
                 RECON_SYNC_IN: 14s
               </div>

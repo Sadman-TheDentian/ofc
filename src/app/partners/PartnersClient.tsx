@@ -18,23 +18,23 @@ type Partner = {
 
 export default function PartnersClient({ partners }: { partners: Partner[] }) {
     return (
-        <div className="min-h-screen bg-black pt-40 pb-20 overflow-hidden">
-            <div className="container px-4">
+        <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <div className="container px-4 relative z-10">
                 {/* Header Section */}
-                <div className="max-w-7xl mb-60 relative">
+                <div className="max-w-7xl mb-12 md:mb-32 relative">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 1 }}
                     >
-                        <div className="flex items-center gap-8 mb-12">
+                        <div className="flex items-center gap-8 mb-8 md:mb-12">
                             <TechnicalIcon icon={Globe} glowColor="#00FF41" className="scale-75 origin-left animate-pulse" />
                             <span className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase">STRATEGIC_ALLIANCE // NETWORK</span>
                         </div>
-                        <h1 className="text-7xl md:text-[14vw] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-16">
-                            GLOBAL <span className="text-white/20">NETWORK</span>
+                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
+                            GLOBAL <br /><span className="text-white/20">NETWORK.</span>
                         </h1>
-                        <p className="max-w-4xl text-white/40 text-2xl md:text-3xl font-light italic leading-relaxed">
+                        <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed">
                             Collaborative ecosystem of technology pioneers and security sovereigns. Together, we engineer the perimeter of tomorrow.
                         </p>
                     </motion.div>

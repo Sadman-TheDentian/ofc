@@ -35,23 +35,23 @@ const docCategories = [
 
 export default function DocsPage() {
   return (
-    <div className="min-h-screen bg-black pt-40 pb-20 overflow-hidden">
-      <div className="container px-4">
+    <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+      <div className="container px-4 relative z-10">
         {/* Technical Header */}
-        <div className="max-w-7xl mb-60 relative">
+        <div className="max-w-7xl mb-12 md:mb-32 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1 }}
           >
-            <div className="flex items-center gap-8 mb-12">
+            <div className="flex items-center gap-8 mb-8 md:mb-12">
               <div className="h-0.5 w-16 bg-white/20" />
               <RevealText text="SYSTEM_SPECIFICATION_v4.2" className="text-[10px] font-bold tracking-[1.2em] text-white/40 uppercase" />
             </div>
-            <h1 className="text-7xl md:text-[14vw] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-16">
+            <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
               SYSTEM <br /><span className="text-white/10">MANUALS.</span>
             </h1>
-            <p className="max-w-4xl text-white/40 text-2xl md:text-3xl font-light italic leading-relaxed">
+            <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed">
               Proprietary documentation for operators deploying and maintaining DentiSystems sovereign architectures.
             </p>
           </motion.div>

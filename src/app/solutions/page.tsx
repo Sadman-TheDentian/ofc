@@ -84,24 +84,26 @@ const operationalCases = [
   }
 ];
 
+import GlitchText from '@/components/GlitchText';
+
 export default function SolutionsPage() {
   return (
     <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
       <div className="container px-4 relative z-10">
-        <div className="max-w-7xl mb-24 md:mb-60 relative">
+        <div className="max-w-7xl mb-12 md:mb-32 relative">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1 }}
           >
-            <div className="flex items-center gap-10 md:gap-12 mb-12 md:mb-16">
+            <div className="flex items-center gap-10 md:gap-12 mb-8 md:mb-12">
               <TechnicalIcon icon={Target} glowColor="#00FF41" className="scale-75 origin-left" />
               <RevealText text="STRATEGIC_SECTOR_MAPPING // V9.4" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] uppercase" />
             </div>
             <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-              SECTOR <br /> <span className="text-white/10">PROTOCOLS.</span>
+              <GlitchText text="SECTOR" /> <br /> <span className="text-white/10"><GlitchText text="PROTOCOLS." /></span>
             </h1>
-            <p className="max-w-4xl text-white/40 text-xl md:text-4xl font-light italic leading-relaxed">
+            <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed">
               "Tactical architectures engineered for the most demanding industrial risk profiles. Absolute digital sovereignty starts at the sector baseline."
             </p>
           </motion.div>
@@ -114,44 +116,49 @@ export default function SolutionsPage() {
             <div className="h-px flex-grow bg-white/10" />
           </div>
 
-          <div className="space-y-12">
+          <div className="space-y-16">
             {verticalMarkets.map((item, idx) => (
               <motion.div
                 key={item.slug}
-                initial={{ opacity: 0, scale: 0.98, y: 30 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1, duration: 0.8 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               >
                 <Link href={`/solutions/vertical-markets/${item.slug}`} className="group block">
-                  <div className="bg-white/[0.01] border border-white/10 rounded-[3rem] md:rounded-[6rem] p-8 md:px-24 md:py-20 hover:bg-white/[0.04] hover:border-[#00FF41]/40 transition-all duration-1000 flex flex-col lg:flex-row gap-12 lg:gap-20 items-center justify-between relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-12 md:p-20 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-1000">
-                      <item.icon className="h-48 w-48 md:h-64 md:w-64 text-white" />
+                  <div className="bg-white/[0.01] border border-white/5 rounded-[3rem] md:rounded-[6rem] p-10 md:px-24 md:py-24 hover:bg-white/[0.04] hover:border-[#00FF41]/40 transition-all duration-1000 flex flex-col lg:flex-row gap-12 lg:gap-24 items-center justify-between relative overflow-hidden group/card">
+                    {/* Industrial ID Label */}
+                    <div className="absolute top-10 right-20 text-[8px] font-black text-white/5 uppercase tracking-[0.5em] group-hover/card:text-[#00FF41]/20 transition-colors">
+                      STRAT_NODE // 0{idx + 1}
                     </div>
 
-                    <div className="flex flex-col lg:flex-row items-center gap-20 flex-grow">
-                      <div>
-                        <TechnicalIcon icon={item.icon as any} glowColor="#00FF41" className="scale-125" />
+                    <div className="absolute top-0 right-0 p-12 md:p-24 opacity-[0.02] group-hover:opacity-[0.08] transition-opacity duration-1000">
+                      <item.icon className="h-64 w-64 md:h-96 md:w-96 text-white" />
+                    </div>
+
+                    <div className="flex flex-col lg:flex-row items-center gap-24 flex-grow relative z-10">
+                      <div className="shrink-0">
+                        <TechnicalIcon icon={item.icon as any} glowColor="#00FF41" className="scale-150" />
                       </div>
                       <div className="max-w-3xl text-center lg:text-left">
-                        <div className="text-[9px] font-black tracking-[0.6em] text-[#00FF41] mb-6 uppercase italic group-hover:translate-x-4 transition-transform duration-700">{item.tag}</div>
-                        <h3 className="text-5xl md:text-7xl font-[900] text-white italic uppercase tracking-tighter mb-8 group-hover:translate-x-8 transition-transform duration-1000 leading-none">{item.name}</h3>
-                        <p className="text-white/30 text-xl font-light italic leading-relaxed max-w-2xl">{item.description}</p>
+                        <div className="text-[11px] font-black tracking-[0.8em] text-[#00FF41] mb-8 uppercase italic group-hover:translate-x-6 transition-transform duration-700">{item.tag}</div>
+                        <h3 className="text-5xl md:text-8xl font-[900] text-white italic uppercase tracking-tighter mb-10 group-hover:translate-x-10 transition-transform duration-1000 leading-none">{item.name}</h3>
+                        <p className="text-white/30 text-xl md:text-2xl font-light italic leading-relaxed max-w-2xl">{item.description}</p>
                       </div>
                     </div>
 
-                    <div className="flex flex-col items-center lg:items-end gap-12 shrink-0">
-                      <div className="space-y-4">
+                    <div className="flex flex-col items-center lg:items-end gap-16 shrink-0 relative z-10">
+                      <div className="space-y-6">
                         {item.metrics.map((metric, i) => (
-                          <div key={i} className="flex items-center gap-4 text-[10px] font-black text-white/10 tracking-widest uppercase italic group-hover:text-[#00FF41]/40 transition-colors">
-                            <div className="h-1 w-1 rounded-full bg-current" />
+                          <div key={i} className="flex items-center gap-6 text-[10px] font-black text-white/10 tracking-[0.4em] uppercase italic group-hover:text-[#00FF41]/60 transition-colors">
+                            <div className="h-1.5 w-1.5 rounded-full bg-current" />
                             {metric}
                           </div>
                         ))}
                       </div>
                       <Magnetic>
-                        <div className="h-24 w-24 rounded-full bg-white text-black flex items-center justify-center group-hover:bg-[#00FF41] transition-all group-hover:scale-110 shadow-[0_0_60px_rgba(255,255,255,0.1)]">
-                          <ArrowRight className="h-10 w-10" />
+                        <div className="h-28 w-28 rounded-full bg-white text-black flex items-center justify-center group-hover:bg-[#00FF41] transition-all group-hover:scale-110 shadow-[0_20px_60px_rgba(255,255,255,0.1)] group-hover:shadow-[0_20px_80px_rgba(0,255,65,0.3)] duration-700">
+                          <ArrowRight className="h-12 w-12" />
                         </div>
                       </Magnetic>
                     </div>
@@ -163,7 +170,7 @@ export default function SolutionsPage() {
         </section>
 
         {/* Operational Use Cases - Asymmetric Dashboard Modules */}
-        <section className="mb-32 md:mb-60 overflow-hidden">
+        <section className="mb-24 md:mb-60 overflow-hidden">
           <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-end mb-16 md:mb-40">
             <div>
               <RevealText text="BLOCK_02 // OPERATIONAL_LOGIC" className="text-[10px] font-black tracking-[1em] text-[#00FF41] mb-8 md:mb-12 block" />

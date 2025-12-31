@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   }
 };
 
-import GrainOverlay from "@/components/layout/GrainOverlay";
+import TacticalBackground from "@/components/layout/TacticalBackground";
 import PageWrapper from "@/components/layout/PageWrapper";
 import Preloader from "@/components/layout/Preloader";
 import StructuredData from "@/components/StructuredData";
@@ -103,7 +103,7 @@ export default function RootLayout({
       >
         <FirebaseClientProvider>
           <AuthProvider>
-            <GrainOverlay />
+            <TacticalBackground />
             <InteractiveSubstrate />
             <Header />
             <CustomCursor />

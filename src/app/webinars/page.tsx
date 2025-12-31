@@ -25,7 +25,7 @@ export default function WebinarsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black pt-40 pb-20 overflow-hidden relative">
+    <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
       {/* Background HUD Grid */}
       <div className="absolute inset-0 z-0 opacity-[0.03]" style={{
         backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,
@@ -34,25 +34,25 @@ export default function WebinarsPage() {
 
       <div className="container px-4 relative z-10 flex flex-col items-center">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-4xl text-center"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1 }}
+          className="max-w-7xl text-center"
         >
-          <div className="flex items-center justify-center gap-6 mb-12">
-            <div className="h-px w-20 bg-white/10" />
+          <div className="flex items-center justify-center gap-6 mb-8 md:mb-12">
+            <div className="h-0.5 w-16 bg-white/10" />
             <div className="flex items-center gap-3">
               <div className="h-2 w-2 rounded-full bg-orange-500 animate-pulse shadow-[0_0_10px_rgba(249,115,22,0.5)]" />
-              <RevealText text="FREQUENCY_RECON // V7.4" className="text-[10px] font-bold tracking-[0.8em] text-white/30 uppercase" />
+              <RevealText text="FREQUENCY_RECON // V7.4" className="text-[10px] font-bold tracking-[1.2em] text-white/30 uppercase" />
             </div>
-            <div className="h-px w-20 bg-white/10" />
+            <div className="h-0.5 w-16 bg-white/10" />
           </div>
 
-          <h1 className="text-7xl md:text-[12vw] font-[900] tracking-tighter text-white uppercase italic leading-[0.75] mb-12">
+          <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
             RECEPTION <br /><span className="text-white/20">PENDING.</span>
           </h1>
 
-          <p className="max-w-2xl mx-auto text-white/30 text-xl md:text-3xl font-light italic leading-relaxed mb-20">
+          <p className="max-w-4xl mx-auto text-white/40 text-xl md:text-3xl font-light italic leading-relaxed mb-12 md:mb-20">
             Scanning for upcoming tactical drills and executive deep-dives. We are currently stabilizing the broadcast frequency.
           </p>
 

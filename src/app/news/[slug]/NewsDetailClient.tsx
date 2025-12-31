@@ -24,9 +24,9 @@ export default function NewsDetailClient({ post }: { post: NewsArticle }) {
     const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.3]);
 
     return (
-        <div ref={scrollRef} className="min-h-screen bg-black pt-40 pb-20 overflow-hidden">
-            <div className="container px-4">
-                <div className="max-w-5xl mx-auto">
+        <div ref={scrollRef} className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <div className="container px-4 relative z-10">
+                <div className="max-w-7xl mx-auto">
                     {/* Floating HUD Metadata */}
                     <div className="fixed top-40 right-12 hidden lg:flex flex-col gap-8 z-40">
                         <motion.div
@@ -53,7 +53,7 @@ export default function NewsDetailClient({ post }: { post: NewsArticle }) {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <Link href="/news" className="group flex items-center gap-3 text-[10px] font-bold text-white/30 uppercase tracking-[0.4em] mb-16 hover:text-[#00FF41] transition-colors">
+                        <Link href="/news" className="group flex items-center gap-3 text-[10px] font-bold text-white/30 uppercase tracking-[0.4em] mb-12 md:mb-16 hover:text-[#00FF41] transition-colors">
                             <ArrowLeft className="h-4 w-4 transform group-hover:-translate-x-2 transition-transform" />
                             BAK_TO_FEED
                         </Link>
@@ -62,29 +62,29 @@ export default function NewsDetailClient({ post }: { post: NewsArticle }) {
                     {/* Header */}
                     <motion.header
                         style={{ scale: headerScale, opacity: headerOpacity }}
-                        className="mb-32"
+                        className="mb-12 md:mb-32"
                     >
-                        <div className="flex items-center gap-6 mb-8">
+                        <div className="flex items-center gap-8 mb-8 md:mb-12">
                             <div className="h-2 w-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]" />
                             <RevealText text="INTEL_BROADCAST // DECLASSIFIED" className="text-[10px] font-bold tracking-[0.8em] text-red-500 uppercase" />
                         </div>
 
-                        <h1 className="text-6xl md:text-8xl font-[900] tracking-tighter text-white uppercase italic leading-none mb-12">
+                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
                             {post.title}
                         </h1>
 
                         <div className="flex flex-wrap items-center gap-12 py-10 border-y border-white/5">
                             <div className="flex items-center gap-4">
                                 <Calendar className="h-4 w-4 text-[#00FF41]" />
-                                <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.3em]">{new Date(post.publishedAt).toLocaleDateString()}</span>
+                                <span className="text-[10px] font-bold text-white/40 uppercase tracking-[1.2em]">{new Date(post.publishedAt).toLocaleDateString()}</span>
                             </div>
                             <div className="flex items-center gap-4">
                                 <User className="h-4 w-4 text-[#00FF41]" />
-                                <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.3em]">{post.author?.name || 'FIELD_AGENT'}</span>
+                                <span className="text-[10px] font-bold text-white/40 uppercase tracking-[1.2em]">{post.author?.name || 'FIELD_AGENT'}</span>
                             </div>
                             <div className="flex items-center gap-4 ml-auto">
                                 <Activity className="h-4 w-4 text-[#00FF41]" />
-                                <span className="text-[10px] font-bold text-[#00FF41] tracking-[0.3em] uppercase">VERIFIED_INTEL</span>
+                                <span className="text-[10px] font-bold text-[#00FF41] tracking-[1.2em] uppercase">VERIFIED_INTEL</span>
                             </div>
                         </div>
                     </motion.header>

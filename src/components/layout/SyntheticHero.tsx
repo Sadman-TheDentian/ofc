@@ -13,6 +13,9 @@ interface HeroProps {
 	microDetails?: Array<string>;
 }
 
+import GlitchText from "../GlitchText";
+import DigitalHorizon from "./DigitalHorizon";
+
 const SyntheticHero = ({
 	title = "DIGITAL SOVEREIGNTY",
 	description = "Elite offensive security and predictive intelligence for the world's most critical infrastructures.",
@@ -32,7 +35,9 @@ const SyntheticHero = ({
 	const opacity = useTransform(scrollY, [0, 400], [1, 0]);
 
 	return (
-		<section ref={containerRef} className="relative min-h-[110vh] w-full bg-black overflow-hidden flex items-center justify-center pt-24 md:pt-32 pb-20">
+		<section ref={containerRef} className="relative min-h-[110vh] w-full bg-black overflow-hidden flex items-center justify-center pt-24 md:pt-40 pb-20">
+			<DigitalHorizon />
+
 			{/* Architectural Lighting */}
 			<motion.div
 				style={{ y: y1, opacity }}
@@ -92,17 +97,21 @@ const SyntheticHero = ({
 
 			<div className="container relative z-20 px-4 flex flex-col items-center">
 
-				<div className="space-y-6 mb-12 max-w-7xl w-full text-center">
+				<div className="mb-12 max-w-7xl w-full text-center">
 					{typeof title === "string" ? (
 						<motion.h1
 							initial={{ y: 100, opacity: 0, filter: "blur(20px)" }}
 							animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
 							transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-							className="text-[12vw] md:text-[8vw] lg:text-[160px] font-[900] tracking-[-0.07em] text-white uppercase leading-[0.7] mix-blend-difference"
+							className="text-[10vw] md:text-[8vw] lg:text-[140px] font-[900] tracking-[-0.07em] text-white uppercase leading-[0.7] mix-blend-difference"
 							style={{ fontFamily: "'Outfit', sans-serif" }}
 						>
 							{title.split(' ').map((word, i) => (
-								<span key={i} className={i % 2 !== 0 ? "text-white/10" : "text-white"}>{word} </span>
+								<GlitchText
+									key={i}
+									text={word + (i < title.split(' ').length - 1 ? ' ' : '')}
+									className={i % 2 !== 0 ? "text-white/10" : "text-white"}
+								/>
 							))}
 						</motion.h1>
 					) : (

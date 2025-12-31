@@ -8,12 +8,13 @@ import { groq } from "next-sanity";
 import { PortableText } from "@portabletext/react";
 import { SanityImage, WhitePaper } from "@/lib/types";
 
+import WhitePaperDetailClient from "./WhitePaperDetailClient";
 
 async function getWhitePaper(slug: string): Promise<WhitePaper | null> {
     const query = groq`*[_type == "whitePaper" && slug.current == $slug][0]`;
     const paper = await client.fetch(query, { slug });
 
-    if (paper && paper.fileURL) {
+    if (paper && paper.fileURL && paper.fileURL.asset) {
         const fileAsset = await client.fetch(groq`*[_id == $ref][0]`, { ref: paper.fileURL.asset._ref });
         paper.fileURL = fileAsset.url;
     }
@@ -26,52 +27,13 @@ export default async function WhitePaperPage({ params }: { params: { slug: strin
     if (!paper) {
         notFound();
     }
-    
-    const imageUrl = paper.mainImage ? urlFor(paper.mainImage as SanityImage).url() : undefined;
 
     return (
-        <div className="container py-12 md:py-20">
-            <div className="max-w-4xl mx-auto">
-                 <header className="text-center mb-12">
-                    <p className="text-primary font-semibold mb-2">White Paper</p>
-                    <h1 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
-                        {paper.title}
-                    </h1>
-                     <p className="mt-4 text-lg text-muted-foreground">
-                        Published on {new Date(paper.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                    </p>
-                </header>
-
-                <div className="relative h-96 w-full mb-12">
-                    <SafeImage 
-                        src={imageUrl}
-                        alt={paper.title}
-                        fill
-                        className="object-cover rounded-xl shadow-lg"
-                    />
-                </div>
-                
-                <div className="prose prose-invert max-w-none text-foreground/90 prose-lg prose-h2:font-headline prose-h2:text-primary prose-a:text-primary prose-strong:text-foreground mb-12">
-                    {paper.summary && <PortableText value={paper.summary} />}
-                </div>
-
-                {paper.fileURL && (
-                    <div className="text-center bg-secondary/50 p-8 rounded-xl">
-                        <h2 className="font-headline text-2xl font-bold mb-4">Download the Full Document</h2>
-                        <Button asChild size="lg">
-                            <a href={paper.fileURL} download target="_blank" rel="noopener noreferrer">
-                                <Download className="mr-2 h-5 w-5" />
-                                Download PDF
-                            </a>
-                        </Button>
-                    </div>
-                )}
-            </div>
-        </div>
+        <WhitePaperDetailClient paper={paper} />
     );
 }
 
 export async function generateStaticParams() {
-  const papers = await client.fetch<WhitePaper[]>(groq`*[_type == "whitePaper"]{"slug": slug.current}`);
-  return papers.map(paper => ({ slug: paper.slug.current }));
+    const papers = await client.fetch<WhitePaper[]>(groq`*[_type == "whitePaper"]{"slug": slug.current}`);
+    return papers.map(paper => ({ slug: paper.slug.current }));
 }

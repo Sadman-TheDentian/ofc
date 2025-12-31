@@ -39,15 +39,15 @@ const trainingModules = [
 export default function TrainingPage() {
   return (
     <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
-      <div className="container px-4">
+      <div className="container px-4 relative z-10">
         {/* Academic Header */}
-        <div className="max-w-7xl mb-24 md:mb-60 relative">
+        <div className="max-w-7xl mb-12 md:mb-32 relative">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1 }}
           >
-            <div className="flex items-center gap-8 mb-12">
+            <div className="flex items-center gap-8 mb-8 md:mb-12">
               <div className="h-0.5 w-16 bg-[#00FF41]" />
               <RevealText text="CAPACITY_BUILDING_NODE" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] uppercase" />
             </div>
