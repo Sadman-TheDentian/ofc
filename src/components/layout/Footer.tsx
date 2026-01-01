@@ -60,7 +60,9 @@ export default function Footer() {
                 <div className="h-12 w-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center group-hover:border-[#00FF41]/50 transition-all duration-700">
                   <Image src={logoUrl} alt="Logo" width={32} height={32} className="opacity-60 group-hover:opacity-100" />
                 </div>
-                <span className="text-3xl font-[900] italic text-white uppercase tracking-tighter">DENTI<span className="text-white/20">SYSTEMS</span></span>
+                <span className="text-3xl font-[900] italic text-white uppercase tracking-tighter">
+                  <GlitchText text="DENTI SYSTEMS" />
+                </span>
               </div>
               <div className="flex items-center gap-2 mt-4 ml-14">
                 <div className="h-px w-8 bg-[#00FF41]/40" />

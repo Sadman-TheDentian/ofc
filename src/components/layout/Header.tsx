@@ -68,7 +68,9 @@ export default function Header(): JSX.Element {
               <Image src={logoUrl} alt="Logo" width={40} height={40} className="opacity-80 group-hover:opacity-100" />
             </motion.div>
             <div className="flex flex-col">
-              <span className="text-2xl font-[900] tracking-tighter text-white uppercase italic leading-none">DENTI<span className="text-white/20">SYSTEMS</span></span>
+              <span className="text-2xl font-[900] tracking-tighter text-white uppercase italic leading-none">
+                <GlitchText text="DENTI SYSTEMS" />
+              </span>
             </div>
           </Link>
 

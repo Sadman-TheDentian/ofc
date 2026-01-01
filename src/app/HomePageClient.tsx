@@ -403,7 +403,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
             <div>
               <span className="text-[10px] font-bold tracking-[0.8em] text-white/20 mb-6 md:mb-8 block font-mono">ARCHIVE_QUERY // SUCCESS_STORIES</span>
-              <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none">MISSION_LOGS</h2>
+              <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none"><GlitchText text="MISSION LOGS." /></h2>
             </div>
             <Button variant="outline" className="h-14 md:h-16 px-10 md:px-12 rounded-full border-white/5 bg-white/[0.02] text-white/40 hover:text-[#00FF41] transition-all text-[10px] font-black tracking-widest uppercase" asChild>
               <Link href="/case-studies">EXPORT_ALL_REPORTS</Link>
@@ -430,8 +430,11 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
 
                       {/* HUD Metadata Overlay */}
                       <div className="absolute top-8 left-8 flex flex-col items-start gap-2 opacity-0 group-hover/log:opacity-100 transition-opacity duration-700">
-                        <span className="px-3 py-1 bg-black/80 border border-white/10 rounded-full text-[7px] font-black text-white/40 tracking-widest uppercase italic">MISSION_ID: S-{idx + 104}</span>
-                        <span className="px-3 py-1 bg-[#00FF41]/10 border border-[#00FF41]/20 rounded-full text-[7px] font-black text-[#00FF41] tracking-widest uppercase italic">STATUS: ARCHIVED</span>
+                        <span className="px-3 py-1 bg-black/80 border border-white/10 rounded-full text-[8px] font-black text-white/40 tracking-[0.4em] uppercase italic">MISSION_ID: S-{idx + 104}</span>
+                        <div className="flex items-center gap-4 px-3 py-1 bg-white/[0.03] border border-white/10 rounded-full">
+                          <div className="h-1 w-1 bg-[#00FF41] rounded-full animate-pulse" />
+                          <span className="text-[8px] font-black text-[#00FF41]/60 tracking-[0.4em] uppercase italic">STATUS: ARCHIVED</span>
+                        </div>
                       </div>
 
                       <div className="absolute inset-0 p-12 flex flex-col justify-end">
@@ -460,7 +463,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
             <div>
               <RevealText text="RESEARCH_SUBSYSTEM" className="text-[10px] font-bold tracking-[1em] text-[#00FF41] mb-6 md:mb-8 block" />
-              <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none">INTEL_ARCHIVE</h2>
+              <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none"><GlitchText text="INTEL ARCHIVE." /></h2>
             </div>
           </div>
 
@@ -511,7 +514,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
             <div className="lg:col-span-4">
               <div className="sticky top-40">
                 <span className="text-[10px] font-bold tracking-[1em] text-[#00FF41] mb-8 block">INTEL_STREAM</span>
-                <h2 className="text-6xl font-black text-white italic uppercase tracking-tighter leading-none mb-12">LATEST BROADCASTS</h2>
+                <h2 className="text-6xl font-black text-white italic uppercase tracking-tighter leading-none mb-12"><GlitchText text="LATEST BROADCASTS." /></h2>
                 <p className="text-white/30 text-lg font-light leading-relaxed mb-12 italic">
                   Real-time telemetry and research directly from our global intelligence mining units.
                 </p>
@@ -628,8 +631,8 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
               </Magnetic>
             </div>
             <div className="relative pointer-events-none">
-              <div className="absolute -inset-20 bg-[#00FF41]/10 blur-[100px] rounded-full animate-pulse" />
-              <Cpu className="h-32 w-32 md:h-64 md:h-64 text-white opacity-10 group-hover:opacity-20 transition-opacity duration-1000 rotate-12 group-hover:rotate-0" />
+              <div className="absolute -inset-20 bg-white/5 blur-[100px] rounded-full" />
+              <Cpu className="h-32 w-32 md:h-64 md:h-64 text-white opacity-5 group-hover:opacity-10 transition-opacity duration-1000 rotate-12 group-hover:rotate-0" />
             </div>
           </div>
         </div>

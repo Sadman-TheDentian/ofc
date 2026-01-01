@@ -35,8 +35,8 @@ export default function TechnologyPage() {
                             <RevealText text="CORE_SUBSTRATE // ENGINEERING_SPEC" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] uppercase" />
                         </div>
 
-                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-                            THE <br /><span className="text-white/10">SUBSTRATE.</span>
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
+                            <GlitchText text="THE SUBSTRATE." />
                         </h1>
 
                         <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed">

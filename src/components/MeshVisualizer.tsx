@@ -67,7 +67,7 @@ export default function MeshVisualizer() {
                 if (!ctx) return;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 255, 65, 0.5)';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
                 ctx.fill();
             }
         }
@@ -93,7 +93,7 @@ export default function MeshVisualizer() {
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(0, 255, 65, ${1 - distance / connectionDistance})`;
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 * (1 - distance / connectionDistance)})`;
                         ctx.lineWidth = 0.5;
                         ctx.stroke();
                     }

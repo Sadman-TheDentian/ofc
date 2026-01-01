@@ -176,8 +176,8 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
               <TechnicalIcon icon={LucideIcons.Shield} glowColor="#00FF41" className="scale-75 origin-left" />
               <span className="text-[11px] font-black tracking-[1em] text-[#00FF41] mb-10 block uppercase italic">02 // STRATEGIC_CAPABILITIES</span>
             </div>
-            <h2 className="text-5xl md:text-[10vw] font-[1000] text-white uppercase italic leading-[0.8] mb-16 tracking-tighter">
-              TACTICAL <span className="text-white/20">SOLUTIONS.</span>
+            <h2 className="text-5xl md:text-[8vw] font-[1000] text-white uppercase italic leading-[0.85] mb-16 tracking-tighter">
+              <GlitchText text="TACTICAL SOLUTIONS." />
             </h2>
             <div className="h-[2px] w-full bg-gradient-to-r from-[#00FF41]/60 via-white/10 to-transparent" />
             <div className="mt-10 flex justify-between opacity-10">
@@ -244,8 +244,8 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                 className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-[#00FF41]/5 blur-[200px] rounded-full pointer-events-none"
               />
               <span className="text-[11px] font-black tracking-[0.8em] text-[#00FF41] mb-12 block uppercase italic">03 // ARCHITECTURAL_PIPELINE</span>
-              <h2 className="text-5xl md:text-9xl font-[1000] text-white uppercase italic leading-[0.8] mb-16 tracking-tighter">
-                THE <br /><span className="text-white/20">PROCESS.</span>
+              <h2 className="text-5xl md:text-[8vw] font-[1000] text-white uppercase italic leading-[0.85] mb-16 tracking-tighter">
+                <GlitchText text="THE PROCESS." />
               </h2>
               <p className="text-white/30 text-xl md:text-4xl font-light italic leading-relaxed max-w-xl border-l border-white/10 pl-12 mb-20 italic">
                 "A rigorous, multi-layered methodology engineered for mission success in the most hostile digital environments."
