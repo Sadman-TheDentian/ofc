@@ -65,11 +65,6 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
             { text: "INITIATE PROTOCOL", href: "/contact", primary: true },
             { text: "CAPABILITIES", href: "/services" },
           ]}
-          microDetails={[
-            "OFFENSIVE_RESEARCH",
-            "SECURE_ARCHITECTURE",
-            "INTELLIGENCE_MINING",
-          ]}
         />
       </motion.div>
 
@@ -163,7 +158,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                     </div>
                     {/* Floating Node Label */}
                     <div className="absolute -bottom-8 whitespace-nowrap opacity-0 group-hover/node:opacity-100 transition-opacity hidden md:block">
-                      <span className="text-[7px] font-bold text-[#00FF41] tracking-[0.3em] uppercase">NODE_0{i + 1}_SYNC</span>
+                      <span className="text-[7px] font-bold text-[#00FF41] tracking-[0.3em] uppercase">NODE_SYNC</span>
                     </div>
                   </motion.div>
                 ))}
@@ -231,7 +226,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
 
                   <div className="space-y-10 border-t border-white/5 pt-16">
                     {[
-                      { label: "PROTOCOL", val: "RESONANCE_v7.4" },
+                      { label: "PROTOCOL", val: "RESONANCE" },
                       { label: "SUBSTRATE", val: "NEURAL_DEEP_MESH" },
                       { label: "ENFORCEMENT", val: "ZERO_TRUST_L4", color: "text-[#00FF41]" }
                     ].map((m, i) => (
@@ -263,7 +258,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                           <div className="h-56 relative rounded-3xl overflow-hidden mb-10 border border-white/5 bg-black">
                             <SafeImage src={imageUrl} alt={service.title} fill className="object-cover grayscale group-hover/item:grayscale-0 group-hover/item:scale-105 transition-all duration-1000 opacity-40 group-hover/item:opacity-100" />
                             <div className="absolute inset-x-8 bottom-8 flex items-center justify-between opacity-0 group-hover/item:opacity-100 transition-all">
-                              <span className="text-[8px] font-black text-white/60 tracking-widest uppercase italic">NODE_IMG_v{idx + 1}</span>
+                              <span className="text-[8px] font-black text-white/60 tracking-widest uppercase italic">NODE_ARCHIVE</span>
                               <div className="h-1 w-1 bg-[#00FF41] rounded-full animate-pulse" />
                             </div>
                           </div>
@@ -334,7 +329,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
               >
                 <div className="mb-4 h-1 w-12 bg-black/20 rounded-full" />
                 <h3 className="text-4xl font-black italic uppercase tracking-tighter mb-4 leading-none">ESTABLISH_LINK</h3>
-                <p className="text-[10px] font-black tracking-[0.3em] uppercase opacity-40 group-hover:opacity-100 transition-opacity">CONNECTION_PROTOCOL_v4.2</p>
+                <p className="text-[10px] font-black tracking-[0.3em] uppercase opacity-40 group-hover:opacity-100 transition-opacity">CONNECTION_PROTOCOL</p>
                 <ArrowRight className="h-6 w-6 mt-8 transform group-hover:translate-x-4 transition-transform duration-500" />
               </motion.div>
             </div>
@@ -372,7 +367,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
 
 
                     <div className="mb-10 text-[7px] font-black text-white/20 tracking-[0.4em] uppercase opacity-0 group-hover/card:opacity-100 transition-opacity">
-                      CORE_LINK_v7.2 // {tool.slug.toUpperCase()}
+                      CORE_LINK // {tool.slug.toUpperCase()}
                     </div>
 
                     <div className="mb-12 h-24 w-24 flex items-center justify-center relative">
@@ -402,7 +397,6 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         <div className="container px-4">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
             <div>
-              <span className="text-[10px] font-bold tracking-[0.8em] text-white/20 mb-6 md:mb-8 block font-mono">ARCHIVE_QUERY // SUCCESS_STORIES</span>
               <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none"><GlitchText text="MISSION LOGS." /></h2>
             </div>
             <Button variant="outline" className="h-14 md:h-16 px-10 md:px-12 rounded-full border-white/5 bg-white/[0.02] text-white/40 hover:text-[#00FF41] transition-all text-[10px] font-black tracking-widest uppercase" asChild>
@@ -428,14 +422,6 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                       <SafeImage src={imageUrl} alt={study.title} fill className="object-cover grayscale opacity-20 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
 
-                      {/* HUD Metadata Overlay */}
-                      <div className="absolute top-8 left-8 flex flex-col items-start gap-2 opacity-0 group-hover/log:opacity-100 transition-opacity duration-700">
-                        <span className="px-3 py-1 bg-black/80 border border-white/10 rounded-full text-[8px] font-black text-white/40 tracking-[0.4em] uppercase italic">MISSION_ID: S-{idx + 104}</span>
-                        <div className="flex items-center gap-4 px-3 py-1 bg-white/[0.03] border border-white/10 rounded-full">
-                          <div className="h-1 w-1 bg-[#00FF41] rounded-full animate-pulse" />
-                          <span className="text-[8px] font-black text-[#00FF41]/60 tracking-[0.4em] uppercase italic">STATUS: ARCHIVED</span>
-                        </div>
-                      </div>
 
                       <div className="absolute inset-0 p-12 flex flex-col justify-end">
                         <div className="flex items-center gap-4 mb-4">
@@ -445,7 +431,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                         <h3 className="text-3xl font-black text-white italic uppercase leading-tight mb-8 group-hover:translate-x-2 transition-transform duration-500">{study.title}</h3>
                         <div className="h-px w-full bg-white/5 mb-8" />
                         <div className="flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                          <span className="text-[9px] font-black text-[#00FF41] tracking-[0.3em] uppercase">VIEW_REPORT_v{idx + 1}</span>
+                          <span className="text-[9px] font-black text-[#00FF41] tracking-[0.3em] uppercase">VIEW_REPORT</span>
                           <ExternalLink className="h-4 w-4 text-white/40" />
                         </div>
                       </div>
@@ -462,7 +448,6 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         <div className="container px-4">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
             <div>
-              <RevealText text="RESEARCH_SUBSYSTEM" className="text-[10px] font-bold tracking-[1em] text-[#00FF41] mb-6 md:mb-8 block" />
               <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none"><GlitchText text="INTEL ARCHIVE." /></h2>
             </div>
           </div>
@@ -513,7 +498,6 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
           <div className="grid lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4">
               <div className="sticky top-40">
-                <span className="text-[10px] font-bold tracking-[1em] text-[#00FF41] mb-8 block">INTEL_STREAM</span>
                 <h2 className="text-6xl font-black text-white italic uppercase tracking-tighter leading-none mb-12"><GlitchText text="LATEST BROADCASTS." /></h2>
                 <p className="text-white/30 text-lg font-light leading-relaxed mb-12 italic">
                   Real-time telemetry and research directly from our global intelligence mining units.
@@ -577,11 +561,6 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
       <section className="py-40 md:py-60 bg-black relative border-t border-white/5 overflow-hidden">
         <div className="container px-4">
           <div className="text-center mb-24 md:mb-40">
-            <div className="flex items-center justify-center gap-6 mb-8">
-              <div className="h-px w-12 bg-[#00FF41]/20" />
-              <RevealText text="STRATEGIC_ALLIANCE_NETWORK" className="text-[11px] font-[1000] tracking-[1em] text-[#00FF41] uppercase italic" />
-              <div className="h-px w-12 bg-[#00FF41]/20" />
-            </div>
             <h2 className="text-4xl md:text-7xl lg:text-9xl font-[1000] text-white italic uppercase tracking-tighter leading-none">
               <GlitchText text="VERIFIED EQUILIBRIUM." />
             </h2>

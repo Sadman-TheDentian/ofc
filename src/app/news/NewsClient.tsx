@@ -35,10 +35,9 @@ export default function NewsClient({ newsItems }: { newsItems: NewsArticle[] }) 
                     >
                         <div className="flex items-center gap-10 mb-10 md:mb-16">
                             <TechnicalIcon icon={Radio} glowColor="#00FF41" className="scale-75 origin-left animate-pulse" />
-                            <RevealText text="INTEL_STREAM // DECLASSIFIED_TRANSMISSIONS" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
                         </div>
-                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-                            <GlitchText text="REAL-TIME" /> <br /><span className="text-white/10"><GlitchText text="INTELLIGENCE." /></span>
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[900] tracking-tighter text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
+                            <GlitchText text="REAL-TIME INTELLIGENCE." />
                         </h1>
                         <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed border-l border-[#00FF41]/20 pl-10">
                             "Declassified transmissions from our global operations center and specialized tactical units deployed across the digital substrate."
@@ -76,7 +75,7 @@ export default function NewsClient({ newsItems }: { newsItems: NewsArticle[] }) 
 
                                     <div className="absolute bottom-0 left-0 p-12 md:p-24 z-10 w-full">
                                         <div className="flex items-center gap-6 mb-10">
-                                            <span className="px-5 py-2 bg-[#00FF41] text-black text-[10px] font-black uppercase tracking-[0.3em]">FLASH_REPORT_v6.4</span>
+                                            <span className="px-5 py-2 bg-[#00FF41] text-black text-[10px] font-black uppercase tracking-[0.3em]">FLASH_REPORT</span>
                                             <div className="h-px w-20 bg-white/20" />
                                             <span className="text-[10px] font-[900] text-white/40 uppercase tracking-[0.5em]">{new Date(featured.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase()}</span>
                                         </div>
@@ -146,7 +145,7 @@ export default function NewsClient({ newsItems }: { newsItems: NewsArticle[] }) 
                                                 )}
                                                 <div className="flex items-center gap-6 text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">
                                                     <TechnicalIcon icon={Target} glowColor="#00FF41" className="scale-50 origin-left" />
-                                                    {item.author?.name || 'FIELD_OPERATOR_v4'}
+                                                    {item.author?.name || 'FIELD_OPERATOR'}
                                                 </div>
                                             </div>
                                             <div className="hidden md:flex flex-col items-center gap-4 self-center pr-8 opacity-10 group-hover:opacity-100 transition-opacity">
@@ -181,7 +180,7 @@ export default function NewsClient({ newsItems }: { newsItems: NewsArticle[] }) 
                                     </p>
                                 </div>
                                 <Button className="w-full h-16 rounded-full bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] hover:bg-[#00FF41] transition-all">
-                                    INITIATE_SYNC_v6
+                                    INITIATE_SYNC
                                 </Button>
                             </div>
                         </HUDSection>

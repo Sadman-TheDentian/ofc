@@ -11,6 +11,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import RevealText from "@/components/RevealText";
 import Magnetic from "@/components/Magnetic";
+import GlitchText from "@/components/GlitchText";
 
 export default function ThreatReportDetailClient({ report }: { report: ThreatReport }) {
     const imageUrl = report.mainImage ? urlFor(report.mainImage as SanityImage)?.url() : undefined;
@@ -37,8 +38,8 @@ export default function ThreatReportDetailClient({ report }: { report: ThreatRep
                             <RevealText text="INTEL_UNIT // ADVISORY_NODE" className="text-[10px] font-bold tracking-[0.8em] text-red-500 uppercase" />
                         </div>
 
-                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-                            {report.title}
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[900] tracking-tighter text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
+                            <GlitchText text={report.title} />
                         </h1>
 
                         <div className="flex flex-wrap gap-8 items-center border-t border-white/5 pt-12">

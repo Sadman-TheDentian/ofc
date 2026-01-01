@@ -135,8 +135,8 @@
     inset: 0;
     z-index: -1;
     background:
-      radial-gradient(circle at 20% 20%, rgba(0, 255, 65, 0.02) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(0, 102, 255, 0.03) 0%, transparent 50%);
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
     pointer-events: none;
   }
 
@@ -179,8 +179,8 @@
 
   .hud-line::after {
     content: "";
-    @apply absolute inset-0 bg-gradient-to-r from-transparent via-[#00FF41]/40 to-transparent;
-    animation: hud-scan 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    animation: hud-scan 8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
   }
 
   @keyframes hud-scan {

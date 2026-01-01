@@ -76,8 +76,8 @@ export default function ProductsPage() {
                         transition={{ duration: 1 }}
                     >
                         <div className="flex items-center gap-10 mb-10 md:mb-16">
-                            <TechnicalIcon icon={Activity} glowColor="#00FF41" className="scale-75 origin-left" />
-                            <RevealText text="THE_INSTRUMENT_COLLECTION // ASSET_SUBSTRATE" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
+                            <TechnicalIcon icon={Activity} className="scale-75 origin-left" />
+                            <RevealText text="ASSET_SUBSTRATE" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
                         </div>
                         <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
                             <GlitchText text="SYSTEM ASSETS." />
@@ -117,9 +117,6 @@ export default function ProductsPage() {
                                         <TechnicalIcon icon={LayoutPanelTop} glowColor="#00FF41" className="scale-150 rotate-[-12deg] group-hover:rotate-0 transition-transform duration-1000" />
                                     </div>
                                 </div>
-                                <div className="inline-flex items-center gap-6 px-10 py-3 rounded-full border border-[#00FF41]/30 bg-[#00FF41]/10 text-[#00FF41] text-[11px] font-black tracking-[0.4em] uppercase mb-12 italic">
-                                    FLAGSHIP_COMMAND_v12
-                                </div>
                                 <h2 className="text-5xl md:text-[8vw] font-[1000] text-white italic uppercase tracking-tighter leading-none mb-10 group-hover:translate-x-6 transition-transform duration-1000">
                                     <GlitchText text="DENTIGRID" />
                                 </h2>
@@ -131,13 +128,11 @@ export default function ProductsPage() {
                                         <div className="h-12 w-12 rounded-xl border border-white/5 flex items-center justify-center bg-black/40 group-hover/item:border-[#00FF41]/40 transition-colors">
                                             <Activity className="h-5 w-5 text-[#00FF41]" />
                                         </div>
-                                        <span className="text-[10px] font-black tracking-[0.5em] uppercase italic">LIVE_TELEMETRIC_SCAN</span>
                                     </div>
                                     <div className="flex items-center gap-6 text-white/40 group/item">
                                         <div className="h-12 w-12 rounded-xl border border-white/5 flex items-center justify-center bg-black/40 group-hover/item:border-[#00FF41]/40 transition-colors">
                                             <Terminal className="h-5 w-5 text-[#00FF41]" />
                                         </div>
-                                        <span className="text-[10px] font-black tracking-[0.5em] uppercase italic">AUTONOMIC_HARDENING</span>
                                     </div>
                                 </div>
                                 <Magnetic>
@@ -156,7 +151,7 @@ export default function ProductsPage() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                                     <div className="absolute bottom-10 left-12 flex items-center gap-4">
                                         <Box className="h-4 w-4 text-[#00FF41]" />
-                                        <span className="text-[10px] font-black text-white/40 tracking-[0.4em] uppercase italic">VERIFIED_BUILD_v9.4</span>
+                                        <span className="text-[10px] font-black text-white/40 tracking-[0.4em] uppercase italic">VERIFIED_BUILD</span>
                                     </div>
                                 </div>
                             </div>
@@ -215,7 +210,7 @@ export default function ProductsPage() {
                                     </div>
                                 </Link>
                                 <div className="mt-8 flex justify-between opacity-10">
-                                    <span className="text-[7px] font-black tracking-widest uppercase">ENCRYPT_v7.4</span>
+                                    <span className="text-[7px] font-black tracking-widest uppercase">ENCRYPT_LINK</span>
                                     <span className="text-[7px] font-black tracking-widest uppercase italic">SOVEREIGN_LINK</span>
                                 </div>
                             </div>
@@ -245,7 +240,7 @@ export default function ProductsPage() {
                                     <tr className="border-b border-white/10 text-[11px] font-black tracking-[0.5em] text-white/30 uppercase italic">
                                         <th className="p-12 pl-24">PROTOCOL_SPECIFICATION</th>
                                         <th className="p-12 text-center bg-white/[0.02]">BASE_LINK</th>
-                                        <th className="p-12 text-center text-[#00FF41] bg-[#00FF41]/[0.05]">SOVEREIGN_v.ULTRA</th>
+                                        <th className="p-12 text-center text-[#00FF41] bg-[#00FF41]/[0.05]">SOVEREIGN_ULTRA</th>
                                     </tr>
                                 </thead>
                                 <tbody className="text-sm font-light text-white/40">

@@ -158,7 +158,7 @@ export default function AuthPage() {
             <Lock className="h-5 w-5 text-[#00FF41]" />
           </motion.div>
           <h1 className="text-5xl font-black text-white italic tracking-tighter uppercase mb-4 leading-none">IDENTITY <span className="text-white/20">VAULT</span></h1>
-          <p className="text-white/30 text-xs tracking-[0.4em] uppercase font-bold italic font-mono">Secure_Entry_Protocol_v9.2</p>
+          <p className="text-white/30 text-xs tracking-[0.4em] uppercase font-bold italic font-mono">SECURE_ENTRY_PROTOCOL</p>
         </div>
 
         <Tabs defaultValue="signin" className="w-full">

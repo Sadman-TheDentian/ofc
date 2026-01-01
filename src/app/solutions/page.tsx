@@ -25,7 +25,7 @@ const verticalMarkets = [
     description: "Absolute patient privacy enforced across distributed EMR mesh networks. HIPAA-Zero protocols for the modern medical industrial complex.",
     icon: Shield,
     tag: "BIO_INTEL // DATA_LOCK",
-    metrics: ["AES-512 Enc", "HIPAA_V7"]
+    metrics: ["AES-512 Enc", "HIPAA"]
   },
   {
     name: "Sovereign Government",
@@ -59,7 +59,7 @@ const operationalCases = [
     slug: "zero-trust-architecture",
     description: "Moving beyond perimeters. Every node is an island. Every packet is interrogated. Real-time identity validation across the entire substrate.",
     icon: Network,
-    tech: "ZTA_v9.2"
+    tech: "ZTA"
   },
   {
     name: "Sync Compliance",
@@ -100,7 +100,6 @@ export default function SolutionsPage() {
           >
             <div className="flex items-center gap-10 md:gap-16 mb-12 md:mb-16">
               <TechnicalIcon icon={Target} glowColor="#00FF41" className="scale-75 origin-left" />
-              <RevealText text="STRATEGIC_SECTOR_MAPPING // V9.4_ACTIVE" className="text-[11px] font-[1000] tracking-[1.2em] text-[#00FF41] uppercase italic" />
             </div>
             <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
               <GlitchText text="SECTOR PROTOCOLS." />
@@ -110,16 +109,11 @@ export default function SolutionsPage() {
             </p>
           </motion.div>
 
-          {/* Simplified Background Element */}
-          <div className="absolute -bottom-20 -right-20 opacity-[0.03] pointer-events-none select-none hidden lg:block">
-            <span className="text-[15vw] font-black text-white italic tracking-tighter leading-none">STRAT_SYS</span>
-          </div>
         </div>
 
         {/* Vertical Markets - Wide Experimental Strips */}
         <section className="mb-32 md:mb-[30vh] lg:mb-[40vh] relative">
           <div className="flex items-center gap-12 md:gap-20 mb-20 md:mb-40">
-            <h2 className="text-[12px] font-[1000] tracking-[1.5em] text-[#00FF41] uppercase italic whitespace-nowrap">BLOCK_01 // INDUSTRIAL_VERTICALS</h2>
             <div className="h-[2px] flex-grow bg-gradient-to-r from-[#00FF41]/40 via-white/5 to-transparent" />
           </div>
 
@@ -194,8 +188,8 @@ export default function SolutionsPage() {
           <div className="grid lg:grid-cols-2 gap-16 md:gap-40 items-end mb-24 md:mb-60">
             <div className="relative z-10">
               <div className="flex items-center gap-10 mb-12">
-                <TechnicalIcon icon={Network} glowColor="#00FF41" className="scale-75 origin-left" />
-                <RevealText text="BLOCK_02 // OPERATIONAL_LOGIC_MESH" className="text-[12px] font-[1000] tracking-[1.5em] text-[#00FF41] mb-8 md:mb-12 block italic" />
+                <TechnicalIcon icon={Network} className="scale-75 origin-left" />
+                <RevealText text="OPERATIONAL_LOGIC_MESH" className="text-[12px] font-[1000] tracking-[1.5em] text-[#00FF41] mb-8 md:mb-12 block italic" />
               </div>
               <h2 className="text-5xl md:text-[8vw] font-[1000] text-white uppercase italic tracking-tighter leading-[0.85] mb-8 md:mb-12">
                 <GlitchText text="DEEP UTILITY." />
@@ -230,7 +224,6 @@ export default function SolutionsPage() {
                         <div className="h-24 w-24 flex items-center justify-center p-6 bg-white/[0.01] border border-white/5 rounded-[2.5rem] group-hover:border-[#00FF41]/40 group-hover:bg-[#00FF41]/5 transition-all duration-700 shadow-xl overflow-hidden text-white/10 group-hover:text-[#00FF41]">
                           <item.icon className="h-10 w-10 transition-transform duration-1000 group-hover:scale-125" />
                         </div>
-                        <span className="text-[11px] font-[1000] text-white/5 tracking-[0.6em] italic italic uppercase group-hover:text-[#00FF41]/20 transition-colors">v9.2</span>
                       </div>
                       <div className="text-[11px] font-[1000] text-[#00FF41]/40 tracking-[0.8em] mb-6 uppercase italic group-hover:text-[#00FF41] transition-colors">{item.tech}</div>
                       <h3 className="text-4xl md:text-5xl font-[1000] text-white italic uppercase tracking-tighter mb-10 group-hover:translate-x-8 transition-all duration-1000 leading-none">
@@ -253,7 +246,7 @@ export default function SolutionsPage() {
         {/* Sector HUD Footer */}
         <div className="mt-40 md:mt-80 pt-24 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-16 md:gap-32 relative overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-[#00FF41]/20 to-transparent shadow-[0_0_20px_#00FF41]" />
-          <div className="text-[11px] font-[1000] tracking-[1.5em] text-white/20 uppercase italic transition-colors hover:text-[#00FF41]/40 cursor-default">SYST_SOVEREIGNTY // NODE_INDEX_v12.4_NOMINAL</div>
+          <div className="text-[11px] font-[1000] tracking-[1.5em] text-white/20 uppercase italic transition-colors hover:text-[#00FF41]/40 cursor-default">SYST_SOVEREIGNTY // NODE_INDEX_NOMINAL</div>
           <div className="flex items-center gap-10">
             <div className="h-px w-24 bg-white/5" />
             <div className="text-[12px] font-[1000] tracking-[2em] text-[#00FF41] uppercase italic text-center md:text-right blur-[0.5px] hover:blur-0 transition-all cursor-default">

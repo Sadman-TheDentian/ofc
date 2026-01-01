@@ -51,8 +51,8 @@ export default function CaseStudiesClient({ studies }: { studies: CaseStudy[] })
                             <TechnicalIcon icon={Target} glowColor="#00FF41" className="scale-75 origin-left" />
                             <RevealText text="MISSION_REPORTS // ARCHIVAL_DECLASSIFICATION" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
                         </div>
-                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-                            <GlitchText text="THE" /> <br /><span className="text-white/10"><GlitchText text="ARCHIVES." /></span>
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[900] tracking-tighter text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
+                            <GlitchText text="THE ARCHIVES." />
                         </h1>
                         <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed border-l border-white/10 pl-10">
                             "Documented neutralizations of high-fidelity threats and the re-architecture of resilient digital substrates across global infrastructures."
@@ -119,12 +119,12 @@ export default function CaseStudiesClient({ studies }: { studies: CaseStudy[] })
 
                                         {/* Mission ID HUD */}
                                         <div className="flex flex-col items-center lg:items-center shrink-0 min-w-40">
-                                            <span className="text-[12px] font-black text-[#00FF41] tracking-[0.5em] uppercase mb-10 italic group-hover:scale-110 transition-transform">ID_{idx + 101}</span>
+                                            <span className="text-[12px] font-black text-[#00FF41] tracking-[0.5em] uppercase mb-10 italic group-hover:scale-110 transition-transform">ID_{idx + 1}</span>
                                             <div className="relative">
                                                 <div className="absolute -inset-4 bg-[#00FF41]/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                                                 <TechnicalIcon icon={FileText} glowColor="#00FF41" className="scale-125" />
                                             </div>
-                                            <span className="text-[8px] font-black text-white/10 tracking-[0.3em] uppercase mt-12 italic">DEPLOY_v9</span>
+                                            <span className="text-[8px] font-black text-white/10 tracking-[0.3em] uppercase mt-12 italic">DEPLOY</span>
                                         </div>
 
                                         {/* Content Body */}

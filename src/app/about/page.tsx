@@ -43,7 +43,7 @@ export default function AboutPage() {
           <div className="max-w-5xl">
             <div className="flex items-center gap-10 mb-12 md:mb-16">
               <TechnicalIcon icon={Activity} glowColor="#00FF41" className="scale-75 origin-left" />
-              <RevealText text="THE_ORIGIN_STORY // ALPHA_NODES_v9.2" className="text-[11px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
+              <RevealText text="THE_ORIGIN_STORY // ALPHA_NODE" className="text-[11px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
             </div>
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
               <GlitchText text="ALPHA UNITS." />
@@ -65,7 +65,7 @@ export default function AboutPage() {
               <div className="flex items-center gap-10">
                 <div className="flex flex-col">
                   <span className="text-[11px] font-[1000] text-white/10 tracking-[0.6em] uppercase italic mb-2">NODE_ACTIVE</span>
-                  <span className="text-[10px] font-black text-[#00FF41] tracking-[0.8em] uppercase italic group animate-pulse">v7.2 // LIVE_CONNECTED</span>
+                  <span className="text-[10px] font-black text-[#00FF41] tracking-[0.8em] uppercase italic group animate-pulse">LIVE_CONNECTED</span>
                 </div>
                 <div className="h-px w-20 bg-gradient-to-r from-[#00FF41]/40 to-transparent" />
               </div>
@@ -101,7 +101,7 @@ export default function AboutPage() {
       </section>
 
       {/* 02 // MISSION BROADCAST - CINEMATIC FULL BLEED */}
-      <HUDSection label="MISSION_PROTOCOL // CORE_DIRECTIVE_v10.4" className="m-4 md:m-24 p-12 md:p-40 relative overflow-hidden">
+      <HUDSection label="MISSION_PROTOCOL // CORE_DIRECTIVE" className="m-4 md:m-24 p-12 md:p-40 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-20 opacity-5 scale-150 rotate-12 pointer-events-none">
           <ShieldCheck className="h-80 w-80 text-[#00FF41]" />
         </div>
@@ -161,7 +161,7 @@ export default function AboutPage() {
             <div className="absolute -top-40 -left-60 w-96 h-96 bg-[#00FF41]/5 blur-[200px] rounded-full pointer-events-none" />
             <div className="flex items-center gap-10 mb-16 md:mb-24">
               <TechnicalIcon icon={Activity} glowColor="#00FF41" className="scale-75 origin-left" />
-              <span className="text-[12px] font-[1000] tracking-[1.5em] text-[#00FF41] block uppercase italic italic">CORE_INTELLIGENCE // PILLARS_v12</span>
+              <span className="text-[12px] font-[1000] tracking-[1.5em] text-[#00FF41] block uppercase italic italic">CORE_INTELLIGENCE // PILLARS</span>
             </div>
             <h2 className="text-7xl md:text-[12vw] font-[1000] text-white uppercase italic tracking-tighter leading-none mb-4 group">
               CORE_<span className="text-white/10 group-hover:text-[#00FF41] transition-colors duration-1000">VALUES.</span>
@@ -223,7 +223,7 @@ export default function AboutPage() {
                       <span className="text-[12px] font-[1000] tracking-[1em] text-[#00FF41] uppercase italic">NODE_TELEMETRY_STATUS</span>
                       <div className="flex items-center gap-4">
                         <span className="h-2 w-2 bg-[#00FF41] rounded-full animate-pulse shadow-[0_0_15px_#00FF41]" />
-                        <span className="text-[11px] font-black text-white/20 tracking-widest uppercase italic italic">COMMAND // v10.4.SYNC_OK</span>
+                        <span className="text-[11px] font-black text-white/20 tracking-widest uppercase italic italic">COMMAND_SYNC_OK</span>
                       </div>
                     </div>
                   </div>
@@ -277,7 +277,7 @@ export default function AboutPage() {
                       <div className="absolute inset-0 bg-gradient-to-br from-[#00FF41]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-[12px] font-[1000] text-white/10 tracking-[1em] uppercase group-hover:text-[#00FF41] transition-all italic">VIEW_OPERATIONAL_MAP_v6</span>
+                      <span className="text-[12px] font-[1000] text-white/10 tracking-[1em] uppercase group-hover:text-[#00FF41] transition-all italic">VIEW_OPERATIONAL_MAP</span>
                       <div className="mt-4 text-xl font-[1000] text-white italic opacity-0 group-hover:opacity-100 group-hover:translate-x-12 transition-all duration-1000 tracking-tighter">74_LIVE_NODES // 03_COMMAND_CENTERS</div>
                     </div>
                   </div>
@@ -328,7 +328,7 @@ export default function AboutPage() {
                       <span className="text-[11px] font-[1000] text-[#00FF41] tracking-[0.5em] uppercase italic italic">SYSTEM_OPERATOR_SYNC_OK</span>
                     </div>
                     <span className="text-[10px] font-black text-white/40 tracking-[0.4em] uppercase whitespace-nowrap overflow-hidden text-ellipsis block italic">
-                      HASH_ID: 0x{Math.random().toString(16).substring(2, 12).toUpperCase()}
+                      VERIFIED_OPERATOR
                     </span>
                   </div>
                 </div>
@@ -386,7 +386,7 @@ export default function AboutPage() {
             </div>
 
             <div className="mt-32 flex flex-col items-center gap-6 opacity-5 italic">
-              <span className="text-[10px] font-black tracking-[1em] uppercase italic">RECRUITMENT_STATION_v12.0</span>
+              <span className="text-[10px] font-black tracking-[1em] uppercase italic">RECRUITMENT_STATION</span>
               <div className="flex gap-4">
                 {[1, 2, 3, 4, 5, 6, 7, 8].map(i => <div key={i} className="h-1 w-8 bg-[#00FF41] rounded-full animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />)}
               </div>

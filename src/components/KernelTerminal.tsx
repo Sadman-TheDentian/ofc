@@ -7,7 +7,7 @@ import { Terminal, Activity, Cpu, Shield } from 'lucide-react';
 
 const LOG_MESSAGES = [
     "INITIALIZING_SOVEREIGN_LINK...",
-    "NODE_SYNC_v7.4_ACTIVE",
+    "NODE_SYNC_ACTIVE",
     "DECRYPTING_PACKET_STREAM...",
     "ZERO_TRUST_LAYER_ENGAGED",
     "THREAT_NEUTRALIZED_BY_SENTINEL",
@@ -48,7 +48,7 @@ export default function KernelTerminal() {
                         <div className="absolute inset-0 bg-gradient-to-tr from-[#00FF41]/5 to-transparent pointer-events-none" />
                         <div className="flex items-center gap-3 mb-4 border-b border-white/5 pb-4">
                             <Terminal className="h-3 w-3 text-[#00FF41]" />
-                            <span className="text-[10px] font-black tracking-[0.4em] text-white/40 uppercase">CORE_KERNEL_v1.2</span>
+                            <span className="text-[10px] font-black tracking-[0.4em] text-white/40 uppercase">CORE_KERNEL</span>
                         </div>
                         <div className="space-y-2 font-mono text-[9px] uppercase tracking-widest leading-relaxed">
                             {logs.map((log, idx) => (

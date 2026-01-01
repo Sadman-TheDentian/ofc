@@ -46,7 +46,7 @@ export default function DocsPage() {
           >
             <div className="flex items-center gap-8 mb-8 md:mb-12">
               <div className="h-0.5 w-16 bg-white/20" />
-              <RevealText text="SYSTEM_SPECIFICATION_v4.2" className="text-[10px] font-bold tracking-[1.2em] text-white/40 uppercase" />
+              <RevealText text="SYSTEM_SPECIFICATION" className="text-[10px] font-bold tracking-[1.2em] text-white/40 uppercase" />
             </div>
             <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
               SYSTEM <br /><span className="text-white/10">MANUALS.</span>

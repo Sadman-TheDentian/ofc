@@ -35,8 +35,8 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                         transition={{ duration: 1 }}
                     >
                         <div className="flex items-center gap-10 mb-10 md:mb-16">
-                            <TechnicalIcon icon={Activity} glowColor="#00FF41" className="scale-75 origin-left" />
-                            <RevealText text="CAPABILITY_RECON // CORE_V6.4_ASSET_SUBSTRATE" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
+                            <TechnicalIcon icon={Activity} className="scale-75 origin-left" />
+                            <RevealText text="CAPABILITY_RECON" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
                         </div>
                         <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
                             <GlitchText text="ELITE PROTOCOLS." />
@@ -105,8 +105,7 @@ function ServiceLayer({ service, index, slug, imageUrl }: { service: any, index:
                 >
                     <div className="flex items-center gap-10 mb-12">
                         <div className="flex flex-col">
-                            <span className="text-[12px] font-black tracking-[0.8em] text-[#00FF41] uppercase italic">UN_0{index + 1}</span>
-                            <span className="text-[8px] font-black text-white/10 tracking-[0.5em] mt-2 italic">SECURE_ID_ARCHIVE_{100 + index}</span>
+                            <span className="text-[12px] font-black tracking-[0.8em] text-[#00FF41] uppercase italic">UNIT</span>
                         </div>
                         <div className="h-px w-32 bg-gradient-to-r from-[#00FF41]/40 to-transparent" />
                     </div>
@@ -122,7 +121,7 @@ function ServiceLayer({ service, index, slug, imageUrl }: { service: any, index:
                     <div className="grid grid-cols-2 gap-16 mb-20 px-4">
                         <div className="group cursor-default">
                             <div className="text-[10px] font-black text-white/10 tracking-[0.6em] uppercase mb-6 italic group-hover:text-[#00FF41]/40 transition-colors">PRIORITY_INDEX</div>
-                            <div className="text-3xl font-[1000] text-white group-hover:text-[#00FF41] transition-all uppercase italic tracking-tighter group-hover:translate-x-4">ALPHA_9</div>
+                            <div className="text-3xl font-[1000] text-white group-hover:text-[#00FF41] transition-all uppercase italic tracking-tighter group-hover:translate-x-4">ALPHA</div>
                         </div>
                         <div className="group cursor-default">
                             <div className="text-[10px] font-black text-white/10 tracking-[0.6em] uppercase mb-6 italic group-hover:text-[#00FF41]/40 transition-colors">RESPONSE_VECT</div>
@@ -173,7 +172,7 @@ function ServiceLayer({ service, index, slug, imageUrl }: { service: any, index:
                                 <TechnicalIcon icon={Activity} glowColor="#00FF41" className="animate-pulse" />
                             </div>
                             <div className="flex flex-col items-end gap-4 text-right">
-                                <div className="text-[9px] font-black text-white/40 tracking-[0.5em] uppercase mb-2 italic">TELEM_V3_MATRIX</div>
+                                <div className="text-[9px] font-black text-white/40 tracking-[0.5em] uppercase mb-2 italic">TELEM_MATRIX</div>
                                 <div className="h-1 w-48 bg-white/5 relative overflow-hidden rounded-full">
                                     <motion.div
                                         animate={{ x: ['-100%', '100%'] }}
@@ -197,7 +196,7 @@ function ServiceLayer({ service, index, slug, imageUrl }: { service: any, index:
                 </motion.div>
 
                 <div className="absolute -bottom-10 -right-10 px-8 py-3 bg-white text-black font-black text-[9px] tracking-[0.5em] uppercase italic italic shadow-2xl skew-x-[-12deg] z-20 opacity-0 group-hover/image:opacity-100 transition-opacity">
-                    RECON_VISUAL_0{index + 1}
+                    RECON_VISUAL
                 </div>
             </motion.div>
         </motion.div>

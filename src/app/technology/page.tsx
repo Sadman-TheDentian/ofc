@@ -7,6 +7,7 @@ import RevealText from "@/components/RevealText";
 import Link from "next/link";
 import TechnicalIcon from "@/components/TechnicalIcon";
 import MeshVisualizer from "@/components/MeshVisualizer";
+import GlitchText from "@/components/GlitchText";
 
 export default function TechnologyPage() {
     return (
@@ -32,7 +33,6 @@ export default function TechnologyPage() {
 
                         <div className="flex items-center gap-8 mb-8 md:mb-12">
                             <div className="h-0.5 w-16 bg-[#00FF41]" />
-                            <RevealText text="CORE_SUBSTRATE // ENGINEERING_SPEC" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] uppercase" />
                         </div>
 
                         <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
@@ -178,7 +178,7 @@ export default function TechnologyPage() {
 
                 {/* HUD Assurance */}
                 <div className="mt-40 pt-12 border-t border-white/5 flex justify-between items-center opacity-10">
-                    <div className="text-[8px] font-bold tracking-[0.5em] text-white uppercase font-mono">SPEC_FILE_v12.4 // LOADED</div>
+                    <div className="text-[8px] font-bold tracking-[0.5em] text-white uppercase font-mono">SPEC_FILE // LOADED</div>
                     <p className="text-[8px] font-bold tracking-[0.4em] text-white uppercase italic">" COMPLEXITY IS THE ENEMY OF SECURITY. "</p>
                 </div>
             </div>

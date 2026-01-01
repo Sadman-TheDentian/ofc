@@ -40,7 +40,6 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
                     >
                         <div className="flex items-center gap-10 mb-10 md:mb-16">
                             <TechnicalIcon icon={Terminal} glowColor="#00FF41" className="scale-75 origin-left" />
-                            <RevealText text="TECHNICAL_LOG_ARCHIVE // DATA_SUBSTRATE" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
                         </div>
                         <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
                             <GlitchText text="THE LOGS." />

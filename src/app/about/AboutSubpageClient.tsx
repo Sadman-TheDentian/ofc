@@ -70,10 +70,9 @@ export default function AboutSubpageClient({
 
                         <div className="flex items-center gap-10 mb-10 md:mb-16">
                             <TechnicalIcon icon={Activity} glowColor="#00FF41" className="scale-75 origin-left" />
-                            <RevealText text={tag} className="text-[10px] font-bold tracking-[1em] text-[#00FF41] uppercase" />
                         </div>
 
-                        <h1 className="text-5xl md:text-8xl lg:text-[140px] font-[900] tracking-tighter text-white uppercase italic leading-[0.7] mb-12 md:mb-20">
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[900] tracking-tighter text-white uppercase italic leading-[0.7] mb-12 md:mb-20">
                             <GlitchText text={title} /> <br /><span className="text-white/10"><GlitchText text={subtitle} /></span>
                         </h1>
 
@@ -82,10 +81,6 @@ export default function AboutSubpageClient({
                         </p>
                     </motion.div>
 
-                    {/* Background Ghost Text */}
-                    <div className="absolute -top-12 -right-24 md:-top-32 md:-right-60 text-7xl md:text-[20vw] font-black text-white/[0.015] italic tracking-tighter select-none pointer-events-none uppercase overflow-hidden whitespace-nowrap">
-                        {subtitle}
-                    </div>
                 </div>
 
                 {/* Hero Asset with Parallax */}

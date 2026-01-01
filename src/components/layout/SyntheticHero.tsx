@@ -10,7 +10,6 @@ interface HeroProps {
 	title: string | ReactNode;
 	description: string;
 	ctaButtons?: Array<{ text: string; href?: string; primary?: boolean }>;
-	microDetails?: Array<string>;
 }
 
 import GlitchText from "../GlitchText";
@@ -23,11 +22,6 @@ const SyntheticHero = ({
 	ctaButtons = [
 		{ text: "INITIATE PROTOCOL", href: "/contact", primary: true },
 		{ text: "CAPABILITIES", href: "/services" },
-	],
-	microDetails = [
-		"OFFENSIVE_RESEARCH",
-		"SECURE_ARCHITECTURE",
-		"INTELLIGENCE_MINING",
 	],
 }: HeroProps) => {
 	const containerRef = useRef<HTMLElement | null>(null);
@@ -47,7 +41,7 @@ const SyntheticHero = ({
 						initial={{ opacity: 0, scale: 0.95, filter: "blur(20px)" }}
 						animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
 						transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-						className="relative text-[12vw] lg:text-[160px] font-black tracking-[-0.06em] leading-[0.8] mb-12 uppercase italic"
+						className="relative text-[10vw] lg:text-[140px] font-black tracking-[-0.06em] leading-[0.8] mb-12 uppercase italic"
 						style={{ fontFamily: "'Outfit', sans-serif" }}
 					>
 						<GlitchText text={typeof title === 'string' ? title : "DIGITAL SOVEREIGNTY"} />
@@ -88,34 +82,8 @@ const SyntheticHero = ({
 					))}
 				</motion.div>
 
-				{/* Sharp Technical Subsystem Status */}
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ duration: 1.5, delay: 1 }}
-					className="absolute bottom-12 md:bottom-20 left-0 right-0 w-full px-12 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 max-w-7xl mx-auto"
-				>
-					{microDetails?.map((detail, idx) => (
-						<div key={idx} className="flex flex-col items-center md:items-start border-l border-white/5 pl-8 group">
-							<div className="flex items-center gap-4 mb-2">
-								<div className="h-1 w-1 bg-[#00FF41]/40" />
-								<span className="text-[9px] font-black text-white/20 tracking-[0.6em] group-hover:text-white/60 transition-colors uppercase italic">
-									{detail}
-								</span>
-							</div>
-							<div className="flex items-center gap-3">
-								<span className="text-[8px] font-mono text-white/10 uppercase tracking-[0.3em]">SECURE_NODE_SYNC:</span>
-								<span className="text-[8px] font-mono text-[#00FF41]/30 uppercase tracking-[0.3em] font-black">ACTIVE.0{idx + 1}</span>
-							</div>
-						</div>
-					))}
-				</motion.div>
 			</div>
 
-			<div className="absolute bottom-10 right-10 flex flex-col items-end gap-2 opacity-10">
-				<span className="text-[8px] tracking-[0.5em] font-bold text-white uppercase italic">DENTI_OFC_LINK_v7.4</span>
-				<div className="h-[1px] w-40 bg-white" />
-			</div>
 		</section>
 	);
 };

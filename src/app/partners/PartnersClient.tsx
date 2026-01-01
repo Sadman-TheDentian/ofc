@@ -8,6 +8,7 @@ import { SanityImage } from "@/lib/types";
 import { motion } from "framer-motion";
 import { Globe } from "lucide-react";
 import TechnicalIcon from "@/components/TechnicalIcon";
+import GlitchText from "@/components/GlitchText";
 
 type Partner = {
     _id: string;
@@ -29,10 +30,9 @@ export default function PartnersClient({ partners }: { partners: Partner[] }) {
                     >
                         <div className="flex items-center gap-8 mb-8 md:mb-12">
                             <TechnicalIcon icon={Globe} glowColor="#00FF41" className="scale-75 origin-left animate-pulse" />
-                            <span className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase">STRATEGIC_ALLIANCE // NETWORK</span>
                         </div>
-                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-                            GLOBAL <br /><span className="text-white/20">NETWORK.</span>
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[900] tracking-tighter text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
+                            <GlitchText text="GLOBAL NETWORK." />
                         </h1>
                         <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed">
                             Collaborative ecosystem of technology pioneers and security sovereigns. Together, we engineer the perimeter of tomorrow.
@@ -69,8 +69,8 @@ export default function PartnersClient({ partners }: { partners: Partner[] }) {
                                                 {partner.name} // AUTH_ALLIANCE
                                             </div>
                                         </div>
-                                        {/* Hover Scan Line */}
-                                        <div className="absolute left-0 right-0 h-[2px] bg-[#00FF41]/20 -top-full group-hover:top-full transition-all duration-[2000ms] ease-in-out" />
+                                        {/* Hover Overlay */}
+                                        <div className="absolute inset-0 bg-[#00FF41]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                                     </div>
                                 </Link>
                             </motion.div>
@@ -85,7 +85,7 @@ export default function PartnersClient({ partners }: { partners: Partner[] }) {
 
                 {/* HUD Assurance */}
                 <div className="mt-40 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 opacity-10">
-                    <div className="text-[8px] font-bold tracking-[0.5em] text-white uppercase font-mono">NETWORK_NODES_v9.0 // LOADED</div>
+                    <div className="text-[8px] font-bold tracking-[0.5em] text-white uppercase font-mono">NETWORK_NODES // LOADED</div>
                     <div className="flex gap-12 text-[8px] font-bold tracking-[0.5em] text-white uppercase italic">
                         " SOUVEREIGNTY THROUGH SYNERGY. "
                     </div>

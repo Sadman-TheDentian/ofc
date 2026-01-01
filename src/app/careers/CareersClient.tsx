@@ -17,7 +17,7 @@ const roles = [
         type: "FULL_TIME",
         description: "Hunt for unpatched vulnerabilities in critical infrastructure and secure software stacks. High-finesse exploit development required.",
         icon: Target,
-        code: "ZR_DY_88"
+        code: ""
     },
     {
         title: "Sovereign Infrastructure Architect",
@@ -26,7 +26,7 @@ const roles = [
         type: "CONTRACT",
         description: "Design and implement resilient, encrypted network architectures that operate outside standard cloud vulnerabilities.",
         icon: Cpu,
-        code: "INF_ARC_44"
+        code: ""
     },
     {
         title: "AI Adversarial Lead",
@@ -35,7 +35,7 @@ const roles = [
         type: "FULL_TIME",
         description: "Lead our research into machine-learning driven attack vectors and predictive neutralization protocols.",
         icon: Zap,
-        code: "NR_DEF_12"
+        code: ""
     },
     {
         title: "Global Intelligence Liaison",
@@ -44,7 +44,7 @@ const roles = [
         type: "PART_TIME",
         description: "Coordinate with sovereign entities and private sectors to establish secure information-sharing perimeters.",
         icon: Globe,
-        code: "GLB_INT_09"
+        code: ""
     }
 ];
 
@@ -73,7 +73,6 @@ export default function CareersClient() {
 
                         <div className="flex items-center gap-10 md:gap-16 mb-12 md:mb-16">
                             <TechnicalIcon icon={Briefcase} glowColor="#00FF41" className="scale-75 origin-left" />
-                            <RevealText text="THE_COLLECTIVE_EXPANSION_v12.4_READY" className="text-[11px] font-[1000] tracking-[1.5em] text-[#00FF41] uppercase italic" />
                         </div>
 
                         <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
@@ -85,10 +84,6 @@ export default function CareersClient() {
                         </p>
                     </motion.div>
 
-                    {/* Simplified Background Element */}
-                    <div className="absolute -bottom-20 -right-20 opacity-[0.03] pointer-events-none select-none hidden lg:block">
-                        <span className="text-[15vw] font-black text-white italic tracking-tighter leading-none uppercase">RECRUIT_SYS</span>
-                    </div>
                 </div>
 
                 {/* Tactical Search HUD */}
@@ -99,7 +94,6 @@ export default function CareersClient() {
                         <div className="flex items-center gap-6">
                             <div className="h-2 w-2 bg-[#00FF41] rounded-full animate-pulse shadow-[0_0_10px_#00FF41]" />
                             <Search className="h-5 w-5 text-[#00FF41]" />
-                            <span className="text-[12px] font-[1000] tracking-[0.5em] text-white/60 uppercase italic">FILTERING_ACTIVE</span>
                         </div>
                         <div className="flex gap-12">
                             {["OFFENSIVE", "DEFENSIVE", "INTEL", "INFRA"].map((tag, idx) => (
@@ -116,22 +110,6 @@ export default function CareersClient() {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-10">
-                        <div className="flex flex-col items-end gap-2">
-                            <span className="text-[10px] font-black text-white/20 tracking-[0.8em] uppercase italic font-mono">NODES_SCANNED</span>
-                            <span className="text-[18px] font-black text-[#00FF41] tracking-[0.2em] font-mono">0x1000_SYNC</span>
-                        </div>
-                        <div className="h-10 w-48 bg-white/5 rounded-2xl overflow-hidden relative border border-white/5">
-                            <motion.div
-                                animate={{ x: ["-100%", "100%"] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                                className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-[#00FF41]/40 to-transparent"
-                            />
-                            <div className="absolute inset-0 flex items-center justify-between px-4">
-                                {[1, 2, 3, 4, 5, 6, 7, 8].map(i => <div key={i} className="h-1 w-1 bg-white/20 rounded-full" />)}
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <section className="mb-32 md:mb-60 lg:mb-80 overflow-hidden relative">
@@ -159,9 +137,6 @@ export default function CareersClient() {
                                             <div className="relative group/hex shrink-0 scale-125 md:scale-150 filter drop-shadow-[0_0_30px_rgba(0,255,65,0.2)]">
                                                 <div className="h-32 w-32 bg-white/[0.02] border border-white/5 rounded-full flex items-center justify-center group-hover:border-[#00FF41]/40 transition-all duration-700">
                                                     <role.icon className="h-12 w-12 text-[#00FF41] group-hover:scale-110 transition-transform duration-700" />
-                                                </div>
-                                                <div className="absolute -top-4 -right-4 h-14 w-14 rounded-full bg-black border border-[#00FF41] flex items-center justify-center text-[12px] font-[1000] text-[#00FF41] shadow-[0_0_30px_rgba(0,255,65,0.4)] italic">
-                                                    {role.code}
                                                 </div>
                                             </div>
 
@@ -228,7 +203,7 @@ export default function CareersClient() {
                 {/* HUD Footer */}
                 <div className="mt-40 md:mt-80 pt-24 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-16 md:gap-32 relative overflow-hidden opacity-20">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-[#00FF41]/40 to-transparent shadow-[0_0_20px_#00FF41]" />
-                    <div className="text-[11px] font-[1000] tracking-[1.5em] text-white uppercase font-mono italic">RECRUITMENT_NODE_v12.4 // STATUS_NOMINAL</div>
+                    <div className="text-[11px] font-[1000] tracking-[1.5em] text-white uppercase font-mono italic">RECRUITMENT_NODE // STATUS_NOMINAL</div>
                     <div className="flex gap-16 text-[11px] font-[1000] tracking-[2em] text-[#00FF41] uppercase italic text-center md:text-right blur-[0.5px] hover:blur-0 transition-all cursor-default">
                         " SOVEREIGNTY BUILT BY ELITE. "
                     </div>

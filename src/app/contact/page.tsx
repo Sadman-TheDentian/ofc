@@ -86,7 +86,6 @@ export default function ContactPage() {
                         >
                             <div className="flex items-center gap-10 mb-10 md:mb-16">
                                 <TechnicalIcon icon={MessageSquare} glowColor="#00FF41" className="scale-75 origin-left" />
-                                <RevealText text="COMMUNICATIONS // SECURE_TELEM_LINK" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
                             </div>
                             <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
                                 <GlitchText text="ESTABLISH CONTACT." />
@@ -213,7 +212,7 @@ export default function ContactPage() {
                                             </div>
 
                                             <div className="flex justify-between items-center opacity-5 group-hover:opacity-20 transition-opacity">
-                                                <span className="text-[7px] font-black tracking-widest">STATION_COMM_v6.1</span>
+                                                <span className="text-[7px] font-black tracking-widest">STATION_COMM</span>
                                                 <span className="text-[7px] font-black tracking-widest italic uppercase">RSA_ENC_ACTIVE</span>
                                             </div>
                                         </form>

@@ -98,7 +98,7 @@ export default function TrainingPage() {
                 <div className="mt-auto relative z-10">
                   <Magnetic>
                     <Button size="lg" className="h-20 md:h-24 px-12 md:px-16 rounded-full bg-white text-black font-[900] uppercase text-[10px] md:text-[12px] tracking-[0.5em] hover:bg-[#00FF41] transition-all group-hover:shadow-[0_0_50px_rgba(0,255,65,0.2)]">
-                      INITIATE_MODULE_v1.0 <ArrowRight className="ml-6 h-4 w-4 md:h-6 md:w-6" />
+                      INITIATE_MODULE <ArrowRight className="ml-6 h-4 w-4 md:h-6 md:w-6" />
                     </Button>
                   </Magnetic>
                 </div>

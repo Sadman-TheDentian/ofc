@@ -11,6 +11,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import RevealText from "@/components/RevealText";
 import Magnetic from "@/components/Magnetic";
+import GlitchText from "@/components/GlitchText";
 
 export default function WhitePaperDetailClient({ paper }: { paper: WhitePaper }) {
     const imageUrl = paper.mainImage ? urlFor(paper.mainImage as SanityImage)?.url() : undefined;
@@ -37,8 +38,8 @@ export default function WhitePaperDetailClient({ paper }: { paper: WhitePaper })
                             <RevealText text="RESEARCH_BROADCAST // WHITE_PAPER" className="text-[10px] font-bold tracking-[0.8em] text-[#00FF41] uppercase" />
                         </div>
 
-                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-                            {paper.title}
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[900] tracking-tighter text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
+                            <GlitchText text={paper.title} />
                         </h1>
 
                         <div className="flex flex-wrap gap-8 items-center border-t border-white/5 pt-12">

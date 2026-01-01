@@ -70,14 +70,14 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
             <div className="flex items-center justify-center gap-12 mb-16 md:mb-24">
               <div className="h-[1px] w-32 bg-gradient-to-r from-transparent to-[#00FF41]/40" />
               <div className="flex flex-col items-center">
-                <RevealText text="CAPABILITY_NODE // v7.4_SYNC_ACTIVE" className="text-[11px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
-                <span className="text-[8px] font-black text-white/10 tracking-[0.5em] mt-3 uppercase italic">SECURE_LINK_STATION_ALPHA</span>
+                <RevealText text="CAPABILITY_NODE // SYNC_ACTIVE" className="text-[11px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
+                <span className="text-[8px] font-black text-white/10 tracking-[0.5em] mt-3 uppercase italic">SECURE_LINK_STATION</span>
               </div>
               <div className="h-[1px] w-32 bg-gradient-to-l from-transparent to-[#00FF41]/40" />
             </div>
 
             <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
-              {service.title}
+              <GlitchText text={service.title} />
             </h1>
 
             <p className="max-w-4xl mx-auto text-white/60 text-lg md:text-2xl font-medium italic leading-relaxed mb-20 md:mb-24 border-l border-white/20 pl-10 py-4">
@@ -98,7 +98,7 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
 
               <Magnetic strength={0.1}>
                 <Button size="lg" variant="outline" className="h-28 px-20 rounded-full border-white/5 bg-white/[0.02] text-white/40 hover:text-white hover:bg-white/5 hover:border-[#00FF41]/40 uppercase text-[12px] font-black tracking-[0.5em] backdrop-blur-3xl transition-all" asChild>
-                  <Link href="/contact">ACQUIRE_SPECS_v9</Link>
+                  <Link href="/contact">ACQUIRE_SPECS</Link>
                 </Button>
               </Magnetic>
             </div>
@@ -112,7 +112,7 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
         </div>
 
         <div className="absolute bottom-20 right-20 hidden md:flex flex-col items-end gap-4 text-right">
-          <span className="text-[8px] font-black text-white/10 tracking-[0.8em] uppercase italic italic">ENCRYPTION_v12.4_AES_256</span>
+          <span className="text-[8px] font-black text-white/10 tracking-[0.8em] uppercase italic italic">ENCRYPTION_AES_256</span>
           <div className="h-px w-60 bg-gradient-to-l from-white/10 to-transparent" />
         </div>
 
@@ -131,7 +131,7 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
             >
               <div className="flex items-center gap-10 mb-12">
                 <TechnicalIcon icon={LucideIcons.Activity} glowColor="#00FF41" className="scale-75 origin-left" />
-                <span className="text-[11px] font-black tracking-[0.8em] text-[#00FF41] uppercase italic">01 // THE_CHALLENGE_ARCHIVE</span>
+                <span className="text-[11px] font-black tracking-[0.8em] text-[#00FF41] uppercase italic">THE_CHALLENGE</span>
                 <div className="h-px flex-grow bg-white/5" />
               </div>
               <h2 className="text-5xl md:text-9xl font-[1000] text-white uppercase italic leading-[0.85] mb-16 tracking-tighter">
@@ -156,7 +156,7 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                     <div className="h-px w-20 bg-[#00FF41]" />
                     <span className="text-[11px] font-black tracking-[0.5em] text-[#00FF41] uppercase italic">CRITICAL_METRIC</span>
                   </div>
-                  <div className="text-[140px] md:text-[24vw] font-[1000] leading-none text-white/5 group-hover:text-white transition-all duration-1000 tracking-tighter cursor-default italic shadow-2xl">
+                  <div className="text-8xl md:text-[12vw] lg:text-[160px] font-[1000] leading-none text-white/5 group-hover:text-white transition-all duration-1000 tracking-tighter cursor-default italic shadow-2xl">
                     {service.challenge.stat}
                   </div>
                   <p className="text-[14px] font-[1000] text-white/10 tracking-[1em] uppercase mt-12 italic group-hover:text-[#00FF41] group-hover:translate-x-[-20px] transition-all duration-1000">{service.challenge.statLabel}</p>
@@ -174,16 +174,11 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
             <div className="absolute -top-40 -left-40 w-80 h-80 bg-[#00FF41]/5 blur-[120px] rounded-full pointer-events-none" />
             <div className="flex items-center gap-10 mb-12">
               <TechnicalIcon icon={LucideIcons.Shield} glowColor="#00FF41" className="scale-75 origin-left" />
-              <span className="text-[11px] font-black tracking-[1em] text-[#00FF41] mb-10 block uppercase italic">02 // STRATEGIC_CAPABILITIES</span>
             </div>
             <h2 className="text-5xl md:text-[8vw] font-[1000] text-white uppercase italic leading-[0.85] mb-16 tracking-tighter">
               <GlitchText text="TACTICAL SOLUTIONS." />
             </h2>
             <div className="h-[2px] w-full bg-gradient-to-r from-[#00FF41]/60 via-white/10 to-transparent" />
-            <div className="mt-10 flex justify-between opacity-10">
-              <span className="text-[8px] font-black tracking-widest uppercase italic">BUILD_v10.4.5</span>
-              <span className="text-[8px] font-black tracking-widest uppercase italic">SOVEREIGN_CLASS_INTEL</span>
-            </div>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-[5rem] overflow-hidden shadow-2xl">
@@ -207,25 +202,14 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                   <div className="h-24 w-24 flex items-center justify-center p-6 bg-white/[0.02] border border-white/5 rounded-[2rem] group-hover:border-[#00FF41]/40 group-hover:bg-[#00FF41]/5 transition-all duration-700 shadow-xl overflow-hidden text-white/20 group-hover:text-[#00FF41]">
                     <Icon name={cap.icon} className="h-10 w-10 transition-transform duration-700 group-hover:scale-125" />
                   </div>
-                  <div className="flex flex-col items-end">
-                    <span className="text-[10px] font-black text-white/5 tracking-[0.3em] uppercase italic">PROTOCOL_ID</span>
-                    <span className="text-[11px] font-black text-[#00FF41] tracking-[0.5em] uppercase italic group-hover:scale-110 transition-transform">00{index + 1}</span>
-                  </div>
                 </div>
 
-                <div className="mb-10 relative z-10">
-                  <span className="text-[11px] font-black text-white/20 tracking-[0.5em] uppercase group-hover:text-[#00FF41] transition-colors italic italic">NODE_ALPHA_{index + 1}</span>
-                </div>
 
                 <div className="flex-grow relative z-10">
                   <h3 className="text-4xl md:text-5xl font-[1000] text-white uppercase tracking-tighter mb-10 group-hover:translate-x-8 transition-all duration-700 italic leading-none">{cap.title}</h3>
                   <p className="text-white/20 text-xl font-light italic leading-relaxed mb-16 border-l border-white/10 pl-10 group-hover:border-[#00FF41]/20 group-hover:text-white/40 transition-all duration-700">{cap.description}</p>
                 </div>
 
-                <div className="pt-16 border-t border-white/5 relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex justify-between items-center text-[10px] font-black text-[#00FF41] tracking-[0.5em] uppercase italic italic">
-                  SYNC_CONNECTED
-                  <LucideIcons.Check className="h-4 w-4 animate-pulse" />
-                </div>
               </motion.div>
             ))}
           </div>
@@ -243,7 +227,6 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                 transition={{ duration: 1.5 }}
                 className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-[#00FF41]/5 blur-[200px] rounded-full pointer-events-none"
               />
-              <span className="text-[11px] font-black tracking-[0.8em] text-[#00FF41] mb-12 block uppercase italic">03 // ARCHITECTURAL_PIPELINE</span>
               <h2 className="text-5xl md:text-[8vw] font-[1000] text-white uppercase italic leading-[0.85] mb-16 tracking-tighter">
                 <GlitchText text="THE PROCESS." />
               </h2>
@@ -251,10 +234,6 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                 "A rigorous, multi-layered methodology engineered for mission success in the most hostile digital environments."
               </p>
 
-              <div className="flex items-center gap-8 group/badge cursor-default">
-                <div className="h-px w-24 bg-[#00FF41]/40 group-hover:w-40 transition-all duration-1000" />
-                <span className="text-[10px] font-[1000] tracking-[1em] text-white uppercase italic group-hover:text-[#00FF41] transition-colors">VERIFIED_PROTOCOL_v4</span>
-              </div>
             </div>
 
             <div className="lg:col-span-7 space-y-24 md:space-y-40">
@@ -278,7 +257,7 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                     </div>
                     <p className="text-white/30 text-xl md:text-2xl font-light italic leading-relaxed mb-16 max-w-2xl border-l border-white/5 pl-12 group-hover/step:border-[#00FF41]/20 group-hover/step:text-white/60 transition-all duration-1000">{item.description}</p>
                     <div className="flex justify-between items-center text-[8px] font-black text-white/5 tracking-[0.5em] uppercase italic">
-                      <span>PIPELINE_STATION_0{index + 1}</span>
+                      <span>PIPELINE_STATION</span>
                       <span>CHECKPOINT_OK</span>
                     </div>
                   </div>
@@ -311,7 +290,7 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
               <div className="h-[2px] w-16 bg-[#00FF41]/40" />
             </div>
             <div className="flex items-center gap-10 text-[11px] font-black text-white/20 uppercase tracking-[0.6em] italic italic">
-              {service.socialProof.company} <span className="text-[#00FF41]/20">//</span> SECTOR_COMMAND_v12
+              {service.socialProof.company} <span className="text-[#00FF41]/20">//</span> SECTOR_COMMAND
             </div>
           </div>
         </div>
@@ -336,7 +315,6 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
             </div>
 
             <div className="relative z-10 text-center max-w-5xl mx-auto">
-              <span className="text-[12px] font-[1000] tracking-[1.5em] text-[#00FF41] mb-16 block uppercase italic italic">MISSION_CONTROL // FINAL_SYNC</span>
               <h2 className="text-6xl md:text-[12vw] font-[1000] text-white uppercase italic tracking-tighter mb-20 leading-[0.8] transition-all duration-1000 group-hover:scale-105 group-hover:rotate-[-2deg]">
                 READY_FOR <br /> <span className="text-white/10 group-hover:text-[#00FF41] transition-colors duration-1000">DEPLOYMENT?</span>
               </h2>
@@ -355,12 +333,6 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                 </Button>
               </Magnetic>
 
-              <div className="mt-20 flex flex-col items-center gap-4 opacity-5 italic">
-                <span className="text-[9px] font-black tracking-widest uppercase">ENCRYPT_LINK_ESTABLISHED_RSA_2048</span>
-                <div className="flex gap-12">
-                  {[1, 2, 3, 4, 5].map(i => <div key={i} className="h-2 w-2 bg-[#00FF41] rounded-full animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />)}
-                </div>
-              </div>
             </div>
           </div>
         </div>

@@ -160,8 +160,7 @@ export default function PricingPage() {
                   </Button>
 
                   <div className="flex justify-between mt-8 opacity-10 group-hover:opacity-40 transition-opacity">
-                    <span className="text-[7px] font-black tracking-widest uppercase">SECURE_TRANS_v4.2</span>
-                    <span className="text-[7px] font-black tracking-widest uppercase">STH_LINK_AL_00{idx + 1}</span>
+                    <span className="text-[7px] font-black tracking-widest uppercase">SECURE_TRANS</span>
                   </div>
                 </div>
               </div>

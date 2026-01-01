@@ -235,7 +235,7 @@ export default function DashboardLayout({
           </div>
           <div className="flex flex-col">
             <span className="font-black text-xl text-white uppercase italic tracking-tighter">DENTI<span className="text-white/20">GRID</span></span>
-            <span className="text-[7px] font-bold text-white/10 tracking-[0.4em] uppercase">Control_Substrate_v1.2</span>
+            <span className="text-[7px] font-bold text-white/10 tracking-[0.4em] uppercase">CONTROL_SUBSTRATE</span>
           </div>
         </div>
 

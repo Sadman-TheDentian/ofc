@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, Activity, Server, Globe, ShieldCheck, Zap, AlertTriangle, RefreshCcw, Network, Cpu, ShieldAlert, Wifi } from "lucide-react";
 import TechnicalIcon from "@/components/TechnicalIcon";
 import RevealText from "@/components/RevealText";
+import GlitchText from "@/components/GlitchText";
 
 const systems = [
   { name: "CORE_API", status: "Operational", uptime: "99.99%", latency: "14ms", color: "#00FF41", icon: Cpu },
@@ -33,11 +34,10 @@ export default function StatusPage() {
 
             <div className="flex items-center gap-8 mb-8 md:mb-12">
               <TechnicalIcon icon={Activity} glowColor="#00FF41" className="scale-75 origin-left" />
-              <RevealText text="SYSTEM_STATE // REALTIME_TELEMETRY" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase" />
             </div>
 
-            <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-              SERVICE <br /><span className="text-white/10">STATUS.</span>
+            <h1 className="text-5xl md:text-8xl lg:text-9xl font-[900] tracking-tighter text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
+              <GlitchText text="SERVICE STATUS." />
             </h1>
 
             <div className="flex flex-wrap items-center gap-8 md:gap-16 border-t border-white/5 pt-12">
@@ -147,7 +147,7 @@ export default function StatusPage() {
 
         {/* HUD Footnote */}
         <div className="mt-40 pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-12 opacity-20">
-          <div className="text-[10px] font-black tracking-[0.8em] text-white uppercase font-mono italic">SYSTEM_TELEMETRY_v9.4 // POLLING_ACTIVE</div>
+          <div className="text-[10px] font-black tracking-[0.8em] text-white uppercase font-mono italic">SYSTEM_TELEMETRY // POLLING_ACTIVE</div>
           <div className="flex gap-16 text-[10px] font-black tracking-[0.8em] text-white uppercase italic text-center md:text-right">
             " CONSTANT VIGILANCE IS THE ONLY UPTIME. "
           </div>

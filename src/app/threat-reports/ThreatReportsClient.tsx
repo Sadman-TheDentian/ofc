@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import RevealText from "@/components/RevealText";
 import Magnetic from "@/components/Magnetic";
 import TechnicalIcon from "@/components/TechnicalIcon";
+import GlitchText from "@/components/GlitchText";
 
 export default function ThreatReportsClient({ reports }: { reports: ThreatReport[] }) {
     return (
@@ -24,10 +25,9 @@ export default function ThreatReportsClient({ reports }: { reports: ThreatReport
                     >
                         <div className="flex items-center gap-8 mb-8 md:mb-12">
                             <TechnicalIcon icon={Target} glowColor="#FF3131" className="scale-75 origin-left" />
-                            <span className="text-[10px] font-black tracking-[1.2em] text-[#FF3131] uppercase">THREAT_VECTORS // INTELLIGENCE_MINING</span>
                         </div>
-                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-                            THE <br /><span className="text-white/10">THREATS.</span>
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[900] tracking-tighter text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
+                            <GlitchText text="THE THREATS." />
                         </h1>
                         <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed">
                             Granular analysis of active exploit chains and adversarial methodologies identified within sovereign perimeters.

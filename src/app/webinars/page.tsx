@@ -43,7 +43,7 @@ export default function WebinarsPage() {
             <div className="h-0.5 w-16 bg-white/10" />
             <div className="flex items-center gap-3">
               <div className="h-2 w-2 rounded-full bg-orange-500 animate-pulse shadow-[0_0_10px_rgba(249,115,22,0.5)]" />
-              <RevealText text="FREQUENCY_RECON // V7.4" className="text-[10px] font-bold tracking-[1.2em] text-white/30 uppercase" />
+              <RevealText text="FREQUENCY_RECON" className="text-[10px] font-bold tracking-[1.2em] text-white/30 uppercase" />
             </div>
             <div className="h-0.5 w-16 bg-white/10" />
           </div>
@@ -77,7 +77,7 @@ export default function WebinarsPage() {
             </div>
             <div className="flex items-center justify-center gap-4 text-[9px] font-black text-[#00FF41] tracking-[0.5em] uppercase">
               <Activity className="h-3 w-3 animate-pulse" />
-              NEXT_SIGNAL_LOCK_v4.0
+              NEXT_SIGNAL_LOCK
             </div>
           </div>
 

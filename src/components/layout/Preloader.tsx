@@ -9,7 +9,7 @@ const LOG_LINES = [
     "DENTISYSTEMS_INITIALIZING...",
     "ESTABLISHING_SECURE_NODE",
     "INTEGRATING_CORE_ARCHITECTURE",
-    "DECRYPTING_ASSETS_V6.4",
+    "DECRYPTING_ASSETS",
     "SYSTEM_STABLE"
 ];
 
@@ -98,7 +98,7 @@ export default function Preloader() {
                             />
                         </div>
                         <div className="flex flex-col items-center gap-2">
-                            <span className="text-[8px] font-black tracking-[1em] text-white/10 uppercase italic">SOVEREIGN_ENGINEERING // V7.4</span>
+                            <span className="text-[8px] font-black tracking-[1em] text-white/10 uppercase italic">SOVEREIGN_ENGINEERING</span>
                             <div className="flex gap-2">
                                 {[1, 2, 3].map(i => (
                                     <motion.div

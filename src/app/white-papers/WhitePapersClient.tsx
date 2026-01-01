@@ -9,6 +9,7 @@ import TechnicalIcon from "@/components/TechnicalIcon";
 import { urlFor } from "@/lib/sanity-client";
 import { WhitePaper, SanityImage } from "@/lib/types";
 import RevealText from "@/components/RevealText";
+import GlitchText from "@/components/GlitchText";
 
 export default function WhitePapersClient({ papers }: { papers: WhitePaper[] }) {
     return (
@@ -23,10 +24,9 @@ export default function WhitePapersClient({ papers }: { papers: WhitePaper[] }) 
                     >
                         <div className="flex items-center gap-8 mb-8 md:mb-12">
                             <TechnicalIcon icon={FileText} glowColor="#00FF41" className="scale-75 origin-left" />
-                            <span className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase">MISSION_CRITICAL_DOCUMENTATION</span>
                         </div>
-                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-                            WHITE <br /><span className="text-white/10">PAPERS.</span>
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[900] tracking-tighter text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
+                            <GlitchText text="WHITE PAPERS." />
                         </h1>
                         <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed">
                             Deep-dives into the substrate of proprietary defensive architectures and offensive neutralization research.
@@ -51,7 +51,7 @@ export default function WhitePapersClient({ papers }: { papers: WhitePaper[] }) 
                                         <div className="bg-white/[0.01] border border-white/5 rounded-[3.5rem] overflow-hidden hover:border-[#00FF41]/30 transition-all duration-700 h-full flex flex-col relative group/card">
                                             {/* Industrial Overlay */}
                                             <div className="absolute top-0 right-0 p-8 opacity-20">
-                                                <span className="text-[10px] font-black text-white italic tracking-widest uppercase">MSN_{idx + 104}</span>
+                                                <span className="text-[10px] font-black text-white italic tracking-widest uppercase">MSN</span>
                                             </div>
 
                                             <div className="h-72 relative overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-1000">
@@ -72,7 +72,7 @@ export default function WhitePapersClient({ papers }: { papers: WhitePaper[] }) 
                                             <div className="p-12 flex flex-col flex-grow">
                                                 <div className="flex items-center gap-4 mb-6">
                                                     <Activity className="h-3 w-3 text-[#00FF41]" />
-                                                    <span className="text-[9px] font-bold text-white/20 tracking-[0.4em] uppercase">DOCUMENT_READY_v1.2</span>
+                                                    <span className="text-[9px] font-bold text-white/20 tracking-[0.4em] uppercase">DOCUMENT_READY</span>
                                                 </div>
                                                 <h2 className="text-3xl font-black text-white italic uppercase tracking-tighter leading-tight group-hover:text-[#00FF41] transition-colors mb-8">
                                                     {paper.title}

@@ -35,23 +35,16 @@ export default function SolutionDetailClient({ category, slug }: { category: str
                         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <div className="flex items-center gap-10 mb-12 md:mb-16">
-                            <LucideIcons.Activity className="h- tags w-10 text-[#00FF41] animate-pulse" />
-                            <span className="text-[12px] font-[1000] tracking-[1em] text-[#00FF41] uppercase italic">SOVEREIGN_SOLUTION // {categoryName}_v9.4</span>
+                            <LucideIcons.Activity className="h-10 w-10 text-[#00FF41]" />
                         </div>
-                        <h1 className="text-5xl md:text-8xl lg:text-[180px] font-[1000] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-24">
-                            {name.split(' ').map((word, i) => (
-                                <GlitchText key={i} text={word + ' '} className={i % 2 !== 0 ? "text-white/10" : "text-white"} />
-                            ))}
+                        <h1 className="text-5xl md:text-8xl lg:text-[140px] font-[1000] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-24">
+                            <GlitchText text={name} />
                         </h1>
                         <p className="max-w-5xl text-white/40 text-xl md:text-5xl font-light italic leading-relaxed border-l border-white/10 pl-16 py-8 hover:border-[#00FF41]/40 transition-colors">
                             Elite industrial security frameworks precision-engineered for the <span className="text-white/60">{name.toLowerCase()}</span> sector. We deploy absolute digital sovereignty where it matters most.
                         </p>
                     </motion.div>
 
-                    {/* Background ID */}
-                    <div className="absolute -bottom-40 -right-40 opacity-5 pointer-events-none select-none">
-                        <span className="text-[25vw] font-[1000] text-white italic tracking-tighter leading-none">STRAT_0x{Math.random().toString(16).substring(2, 6).toUpperCase()}</span>
-                    </div>
                 </div>
 
                 {/* Detail Content */}
@@ -59,12 +52,8 @@ export default function SolutionDetailClient({ category, slug }: { category: str
                     <aside className="lg:col-span-4 hidden lg:block sticky top-40 h-fit">
                         <div className="bg-white/[0.01] border border-white/5 rounded-[4rem] p-16 backdrop-blur-3xl relative overflow-hidden group/sidebar shadow-[0_0_100px_rgba(0,0,0,1)]">
                             {/* Scanning Line Effect */}
-                            <div className="absolute inset-x-0 h-px bg-[#00FF41]/20 z-20 pointer-events-none overflow-hidden">
-                                <motion.div
-                                    animate={{ top: ['0%', '100%', '0%'] }}
-                                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                    className="absolute inset-x-0 h-40 bg-gradient-to-b from-transparent via-[#00FF41]/20 to-transparent"
-                                />
+                            <div className="absolute inset-x-0 h-px bg-white/5 z-20 pointer-events-none overflow-hidden">
+                                <div className="absolute inset-x-0 h-40 bg-gradient-to-b from-transparent via-white/5 to-transparent" />
                             </div>
 
                             {/* Corner Accents */}
@@ -77,7 +66,7 @@ export default function SolutionDetailClient({ category, slug }: { category: str
 
                             <div className="mb-16 flex items-center gap-4">
                                 <div className="h-2 w-2 bg-[#00FF41] rounded-full animate-pulse shadow-[0_0_10px_#00FF41]" />
-                                <h3 className="text-[12px] font-[1000] tracking-[0.6em] text-[#00FF41] uppercase italic">NODE_METRICS_v9.4</h3>
+                                <h3 className="text-[12px] font-[1000] tracking-[0.6em] text-[#00FF41] uppercase italic">NODE_METRICS</h3>
                             </div>
 
                             <div className="space-y-16">
@@ -118,7 +107,7 @@ export default function SolutionDetailClient({ category, slug }: { category: str
                             </div>
                         </HUDSection>
 
-                        <HUDSection label="CORE_PROTOCOL_STAGING // v9.4">
+                        <HUDSection label="CORE_PROTOCOL_STAGING">
                             <p className="text-white/40 text-xl md:text-3xl font-light mb-20 italic border-l border-white/10 pl-10">
                                 Every deployment follows a rigorous 4-phase sequence designed to minimize operational friction while maximizing tactical resilience.
                             </p>
@@ -191,7 +180,7 @@ export default function SolutionDetailClient({ category, slug }: { category: str
 
                             {/* Metadata Footer */}
                             <div className="mt-32 flex flex-col md:flex-row justify-between items-center gap-12 opacity-5 italic border-t border-white/10 pt-16">
-                                <div className="text-[10px] font-black tracking-[1em] uppercase italic italic">SYNC_STATION_v14.4_SECURE</div>
+                                <div className="text-[10px] font-black tracking-[1em] uppercase italic italic">SYNC_STATION_SECURE</div>
                                 <div className="flex gap-4">
                                     {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="h-1 w-10 bg-[#00FF41] rounded-full animate-pulse" style={{ animationDelay: `${i * 0.3}s` }} />)}
                                 </div>
@@ -203,7 +192,7 @@ export default function SolutionDetailClient({ category, slug }: { category: str
                 {/* HUD Assurance */}
                 <div className="mt-40 md:mt-80 pt-24 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-16 md:gap-32 relative overflow-hidden opacity-20">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-[#00FF41]/40 to-transparent" />
-                    <div className="text-[11px] font-[1000] tracking-[1em] text-white uppercase font-mono italic">SOLUTION_NODE_ARCHIVE_v7.4 // ONLINE</div>
+                    <div className="text-[11px] font-[1000] tracking-[1em] text-white uppercase font-mono italic">SOLUTION_NODE_ARCHIVE // ONLINE</div>
                     <div className="flex gap-16 text-[11px] font-[1000] tracking-[1.5em] text-[#00FF41] uppercase italic text-center md:text-right">
                         " ARCHITECTURE IS THE ULTIMATE ENCRYPTION. "
                     </div>

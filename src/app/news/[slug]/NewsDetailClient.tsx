@@ -10,6 +10,7 @@ import SafeImage from '@/components/SafeImage';
 import { ArrowLeft, Calendar, User, Share2, ShieldAlert, Cpu, Activity } from 'lucide-react';
 import Magnetic from '@/components/Magnetic';
 import RevealText from '@/components/RevealText';
+import GlitchText from '@/components/GlitchText';
 import { useRef } from 'react';
 
 export default function NewsDetailClient({ post }: { post: NewsArticle }) {
@@ -69,8 +70,8 @@ export default function NewsDetailClient({ post }: { post: NewsArticle }) {
                             <RevealText text="INTEL_BROADCAST // DECLASSIFIED" className="text-[10px] font-bold tracking-[0.8em] text-red-500 uppercase" />
                         </div>
 
-                        <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-                            {post.title}
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[900] tracking-tighter text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
+                            <GlitchText text={post.title} />
                         </h1>
 
                         <div className="flex flex-wrap items-center gap-12 py-10 border-y border-white/5">
