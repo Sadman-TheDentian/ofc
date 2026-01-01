@@ -158,7 +158,9 @@ export default function SolutionsPage() {
                           <div className="h-px w-10 bg-[#00FF41]/40 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-1000" />
                           <div className="text-[13px] font-[1000] tracking-[1em] text-[#00FF41] uppercase italic group-hover:translate-x-4 transition-transform duration-700">{item.tag}</div>
                         </div>
-                        <h3 className="text-5xl md:text-[8vw] font-[1000] text-white italic uppercase tracking-tighter mb-12 group-hover:translate-x-16 transition-all duration-1000 leading-[0.85]">{item.name}</h3>
+                        <h3 className="text-5xl md:text-[8vw] font-[1000] text-white italic uppercase tracking-tighter mb-12 group-hover:translate-x-16 transition-all duration-1000 leading-[0.85]">
+                          <GlitchText text={item.name} />
+                        </h3>
                         <p className="text-white/30 text-xl md:text-4xl font-light italic leading-relaxed max-w-3xl border-l border-white/5 pl-12 hover:border-[#00FF41]/20 transition-colors">{item.description}</p>
                       </div>
                     </div>
@@ -195,7 +197,9 @@ export default function SolutionsPage() {
                 <TechnicalIcon icon={Network} glowColor="#00FF41" className="scale-75 origin-left" />
                 <RevealText text="BLOCK_02 // OPERATIONAL_LOGIC_MESH" className="text-[12px] font-[1000] tracking-[1.5em] text-[#00FF41] mb-8 md:mb-12 block italic" />
               </div>
-              <h2 className="text-5xl md:text-9xl lg:text-[180px] font-[1000] text-white uppercase italic tracking-tighter leading-[0.8] mb-8 md:mb-12">DEEP <br /> <span className="text-white/10 group-hover:text-white transition-colors duration-1000">UTILITY.</span></h2>
+              <h2 className="text-5xl md:text-[8vw] font-[1000] text-white uppercase italic tracking-tighter leading-[0.85] mb-8 md:mb-12">
+                <GlitchText text="DEEP UTILITY." />
+              </h2>
             </div>
             <p className="text-white/30 text-xl md:text-4xl font-light italic leading-relaxed max-w-2xl border-l border-white/10 pl-16 py-6 italic">
               "Advanced deployments that operate across different industrial silos to establish an absolute security baseline."
@@ -229,7 +233,9 @@ export default function SolutionsPage() {
                         <span className="text-[11px] font-[1000] text-white/5 tracking-[0.6em] italic italic uppercase group-hover:text-[#00FF41]/20 transition-colors">v9.2</span>
                       </div>
                       <div className="text-[11px] font-[1000] text-[#00FF41]/40 tracking-[0.8em] mb-6 uppercase italic group-hover:text-[#00FF41] transition-colors">{item.tech}</div>
-                      <h3 className="text-4xl md:text-5xl font-[1000] text-white italic uppercase tracking-tighter mb-10 group-hover:translate-x-8 transition-all duration-1000 leading-none">{item.name}</h3>
+                      <h3 className="text-4xl md:text-5xl font-[1000] text-white italic uppercase tracking-tighter mb-10 group-hover:translate-x-8 transition-all duration-1000 leading-none">
+                        <GlitchText text={item.name} />
+                      </h3>
                       <p className="text-white/20 text-xl font-light italic leading-relaxed mb-16 border-l border-white/10 pl-10 group-hover:border-[#00FF41]/20 group-hover:text-white/40 transition-all duration-1000">{item.description}</p>
                     </div>
 

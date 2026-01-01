@@ -120,7 +120,9 @@ export default function ProductsPage() {
                                 <div className="inline-flex items-center gap-6 px-10 py-3 rounded-full border border-[#00FF41]/30 bg-[#00FF41]/10 text-[#00FF41] text-[11px] font-black tracking-[0.4em] uppercase mb-12 italic">
                                     FLAGSHIP_COMMAND_v12
                                 </div>
-                                <h2 className="text-5xl md:text-[8vw] font-[1000] text-white italic uppercase tracking-tighter leading-none mb-10 group-hover:translate-x-6 transition-transform duration-1000">DENTIGRID</h2>
+                                <h2 className="text-5xl md:text-[8vw] font-[1000] text-white italic uppercase tracking-tighter leading-none mb-10 group-hover:translate-x-6 transition-transform duration-1000">
+                                    <GlitchText text="DENTIGRID" />
+                                </h2>
                                 <p className="text-white/40 text-xl md:text-3xl font-light italic leading-relaxed mb-16 max-w-xl border-l border-white/10 pl-10">
                                     The definitive operating environment for high-stakes infrastructure defense and real-time neural monitoring.
                                 </p>
@@ -198,7 +200,7 @@ export default function ProductsPage() {
 
                             <div className="flex-grow relative z-10">
                                 <h3 className="text-4xl md:text-5xl font-[1000] text-white italic uppercase tracking-tighter mb-10 group-hover:translate-x-6 transition-transform duration-700 leading-none">
-                                    {product.name}
+                                    <GlitchText text={product.name} />
                                 </h3>
                                 <p className="text-white/30 text-xl font-light italic leading-relaxed mb-16 border-l border-white/10 pl-8 group-hover:border-[#00FF41]/20 transition-colors">
                                     {product.description}
@@ -229,7 +231,7 @@ export default function ProductsPage() {
                     <div className="max-w-4xl mx-auto text-center mb-16 md:mb-40 px-4">
                         <RevealText text="SERVICE_CAPACITY_MATRIX" className="text-[11px] font-black tracking-[1em] text-[#00FF41] mb-8 md:mb-12 block uppercase italic" />
                         <h2 className="text-5xl md:text-8xl lg:text-[140px] font-[1000] text-white italic uppercase tracking-tighter leading-none mb-12 md:mb-16">
-                            SOVEREIGN <br /><span className="text-white/20">TIERS.</span>
+                            <GlitchText text="SOVEREIGN TIERS." />
                         </h2>
                     </div>
 
