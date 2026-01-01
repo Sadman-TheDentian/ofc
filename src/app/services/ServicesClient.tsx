@@ -38,10 +38,10 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                             <TechnicalIcon icon={Activity} glowColor="#00FF41" className="scale-75 origin-left" />
                             <RevealText text="CAPABILITY_RECON // CORE_V6.4_ASSET_SUBSTRATE" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
                         </div>
-                        <h1 className="text-5xl md:text-8xl lg:text-[140px] font-[1000] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-24">
-                            <GlitchText text="ELITE" /> <br /><span className="text-white/20"><GlitchText text="PROTOCOLS." /></span>
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
+                            ELITE <br /><span className="text-white/20">PROTOCOLS.</span>
                         </h1>
-                        <p className="max-w-4xl text-white/40 text-xl md:text-4xl font-light italic leading-relaxed mb-16 md:mb-32 border-l border-white/10 pl-10">
+                        <p className="max-w-4xl text-white/60 text-lg md:text-2xl font-medium italic leading-relaxed mb-16 md:mb-20 border-l border-white/20 pl-10 py-4">
                             "Proprietary offensive and defensive methodologies engineered from the zero-point for absolute digital sovereignty in high-fidelity environments."
                         </p>
 

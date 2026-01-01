@@ -88,10 +88,10 @@ export default function ContactPage() {
                                 <TechnicalIcon icon={MessageSquare} glowColor="#00FF41" className="scale-75 origin-left" />
                                 <RevealText text="COMMUNICATIONS // SECURE_TELEM_LINK" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
                             </div>
-                            <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-                                <GlitchText text="ESTABLISH" /> <br /><span className="text-white/10"><GlitchText text="CONTACT." /></span>
+                            <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
+                                ESTABLISH <br /><span className="text-white/20">CONTACT.</span>
                             </h1>
-                            <p className="max-w-xl text-white/40 text-xl md:text-3xl font-light leading-relaxed mb-12 md:mb-24 italic border-l border-white/10 pl-10">
+                            <p className="max-w-xl text-white/60 text-lg md:text-2xl font-medium leading-relaxed mb-12 md:mb-24 italic border-l border-white/20 pl-10 py-2">
                                 Open a direct line to our intelligence units for mission-critical security inquiries and high-fidelity project coordination.
                             </p>
 

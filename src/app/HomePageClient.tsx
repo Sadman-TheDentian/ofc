@@ -207,135 +207,48 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         </div>
       </section>
 
-      <section ref={archRef} className="relative h-[250vh] bg-black border-t border-white/5 pt-20 md:pt-40" id="resonance-stack">
-        <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.01] to-transparent pointer-events-none" />
-
-          <div className="container px-4">
-            <div className="grid lg:grid-cols-12 gap-12 md:gap-32 items-center">
-
-              {/* Left Column: Pinned Intelligence Intro */}
-              <div className="lg:col-span-4 py-12 md:py-20 relative z-10">
-                <motion.div>
-                  <div className="flex items-center gap-4 mb-8">
-                    <RevealText text="SYSTEM_ARCHITECTURE" className="text-[10px] font-bold tracking-[0.8em] text-[#00FF41] uppercase" />
-                    <div className="h-px w-12 md:w-20 bg-[#00FF41]/20" />
-                  </div>
-                  <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-[0.85] mb-8 md:mb-12">
-                    THE <span className="text-white/20">RESONANCE</span> STACK
-                  </h2>
-                  <p className="text-white/40 text-xl font-light italic leading-relaxed mb-12 max-w-sm">
-                    A proprietary defense substrate operating at the edge of machine intelligence and human intuition.
-                  </p>
-
-                  {/* Intelligence Metric Grid - REAL TECHNICAL SPECIFICATIONS */}
-                  <div className="mt-24 border-t border-white/5 pt-16 space-y-10">
-                    <div className="flex items-center justify-between group">
-                      <span className="text-[10px] font-black tracking-[0.4em] text-white/10 uppercase group-hover:text-[#00FF41] transition-colors">ARCHITECTURE</span>
-                      <span className="text-xs font-black text-white italic tracking-widest uppercase">RESONANCE_v7.4</span>
-                    </div>
-                    <div className="flex items-center justify-between group">
-                      <span className="text-[10px] font-black tracking-[0.4em] text-white/10 uppercase group-hover:text-[#00FF41] transition-colors">SUBSTRATE</span>
-                      <span className="text-xs font-black text-white italic tracking-widest uppercase">NEURAL_DEEP_MESH</span>
-                    </div>
-                    <div className="flex items-center justify-between group">
-                      <span className="text-[10px] font-black tracking-[0.4em] text-white/10 uppercase group-hover:text-[#00FF41] transition-colors">ENFORCEMENT</span>
-                      <span className="text-xs font-black text-[#00FF41] italic tracking-widest uppercase">ZERO_TRUST_L4</span>
-                    </div>
-
-                    {/* Static Engineering HUD - Replacing Mock Kernel Logs */}
-                    <div className="mt-16 p-10 bg-white/[0.01] rounded-[2.5rem] border border-white/5 relative overflow-hidden">
-                      <div className="absolute top-0 right-0 p-8 opacity-[0.05]">
-                        <Cpu className="h-20 w-20 text-[#00FF41]" />
-                      </div>
-                      <h4 className="text-[10px] font-black tracking-[0.5em] text-[#00FF41] uppercase mb-8">NODE_SPECIFICATIONS</h4>
-                      <ul className="space-y-4 text-[9px] font-mono text-white/30 uppercase tracking-widest">
-                        <li className="flex items-center gap-3">
-                          <div className="h-1 w-1 bg-[#00FF41]" />
-                          RUNTIME: ISOLATED_WASM_V8
-                        </li>
-                        <li className="flex items-center gap-3">
-                          <div className="h-1 w-1 bg-[#00FF41]" />
-                          PROTOCOL: GRPC_BIDIRECTIONAL
-                        </li>
-                        <li className="flex items-center gap-3">
-                          <div className="h-1 w-1 bg-[#00FF41]" />
-                          SECURITY: AES_256_GCM_ENCRYPT
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Right Column: Vertical Reveal Track */}
-              <div className="lg:col-span-8 relative h-[85vh] flex items-start overflow-hidden pt-10 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
-                <motion.div
-                  style={{ y }}
-                  className="flex flex-col gap-10 w-full"
-                >
-                  {(securityDivisions && securityDivisions.length > 0 ? securityDivisions : services).slice(0, 4).map((service, idx) => {
-                    const isSanity = 'mainImage' in service;
-                    const imageUrl = isSanity
-                      ? (service.mainImage ? urlFor(service.mainImage)?.url() : undefined)
-                      : (service as any).imageUrl;
-                    const slug = isSanity ? (service as any).slug.current : (service as any).slug;
-
-                    return (
-                      <motion.div
-                        key={idx}
-                        className="w-full shrink-0 group"
-                        initial={{ x: 0 }}
-                        whileInView={{ x: (idx % 2 === 0 ? 30 : -30) }}
-                        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                      >
-                        <Link href={`/services/${slug}`}>
-                          <div className="bg-white/[0.01] border border-white/5 rounded-[3rem] p-12 hover:bg-white/[0.03] hover:border-[#00FF41]/30 transition-all duration-700 relative overflow-hidden flex flex-col h-[480px] group/card">
-                            {/* Technical Grid Overlay */}
-                            <div className="absolute inset-0 opacity-[0.02] pointer-events-none group-hover/card:opacity-[0.05] transition-opacity">
-                              <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(#00FF41 0.5px, transparent 0.5px)', backgroundSize: '30px 30px' }} />
-                            </div>
-
-                            {/* Dynamic Scan Line Hover Effect */}
-                            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-0 group-hover/card:opacity-10 transition-opacity duration-500">
-                              <motion.div
-                                animate={{ y: ['-100%', '300%'] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                className="h-60 w-full bg-gradient-to-b from-transparent via-[#00FF41] to-transparent"
-                              />
-                            </div>
-
-                            <div className="h-44 relative rounded-2xl overflow-hidden mb-10 border border-white/5 bg-black/40">
-                              <SafeImage src={imageUrl} alt={service.title} fill className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000" />
-                              {/* HUD Corner Brackets for Image */}
-                              <div className="absolute top-6 left-6 w-6 h-6 border-t border-l border-[#00FF41]/40 group-hover/card:border-[#00FF41] transition-colors" />
-                              <div className="absolute bottom-6 right-6 w-6 h-6 border-b border-r border-[#00FF41]/40 group-hover/card:border-[#00FF41] transition-colors" />
-                            </div>
-
-                            <div className="mt-auto">
-                              <div className="flex items-center gap-6 mb-6">
-                                <span className="text-[10px] font-black text-[#00FF41] tracking-[0.8em] uppercase font-mono">NODE_SYNC_v7.{idx + 1}</span>
-                                <div className="h-px flex-grow bg-white/10 group-hover:bg-[#00FF41]/20 transition-colors" />
-                              </div>
-                              <h3 className="text-4xl md:text-5xl font-black text-white italic uppercase tracking-tight group-hover:translate-x-4 transition-transform duration-700 mb-6 leading-[0.85]">{service.title}</h3>
-                              <p className="text-white/30 text-base md:text-lg font-light leading-relaxed mb-10 group-hover:text-white/70 transition-colors line-clamp-2 italic">{service.description}</p>
-                              <div className="text-[10px] font-black text-white/10 group-hover:text-[#00FF41] tracking-[0.6em] uppercase flex items-center justify-between border-t border-white/5 pt-10 group/btn transition-colors">
-                                <span className="flex items-center gap-4">
-                                  <div className="h-1.5 w-1.5 bg-[#00FF41] rounded-full animate-pulse" />
-                                  INITIATE_EXPLORATION_PROTOCOL
-                                </span>
-                                <ArrowRight className="h-6 w-6 transform group-hover:translate-x-8 transition-transform text-[#00FF41]" />
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
-              </div>
-
+      <section className="py-24 md:py-48 bg-black border-y border-white/5" id="resonance-stack">
+        <div className="container px-4">
+          <div className="max-w-4xl mb-24">
+            <div className="flex items-center gap-4 mb-8">
+              <span className="text-[10px] font-bold tracking-[0.8em] text-[#00FF41] uppercase">SYSTEM_ARCHITECTURE</span>
+              <div className="h-px w-20 bg-[#00FF41]/20" />
             </div>
+            <h2 className="text-5xl md:text-7xl font-black text-white italic uppercase tracking-tighter leading-tight mb-8">
+              THE <span className="text-white/20">RESONANCE</span> STACK
+            </h2>
+            <p className="text-white/40 text-xl font-light italic leading-relaxed max-w-2xl">
+              A proprietary defense substrate operating at the edge of machine intelligence and human intuition.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {(securityDivisions && securityDivisions.length > 0 ? securityDivisions : services).slice(0, 4).map((service, idx) => {
+              const isSanity = 'mainImage' in service;
+              const imageUrl = isSanity
+                ? (service.mainImage ? urlFor(service.mainImage)?.url() : undefined)
+                : (service as any).imageUrl;
+              const slug = isSanity ? (service as any).slug.current : (service as any).slug;
+
+              return (
+                <Link href={`/services/${slug}`} key={idx}>
+                  <div className="group bg-white/[0.02] border border-white/10 rounded-[2.5rem] p-10 hover:bg-white/[0.04] hover:border-[#00FF41]/30 transition-all duration-500 flex flex-col h-full">
+                    <div className="h-60 relative rounded-2xl overflow-hidden mb-8 border border-white/5">
+                      <SafeImage src={imageUrl} alt={service.title} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                    </div>
+                    <div className="mt-auto">
+                      <span className="text-[10px] font-bold text-[#00FF41] tracking-widest uppercase mb-4 block">RESONANCE_ENTITY_0{idx + 1}</span>
+                      <h3 className="text-3xl md:text-4xl font-black text-white italic uppercase tracking-tight mb-4">{service.title}</h3>
+                      <p className="text-white/40 text-lg font-light leading-relaxed mb-8 line-clamp-2">{service.description}</p>
+                      <div className="flex items-center justify-between pt-8 border-t border-white/5">
+                        <span className="text-[10px] font-bold text-white/20 group-hover:text-[#00FF41] tracking-widest uppercase transition-colors">INITIATE_PROTOCOL</span>
+                        <ArrowRight className="h-5 w-5 group-hover:translate-x-4 transition-transform text-[#00FF41]" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -421,14 +334,6 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                     <div className="absolute top-6 left-6 w-6 h-6 border-t border-l border-white/10 group-hover/card:border-[#00FF41]/30 transition-all" />
                     <div className="absolute top-6 right-6 w-6 h-6 border-t border-r border-white/10 group-hover/card:border-[#00FF41]/30 transition-all" />
 
-                    {/* Scanning Animation */}
-                    <div className="absolute inset-0 pointer-events-none opacity-0 group-hover/card:opacity-10 transition-opacity">
-                      <motion.div
-                        animate={{ y: ['-100%', '300%'] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                        className="h-12 w-full bg-gradient-to-b from-transparent via-[#00FF41] to-transparent"
-                      />
-                    </div>
 
                     <div className="mb-10 text-[7px] font-black text-white/20 tracking-[0.4em] uppercase opacity-0 group-hover/card:opacity-100 transition-opacity">
                       CORE_LINK_v7.2 // {tool.slug.toUpperCase()}
@@ -483,14 +388,6 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                 >
                   <Link href={`/case-studies/${study.slug.current}`}>
                     <div className="relative h-[600px] w-full rounded-[4rem] overflow-hidden border border-white/5 bg-white/[0.02] group/log">
-                      {/* Scanning Line Effect */}
-                      <div className="absolute inset-0 z-10 pointer-events-none opacity-0 group-hover/log:opacity-20 transition-opacity duration-700">
-                        <motion.div
-                          animate={{ y: ['-100%', '1000%'] }}
-                          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                          className="h-px w-full bg-[#00FF41]"
-                        />
-                      </div>
 
                       <SafeImage src={imageUrl} alt={study.title} fill className="object-cover grayscale opacity-20 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
@@ -527,7 +424,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
             <div>
               <RevealText text="RESEARCH_SUBSYSTEM" className="text-[10px] font-bold tracking-[1em] text-[#00FF41] mb-6 md:mb-8 block" />
-              <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none"><GlitchText text="INTEL_ARCHIVE" /></h2>
+              <h2 className="text-5xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-none">INTEL_ARCHIVE</h2>
             </div>
           </div>
 
@@ -578,7 +475,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
             <div className="lg:col-span-4">
               <div className="sticky top-40">
                 <span className="text-[10px] font-bold tracking-[1em] text-[#00FF41] mb-8 block">INTEL_STREAM</span>
-                <h2 className="text-6xl font-black text-white italic uppercase tracking-tighter leading-none mb-12"><GlitchText text="LATEST BROADCASTS" /></h2>
+                <h2 className="text-6xl font-black text-white italic uppercase tracking-tighter leading-none mb-12">LATEST BROADCASTS</h2>
                 <p className="text-white/30 text-lg font-light leading-relaxed mb-12 italic">
                   Real-time telemetry and research directly from our global intelligence mining units.
                 </p>
@@ -646,7 +543,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
               <RevealText text="STRATEGIC_ALLIANCE_NETWORK" className="text-[11px] font-[1000] tracking-[1em] text-[#00FF41] uppercase italic" />
               <div className="h-px w-12 bg-[#00FF41]/20" />
             </div>
-            <h2 className="text-4xl md:text-8xl font-[1000] text-white italic uppercase tracking-tighter leading-none">
+            <h2 className="text-4xl md:text-7xl lg:text-9xl font-[1000] text-white italic uppercase tracking-tighter leading-none">
               VERIFIED <span className="text-white/20">EQUILIBRIUM.</span>
             </h2>
           </div>
@@ -682,7 +579,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
           <div className="bg-white/[0.02] border border-white/5 rounded-[3rem] md:rounded-[5rem] p-8 md:p-32 flex flex-col md:flex-row items-center justify-between gap-16 group">
             <div className="max-w-2xl text-center md:text-left">
               <span className="text-[10px] font-black tracking-[1em] text-[#00FF41] mb-8 md:mb-12 block uppercase">SYSTEM_SUBSTRATE</span>
-              <h2 className="text-5xl md:text-8xl lg:text-[140px] font-black text-white italic uppercase tracking-tighter leading-none mb-8 md:mb-12">
+              <h2 className="text-5xl md:text-7xl lg:text-8xl font-black text-white italic uppercase tracking-tighter leading-none mb-8 md:mb-12">
                 ENGINEERED FOR <br /><span className="text-white/20">SOVEREIGNTY.</span>
               </h2>
               <p className="text-white/30 text-xl font-light italic leading-relaxed mb-12 md:mb-16">

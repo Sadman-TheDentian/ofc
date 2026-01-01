@@ -76,18 +76,18 @@ export default function CareersClient() {
                             <RevealText text="THE_COLLECTIVE_EXPANSION_v12.4_READY" className="text-[11px] font-[1000] tracking-[1.5em] text-[#00FF41] uppercase italic" />
                         </div>
 
-                        <h1 className="text-5xl md:text-8xl lg:text-[180px] font-[1000] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-24">
-                            <GlitchText text="JOIN THE" /> <br /><span className="text-white/10 group-hover:text-white transition-colors duration-1000"><GlitchText text="ELITE." /></span>
+                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
+                            JOIN THE <br /><span className="text-white/20">ELITE.</span>
                         </h1>
 
-                        <p className="max-w-5xl text-white/40 text-xl md:text-5xl font-light italic leading-relaxed border-l border-white/10 pl-16 py-8 hover:border-[#00FF41]/40 transition-colors">
+                        <p className="max-w-4xl text-white/60 text-lg md:text-2xl font-medium italic leading-relaxed border-l border-white/20 pl-10 py-4 mb-20">
                             "We are scouting for specialized intelligence units. DentiSystems is not just a company—it is a sovereign network of architects, researchers, and hunters."
                         </p>
                     </motion.div>
 
-                    {/* Background ID */}
-                    <div className="absolute -bottom-40 -right-40 opacity-5 pointer-events-none select-none">
-                        <span className="text-[25vw] font-[1000] text-white italic tracking-tighter leading-none uppercase">RECRUIT_SYS</span>
+                    {/* Simplified Background Element */}
+                    <div className="absolute -bottom-20 -right-20 opacity-[0.03] pointer-events-none select-none hidden lg:block">
+                        <span className="text-[15vw] font-black text-white italic tracking-tighter leading-none uppercase">RECRUIT_SYS</span>
                     </div>
                 </div>
 

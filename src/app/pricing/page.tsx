@@ -82,10 +82,10 @@ export default function PricingPage() {
               <TechnicalIcon icon={Shield} glowColor="#00FF41" className="scale-75 origin-left" />
               <RevealText text="FINANCIAL_LAYER // PROTOCOL_ECONOMICS" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
             </div>
-            <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-              <GlitchText text="SERVICE" /> <br /><span className="text-white/10"><GlitchText text="ECONOMICS." /></span>
+            <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
+              SERVICE <br /><span className="text-white/20">ECONOMICS.</span>
             </h1>
-            <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed border-l border-white/10 pl-10">
+            <p className="max-w-4xl text-white/60 text-lg md:text-2xl font-medium italic leading-relaxed border-l border-white/20 pl-10 py-4 mb-20">
               "Precision engineering requires transparent resource allocation. Select the protocol architecture that aligns with your operational threshold."
             </p>
           </motion.div>

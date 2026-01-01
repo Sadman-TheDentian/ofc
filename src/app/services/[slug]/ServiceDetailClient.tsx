@@ -76,13 +76,11 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
               <div className="h-[1px] w-32 bg-gradient-to-l from-transparent to-[#00FF41]/40" />
             </div>
 
-            <h1 className="text-5xl md:text-8xl lg:text-[140px] font-[1000] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-24">
-              {service.title.split(' ').map((word, i) => (
-                <GlitchText key={i} text={word + ' '} className={i % 2 !== 0 ? "text-white/10" : "text-white"} />
-              ))}
+            <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
+              {service.title}
             </h1>
 
-            <p className="max-w-4xl mx-auto text-white/40 text-xl md:text-4xl font-light italic leading-relaxed mb-20 md:mb-32 px-4 border-x border-white/5 py-4">
+            <p className="max-w-4xl mx-auto text-white/60 text-lg md:text-2xl font-medium italic leading-relaxed mb-20 md:mb-24 border-l border-white/20 pl-10 py-4">
               "{service.description}"
             </p>
 

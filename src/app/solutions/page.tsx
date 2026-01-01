@@ -102,17 +102,17 @@ export default function SolutionsPage() {
               <TechnicalIcon icon={Target} glowColor="#00FF41" className="scale-75 origin-left" />
               <RevealText text="STRATEGIC_SECTOR_MAPPING // V9.4_ACTIVE" className="text-[11px] font-[1000] tracking-[1.2em] text-[#00FF41] uppercase italic" />
             </div>
-            <h1 className="text-5xl md:text-8xl lg:text-[180px] font-[1000] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-24">
-              <GlitchText text="SECTOR" /> <br /> <span className="text-white/10 group-hover:text-white transition-colors duration-1000"><GlitchText text="PROTOCOLS." /></span>
+            <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
+              SECTOR <br /> <span className="text-white/20">PROTOCOLS.</span>
             </h1>
-            <p className="max-w-5xl text-white/40 text-xl md:text-5xl font-light italic leading-relaxed border-l border-white/10 pl-16 py-8 hover:border-[#00FF41]/40 transition-colors">
+            <p className="max-w-4xl text-white/60 text-lg md:text-2xl font-medium italic leading-relaxed border-l border-white/20 pl-10 py-4">
               "Tactical architectures engineered for the most demanding industrial risk profiles. Absolute digital sovereignty starts at the sector baseline."
             </p>
           </motion.div>
 
-          {/* Background Layered Text */}
-          <div className="absolute -bottom-40 -right-40 opacity-5 pointer-events-none select-none">
-            <span className="text-[20vw] font-[1000] text-white italic tracking-tighter leading-none">STRAT_SYS</span>
+          {/* Simplified Background Element */}
+          <div className="absolute -bottom-20 -right-20 opacity-[0.03] pointer-events-none select-none hidden lg:block">
+            <span className="text-[15vw] font-black text-white italic tracking-tighter leading-none">STRAT_SYS</span>
           </div>
         </div>
 
