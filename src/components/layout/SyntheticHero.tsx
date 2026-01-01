@@ -15,6 +15,7 @@ interface HeroProps {
 
 import GlitchText from "../GlitchText";
 import DigitalHorizon from "./DigitalHorizon";
+import Magnetic from "../Magnetic";
 
 const SyntheticHero = ({
 	title = "DIGITAL SOVEREIGNTY",
@@ -103,14 +104,15 @@ const SyntheticHero = ({
 							initial={{ y: 100, opacity: 0, filter: "blur(20px)" }}
 							animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
 							transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-							className="text-[10vw] md:text-[8vw] lg:text-[140px] font-[900] tracking-[-0.07em] text-white uppercase leading-[0.7] mix-blend-difference"
+							className="relative text-[10vw] md:text-[8vw] lg:text-[150px] font-[1000] tracking-[-0.08em] text-white uppercase leading-[0.8] mb-8"
 							style={{ fontFamily: "'Outfit', sans-serif" }}
 						>
+							<div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-full w-full bg-white/[0.02] blur-3xl pointer-events-none -z-10" />
 							{title.split(' ').map((word, i) => (
 								<GlitchText
 									key={i}
 									text={word + (i < title.split(' ').length - 1 ? ' ' : '')}
-									className={i % 2 !== 0 ? "text-white/10" : "text-white"}
+									className={i % 2 !== 0 ? "text-white/20" : "text-white"}
 								/>
 							))}
 						</motion.h1>
@@ -135,44 +137,70 @@ const SyntheticHero = ({
 					className="flex flex-col sm:flex-row gap-10 justify-center items-center"
 				>
 					{ctaButtons?.map((btn, idx) => (
-						<motion.div
-							key={idx}
-							whileHover={{ scale: 1.05, y: -2 }}
-							whileTap={{ scale: 0.98 }}
-						>
+						<Magnetic key={idx} strength={0.2}>
 							<Button
 								asChild
 								size="lg"
-								className={`h-16 px-14 rounded-full text-[13px] font-bold uppercase tracking-[0.2em] transition-all duration-500 border-0 ${btn.primary
-									? "bg-white text-black hover:bg-[#00FF41] hover:text-black shadow-[0_20px_40px_rgba(255,255,255,0.1)] hover:shadow-[0_20px_60px_rgba(0,255,65,0.3)]"
-									: "bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] text-white backdrop-blur-md"
-									}`}
+								className={`h-22 px-16 rounded-full text-[13px] font-[1000] uppercase tracking-[0.3em] transition-all duration-700 border-0 ${btn.primary
+									? "bg-white text-black hover:bg-[#00FF41] hover:text-black shadow-[0_20px_60px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_80px_rgba(0,255,65,0.4)]"
+									: "bg-white/[0.03] border border-white/10 hover:bg-white/[0.1] text-white backdrop-blur-md"
+									} relative overflow-hidden group/btn`}
 							>
 								<Link href={btn.href || "#"}>
-									{btn.text}
-									{btn.primary && (
-										<ArrowRight className="ml-3 h-5 w-5" />
-									)}
+									<span className="relative z-10 flex items-center">
+										{btn.text}
+										{btn.primary && (
+											<ArrowRight className="ml-4 h-5 w-5 group-hover/btn:translate-x-3 transition-transform duration-500" />
+										)}
+									</span>
+									<div className="absolute inset-0 bg-[#00FF41] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-700 pointer-events-none" />
 								</Link>
 							</Button>
-						</motion.div>
+						</Magnetic>
 					))}
 				</motion.div>
 
-				{/* Micro-Details / Status Stream */}
+				{/* Tactical Status Stream - High-Fidelity HUD */}
 				<motion.div
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ duration: 2, delay: 1.5 }}
-					className="mt-32 flex flex-wrap justify-center gap-x-20 gap-y-10"
+					className="mt-40 w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0"
 				>
 					{microDetails?.map((detail, idx) => (
-						<div key={idx} className="flex flex-col items-center gap-3 group">
-							<span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20 group-hover:text-[#00FF41] transition-colors duration-500">
-								{detail}
-							</span>
-							<div className="h-[1px] w-8 bg-white/10 group-hover:bg-[#00FF41] transition-all duration-500"></div>
-						</div>
+						<motion.div
+							key={idx}
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ delay: 1.6 + (idx * 0.2), duration: 1 }}
+							className="flex flex-col items-center md:items-start px-12 relative group"
+						>
+							{/* Horizontal Connector for Desktop */}
+							{idx < microDetails.length - 1 && (
+								<div className="absolute top-1/2 right-0 w-px h-10 bg-white/5 hidden md:block -translate-y-1/2" />
+							)}
+
+							<div className="flex items-center gap-6 mb-4">
+								<div className="relative">
+									<div className="h-2 w-2 rounded-full bg-[#00FF41] animate-pulse shadow-[0_0_10px_#00FF41]" />
+									<div className="absolute inset-0 h-2 w-2 rounded-full bg-[#00FF41]/40 animate-ping" />
+								</div>
+								<span className="text-[11px] font-[1000] text-white tracking-[0.6em] uppercase italic group-hover:text-[#00FF41] transition-colors duration-700">
+									{detail}
+								</span>
+							</div>
+
+							<div className="flex items-center gap-4 w-full">
+								<div className="h-[1px] flex-grow bg-white/5 group-hover:bg-[#00FF41]/20 transition-all duration-700"></div>
+								<div className="flex items-center gap-3">
+									<span className="text-[7px] font-mono text-white/10 uppercase tracking-widest group-hover:text-white/30 transition-colors">L-VAL: {0.982 + idx * 0.005}</span>
+									<span className="text-[7px] font-mono text-[#00FF41]/40 uppercase tracking-widest italic font-black">NOMINAL</span>
+								</div>
+							</div>
+
+							{/* Hover Background Accent */}
+							<div className="absolute inset-0 bg-[#00FF41]/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-2xl -z-10" />
+						</motion.div>
 					))}
 				</motion.div>
 			</div>

@@ -6,10 +6,14 @@ import SafeImage from "@/components/SafeImage";
 import { SanityImage, NewsArticle } from "@/lib/types";
 import { urlFor } from "@/lib/sanity-client";
 import { ArrowRight, Calendar, User, Radio, Activity, Target } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import RevealText from "@/components/RevealText";
 import Magnetic from "@/components/Magnetic";
 import TechnicalIcon from "@/components/TechnicalIcon";
+
+import GlitchText from "@/components/GlitchText";
+import HUDSection from "@/components/HUDSection";
 
 export default function NewsClient({ newsItems }: { newsItems: NewsArticle[] }) {
     return (
@@ -18,19 +22,26 @@ export default function NewsClient({ newsItems }: { newsItems: NewsArticle[] }) 
                 {/* Cinematic Header */}
                 <div className="max-w-7xl mb-12 md:mb-32 relative">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, scale: 1.05 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute -top-40 -left-20 w-[600px] h-[600px] bg-[#00FF41]/5 blur-[120px] rounded-full pointer-events-none"
+                    />
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
                     >
-                        <div className="flex items-center gap-8 mb-8 md:mb-12">
+                        <div className="flex items-center gap-10 mb-10 md:mb-16">
                             <TechnicalIcon icon={Radio} glowColor="#00FF41" className="scale-75 origin-left animate-pulse" />
-                            <RevealText text="INTEL_STREAM_v6.4" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] uppercase" />
+                            <RevealText text="INTEL_STREAM // DECLASSIFIED_TRANSMISSIONS" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
                         </div>
                         <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-                            REAL-TIME <br /><span className="text-white/10">INTELLIGENCE.</span>
+                            <GlitchText text="REAL-TIME" /> <br /><span className="text-white/10"><GlitchText text="INTELLIGENCE." /></span>
                         </h1>
-                        <p className="max-w-4xl text-white/40 text-xl md:text-4xl font-light italic leading-relaxed">
-                            Declassified transmissions from our global operations center and tactical units.
+                        <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed border-l border-[#00FF41]/20 pl-10">
+                            "Declassified transmissions from our global operations center and specialized tactical units deployed across the digital substrate."
                         </p>
                     </motion.div>
                 </div>
@@ -42,38 +53,52 @@ export default function NewsClient({ newsItems }: { newsItems: NewsArticle[] }) 
 
                     return (
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1 }}
-                            className="mb-40"
+                            className="mb-40 md:mb-60"
                         >
                             <Link href={`/news/${featured.slug.current}`} className="group block">
-                                <div className="relative aspect-[21/9] rounded-[4rem] overflow-hidden border border-white/10 group-hover:border-[#00FF41]/30 transition-all duration-700">
+                                <div className="relative aspect-[21/9] rounded-[4rem] overflow-hidden border border-white/5 group-hover:border-[#00FF41]/40 transition-all duration-1000 shadow-[0_0_80px_rgba(0,0,0,1)]">
                                     <SafeImage
                                         src={featuredImageUrl}
                                         alt={featured.title}
                                         fill
                                         className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 opacity-40 group-hover:opacity-100"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
 
-                                    <div className="absolute bottom-0 left-0 p-12 md:p-20 z-10 w-full">
-                                        <div className="flex items-center gap-4 mb-8">
-                                            <span className="px-3 py-1 bg-[#00FF41] text-black text-[9px] font-black uppercase tracking-widest">FLASH_REPORT</span>
-                                            <span className="text-[9px] font-bold text-white/40 uppercase tracking-[0.4em]">{new Date(featured.publishedAt).toLocaleDateString()}</span>
+                                    <div className="absolute top-12 left-12 md:top-20 md:left-20 flex items-center gap-4">
+                                        <div className="h-2 w-2 bg-[#00FF41] rounded-full animate-ping" />
+                                        <span className="text-[10px] font-black text-[#00FF41] tracking-[0.4em] uppercase italic">LIVE_FEED_ACTIVE</span>
+                                    </div>
+
+                                    <div className="absolute bottom-0 left-0 p-12 md:p-24 z-10 w-full">
+                                        <div className="flex items-center gap-6 mb-10">
+                                            <span className="px-5 py-2 bg-[#00FF41] text-black text-[10px] font-black uppercase tracking-[0.3em]">FLASH_REPORT_v6.4</span>
+                                            <div className="h-px w-20 bg-white/20" />
+                                            <span className="text-[10px] font-[900] text-white/40 uppercase tracking-[0.5em]">{new Date(featured.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase()}</span>
                                         </div>
-                                        <h2 className="text-4xl md:text-7xl font-black text-white italic uppercase tracking-tighter leading-none mb-8 max-w-4xl group-hover:translate-x-4 transition-transform duration-700">
+                                        <h2 className="text-4xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-[0.85] mb-12 max-w-5xl group-hover:translate-x-6 transition-transform duration-1000">
                                             {featured.title}
                                         </h2>
-                                        <div className="flex items-center gap-6">
+                                        <div className="flex items-center gap-8">
                                             <Magnetic>
-                                                <div className="h-16 w-16 rounded-full bg-white text-black flex items-center justify-center">
-                                                    <ArrowRight className="h-6 w-6" />
+                                                <div className="h-20 w-20 rounded-full bg-white text-black flex items-center justify-center group-hover:bg-[#00FF41] transition-all duration-500 shadow-2xl">
+                                                    <ArrowRight className="h-8 w-8" />
                                                 </div>
                                             </Magnetic>
-                                            <span className="text-[10px] font-bold text-[#00FF41] tracking-[0.4em] uppercase">ACCESS_FULL_INTEL</span>
+                                            <div className="flex flex-col">
+                                                <span className="text-[10px] font-black text-[#00FF41] tracking-[0.6em] uppercase">ACCESS_FULL_INTEL</span>
+                                                <span className="text-[8px] font-black text-white/20 tracking-[0.4em] uppercase mt-1 italic">SECURE_LINK // VERIFIED_SOURCE</span>
+                                            </div>
                                         </div>
+                                    </div>
+
+                                    {/* HUD Borders */}
+                                    <div className="absolute inset-0 p-10 pointer-events-none opacity-20">
+                                        <div className="w-full h-full border border-white/5 rounded-[3.5rem]" />
                                     </div>
                                 </div>
                             </Link>
@@ -83,47 +108,51 @@ export default function NewsClient({ newsItems }: { newsItems: NewsArticle[] }) 
 
                 {/* Tactical Feed List */}
                 <div className="grid lg:grid-cols-12 gap-32">
-                    <div className="lg:col-span-8 space-y-24">
+                    <div className="lg:col-span-8 space-y-32">
                         {newsItems.slice(1).map((item, idx) => {
                             const itemImageUrl = item.mainImage ? urlFor(item.mainImage as SanityImage)?.url() : undefined;
                             return (
                                 <motion.div
                                     key={item._id}
-                                    initial={{ opacity: 0, x: -20 }}
+                                    initial={{ opacity: 0, x: -30 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1 }}
+                                    transition={{ delay: idx * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                                 >
                                     <Link href={`/news/${item.slug.current}`} className="group block">
-                                        <div className="flex flex-col md:flex-row gap-16 items-center border-b border-white/10 pb-20 group-hover:border-[#00FF41]/30 transition-colors">
-                                            <div className="w-full md:w-80 aspect-video relative rounded-[2.5rem] overflow-hidden shrink-0 border border-white/10">
+                                        <div className="flex flex-col md:flex-row gap-16 items-start border-b border-white/5 pb-24 group-hover:border-[#00FF41]/40 transition-colors duration-700">
+                                            <div className="w-full md:w-96 aspect-video relative rounded-[3rem] overflow-hidden shrink-0 border border-white/5 shadow-xl">
                                                 <SafeImage
                                                     src={itemImageUrl}
                                                     alt={item.title}
                                                     fill
-                                                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 opacity-40 group-hover:opacity-100"
+                                                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 opacity-30 group-hover:opacity-100 scale-110 group-hover:scale-100"
                                                 />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60" />
                                             </div>
-                                            <div className="flex-grow">
-                                                <div className="flex items-center gap-6 mb-6">
-                                                    <span className="text-[10px] font-black tracking-[0.5em] text-[#00FF41] uppercase">UN_0{idx + 2}</span>
-                                                    <div className="h-px w-12 bg-white/20" />
-                                                    <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.6em]">{new Date(item.publishedAt).toLocaleDateString()}</span>
+                                            <div className="flex-grow pt-4">
+                                                <div className="flex items-center gap-6 mb-8">
+                                                    <span className="text-[11px] font-black tracking-[0.5em] text-[#00FF41] uppercase italic">UN_{idx + 2}</span>
+                                                    <div className="h-1 w-1 bg-white/20 rounded-full" />
+                                                    <span className="text-[11px] font-black text-white/20 uppercase tracking-[0.4em]">{new Date(item.publishedAt).toLocaleDateString()}</span>
                                                 </div>
-                                                <h3 className="text-3xl md:text-5xl font-[900] text-white italic uppercase tracking-tighter mb-8 group-hover:text-[#00FF41] transition-colors leading-none">
+                                                <h3 className="text-3xl md:text-5xl font-[900] text-white italic uppercase tracking-tighter leading-[0.9] mb-8 group-hover:text-[#00FF41] transition-colors duration-500">
                                                     {item.title}
                                                 </h3>
                                                 {item.excerpt && (
-                                                    <p className="text-white/40 text-xl font-light italic leading-relaxed line-clamp-2 mb-10">
+                                                    <p className="text-white/30 text-xl font-light italic leading-relaxed line-clamp-2 mb-10 border-l border-white/5 pl-8">
                                                         {item.excerpt}
                                                     </p>
                                                 )}
-                                                <div className="flex items-center gap-4 text-[10px] font-[900] text-white/30 uppercase tracking-[0.4em]">
+                                                <div className="flex items-center gap-6 text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">
                                                     <TechnicalIcon icon={Target} glowColor="#00FF41" className="scale-50 origin-left" />
-                                                    {item.author?.name || 'FIELD_OPERATOR'}
+                                                    {item.author?.name || 'FIELD_OPERATOR_v4'}
                                                 </div>
                                             </div>
-                                            <ArrowRight className="h-10 w-10 text-white/10 group-hover:text-[#00FF41] group-hover:translate-x-4 transition-all shrink-0" />
+                                            <div className="hidden md:flex flex-col items-center gap-4 self-center pr-8 opacity-10 group-hover:opacity-100 transition-opacity">
+                                                <ArrowRight className="h-10 w-10 text-white group-hover:text-[#00FF41] group-hover:translate-x-4 transition-all" />
+                                                <span className="text-[8px] font-black tracking-widest text-white/20 uppercase vertical-text">SECURE_LINK</span>
+                                            </div>
                                         </div>
                                     </Link>
                                 </motion.div>
@@ -133,17 +162,29 @@ export default function NewsClient({ newsItems }: { newsItems: NewsArticle[] }) 
 
                     {/* Tactical Sidebar */}
                     <aside className="lg:col-span-4 space-y-24">
-                        <div className="bg-white/[0.01] border border-white/10 rounded-[4rem] p-16 sticky top-40">
-                            <div className="flex items-center gap-6 mb-12">
-                                <TechnicalIcon icon={Activity} glowColor="#00FF41" className="scale-75 origin-left" />
-                                <span className="text-[10px] font-black tracking-[0.6em] text-white uppercase italic">INTEL_FEED_v6.4</span>
+                        <HUDSection label="UNIT_CAPABILITIES" className="sticky top-40">
+                            <div className="space-y-12">
+                                <div className="space-y-6">
+                                    <span className="text-[11px] font-black tracking-[0.5em] text-[#00FF41] uppercase block">NODE_FEED_STATUS</span>
+                                    <div className="flex items-center justify-between pb-6 border-b border-white/5">
+                                        <span className="text-[10px] font-black text-white/30 tracking-[0.3em] uppercase">LINK_INTEGRITY</span>
+                                        <span className="text-[10px] font-black text-[#00FF41] tracking-[0.3em]">99.8%</span>
+                                    </div>
+                                    <div className="flex items-center justify-between pb-6 border-b border-white/5">
+                                        <span className="text-[10px] font-black text-white/30 tracking-[0.3em] uppercase">SYNC_LATENCY</span>
+                                        <span className="text-[10px] font-black text-white/60 tracking-[0.3em]">12MS</span>
+                                    </div>
+                                </div>
+                                <div className="p-10 bg-white/[0.02] border border-white/5 rounded-3xl">
+                                    <p className="text-base md:text-lg font-light text-white/20 italic leading-relaxed">
+                                        All transmissions within this feed are officially cleared for sovereign protocol distribution. Field operators should maintain active session sync for real-time intel modules.
+                                    </p>
+                                </div>
+                                <Button className="w-full h-16 rounded-full bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] hover:bg-[#00FF41] transition-all">
+                                    INITIATE_SYNC_v6
+                                </Button>
                             </div>
-                            <div className="pt-12 border-t border-white/10">
-                                <p className="text-lg font-light text-white/20 italic leading-relaxed">
-                                    All transmissions within this feed are officially cleared for sovereign protocol distribution. Recurrent field operators should maintain active session sync for real-time intel modules.
-                                </p>
-                            </div>
-                        </div>
+                        </HUDSection>
                     </aside>
                 </div>
 

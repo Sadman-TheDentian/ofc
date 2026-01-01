@@ -88,77 +88,94 @@ import GlitchText from '@/components/GlitchText';
 
 export default function SolutionsPage() {
   return (
-    <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+    <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative selection:bg-[#00FF41]/30">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,65,0.02),transparent_70%)] pointer-events-none" />
+
       <div className="container px-4 relative z-10">
-        <div className="max-w-7xl mb-12 md:mb-32 relative">
+        <div className="max-w-7xl mb-12 md:mb-52 relative">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="flex items-center gap-10 md:gap-12 mb-8 md:mb-12">
+            <div className="flex items-center gap-10 md:gap-16 mb-12 md:mb-16">
               <TechnicalIcon icon={Target} glowColor="#00FF41" className="scale-75 origin-left" />
-              <RevealText text="STRATEGIC_SECTOR_MAPPING // V9.4" className="text-[10px] font-bold tracking-[1.2em] text-[#00FF41] uppercase" />
+              <RevealText text="STRATEGIC_SECTOR_MAPPING // V9.4_ACTIVE" className="text-[11px] font-[1000] tracking-[1.2em] text-[#00FF41] uppercase italic" />
             </div>
-            <h1 className="text-5xl md:text-8xl lg:text-[160px] font-[900] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-16">
-              <GlitchText text="SECTOR" /> <br /> <span className="text-white/10"><GlitchText text="PROTOCOLS." /></span>
+            <h1 className="text-5xl md:text-8xl lg:text-[180px] font-[1000] tracking-[-0.05em] text-white uppercase italic leading-[0.7] mb-12 md:mb-24">
+              <GlitchText text="SECTOR" /> <br /> <span className="text-white/10 group-hover:text-white transition-colors duration-1000"><GlitchText text="PROTOCOLS." /></span>
             </h1>
-            <p className="max-w-4xl text-white/40 text-xl md:text-3xl font-light italic leading-relaxed">
+            <p className="max-w-5xl text-white/40 text-xl md:text-5xl font-light italic leading-relaxed border-l border-white/10 pl-16 py-8 hover:border-[#00FF41]/40 transition-colors">
               "Tactical architectures engineered for the most demanding industrial risk profiles. Absolute digital sovereignty starts at the sector baseline."
             </p>
           </motion.div>
+
+          {/* Background Layered Text */}
+          <div className="absolute -bottom-40 -right-40 opacity-5 pointer-events-none select-none">
+            <span className="text-[20vw] font-[1000] text-white italic tracking-tighter leading-none">STRAT_SYS</span>
+          </div>
         </div>
 
         {/* Vertical Markets - Wide Experimental Strips */}
-        <section className="mb-32 md:mb-60 lg:mb-80 overflow-hidden">
-          <div className="flex items-center gap-8 md:gap-12 mb-16 md:mb-32">
-            <h2 className="text-[10px] font-black tracking-[1em] text-[#00FF41] uppercase italic whitespace-nowrap">BLOCK_01 // INDUSTRIAL_VERTICALS</h2>
-            <div className="h-px flex-grow bg-white/10" />
+        <section className="mb-32 md:mb-[30vh] lg:mb-[40vh] relative">
+          <div className="flex items-center gap-12 md:gap-20 mb-20 md:mb-40">
+            <h2 className="text-[12px] font-[1000] tracking-[1.5em] text-[#00FF41] uppercase italic whitespace-nowrap">BLOCK_01 // INDUSTRIAL_VERTICALS</h2>
+            <div className="h-[2px] flex-grow bg-gradient-to-r from-[#00FF41]/40 via-white/5 to-transparent" />
           </div>
 
-          <div className="space-y-16">
+          <div className="space-y-24 md:space-y-32">
             {verticalMarkets.map((item, idx) => (
               <motion.div
                 key={item.slug}
-                initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                className="group"
               >
-                <Link href={`/solutions/vertical-markets/${item.slug}`} className="group block">
-                  <div className="bg-white/[0.01] border border-white/5 rounded-[3rem] md:rounded-[6rem] p-10 md:px-24 md:py-24 hover:bg-white/[0.04] hover:border-[#00FF41]/40 transition-all duration-1000 flex flex-col lg:flex-row gap-12 lg:gap-24 items-center justify-between relative overflow-hidden group/card">
+                <Link href={`/solutions/vertical-markets/${item.slug}`} className="block relative">
+                  <div className="bg-white/[0.01] border border-white/5 rounded-[4rem] md:rounded-[8rem] p-12 md:px-32 md:py-32 hover:bg-[#00FF41]/[0.02] hover:border-[#00FF41]/30 transition-all duration-1000 flex flex-col lg:flex-row gap-16 lg:gap-32 items-center justify-between relative overflow-hidden group/card shadow-[0_0_100px_rgba(0,0,0,1)]">
+
+                    {/* HUD Corner Brackets */}
+                    <div className="absolute top-16 left-16 w-16 h-16 border-t border-l border-white/5 group-hover/card:border-[#00FF41]/40 transition-colors" />
+
                     {/* Industrial ID Label */}
-                    <div className="absolute top-10 right-20 text-[8px] font-black text-white/5 uppercase tracking-[0.5em] group-hover/card:text-[#00FF41]/20 transition-colors">
-                      STRAT_NODE // 0{idx + 1}
+                    <div className="absolute top-16 right-32 flex flex-col items-end">
+                      <span className="text-[10px] font-black text-white/5 uppercase tracking-[0.5em] group-hover/card:text-[#00FF41]/20 transition-colors">STRAT_NODE_ALPHA</span>
+                      <span className="text-[12px] font-[1000] text-[#00FF41] tracking-[0.8em] italic">0{idx + 1}</span>
                     </div>
 
-                    <div className="absolute top-0 right-0 p-12 md:p-24 opacity-[0.02] group-hover:opacity-[0.08] transition-opacity duration-1000">
-                      <item.icon className="h-64 w-64 md:h-96 md:w-96 text-white" />
+                    <div className="absolute top-1/2 right-1/4 -translate-y-1/2 opacity-[0.01] group-hover:opacity-[0.05] transition-opacity duration-1000 scale-150 rotate-12 blur-sm group-hover:blur-0 transform-gpu translate-x-32 group-hover:translate-x-0">
+                      <item.icon className="h-[400px] w-[400px] text-white" />
                     </div>
 
-                    <div className="flex flex-col lg:flex-row items-center gap-24 flex-grow relative z-10">
-                      <div className="shrink-0">
-                        <TechnicalIcon icon={item.icon as any} glowColor="#00FF41" className="scale-150" />
+                    <div className="flex flex-col lg:flex-row items-center gap-32 flex-grow relative z-10">
+                      <div className="shrink-0 group-hover:rotate-12 transition-transform duration-1000 filter drop-shadow-[0_0_30px_rgba(0,255,65,0.2)]">
+                        <TechnicalIcon icon={item.icon as any} glowColor="#00FF41" className="scale-[2.5]" />
                       </div>
-                      <div className="max-w-3xl text-center lg:text-left">
-                        <div className="text-[11px] font-black tracking-[0.8em] text-[#00FF41] mb-8 uppercase italic group-hover:translate-x-6 transition-transform duration-700">{item.tag}</div>
-                        <h3 className="text-5xl md:text-8xl font-[900] text-white italic uppercase tracking-tighter mb-10 group-hover:translate-x-10 transition-transform duration-1000 leading-none">{item.name}</h3>
-                        <p className="text-white/30 text-xl md:text-2xl font-light italic leading-relaxed max-w-2xl">{item.description}</p>
+                      <div className="max-w-4xl text-center lg:text-left">
+                        <div className="flex items-center justify-center lg:justify-start gap-6 mb-10 overflow-hidden">
+                          <div className="h-px w-10 bg-[#00FF41]/40 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-1000" />
+                          <div className="text-[13px] font-[1000] tracking-[1em] text-[#00FF41] uppercase italic group-hover:translate-x-4 transition-transform duration-700">{item.tag}</div>
+                        </div>
+                        <h3 className="text-5xl md:text-[8vw] font-[1000] text-white italic uppercase tracking-tighter mb-12 group-hover:translate-x-16 transition-all duration-1000 leading-[0.85]">{item.name}</h3>
+                        <p className="text-white/30 text-xl md:text-4xl font-light italic leading-relaxed max-w-3xl border-l border-white/5 pl-12 hover:border-[#00FF41]/20 transition-colors">{item.description}</p>
                       </div>
                     </div>
 
-                    <div className="flex flex-col items-center lg:items-end gap-16 shrink-0 relative z-10">
-                      <div className="space-y-6">
+                    <div className="flex flex-col items-center lg:items-end gap-24 shrink-0 relative z-10">
+                      <div className="space-y-8">
                         {item.metrics.map((metric, i) => (
-                          <div key={i} className="flex items-center gap-6 text-[10px] font-black text-white/10 tracking-[0.4em] uppercase italic group-hover:text-[#00FF41]/60 transition-colors">
-                            <div className="h-1.5 w-1.5 rounded-full bg-current" />
+                          <div key={i} className="flex items-center gap-8 text-[12px] font-black text-white/10 tracking-[0.5em] uppercase italic group-hover:text-white/60 transition-all duration-1000 translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100" style={{ transitionDelay: `${i * 100}ms` }}>
+                            <div className="h-1.5 w-8 bg-[#00FF41]/40" />
                             {metric}
                           </div>
                         ))}
                       </div>
-                      <Magnetic>
-                        <div className="h-28 w-28 rounded-full bg-white text-black flex items-center justify-center group-hover:bg-[#00FF41] transition-all group-hover:scale-110 shadow-[0_20px_60px_rgba(255,255,255,0.1)] group-hover:shadow-[0_20px_80px_rgba(0,255,65,0.3)] duration-700">
-                          <ArrowRight className="h-12 w-12" />
+                      <Magnetic strength={0.2}>
+                        <div className="h-32 w-32 rounded-full border border-white/10 text-white flex items-center justify-center bg-white/[0.02] group-hover:bg-[#00FF41] group-hover:text-black transition-all group-hover:scale-110 shadow-2xl duration-700 relative overflow-hidden">
+                          <ArrowRight className="h-12 w-12 group-hover:translate-x-4 transition-transform duration-500 relative z-10" />
+                          <div className="absolute inset-0 bg-[#00FF41] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
                         </div>
                       </Magnetic>
                     </div>
@@ -170,45 +187,55 @@ export default function SolutionsPage() {
         </section>
 
         {/* Operational Use Cases - Asymmetric Dashboard Modules */}
-        <section className="mb-24 md:mb-60 overflow-hidden">
-          <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-end mb-16 md:mb-40">
-            <div>
-              <RevealText text="BLOCK_02 // OPERATIONAL_LOGIC" className="text-[10px] font-black tracking-[1em] text-[#00FF41] mb-8 md:mb-12 block" />
-              <h2 className="text-5xl md:text-8xl lg:text-[140px] font-[900] text-white uppercase italic tracking-tighter leading-[0.8] mb-8 md:mb-12">DEEP <br /> <span className="text-white/20">UTILITY.</span></h2>
+        <section className="mb-24 md:mb-[20vh] overflow-hidden relative">
+          <div className="absolute -top-40 -left-60 w-[600px] h-[600px] bg-[#00FF41]/5 blur-[200px] rounded-full pointer-events-none" />
+          <div className="grid lg:grid-cols-2 gap-16 md:gap-40 items-end mb-24 md:mb-60">
+            <div className="relative z-10">
+              <div className="flex items-center gap-10 mb-12">
+                <TechnicalIcon icon={Network} glowColor="#00FF41" className="scale-75 origin-left" />
+                <RevealText text="BLOCK_02 // OPERATIONAL_LOGIC_MESH" className="text-[12px] font-[1000] tracking-[1.5em] text-[#00FF41] mb-8 md:mb-12 block italic" />
+              </div>
+              <h2 className="text-5xl md:text-9xl lg:text-[180px] font-[1000] text-white uppercase italic tracking-tighter leading-[0.8] mb-8 md:mb-12">DEEP <br /> <span className="text-white/10 group-hover:text-white transition-colors duration-1000">UTILITY.</span></h2>
             </div>
-            <p className="text-white/30 text-xl md:text-2xl font-light italic leading-relaxed max-w-xl">
+            <p className="text-white/30 text-xl md:text-4xl font-light italic leading-relaxed max-w-2xl border-l border-white/10 pl-16 py-6 italic">
               "Advanced deployments that operate across different industrial silos to establish an absolute security baseline."
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-[5rem] overflow-hidden shadow-2xl relative z-10">
             {operationalCases.map((item, idx) => (
               <motion.div
                 key={item.slug}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="group"
+                transition={{ delay: idx * 0.1, duration: 1 }}
+                className="group/case"
               >
-                <Link href={`/solutions/operational-use-cases/${item.slug}`} className="block h-full">
-                  <div className="bg-white/[0.01] border border-white/10 rounded-[3rem] md:rounded-[5rem] p-10 md:p-16 h-full flex flex-col justify-between hover:bg-white/[0.04] hover:border-[#00FF41]/40 transition-all duration-1000 relative overflow-hidden">
-                    <div className="absolute -top-10 -right-10 p-16 opacity-[0.01] group-hover:opacity-[0.05] transition-opacity duration-1000">
-                      <item.icon className="h-40 w-40 md:h-48 md:w-48 text-white" />
+                <Link href={`/solutions/operational-use-cases/${item.slug}`} className="block h-full bg-black hover:bg-[#00FF41]/[0.02] transition-colors duration-1000 relative overflow-hidden group">
+                  <div className="p-12 md:p-20 h-full flex flex-col justify-between relative z-10">
+
+                    <div className="absolute top-12 left-12 w-10 h-10 border-t border-l border-white/5 group-hover:border-[#00FF41]/20 transition-colors" />
+
+                    <div className="absolute -top-10 -right-10 p-20 opacity-[0.01] group-hover:opacity-[0.05] transition-opacity duration-1000 scale-150 rotate-12 blur-sm group-hover:blur-0">
+                      <item.icon className="h-60 w-60 text-white" />
                     </div>
 
                     <div className="relative z-10">
-                      <div className="mb-16">
-                        <TechnicalIcon icon={item.icon as any} glowColor="#00FF41" className="scale-110 origin-left" />
+                      <div className="mb-20 flex justify-between items-center">
+                        <div className="h-24 w-24 flex items-center justify-center p-6 bg-white/[0.01] border border-white/5 rounded-[2.5rem] group-hover:border-[#00FF41]/40 group-hover:bg-[#00FF41]/5 transition-all duration-700 shadow-xl overflow-hidden text-white/10 group-hover:text-[#00FF41]">
+                          <item.icon className="h-10 w-10 transition-transform duration-1000 group-hover:scale-125" />
+                        </div>
+                        <span className="text-[11px] font-[1000] text-white/5 tracking-[0.6em] italic italic uppercase group-hover:text-[#00FF41]/20 transition-colors">v9.2</span>
                       </div>
-                      <div className="text-[9px] font-black text-white/10 tracking-[0.6em] mb-4 uppercase italic group-hover:text-[#00FF41] transition-colors">{item.tech}</div>
-                      <h3 className="text-4xl font-[900] text-white italic uppercase tracking-tighter mb-8 group-hover:translate-x-4 transition-transform duration-700 leading-tight">{item.name}</h3>
-                      <p className="text-white/30 text-lg font-light italic leading-relaxed mb-12">{item.description}</p>
+                      <div className="text-[11px] font-[1000] text-[#00FF41]/40 tracking-[0.8em] mb-6 uppercase italic group-hover:text-[#00FF41] transition-colors">{item.tech}</div>
+                      <h3 className="text-4xl md:text-5xl font-[1000] text-white italic uppercase tracking-tighter mb-10 group-hover:translate-x-8 transition-all duration-1000 leading-none">{item.name}</h3>
+                      <p className="text-white/20 text-xl font-light italic leading-relaxed mb-16 border-l border-white/10 pl-10 group-hover:border-[#00FF41]/20 group-hover:text-white/40 transition-all duration-1000">{item.description}</p>
                     </div>
 
-                    <div className="pt-12 border-t border-white/5 flex items-center justify-between group-hover:border-[#00FF41]/20 transition-colors">
-                      <span className="text-[10px] font-black text-white/10 tracking-[0.4em] uppercase group-hover:text-[#00FF41]/60 transition-colors">VIEW_DECON</span>
-                      <ArrowRight className="h-5 w-5 text-white/10 group-hover:text-[#00FF41] transition-all transform group-hover:translate-x-2" />
+                    <div className="pt-16 border-t border-white/5 flex items-center justify-between group-hover:border-[#00FF41]/20 transition-colors opacity-0 group-hover:opacity-100 transition-opacity duration-1000 animate-in slide-in-from-bottom-4">
+                      <span className="text-[11px] font-[1000] text-[#00FF41] tracking-[0.4em] uppercase italic italic">VIEW_DECON_PROTOCOL</span>
+                      <ArrowRight className="h-6 w-6 text-[#00FF41] animate-pulse" />
                     </div>
                   </div>
                 </Link>
@@ -218,10 +245,14 @@ export default function SolutionsPage() {
         </section>
 
         {/* Sector HUD Footer */}
-        <div className="mt-40 pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-12 opacity-20">
-          <div className="text-[10px] font-black tracking-[0.8em] text-white uppercase font-mono italic">SOLUTIONS_INDEX_v9.4 // POLLING_ACTIVE</div>
-          <div className="flex gap-16 text-[10px] font-black tracking-[0.8em] text-white uppercase italic text-center md:text-right">
-            " SOVEREIGNTY THROUGH STRATEGIC HARDENING. "
+        <div className="mt-40 md:mt-80 pt-24 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-16 md:gap-32 relative overflow-hidden">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-[#00FF41]/20 to-transparent shadow-[0_0_20px_#00FF41]" />
+          <div className="text-[11px] font-[1000] tracking-[1.5em] text-white/20 uppercase italic transition-colors hover:text-[#00FF41]/40 cursor-default">SYST_SOVEREIGNTY // NODE_INDEX_v12.4_NOMINAL</div>
+          <div className="flex items-center gap-10">
+            <div className="h-px w-24 bg-white/5" />
+            <div className="text-[12px] font-[1000] tracking-[2em] text-[#00FF41] uppercase italic text-center md:text-right blur-[0.5px] hover:blur-0 transition-all cursor-default">
+              " ABSOLUTE_Sovereignty. "
+            </div>
           </div>
         </div>
       </div>

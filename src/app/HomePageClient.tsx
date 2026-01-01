@@ -73,20 +73,6 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         />
       </motion.div>
 
-      {/* NEW SECTION: Top Level Trust Ticker */}
-      <section className="py-24 border-b border-white/5 bg-white/[0.01]">
-        <div className="container px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-            <div className="flex items-center gap-4 shrink-0">
-              <div className="h-2 w-2 rounded-full bg-[#00FF41] animate-pulse" />
-              <span className="text-[9px] font-black tracking-[0.4em] text-white/30 uppercase">SOVEREIGN_PARTNERS_ACTIVE</span>
-            </div>
-            <div className="flex-grow">
-              <PartnerSlider partners={partners} />
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section className="py-24 md:py-48 bg-black relative overflow-hidden border-y border-white/5">
         <div
@@ -651,19 +637,37 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         </div>
       </section>
 
-      {/* High-End Global Network */}
-      <section className="py-24 md:py-60 bg-black relative border-t border-white/5 overflow-hidden">
+      {/* Refined Global Network Section */}
+      <section className="py-40 md:py-60 bg-black relative border-t border-white/5 overflow-hidden">
         <div className="container px-4">
-          <div className="text-center mb-16 md:mb-32">
-            <RevealText text="SOVEREIGN_ALLIANCES" className="text-[10px] font-bold tracking-[1em] text-white/20 uppercase mb-6 md:mb-8" />
-            <h2 className="text-3xl md:text-6xl font-black text-white italic uppercase tracking-tighter">GLOBAL TRUST NETWORK</h2>
+          <div className="text-center mb-24 md:mb-40">
+            <div className="flex items-center justify-center gap-6 mb-8">
+              <div className="h-px w-12 bg-[#00FF41]/20" />
+              <RevealText text="STRATEGIC_ALLIANCE_NETWORK" className="text-[11px] font-[1000] tracking-[1em] text-[#00FF41] uppercase italic" />
+              <div className="h-px w-12 bg-[#00FF41]/20" />
+            </div>
+            <h2 className="text-4xl md:text-8xl font-[1000] text-white italic uppercase tracking-tighter leading-none">
+              VERIFIED <span className="text-white/20">EQUILIBRIUM.</span>
+            </h2>
           </div>
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="bg-white/[0.01] border border-white/5 rounded-[3rem] md:rounded-[4rem] p-8 md:p-20 backdrop-blur-3xl"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="bg-white/[0.01] border border-white/5 rounded-[4rem] md:rounded-[5rem] p-12 md:p-32 backdrop-blur-3xl relative group/network"
           >
+            {/* HUD Corner Brackets */}
+            <div className="absolute top-12 left-12 w-16 h-16 border-t border-l border-white/10 group-hover/network:border-[#00FF41]/30 transition-all duration-700" />
+            <div className="absolute bottom-12 right-12 w-16 h-16 border-b border-r border-white/10 group-hover/network:border-[#00FF41]/30 transition-all duration-700" />
+
             <PartnerSlider partners={partners} />
+
+            <div className="mt-20 flex justify-center items-center gap-10 opacity-20">
+              <span className="text-[8px] font-black tracking-[0.5em] text-white uppercase italic">ALL_NODES_VERIFIED</span>
+              <div className="h-1 w-1 bg-[#00FF41] rounded-full" />
+              <span className="text-[8px] font-black tracking-[0.5em] text-white uppercase italic">ENCRYPTED_SYNC_ACTIVE</span>
+            </div>
           </motion.div>
         </div>
       </section>
