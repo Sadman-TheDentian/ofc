@@ -80,7 +80,7 @@ export default function ProductsPage() {
                             <RevealText text="THE_INSTRUMENT_COLLECTION // ASSET_SUBSTRATE" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
                         </div>
                         <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
-                            SYSTEM <br /><span className="text-white/20">ASSETS.</span>
+                            <GlitchText text="SYSTEM ASSETS." />
                         </h1>
                         <p className="max-w-4xl text-white/60 text-lg md:text-2xl font-medium italic leading-relaxed border-l border-white/20 pl-10 py-4 mb-16">
                             "A suite of proprietary security instruments engineered by DentiSystems to establish total digital sovereignty in high-fidelity environments."

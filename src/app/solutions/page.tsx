@@ -103,7 +103,7 @@ export default function SolutionsPage() {
               <RevealText text="STRATEGIC_SECTOR_MAPPING // V9.4_ACTIVE" className="text-[11px] font-[1000] tracking-[1.2em] text-[#00FF41] uppercase italic" />
             </div>
             <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
-              SECTOR <br /> <span className="text-white/20">PROTOCOLS.</span>
+              <GlitchText text="SECTOR PROTOCOLS." />
             </h1>
             <p className="max-w-4xl text-white/60 text-lg md:text-2xl font-medium italic leading-relaxed border-l border-white/20 pl-10 py-4">
               "Tactical architectures engineered for the most demanding industrial risk profiles. Absolute digital sovereignty starts at the sector baseline."

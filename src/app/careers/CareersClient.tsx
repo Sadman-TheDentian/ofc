@@ -77,7 +77,7 @@ export default function CareersClient() {
                         </div>
 
                         <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
-                            JOIN THE <br /><span className="text-white/20">ELITE.</span>
+                            <GlitchText text="JOIN THE ELITE." />
                         </h1>
 
                         <p className="max-w-4xl text-white/60 text-lg md:text-2xl font-medium italic leading-relaxed border-l border-white/20 pl-10 py-4 mb-20">

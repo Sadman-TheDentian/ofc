@@ -46,7 +46,7 @@ export default function AboutPage() {
               <RevealText text="THE_ORIGIN_STORY // ALPHA_NODES_v9.2" className="text-[11px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
             </div>
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
-              ALPHA <br /> <span className="text-white/20">UNITS.</span>
+              <GlitchText text="ALPHA UNITS." />
             </h1>
             <p className="max-w-3xl text-white/60 text-lg md:text-2xl font-medium italic leading-relaxed mb-16 md:mb-20 border-l border-white/20 pl-10 py-4">
               We are the architecture behind the silence. A specialized collective of intelligence architects redesigning the boundaries of digital sovereignty since inception.

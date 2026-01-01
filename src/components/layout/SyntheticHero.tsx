@@ -33,27 +33,32 @@ const SyntheticHero = ({
 	const containerRef = useRef<HTMLElement | null>(null);
 
 	return (
-		<section ref={containerRef} className="relative min-h-screen w-full bg-black flex flex-col items-center justify-center py-20">
+		<section ref={containerRef} className="relative h-screen min-h-[700px] w-full bg-black overflow-hidden flex items-center justify-center p-4">
 			<DigitalHorizon />
 
-			<div className="container relative z-20 px-4 flex flex-col items-center justify-center flex-grow">
-				<div className="max-w-5xl w-full text-center mb-8">
+			{/* Subtle Architectural Lighting */}
+			<div className="absolute inset-0 pointer-events-none">
+				<div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.03),transparent_60%)]" />
+			</div>
+
+			<div className="container relative z-20 flex flex-col items-center">
+				<div className="max-w-[1400px] w-full text-center">
 					<motion.h1
-						initial={{ opacity: 0, y: 30 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8, ease: "easeOut" }}
-						className="text-6xl md:text-8xl lg:text-[100px] font-black tracking-tighter text-white uppercase leading-tight"
+						initial={{ opacity: 0, scale: 0.95, filter: "blur(20px)" }}
+						animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+						transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+						className="relative text-[12vw] lg:text-[160px] font-black tracking-[-0.06em] leading-[0.8] mb-12 uppercase italic"
 						style={{ fontFamily: "'Outfit', sans-serif" }}
 					>
-						{title}
+						<GlitchText text={typeof title === 'string' ? title : "DIGITAL SOVEREIGNTY"} />
 					</motion.h1>
 				</div>
 
 				<motion.p
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.8, delay: 0.2 }}
-					className="max-w-2xl mx-auto text-lg md:text-xl text-white/60 mb-12 font-medium leading-relaxed text-center"
+					transition={{ duration: 1, delay: 0.4 }}
+					className="max-w-2xl mx-auto text-base md:text-xl text-white/40 mb-12 font-light leading-relaxed text-center italic"
 				>
 					{description}
 				</motion.p>
@@ -61,51 +66,55 @@ const SyntheticHero = ({
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.8, delay: 0.3 }}
-					className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+					transition={{ duration: 1, delay: 0.6 }}
+					className="flex flex-col sm:flex-row gap-10 justify-center items-center"
 				>
 					{ctaButtons?.map((btn, idx) => (
-						<Button
-							key={idx}
-							asChild
-							size="lg"
-							className={`h-14 px-10 rounded-full text-sm font-bold uppercase tracking-widest transition-all duration-300 ${btn.primary
-								? "bg-white text-black hover:bg-[#00FF41]"
-								: "bg-transparent border border-white/20 hover:bg-white/5 text-white"
-								}`}
-						>
-							<Link href={btn.href || "#"}>
-								{btn.text}
-								{btn.primary && <ArrowRight className="ml-3 h-4 w-4" />}
-							</Link>
-						</Button>
+						<Magnetic key={idx} strength={0.2}>
+							<Button
+								asChild
+								size="lg"
+								className={`h-20 px-16 rounded-full text-xs font-black uppercase tracking-[0.4em] transition-all duration-500 ${btn.primary
+									? "bg-white text-black hover:bg-[#00FF41]"
+									: "bg-white/[0.02] border border-white/5 hover:bg-white/10 text-white"
+									}`}
+							>
+								<Link href={btn.href || "#"}>
+									{btn.text}
+									{btn.primary && <ArrowRight className="ml-4 h-4 w-4" />}
+								</Link>
+							</Button>
+						</Magnetic>
 					))}
 				</motion.div>
 
-				{/* Professional Status Stream */}
+				{/* Sharp Technical Subsystem Status */}
 				<motion.div
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
-					transition={{ duration: 1, delay: 0.5 }}
-					className="mt-20 w-full max-w-4xl grid grid-cols-1 sm:grid-cols-3 gap-8"
+					transition={{ duration: 1.5, delay: 1 }}
+					className="absolute bottom-12 md:bottom-20 left-0 right-0 w-full px-12 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 max-w-7xl mx-auto"
 				>
 					{microDetails?.map((detail, idx) => (
-						<div key={idx} className="flex flex-col items-center sm:items-start border-l border-white/10 pl-6">
-							<div className="flex items-center gap-3 mb-2">
-								<div className="h-1.5 w-1.5 rounded-full bg-[#00FF41]" />
-								<span className="text-[10px] font-bold text-white/80 tracking-widest uppercase">
+						<div key={idx} className="flex flex-col items-center md:items-start border-l border-white/5 pl-8 group">
+							<div className="flex items-center gap-4 mb-2">
+								<div className="h-1 w-1 bg-[#00FF41]/40" />
+								<span className="text-[9px] font-black text-white/20 tracking-[0.6em] group-hover:text-white/60 transition-colors uppercase italic">
 									{detail}
 								</span>
 							</div>
-							<span className="text-[9px] font-mono text-white/30 tracking-widest uppercase">STATUS: NOMINAL</span>
+							<div className="flex items-center gap-3">
+								<span className="text-[8px] font-mono text-white/10 uppercase tracking-[0.3em]">SECURE_NODE_SYNC:</span>
+								<span className="text-[8px] font-mono text-[#00FF41]/30 uppercase tracking-[0.3em] font-black">ACTIVE.0{idx + 1}</span>
+							</div>
 						</div>
 					))}
 				</motion.div>
 			</div>
 
-			<div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-30 opacity-30">
-				<span className="text-[9px] tracking-widest font-bold text-white uppercase">SCROLL</span>
-				<div className="h-8 w-[1px] bg-white/40" />
+			<div className="absolute bottom-10 right-10 flex flex-col items-end gap-2 opacity-10">
+				<span className="text-[8px] tracking-[0.5em] font-bold text-white uppercase italic">DENTI_OFC_LINK_v7.4</span>
+				<div className="h-[1px] w-40 bg-white" />
 			</div>
 		</section>
 	);

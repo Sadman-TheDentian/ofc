@@ -207,48 +207,84 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         </div>
       </section>
 
-      <section className="py-24 md:py-48 bg-black border-y border-white/5" id="resonance-stack">
-        <div className="container px-4">
-          <div className="max-w-4xl mb-24">
-            <div className="flex items-center gap-4 mb-8">
-              <span className="text-[10px] font-bold tracking-[0.8em] text-[#00FF41] uppercase">SYSTEM_ARCHITECTURE</span>
-              <div className="h-px w-20 bg-[#00FF41]/20" />
-            </div>
-            <h2 className="text-5xl md:text-7xl font-black text-white italic uppercase tracking-tighter leading-tight mb-8">
-              THE <span className="text-white/20">RESONANCE</span> STACK
-            </h2>
-            <p className="text-white/40 text-xl font-light italic leading-relaxed max-w-2xl">
-              A proprietary defense substrate operating at the edge of machine intelligence and human intuition.
-            </p>
-          </div>
+      {/* 02 // ARCHITECTURAL RESONANCE STACK - Restore Pinned/Scrolling Design */}
+      <section ref={archRef} className="relative h-[300vh] bg-black border-t border-white/5" id="resonance-stack">
+        <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
+          <div className="container px-4">
+            <div className="grid lg:grid-cols-12 gap-20 md:gap-32 items-center">
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {(securityDivisions && securityDivisions.length > 0 ? securityDivisions : services).slice(0, 4).map((service, idx) => {
-              const isSanity = 'mainImage' in service;
-              const imageUrl = isSanity
-                ? (service.mainImage ? urlFor(service.mainImage)?.url() : undefined)
-                : (service as any).imageUrl;
-              const slug = isSanity ? (service as any).slug.current : (service as any).slug;
-
-              return (
-                <Link href={`/services/${slug}`} key={idx}>
-                  <div className="group bg-white/[0.02] border border-white/10 rounded-[2.5rem] p-10 hover:bg-white/[0.04] hover:border-[#00FF41]/30 transition-all duration-500 flex flex-col h-full">
-                    <div className="h-60 relative rounded-2xl overflow-hidden mb-8 border border-white/5">
-                      <SafeImage src={imageUrl} alt={service.title} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
-                    </div>
-                    <div className="mt-auto">
-                      <span className="text-[10px] font-bold text-[#00FF41] tracking-widest uppercase mb-4 block">RESONANCE_ENTITY_0{idx + 1}</span>
-                      <h3 className="text-3xl md:text-4xl font-black text-white italic uppercase tracking-tight mb-4">{service.title}</h3>
-                      <p className="text-white/40 text-lg font-light leading-relaxed mb-8 line-clamp-2">{service.description}</p>
-                      <div className="flex items-center justify-between pt-8 border-t border-white/5">
-                        <span className="text-[10px] font-bold text-white/20 group-hover:text-[#00FF41] tracking-widest uppercase transition-colors">INITIATE_PROTOCOL</span>
-                        <ArrowRight className="h-5 w-5 group-hover:translate-x-4 transition-transform text-[#00FF41]" />
-                      </div>
-                    </div>
+              {/* Left Column: Pinned Technical specifications */}
+              <div className="lg:col-span-5 relative z-10">
+                <motion.div>
+                  <div className="flex items-center gap-6 mb-12">
+                    <div className="h-px w-12 bg-[#00FF41]/30" />
+                    <span className="text-[10px] font-black tracking-[1em] text-[#00FF41] uppercase italic">SYSTEM_ARCHITECTURE</span>
                   </div>
-                </Link>
-              );
-            })}
+
+                  <h2 className="text-6xl md:text-8xl font-black text-white italic uppercase tracking-tighter leading-[0.85] mb-12">
+                    <GlitchText text="THE RESONANCE STACK." />
+                  </h2>
+
+                  <p className="text-white/30 text-xl font-light italic leading-relaxed mb-16 max-w-sm border-l border-white/10 pl-10">
+                    A proprietary defense substrate operating at the edge of machine intelligence and human intuition.
+                  </p>
+
+                  <div className="space-y-10 border-t border-white/5 pt-16">
+                    {[
+                      { label: "PROTOCOL", val: "RESONANCE_v7.4" },
+                      { label: "SUBSTRATE", val: "NEURAL_DEEP_MESH" },
+                      { label: "ENFORCEMENT", val: "ZERO_TRUST_L4", color: "text-[#00FF41]" }
+                    ].map((m, i) => (
+                      <div key={i} className="flex items-center justify-between group">
+                        <span className="text-[9px] font-black tracking-[0.4em] text-white/10 uppercase group-hover:text-white/40 transition-colors">{m.label}</span>
+                        <span className={`text-[11px] font-black italic tracking-widest uppercase ${m.color || 'text-white'}`}>{m.val}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Right Column: High-Fidelity Scrolling Cards */}
+              <div className="lg:col-span-7 relative h-[70vh] flex items-start overflow-visible pt-10">
+                <motion.div
+                  style={{ y }}
+                  className="flex flex-col gap-16 w-full"
+                >
+                  {(securityDivisions && securityDivisions.length > 0 ? securityDivisions : services).slice(0, 4).map((service, idx) => {
+                    const isSanity = 'mainImage' in service;
+                    const imageUrl = isSanity
+                      ? (service.mainImage ? urlFor(service.mainImage)?.url() : undefined)
+                      : (service as any).imageUrl;
+                    const slug = isSanity ? (service as any).slug.current : (service as any).slug;
+
+                    return (
+                      <Link href={`/services/${slug}`} key={idx} className="group/item">
+                        <div className="bg-white/[0.01] border border-white/5 rounded-[4rem] p-12 hover:bg-white/[0.03] hover:border-[#00FF41]/20 transition-all duration-700 relative overflow-hidden flex flex-col h-[520px]">
+                          <div className="h-56 relative rounded-3xl overflow-hidden mb-10 border border-white/5 bg-black">
+                            <SafeImage src={imageUrl} alt={service.title} fill className="object-cover grayscale group-hover/item:grayscale-0 group-hover/item:scale-105 transition-all duration-1000 opacity-40 group-hover/item:opacity-100" />
+                            <div className="absolute inset-x-8 bottom-8 flex items-center justify-between opacity-0 group-hover/item:opacity-100 transition-all">
+                              <span className="text-[8px] font-black text-white/60 tracking-widest uppercase italic">NODE_IMG_v{idx + 1}</span>
+                              <div className="h-1 w-1 bg-[#00FF41] rounded-full animate-pulse" />
+                            </div>
+                          </div>
+                          <div className="mt-auto">
+                            <h3 className="text-4xl md:text-5xl font-black text-white italic uppercase tracking-tighter mb-6 group-hover/item:translate-x-6 transition-transform duration-700">
+                              <GlitchText text={service.title} />
+                            </h3>
+                            <p className="text-white/30 text-lg font-light italic leading-relaxed mb-10 line-clamp-2">{service.description}</p>
+                            <div className="flex items-center justify-between pt-10 border-t border-white/5">
+                              <span className="text-[9px] font-black text-white/20 group-hover/item:text-[#00FF41] tracking-[0.6em] transition-colors">ENGAGE_SUBSYSTEM</span>
+                              <ArrowRight className="h-5 w-5 text-[#00FF41] group-hover/item:translate-x-4 transition-transform" />
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </motion.div>
+              </div>
+
+            </div>
           </div>
         </div>
       </section>
@@ -544,7 +580,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
               <div className="h-px w-12 bg-[#00FF41]/20" />
             </div>
             <h2 className="text-4xl md:text-7xl lg:text-9xl font-[1000] text-white italic uppercase tracking-tighter leading-none">
-              VERIFIED <span className="text-white/20">EQUILIBRIUM.</span>
+              <GlitchText text="VERIFIED EQUILIBRIUM." />
             </h2>
           </div>
           <motion.div
@@ -580,7 +616,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
             <div className="max-w-2xl text-center md:text-left">
               <span className="text-[10px] font-black tracking-[1em] text-[#00FF41] mb-8 md:mb-12 block uppercase">SYSTEM_SUBSTRATE</span>
               <h2 className="text-5xl md:text-7xl lg:text-8xl font-black text-white italic uppercase tracking-tighter leading-none mb-8 md:mb-12">
-                ENGINEERED FOR <br /><span className="text-white/20">SOVEREIGNTY.</span>
+                <GlitchText text="ENGINEERED FOR SOVEREIGNTY." />
               </h2>
               <p className="text-white/30 text-xl font-light italic leading-relaxed mb-12 md:mb-16">
                 Deep technical specifications of the DentiSystems neural mesh and distributed intelligence substrate. Absolute digital authority, back-to-zero.

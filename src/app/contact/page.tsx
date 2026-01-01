@@ -89,7 +89,7 @@ export default function ContactPage() {
                                 <RevealText text="COMMUNICATIONS // SECURE_TELEM_LINK" className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic" />
                             </div>
                             <h1 className="text-5xl md:text-8xl lg:text-9xl font-[1000] tracking-tighter text-white uppercase italic leading-[0.85] mb-12">
-                                ESTABLISH <br /><span className="text-white/20">CONTACT.</span>
+                                <GlitchText text="ESTABLISH CONTACT." />
                             </h1>
                             <p className="max-w-xl text-white/60 text-lg md:text-2xl font-medium leading-relaxed mb-12 md:mb-24 italic border-l border-white/20 pl-10 py-2">
                                 Open a direct line to our intelligence units for mission-critical security inquiries and high-fidelity project coordination.
