@@ -11,10 +11,10 @@ export default function DigitalHorizon() {
     return (
         <motion.div
             style={{ y, opacity }}
-            className="absolute bottom-0 left-0 w-full h-[40vh] pointer-events-none z-10 overflow-hidden"
+            className="absolute inset-x-0 bottom-0 h-full pointer-events-none z-10 overflow-hidden"
         >
             {/* Grid Floor */}
-            <div className="absolute inset-0 [perspective:1000px]">
+            <div className="absolute bottom-0 left-0 w-full h-[60vh] [perspective:1000px]">
                 <div
                     className="absolute inset-0 [transform:rotateX(60deg)] origin-bottom"
                     style={{
@@ -29,10 +29,10 @@ export default function DigitalHorizon() {
             </div>
 
             {/* Horizon Architecture - Atmospheric Glow Only (Nullified Linear Artifact) */}
-            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#00FF41]/15 to-transparent pointer-events-none blur-2xl opacity-30" />
+            <div className="absolute bottom-[60vh] left-0 w-full h-64 bg-gradient-to-b from-[#00FF41]/15 to-transparent pointer-events-none blur-3xl opacity-30" />
 
             {/* Glow */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-40 bg-gradient-to-t from-[#00FF41]/10 to-transparent blur-3xl pointer-events-none" />
+            <div className="absolute bottom-[60vh] left-1/2 -translate-x-1/2 w-full h-80 bg-gradient-to-t from-[#00FF41]/10 to-transparent blur-[120px] pointer-events-none" />
         </motion.div>
     );
 }
