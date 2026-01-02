@@ -15,7 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import NeuralPulseCore from '@/components/NeuralPulseCore';
+import SovereignMonolith from '@/components/SovereignMonolith';
 import React, { useState, useRef } from "react";
 import Image from 'next/image';
 import SafeImage from '@/components/SafeImage';
@@ -98,17 +98,9 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                 </div>
 
                 <h2 className="text-5xl md:text-8xl lg:text-9xl font-[1000] text-white italic uppercase tracking-tighter mb-16 md:mb-20 leading-[0.8] relative group/title">
-                  GLOBAL<br />
-                  <span className="text-white/10 group-hover/hud:text-white transition-colors duration-1000">LINK</span>
-                  <span className="text-[#00FF41]">_CORE.</span>
-
-                  {/* Subtle Underline Detail */}
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    transition={{ duration: 1.5, delay: 0.5 }}
-                    className="absolute -bottom-8 left-0 h-[2px] w-48 bg-gradient-to-r from-[#00FF41] to-transparent origin-left"
-                  />
+                  THE<br />
+                  <span className="text-white/10 group-hover/hud:text-white transition-colors duration-1000">MONOLITH</span>
+                  <span className="text-[#00FF41]">_BASE.</span>
                 </h2>
 
                 <p className="text-white/40 text-xl md:text-2xl font-light leading-relaxed mb-20 md:mb-24 italic max-w-2xl border-l border-white/10 pl-12">
@@ -141,46 +133,25 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
               </div>
 
               <div className="lg:col-span-6 relative">
-                <div className="relative group/core">
-                  {/* Frame Brackets for Component */}
-                  <div className="absolute -top-4 -left-4 w-12 h-12 border-t border-l border-[#00FF41]/40 rounded-tl-xl z-30" />
-                  <div className="absolute -bottom-4 -right-4 w-12 h-12 border-b border-r border-[#00FF41]/40 rounded-br-xl z-30" />
+                <div className="relative">
+                  {/* Clean Containment Frame */}
+                  <div className="absolute inset-0 border border-white/5 rounded-3xl pointer-events-none" />
 
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#00FF41]/10 to-transparent blur-[120px] opacity-0 group-hover/core:opacity-100 transition-opacity duration-1000" />
+                  <SovereignMonolith />
 
-                  <NeuralPulseCore />
-
-                  {/* Technical HUD Overlays */}
-                  <div className="absolute top-8 right-8 z-40 hidden xl:block pointer-events-none">
-                    <div className="p-4 bg-black/80 border border-white/10 rounded-xl backdrop-blur-md">
-                      <div className="flex items-center gap-3 mb-3">
-                        <Activity className="h-3 w-3 text-[#00FF41] animate-pulse" />
-                        <span className="text-[7px] font-black text-[#00FF41] tracking-[0.2em] uppercase italic">ENCRYPTED_TELEMETRY</span>
+                  {/* Minimalist Data Feed */}
+                  <div className="absolute bottom-12 left-12 right-12 flex justify-between items-end pointer-events-none">
+                    <div className="flex flex-col gap-2">
+                      <div className="flex gap-1">
+                        {[...Array(4)].map((_, i) => (
+                          <div key={i} className="h-1 w-1 bg-[#00FF41]/20 rounded-full" />
+                        ))}
                       </div>
-                      <div className="space-y-1">
-                        <div className="h-[2px] w-32 bg-white/5 overflow-hidden"><motion.div animate={{ x: ['-100%', '100%'] }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className="h-full w-1/2 bg-[#00FF41]/40" /></div>
-                        <div className="h-[2px] w-32 bg-white/5 overflow-hidden"><motion.div animate={{ x: ['100%', '-100%'] }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} className="h-full w-1/3 bg-[#00FF41]/30" /></div>
-                      </div>
-                      <div className="mt-3 flex justify-between">
-                        <span className="text-[6px] font-mono text-white/20">TX: 412 MB/S</span>
-                        <span className="text-[6px] font-mono text-white/20">RX: 1.02 GB/S</span>
-                      </div>
+                      <span className="text-[7px] font-black text-white/20 tracking-[0.4em] uppercase italic">ENCRYPTION_LAYER_ISOLATED</span>
                     </div>
-                  </div>
-
-                  {/* Secondary HUD: Signal Strength */}
-                  <div className="absolute bottom-8 left-8 z-40 hidden xl:block pointer-events-none">
-                    <div className="space-y-1">
-                      {[5, 4, 3, 2, 1].map((i) => (
-                        <motion.div
-                          key={i}
-                          animate={{ opacity: [0.1, 0.4, 0.1] }}
-                          transition={{ duration: 1 + i * 0.2, repeat: Infinity }}
-                          className={`h-0.5 w-${i * 4} bg-[#00FF41]`}
-                        />
-                      ))}
+                    <div className="text-right">
+                      <span className="text-[7px] font-mono text-white/10 uppercase tracking-widest">STABILITY_99.9%</span>
                     </div>
-                    <span className="text-[6px] font-black text-[#00FF41]/40 tracking-widest mt-2 block uppercase">SIG_STRENGTH: ULTRA_L4</span>
                   </div>
                 </div>
               </div>
