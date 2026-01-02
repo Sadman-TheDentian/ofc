@@ -97,9 +97,18 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                   <span className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic">LIVE_INTEL_STREAM // ACTIVE</span>
                 </div>
 
-                <h2 className="text-5xl md:text-8xl lg:text-9xl font-[1000] text-white italic uppercase tracking-tighter mb-16 md:mb-20 leading-[0.8] relative">
+                <h2 className="text-5xl md:text-8xl lg:text-9xl font-[1000] text-white italic uppercase tracking-tighter mb-16 md:mb-20 leading-[0.8] relative group/title">
                   GLOBAL<br />
-                  <span className="text-white/10 group-hover/hud:text-white transition-colors duration-1000">LINK_CORE.</span>
+                  <span className="text-white/10 group-hover/hud:text-white transition-colors duration-1000">LINK</span>
+                  <span className="text-[#00FF41]">_CORE.</span>
+
+                  {/* Subtle Underline Detail */}
+                  <motion.div
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    transition={{ duration: 1.5, delay: 0.5 }}
+                    className="absolute -bottom-8 left-0 h-[2px] w-48 bg-gradient-to-r from-[#00FF41] to-transparent origin-left"
+                  />
                 </h2>
 
                 <p className="text-white/40 text-xl md:text-2xl font-light leading-relaxed mb-20 md:mb-24 italic max-w-2xl border-l border-white/10 pl-12">
@@ -132,15 +141,47 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
               </div>
 
               <div className="lg:col-span-6 relative">
-                <NeuralPulseCore />
-                {/* Technical Specification HUD */}
-                <div className="absolute top-0 right-0 md:-right-10 bg-black/80 border border-white/10 rounded-2xl p-4 md:p-6 backdrop-blur-xl z-30 hidden md:block group-hover/hud:-translate-y-2 transition-transform">
-                  <div className="text-[8px] font-black text-[#00FF41] tracking-[0.3em] uppercase mb-3">SYSTEM_SPEC_HUD</div>
-                  <ul className="space-y-2 text-[7px] font-mono text-white/40 uppercase tracking-widest leading-none">
-                    <li className="flex justify-between gap-8 italic"><span>CORE:</span> <span className="text-white">RESONANCE_74</span></li>
-                    <li className="flex justify-between gap-8 italic"><span>ENCRYPT:</span> <span className="text-[#00FF41]">AES_256_GCM</span></li>
-                    <li className="flex justify-between gap-8 italic"><span>NODES:</span> <span className="text-white">ACTIVE_182</span></li>
-                  </ul>
+                <div className="relative group/core">
+                  {/* Frame Brackets for Component */}
+                  <div className="absolute -top-4 -left-4 w-12 h-12 border-t border-l border-[#00FF41]/40 rounded-tl-xl z-30" />
+                  <div className="absolute -bottom-4 -right-4 w-12 h-12 border-b border-r border-[#00FF41]/40 rounded-br-xl z-30" />
+
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#00FF41]/10 to-transparent blur-[120px] opacity-0 group-hover/core:opacity-100 transition-opacity duration-1000" />
+
+                  <NeuralPulseCore />
+
+                  {/* Technical HUD Overlays */}
+                  <div className="absolute top-8 right-8 z-40 hidden xl:block pointer-events-none">
+                    <div className="p-4 bg-black/80 border border-white/10 rounded-xl backdrop-blur-md">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Activity className="h-3 w-3 text-[#00FF41] animate-pulse" />
+                        <span className="text-[7px] font-black text-[#00FF41] tracking-[0.2em] uppercase italic">ENCRYPTED_TELEMETRY</span>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="h-[2px] w-32 bg-white/5 overflow-hidden"><motion.div animate={{ x: ['-100%', '100%'] }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className="h-full w-1/2 bg-[#00FF41]/40" /></div>
+                        <div className="h-[2px] w-32 bg-white/5 overflow-hidden"><motion.div animate={{ x: ['100%', '-100%'] }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} className="h-full w-1/3 bg-[#00FF41]/30" /></div>
+                      </div>
+                      <div className="mt-3 flex justify-between">
+                        <span className="text-[6px] font-mono text-white/20">TX: 412 MB/S</span>
+                        <span className="text-[6px] font-mono text-white/20">RX: 1.02 GB/S</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Secondary HUD: Signal Strength */}
+                  <div className="absolute bottom-8 left-8 z-40 hidden xl:block pointer-events-none">
+                    <div className="space-y-1">
+                      {[5, 4, 3, 2, 1].map((i) => (
+                        <motion.div
+                          key={i}
+                          animate={{ opacity: [0.1, 0.4, 0.1] }}
+                          transition={{ duration: 1 + i * 0.2, repeat: Infinity }}
+                          className={`h-0.5 w-${i * 4} bg-[#00FF41]`}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-[6px] font-black text-[#00FF41]/40 tracking-widest mt-2 block uppercase">SIG_STRENGTH: ULTRA_L4</span>
+                  </div>
                 </div>
               </div>
             </div>
