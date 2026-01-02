@@ -11,10 +11,12 @@ import RevealText from "@/components/RevealText";
 import Magnetic from "@/components/Magnetic";
 import TechnicalIcon from "@/components/TechnicalIcon";
 import GlitchText from "@/components/GlitchText";
+import CyberGrid from "@/components/CyberGrid";
 
 export default function ThreatReportsClient({ reports }: { reports: ThreatReport[] }) {
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 {/* Header Section */}
                 <div className="max-w-7xl mb-12 md:mb-32 relative">
@@ -52,7 +54,7 @@ export default function ThreatReportsClient({ reports }: { reports: ThreatReport
                                         <div className="bg-white/[0.01] border border-white/5 rounded-[4rem] p-12 md:px-16 md:py-12 hover:bg-white/[0.03] hover:border-red-500/30 transition-all duration-700 flex flex-col lg:flex-row items-center gap-12">
                                             {/* Report ID HUD */}
                                             <div className="flex flex-col items-center lg:items-start shrink-0">
-                                                <span className="text-[10px] font-black text-red-500 tracking-[0.4em] uppercase mb-4 opacity-40">REP_v{idx + 1}</span>
+                                                <span className="text-[10px] font-black text-red-500 tracking-[0.4em] uppercase mb-4 opacity-40">REPORT_VALIDATED</span>
                                                 <div className="h-20 w-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/20 group-hover:text-red-500 transition-all group-hover:rotate-12">
                                                     <Terminal className="h-10 w-10 shrink-0" />
                                                 </div>

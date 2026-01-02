@@ -50,10 +50,12 @@ const roles = [
 
 import GlitchText from "@/components/GlitchText";
 import HUDSection from "@/components/HUDSection";
+import CyberGrid from "@/components/CyberGrid";
 
 export default function CareersClient() {
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative selection:bg-[#00FF41]/30">
+            <CyberGrid />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,65,0.02),transparent_70%)] pointer-events-none" />
 
             <div className="container px-4 relative z-10">

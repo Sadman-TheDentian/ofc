@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Lock, FileText } from 'lucide-react';
 import TechnicalIcon from "@/components/TechnicalIcon";
+import CyberGrid from "@/components/CyberGrid";
 
 export default function PrivacyPolicyPage() {
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
@@ -15,6 +16,7 @@ export default function PrivacyPolicyPage() {
 
   return (
     <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 relative overflow-hidden">
+      <CyberGrid />
       {/* Background Architectural Grid */}
       <div className="absolute inset-0 z-0 opacity-[0.03]" style={{
         backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,

@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { Globe } from "lucide-react";
 import TechnicalIcon from "@/components/TechnicalIcon";
 import GlitchText from "@/components/GlitchText";
+import CyberGrid from "@/components/CyberGrid";
 
 type Partner = {
     _id: string;
@@ -20,6 +21,7 @@ type Partner = {
 export default function PartnersClient({ partners }: { partners: Partner[] }) {
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 {/* Header Section */}
                 <div className="max-w-7xl mb-12 md:mb-32 relative">

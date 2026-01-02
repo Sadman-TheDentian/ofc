@@ -9,6 +9,7 @@ import RevealText from "@/components/RevealText";
 import Magnetic from "@/components/Magnetic";
 import TechnicalIcon from "@/components/TechnicalIcon";
 import GlitchText from "@/components/GlitchText";
+import CyberGrid from "@/components/CyberGrid";
 
 const frameworks = [
     {
@@ -19,7 +20,7 @@ const frameworks = [
         icon: ShieldCheck
     },
     {
-        name: "ISO 27001:2022",
+        name: "ISO 27001",
         status: "COMPLIANT",
         description: "International standard for managing information security systems across the DentiSystems collective.",
         color: "#00FF41",
@@ -44,6 +45,7 @@ const frameworks = [
 export default function CompliancePage() {
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 <div className="max-w-7xl mb-12 md:mb-32 relative">
                     <motion.div

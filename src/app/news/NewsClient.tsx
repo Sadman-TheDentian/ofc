@@ -14,10 +14,12 @@ import TechnicalIcon from "@/components/TechnicalIcon";
 
 import GlitchText from "@/components/GlitchText";
 import HUDSection from "@/components/HUDSection";
+import CyberGrid from "@/components/CyberGrid";
 
 export default function NewsClient({ newsItems }: { newsItems: NewsArticle[] }) {
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 {/* Cinematic Header */}
                 <div className="max-w-7xl mb-12 md:mb-32 relative">
@@ -131,7 +133,7 @@ export default function NewsClient({ newsItems }: { newsItems: NewsArticle[] }) 
                                             </div>
                                             <div className="flex-grow pt-4">
                                                 <div className="flex items-center gap-6 mb-8">
-                                                    <span className="text-[11px] font-black tracking-[0.5em] text-[#00FF41] uppercase italic">UN_{idx + 2}</span>
+                                                    <span className="text-[11px] font-black tracking-[0.5em] text-[#00FF41] uppercase italic">UNIT_ID_VALIDATED</span>
                                                     <div className="h-1 w-1 bg-white/20 rounded-full" />
                                                     <span className="text-[11px] font-black text-white/20 uppercase tracking-[0.4em]">{new Date(item.publishedAt).toLocaleDateString()}</span>
                                                 </div>

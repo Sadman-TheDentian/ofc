@@ -8,10 +8,12 @@ import Link from "next/link";
 import TechnicalIcon from "@/components/TechnicalIcon";
 import MeshVisualizer from "@/components/MeshVisualizer";
 import GlitchText from "@/components/GlitchText";
+import CyberGrid from "@/components/CyberGrid";
 
 export default function TechnologyPage() {
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             {/* Background Architectural Grid */}
             <div className="absolute inset-0 z-0 opacity-[0.03]" style={{
                 backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
@@ -61,7 +63,7 @@ export default function TechnologyPage() {
                             icon: Network
                         },
                         {
-                            title: "Hardened Core V2",
+                            title: "Hardened Core",
                             tag: "ARCH_STABILITY",
                             desc: "Custom-built OS kernel and hypervisor layers designed to eliminate entire classes of hardware-level vulnerabilities.",
                             icon: Shield
@@ -178,7 +180,7 @@ export default function TechnologyPage() {
 
                 {/* HUD Assurance */}
                 <div className="mt-40 pt-12 border-t border-white/5 flex justify-between items-center opacity-10">
-                    <div className="text-[8px] font-bold tracking-[0.5em] text-white uppercase font-mono">SPEC_FILE // LOADED</div>
+                    <div className="text-[8px] font-bold tracking-[0.5em] text-white uppercase font-mono">SPEC_FILE</div>
                     <p className="text-[8px] font-bold tracking-[0.4em] text-white uppercase italic">" COMPLEXITY IS THE ENEMY OF SECURITY. "</p>
                 </div>
             </div>

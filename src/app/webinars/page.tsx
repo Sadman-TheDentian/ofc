@@ -8,6 +8,7 @@ import { Radio, ArrowLeft, Zap, ShieldAlert, Timer, Activity, Database, Terminal
 import { Button } from "@/components/ui/button";
 import RevealText from "@/components/RevealText";
 import Magnetic from "@/components/Magnetic";
+import CyberGrid from "@/components/CyberGrid";
 
 export default function WebinarsPage() {
   const [timeLeft, setTimeLeft] = useState({ h: 24, m: 59, s: 59 });
@@ -26,6 +27,7 @@ export default function WebinarsPage() {
 
   return (
     <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+      <CyberGrid />
       {/* Background HUD Grid */}
       <div className="absolute inset-0 z-0 opacity-[0.03]" style={{
         backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,
@@ -101,7 +103,7 @@ export default function WebinarsPage() {
               <Terminal className="h-4 w-4" />
               <span className="text-[10px] font-black tracking-widest text-[#00FF41] uppercase">TRANS_ID</span>
             </div>
-            <span className="text-sm font-black text-white italic tracking-tight lowercase">[TR_982_X_SYNC]</span>
+            <span className="text-sm font-black text-white italic tracking-tight uppercase">TRANS_SYNC_VALIDATED</span>
           </div>
           <div className="flex flex-col gap-4 border-l border-white/10 pl-10">
             <div className="flex items-center gap-3">

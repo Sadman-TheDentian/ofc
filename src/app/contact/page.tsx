@@ -25,6 +25,7 @@ const formSchema = z.object({
 
 import GlitchText from "@/components/GlitchText";
 import RevealText from "@/components/RevealText";
+import CyberGrid from "@/components/CyberGrid";
 
 export default function ContactPage() {
     const { toast } = useToast();
@@ -68,6 +69,7 @@ export default function ContactPage() {
 
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 <div className="flex flex-col lg:flex-row gap-16 md:gap-32 items-start mb-24 md:mb-60">
                     <div className="lg:w-1/2 relative">
@@ -235,9 +237,9 @@ export default function ContactPage() {
 
                     <div className="grid md:grid-cols-3 gap-12 md:gap-px bg-white/5 border border-white/5 rounded-[5rem] overflow-hidden shadow-2xl">
                         {[
-                            { city: "SINGAPORE", loc: "101 Kallang Ave", type: "HQ", id: "SG_NODE_01" },
-                            { city: "BANGLADESH", loc: "Jahaj Company More", type: "OPS", id: "BD_NODE_44" },
-                            { city: "TEK_HUB", loc: "Mohona Tower", type: "LAB", id: "TR_NODE_09" }
+                            { city: "SINGAPORE", loc: "101 Kallang Ave", type: "HQ", id: "SG_NODE" },
+                            { city: "BANGLADESH", loc: "Jahaj Company More", type: "OPS", id: "BD_NODE" },
+                            { city: "TEK_HUB", loc: "Mohona Tower", type: "LAB", id: "TR_NODE" }
                         ].map((loc, idx) => (
                             <motion.div
                                 key={idx}

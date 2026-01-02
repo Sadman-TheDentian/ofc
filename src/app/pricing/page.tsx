@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import GlitchText from "@/components/GlitchText";
 import RevealText from "@/components/RevealText";
 import TechnicalIcon from "@/components/TechnicalIcon";
+import CyberGrid from "@/components/CyberGrid";
 
 const plans = [
   {
@@ -64,6 +65,7 @@ const plans = [
 export default function PricingPage() {
   return (
     <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+      <CyberGrid />
       <div className="container px-4 relative z-10">
         <div className="max-w-7xl mb-12 md:mb-32 relative">
           <motion.div

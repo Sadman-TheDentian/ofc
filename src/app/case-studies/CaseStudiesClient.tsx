@@ -14,6 +14,7 @@ import TechnicalIcon from "@/components/TechnicalIcon";
 import { useState, useMemo } from "react";
 
 import GlitchText from "@/components/GlitchText";
+import CyberGrid from "@/components/CyberGrid";
 
 export default function CaseStudiesClient({ studies }: { studies: CaseStudy[] }) {
     const [searchQuery, setSearchQuery] = useState("");
@@ -32,6 +33,7 @@ export default function CaseStudiesClient({ studies }: { studies: CaseStudy[] })
 
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 {/* Intelligence Table Header */}
                 <div className="max-w-7xl mb-12 md:mb-32 relative">
@@ -119,7 +121,7 @@ export default function CaseStudiesClient({ studies }: { studies: CaseStudy[] })
 
                                         {/* Mission ID HUD */}
                                         <div className="flex flex-col items-center lg:items-center shrink-0 min-w-40">
-                                            <span className="text-[12px] font-black text-[#00FF41] tracking-[0.5em] uppercase mb-10 italic group-hover:scale-110 transition-transform">ID_{idx + 1}</span>
+                                            <span className="text-[12px] font-black text-[#00FF41] tracking-[0.5em] uppercase mb-10 italic group-hover:scale-110 transition-transform">MISSION_VALIDATED</span>
                                             <div className="relative">
                                                 <div className="absolute -inset-4 bg-[#00FF41]/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                                                 <TechnicalIcon icon={FileText} glowColor="#00FF41" className="scale-125" />

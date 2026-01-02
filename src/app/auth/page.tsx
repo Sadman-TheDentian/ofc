@@ -30,6 +30,7 @@ import {
 import { FirebaseError } from "firebase/app";
 import { verifyRecaptcha } from "./actions";
 import { motion } from "framer-motion";
+import CyberGrid from "@/components/CyberGrid";
 
 declare const grecaptcha: any;
 
@@ -133,6 +134,7 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center pt-32 pb-20 relative overflow-hidden">
+      <CyberGrid />
       {/* Background Architectures */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-radial-gradient from-[#00FF41]/5 via-transparent to-transparent opacity-50 blur-[100px]" />

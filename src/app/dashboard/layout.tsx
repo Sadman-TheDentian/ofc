@@ -23,6 +23,7 @@ import { useAuth } from '@/lib/auth';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import CyberGrid from '@/components/CyberGrid';
 
 const sidebarNavItems = [
   {
@@ -106,7 +107,7 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { user, loading: authLoading, logout } = useAuth();
+  const { user, loading: authLoading, signOut } = useAuth();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(true);
@@ -186,7 +187,7 @@ export default function DashboardLayout({
           variant="ghost"
           className="w-full h-12 justify-start gap-4 text-white/20 hover:text-red-500 hover:bg-red-500/5 transition-all text-[9px] font-black tracking-[0.3em] uppercase"
           onClick={() => {
-            logout();
+            signOut();
             router.push('/');
           }}
         >
@@ -212,7 +213,8 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-black">
+    <div className="flex min-h-screen bg-black relative">
+      <CyberGrid />
       {/* Structural Grain Overlay */}
       <div
         className="fixed inset-0 pointer-events-none opacity-[0.035] mix-blend-overlay z-[9999]"
@@ -276,7 +278,7 @@ export default function DashboardLayout({
                   className="invert opacity-60"
                 />
                 <span className="font-black text-xl text-white uppercase italic tracking-tighter">
-                  DentiSystems
+                  DENTI<span className="text-white/20">GRID</span>
                 </span>
               </div>
               {navContent}

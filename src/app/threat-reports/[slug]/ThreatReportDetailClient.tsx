@@ -12,12 +12,14 @@ import { motion } from "framer-motion";
 import RevealText from "@/components/RevealText";
 import Magnetic from "@/components/Magnetic";
 import GlitchText from "@/components/GlitchText";
+import CyberGrid from "@/components/CyberGrid";
 
 export default function ThreatReportDetailClient({ report }: { report: ThreatReport }) {
     const imageUrl = report.mainImage ? urlFor(report.mainImage as SanityImage)?.url() : undefined;
 
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 {/* Tactical Header */}
                 <div className="max-w-7xl mb-12 md:mb-32 relative">
@@ -74,7 +76,7 @@ export default function ThreatReportDetailClient({ report }: { report: ThreatRep
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
                             <div className="absolute bottom-12 left-12 flex items-center gap-6">
                                 <div className="h-1 w-12 bg-red-500" />
-                                <span className="text-[10px] font-black text-white tracking-[0.6em] uppercase">MISSION_ASSET_v{report._id.slice(-4).toUpperCase()}</span>
+                                <span className="text-[10px] font-black text-white tracking-[0.6em] uppercase">MISSION_ASSET_VALIDATED</span>
                             </div>
                         </motion.div>
 

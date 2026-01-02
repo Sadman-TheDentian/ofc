@@ -8,6 +8,7 @@ import { PortableText } from "@portabletext/react";
 import { groq } from "next-sanity";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, User, Terminal, Share2, Clock } from "lucide-react";
+import CyberGrid from "@/components/CyberGrid";
 
 // In a real app, this would fetch from a CMS. For now, we use a placeholder.
 const getPost = async (slug: string): Promise<BlogPost | null> => {
@@ -43,6 +44,7 @@ export default async function PostPage({
 
   return (
     <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+      <CyberGrid />
       <div className="container px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Back Button */}

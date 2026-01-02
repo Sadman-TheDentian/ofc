@@ -31,6 +31,7 @@ interface AboutSubpageProps {
 
 import GlitchText from '@/components/GlitchText';
 import TechnicalIcon from '@/components/TechnicalIcon';
+import CyberGrid from '@/components/CyberGrid';
 
 export default function AboutSubpageClient({
     title,
@@ -55,6 +56,7 @@ export default function AboutSubpageClient({
 
     return (
         <div ref={containerRef} className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 {/* Header Section */}
                 <div className="max-w-7xl mb-12 md:mb-40 relative">

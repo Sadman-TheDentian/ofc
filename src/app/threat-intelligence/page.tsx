@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import SafeImage from "@/components/SafeImage";
 import TechnicalIcon from "@/components/TechnicalIcon";
 import GlitchText from "@/components/GlitchText";
+import CyberGrid from "@/components/CyberGrid";
 
 const threatReports = [
     {
@@ -47,6 +48,7 @@ const securityAdvisories = [
 export default function ThreatIntelligencePage() {
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             {/* Background Architectural Grid */}
             <div className="absolute inset-0 z-0 opacity-[0.03]" style={{
                 backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
@@ -89,7 +91,7 @@ export default function ThreatIntelligencePage() {
                                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                                         <div className="absolute top-8 left-8">
                                             <div className="px-6 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-[9px] font-bold text-white tracking-widest uppercase">
-                                                v{idx + 1}.0 // ARCHIVE
+                                                ARCHIVE
                                             </div>
                                         </div>
                                     </div>

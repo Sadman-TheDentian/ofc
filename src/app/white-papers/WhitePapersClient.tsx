@@ -10,10 +10,12 @@ import { urlFor } from "@/lib/sanity-client";
 import { WhitePaper, SanityImage } from "@/lib/types";
 import RevealText from "@/components/RevealText";
 import GlitchText from "@/components/GlitchText";
+import CyberGrid from "@/components/CyberGrid";
 
 export default function WhitePapersClient({ papers }: { papers: WhitePaper[] }) {
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 {/* Header Section */}
                 <div className="max-w-7xl mb-12 md:mb-32 relative">

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import RevealText from "@/components/RevealText";
 import Magnetic from "@/components/Magnetic";
 import TechnicalIcon from "@/components/TechnicalIcon";
+import CyberGrid from "@/components/CyberGrid";
 
 const trainingModules = [
   {
@@ -39,6 +40,7 @@ const trainingModules = [
 export default function TrainingPage() {
   return (
     <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+      <CyberGrid />
       <div className="container px-4 relative z-10">
         {/* Academic Header */}
         <div className="max-w-7xl mb-12 md:mb-32 relative">

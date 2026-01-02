@@ -27,6 +27,7 @@ import ServiceCard from '@/components/ServiceCard';
 import Magnetic from '@/components/Magnetic';
 import TechnicalIcon from '@/components/TechnicalIcon';
 import GlitchText from '@/components/GlitchText';
+import CyberGrid from '@/components/CyberGrid';
 
 const iconMap = {
   KeyRound,
@@ -589,6 +590,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
 
       {/* The Substrate Teaser */}
       <section className="py-24 md:py-40 bg-black relative overflow-hidden border-t border-white/5">
+        <CyberGrid />
         <div className="absolute inset-0 z-0 opacity-[0.02]" style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
           backgroundSize: '100px 100px'

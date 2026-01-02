@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import RevealText from '@/components/RevealText';
 import Magnetic from '@/components/Magnetic';
 import TechnicalIcon from '@/components/TechnicalIcon';
+import CyberGrid from '@/components/CyberGrid';
 
 const verticalMarkets = [
   {
@@ -89,6 +90,7 @@ import GlitchText from '@/components/GlitchText';
 export default function SolutionsPage() {
   return (
     <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative selection:bg-[#00FF41]/30">
+      <CyberGrid />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,65,0.02),transparent_70%)] pointer-events-none" />
 
       <div className="container px-4 relative z-10">
@@ -135,8 +137,8 @@ export default function SolutionsPage() {
 
                     {/* Industrial ID Label */}
                     <div className="absolute top-16 right-32 flex flex-col items-end">
-                      <span className="text-[10px] font-black text-white/5 uppercase tracking-[0.5em] group-hover/card:text-[#00FF41]/20 transition-colors">STRAT_NODE_ALPHA</span>
-                      <span className="text-[12px] font-[1000] text-[#00FF41] tracking-[0.8em] italic">0{idx + 1}</span>
+                      <span className="text-[10px] font-black text-white/5 uppercase tracking-[0.5em] group-hover/card:text-[#00FF41]/20 transition-colors">STRAT_NODE</span>
+                      <span className="text-[12px] font-[1000] text-[#00FF41] tracking-[0.8em] italic">VALIDATED</span>
                     </div>
 
                     <div className="absolute top-1/2 right-1/4 -translate-y-1/2 opacity-[0.01] group-hover:opacity-[0.05] transition-opacity duration-1000 scale-150 rotate-12 blur-sm group-hover:blur-0 transform-gpu translate-x-32 group-hover:translate-x-0">

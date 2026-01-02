@@ -33,6 +33,12 @@ const SyntheticHero = ({
 			{/* Subtle Architectural Lighting */}
 			<div className="absolute inset-0 pointer-events-none">
 				<div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.03),transparent_60%)]" />
+				<motion.div
+					initial={{ y: "-200%" }}
+					animate={{ y: "200%" }}
+					transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+					className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF41]/10 to-transparent z-0 opacity-10 pointer-events-none blur-sm"
+				/>
 			</div>
 
 			<div className="container relative z-20 flex flex-col items-center">

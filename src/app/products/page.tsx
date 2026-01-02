@@ -11,6 +11,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import TechnicalIcon from "@/components/TechnicalIcon";
 import Image from "next/image";
+import CyberGrid from "@/components/CyberGrid";
 
 const products = [
     {
@@ -60,6 +61,7 @@ import HUDSection from "@/components/HUDSection";
 export default function ProductsPage() {
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 {/* Header Section - Visionary/Corporate Entity Style */}
                 <div className="max-w-7xl mb-12 md:mb-32 relative">
@@ -183,7 +185,7 @@ export default function ProductsPage() {
                                 </div>
                                 <div className="flex flex-col items-end">
                                     <span className="text-[10px] font-black text-white/10 tracking-[0.3em] uppercase italic">UNIT_ID</span>
-                                    <span className="text-[11px] font-black text-[#00FF41] tracking-[0.5em] uppercase italic group-hover:scale-110 transition-transform">#00{idx + 1}</span>
+                                    <span className="text-[11px] font-black text-[#00FF41] tracking-[0.5em] uppercase italic group-hover:scale-110 transition-transform">VALIDATED</span>
                                 </div>
                             </div>
 

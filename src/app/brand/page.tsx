@@ -10,12 +10,14 @@ import Magnetic from "@/components/Magnetic";
 import Image from "next/image";
 import TechnicalIcon from "@/components/TechnicalIcon";
 import GlitchText from "@/components/GlitchText";
+import CyberGrid from "@/components/CyberGrid";
 
 const logoUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirwhyibjl-3Guf8S6G442OtQmAdOzHrTcxPAuK6QxCGcAJ2I88K7Ee9DN-k_SONDddf2FeB4SwHO8l29PZ9HvHHlxJxiPDnfgrY1DBS60HsVaYv0uOAi08fm6KyrwhM7HPQhbQhL5ufVU_efX268tXM4rR8Vwok_UqbSar_b-B4btAigP5BFaU12PCjUE/s320/DENTI.SYSTEMS%20PNJ.png";
 
 export default function BrandAssetsPage() {
     return (
         <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 <div className="max-w-7xl mb-12 md:mb-32 relative">
                     <motion.div
@@ -121,7 +123,7 @@ export default function BrandAssetsPage() {
                                     <h3 className="text-[9px] font-black text-white/20 tracking-[0.6em] uppercase">TAKE_INTEL // SPACE_GROTESK</h3>
                                     <div className="h-px flex-grow bg-white/5 group-hover/spec:bg-[#00FF41]/20 transition-colors" />
                                 </div>
-                                <p className="text-2xl sm:text-4xl md:text-6xl font-bold text-white/40 tracking-tight leading-none italic uppercase">Hyper-Synchronous Intelligence 2024</p>
+                                <p className="text-2xl sm:text-4xl md:text-6xl font-bold text-white/40 tracking-tight leading-none italic uppercase">Hyper-Synchronous Intelligence</p>
                             </div>
                             <div className="group/spec">
                                 <div className="flex items-center gap-6 mb-6 md:mb-8">

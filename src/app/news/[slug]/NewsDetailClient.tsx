@@ -12,6 +12,7 @@ import Magnetic from '@/components/Magnetic';
 import RevealText from '@/components/RevealText';
 import GlitchText from '@/components/GlitchText';
 import { useRef } from 'react';
+import CyberGrid from '@/components/CyberGrid';
 
 export default function NewsDetailClient({ post }: { post: NewsArticle }) {
     const postImageUrl = post.mainImage ? urlFor(post.mainImage as SanityImage)?.url() : undefined;
@@ -26,6 +27,7 @@ export default function NewsDetailClient({ post }: { post: NewsArticle }) {
 
     return (
         <div ref={scrollRef} className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+            <CyberGrid />
             <div className="container px-4 relative z-10">
                 <div className="max-w-7xl mx-auto">
                     {/* Floating HUD Metadata */}

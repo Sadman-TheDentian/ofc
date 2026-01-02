@@ -24,6 +24,7 @@ import TechnicalIcon from '@/components/TechnicalIcon';
 import RevealText from '@/components/RevealText';
 import GlitchText from '@/components/GlitchText';
 import HUDSection from '@/components/HUDSection';
+import CyberGrid from '@/components/CyberGrid';
 
 export default function ServiceDetailClient({ service }: { service: Service }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -41,6 +42,7 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
 
   return (
     <div ref={containerRef} className="flex flex-col bg-black min-h-screen relative overflow-hidden">
+      <CyberGrid />
       {/* Cinematic Hero */}
       <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-40">
         <motion.div style={{ opacity: heroOpacity, scale: heroScale }} className="absolute inset-0 z-0">

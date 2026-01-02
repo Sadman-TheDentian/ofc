@@ -7,6 +7,7 @@ import { ArrowLeft, Activity, Server, Globe, ShieldCheck, Zap, AlertTriangle, Re
 import TechnicalIcon from "@/components/TechnicalIcon";
 import RevealText from "@/components/RevealText";
 import GlitchText from "@/components/GlitchText";
+import CyberGrid from "@/components/CyberGrid";
 
 const systems = [
   { name: "CORE_API", status: "Operational", uptime: "99.99%", latency: "14ms", color: "#00FF41", icon: Cpu },
@@ -20,6 +21,7 @@ const systems = [
 export default function StatusPage() {
   return (
     <div className="min-h-screen bg-black pt-24 md:pt-40 pb-20 overflow-hidden relative">
+      <CyberGrid />
       <div className="container px-4 relative z-10">
         <div className="max-w-7xl mb-12 md:mb-32 relative">
           <motion.div

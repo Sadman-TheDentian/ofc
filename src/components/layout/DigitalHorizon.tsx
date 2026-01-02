@@ -28,8 +28,9 @@ export default function DigitalHorizon() {
                 />
             </div>
 
-            {/* Horizon Line */}
-            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00FF41]/30 to-transparent shadow-[0_0_20px_#00FF41]" />
+            {/* Horizon Line - Softened and Integrated */}
+            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00FF41]/10 to-transparent shadow-[0_0_15px_rgba(0,255,65,0.1)] opacity-50" />
+            <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-[#00FF41]/5 to-transparent pointer-events-none" />
 
             {/* Glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-40 bg-gradient-to-t from-[#00FF41]/10 to-transparent blur-3xl pointer-events-none" />
