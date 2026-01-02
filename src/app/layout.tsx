@@ -13,7 +13,7 @@ const logoUrl =
 
 
 export const metadata: Metadata = {
-  title: "DentiSystems | Sovereign Offensive Security & Predictive Intel",
+  title: "DentiSystems | Sovereign Offensive Security & DentiGrid Platform",
   description:
     "Elite offensive security research, high-risk vendor reconnaissance, and breach monitoring. Reducing global operational risk through secure web engineering and telemetric intelligence mining.",
   keywords: ["cybersecurity", "offensive security", "vendor recon", "breach monitoring", "secure web development", "zero trust architecture"],

@@ -141,7 +141,7 @@ export default function StatusPage() {
               </div>
               <div className="shrink-0 text-center lg:text-right">
                 <div className="text-xl md:text-2xl font-black text-white/10 tracking-tighter mb-2 group-hover:text-white/20 transition-colors">20:45_UTC</div>
-                <div className="text-[9px] font-bold text-white/5 tracking-[0.5em] uppercase italic">STAMP: 2024-10-30</div>
+                <div className="text-[9px] font-bold text-white/5 tracking-[0.5em] uppercase italic">STAMP: NODE_LOG_VALIDATED</div>
               </div>
             </motion.div>
           </div>

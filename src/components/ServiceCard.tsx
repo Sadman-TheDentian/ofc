@@ -40,7 +40,7 @@ export default function ServiceCard({ service, imageUrl, slug, index }: ServiceC
                         {/* Architectural Line Decoration */}
                         <div className="absolute top-10 right-10 flex flex-col items-end gap-2">
                             <div className="h-[1px] w-0 bg-[#00FF41]/60 group-hover:w-16 transition-all duration-1000" />
-                            <span className="text-[7px] font-black text-white/10 tracking-[0.4em] uppercase group-hover:text-[#00FF41]/40 transition-colors">v7.2 // OPS</span>
+                            <span className="text-[7px] font-black text-white/10 tracking-[0.4em] uppercase group-hover:text-[#00FF41]/40 transition-colors">NODE_ACTIVE</span>
                         </div>
                     </div>
 

@@ -70,7 +70,7 @@ export default function Header(): JSX.Element {
             </motion.div>
             <div className="flex flex-col">
               <span className="text-2xl font-[900] tracking-tighter text-white uppercase italic leading-none">
-                <GlitchText text="DENTI SYSTEMS" />
+                <GlitchText text="DENTISYSTEMS" />
               </span>
             </div>
           </Link>

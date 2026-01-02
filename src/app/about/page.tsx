@@ -13,6 +13,7 @@ import TechnicalIcon from "@/components/TechnicalIcon";
 import Magnetic from "@/components/Magnetic";
 import GlitchText from "@/components/GlitchText";
 import HUDSection from "@/components/HUDSection";
+import CyberGrid from "@/components/CyberGrid";
 
 const statsData = [
   { subject: 'Encryption Depth', value: 120, displayValue: "AES-256" },
@@ -35,6 +36,7 @@ export default function AboutPage() {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-black overflow-hidden selection:bg-[#00FF41]/30 relative">
+      <CyberGrid />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,65,0.02),transparent_70%)] pointer-events-none" />
 
       {/* 01 // CINEMATIC HERO - ASYMMETRIC SPLIT */}

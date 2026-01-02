@@ -62,7 +62,7 @@ export default function Footer() {
                   <Image src={logoUrl} alt="Logo" width={32} height={32} className="opacity-60 group-hover:opacity-100" />
                 </div>
                 <span className="text-3xl font-[900] italic text-white uppercase tracking-tighter">
-                  <GlitchText text="DENTI SYSTEMS" />
+                  <GlitchText text="DENTISYSTEMS" />
                 </span>
               </div>
               <div className="flex items-center gap-2 mt-4 ml-14">
@@ -123,7 +123,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-12 border-t border-white/5">
           <div className="flex items-center gap-12 text-[9px] font-bold tracking-[0.4em] text-white/10 uppercase">
-            <span>&copy; {currentYear} DENTISYSTEMS_INTL // ALL_RIGHTS_RESERVED</span>
+            <span>&copy; {currentYear} DENTISYSTEMS // ALL_RIGHTS_RESERVED</span>
           </div>
           <div className="flex gap-12 text-[9px] font-bold tracking-[0.5em] text-white/10 uppercase">
             <Link href="/privacy" className="hover:text-white transition-colors relative overflow-hidden group/leg">
