@@ -15,6 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import NeuralPulseCore from '@/components/NeuralPulseCore';
 import React, { useState, useRef } from "react";
 import Image from 'next/image';
 import SafeImage from '@/components/SafeImage';
@@ -79,116 +80,60 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
         />
         <div className="container px-4 relative z-10">
           <div className="bg-white/[0.01] border border-white/10 rounded-[3rem] md:rounded-[4rem] p-8 md:p-24 overflow-hidden relative group/hud">
-            {/* HUD Corner Brackets */}
-            <div className="absolute top-8 left-8 w-12 h-12 border-t-2 border-l-2 border-[#00FF41]/20 rounded-tl-3xl group-hover/hud:border-[#00FF41]/50 transition-all duration-700" />
-            <div className="absolute top-8 right-8 w-12 h-12 border-t-2 border-r-2 border-[#00FF41]/20 rounded-tr-3xl group-hover/hud:border-[#00FF41]/50 transition-all duration-700" />
-            <div className="absolute bottom-8 left-8 w-12 h-12 border-b-2 border-l-2 border-[#00FF41]/20 rounded-bl-3xl group-hover/hud:border-[#00FF41]/50 transition-all duration-700" />
-            <div className="absolute bottom-8 right-8 w-12 h-12 border-b-2 border-r-2 border-[#00FF41]/20 rounded-br-3xl group-hover/hud:border-[#00FF41]/50 transition-all duration-700" />
-
-            {/* Technical Background Details */}
-            <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none select-none overflow-hidden">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[1px] bg-white rotate-45 transform origin-center" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[1px] bg-white -rotate-45 transform origin-center" />
+            {/* Background Architectural Grid (Subtle) */}
+            <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none select-none">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)`,
+                backgroundSize: '100px 100px',
+              }} />
             </div>
 
-            <div className="absolute top-0 right-0 p-40 bg-blue-500/5 blur-[120px] rounded-full" />
+            <div className="absolute top-0 right-0 p-40 bg-[#00FF41]/5 blur-[120px] rounded-full" />
 
-            <div className="grid lg:grid-cols-2 gap-20 md:gap-32 items-center relative z-10">
-              <div>
-                <div className="flex items-center gap-4 mb-12">
+            <div className="grid lg:grid-cols-12 gap-16 md:gap-32 items-center relative z-10 px-4 md:px-12">
+              <div className="lg:col-span-6">
+                <div className="flex items-center gap-6 mb-12 md:mb-16">
                   <div className="h-2 w-2 rounded-full bg-[#00FF41] animate-pulse" />
-                  <span className="text-[9px] font-bold tracking-[1em] text-[#00FF41] uppercase">LIVE_TELEMETRY // UP_LINK_ACTIVE</span>
+                  <span className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic">LIVE_INTEL_STREAM // ACTIVE</span>
                 </div>
 
-                <h2 className="text-4xl md:text-8xl font-black text-white italic uppercase tracking-tighter mb-12 md:mb-16 leading-[0.85] relative">
-                  GLOBAL_COMMAND<br /><span className="text-[#00FF41]">_LINK.</span>
-                  <div className="absolute -bottom-4 left-0 w-32 h-1 bg-gradient-to-r from-[#00FF41] to-transparent" />
+                <h2 className="text-5xl md:text-8xl lg:text-9xl font-[1000] text-white italic uppercase tracking-tighter mb-16 md:mb-20 leading-[0.8] relative">
+                  GLOBAL<br />
+                  <span className="text-white/10 group-hover/hud:text-white transition-colors duration-1000">LINK_CORE.</span>
                 </h2>
 
-                <p className="text-white/30 text-xl font-light leading-relaxed mb-16 italic max-w-xl">
-                  Active nodes across 74 sovereign territories maintaining 99.99% core sync latency. Our predictive architecture identifies threats 450ms before edge infiltration.
+                <p className="text-white/40 text-xl md:text-2xl font-light leading-relaxed mb-20 md:mb-24 italic max-w-2xl border-l border-white/10 pl-12">
+                  "Maintaining a persistent neural mesh across 74 sovereign territories. Our predictive architecture intercepts high-fidelity threats with sub-450ms resolution."
                 </p>
 
-                <div className="grid grid-cols-2 gap-6 md:gap-10">
-                  <div className="p-8 md:p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 group/metric hover:bg-white/[0.05] transition-all">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="text-4xl font-[900] text-white italic uppercase tracking-tighter">ELITE</div>
-                      <ShieldCheck className="h-5 w-5 text-[#00FF41] opacity-20 group-hover/metric:opacity-100 transition-opacity" />
+                <div className="grid sm:grid-cols-2 gap-10 md:gap-12">
+                  <div className="p-10 md:p-12 rounded-[3.5rem] bg-white/[0.01] border border-white/5 group/metric hover:bg-white/[0.03] hover:border-[#00FF41]/30 transition-all duration-700 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-8 opacity-0 group-hover/metric:opacity-100 transition-opacity">
+                      <div className="h-1.5 w-1.5 bg-[#00FF41] rounded-full" />
                     </div>
-                    <div className="text-[9px] font-bold text-white/20 tracking-[0.5em] uppercase">CLUSTER_DEPLOYMENT</div>
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="text-4xl font-[900] text-white italic tracking-tighter uppercase">ELITE</div>
+                      <ShieldCheck className="h-6 w-6 text-[#00FF41]/40 group-hover/metric:text-[#00FF41] transition-colors" />
+                    </div>
+                    <div className="text-[10px] font-black text-white/20 tracking-[0.5em] uppercase italic group-hover/metric:text-[#00FF41]/40 transition-colors">NODE_CLUSTER_V7</div>
                   </div>
-                  <div className="p-8 md:p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 group/metric hover:bg-white/[0.05] transition-all">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="text-4xl font-[900] text-[#00FF41] italic uppercase tracking-tighter">SUB-MS</div>
-                      <Zap className="h-5 w-5 text-[#00FF41] opacity-20 group-hover/metric:opacity-100 transition-opacity" />
+
+                  <div className="p-10 md:p-12 rounded-[3.5rem] bg-white/[0.01] border border-white/5 group/metric hover:bg-white/[0.03] hover:border-[#00FF41]/30 transition-all duration-700 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-8 opacity-0 group-hover/metric:opacity-100 transition-opacity">
+                      <div className="h-1.5 w-1.5 bg-[#00FF41] rounded-full" />
                     </div>
-                    <div className="text-[9px] font-bold text-white/20 tracking-[0.5em] uppercase">SYNC_LATENCY</div>
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="text-4xl font-[900] text-[#00FF41] italic tracking-tighter uppercase">SUB-MS</div>
+                      <Zap className="h-6 w-6 text-[#00FF41]/40 group-hover/metric:text-[#00FF41] transition-colors" />
+                    </div>
+                    <div className="text-[10px] font-black text-white/20 tracking-[0.5em] uppercase italic group-hover/metric:text-[#00FF41]/40 transition-colors">TELEMETRY_LATENCY</div>
                   </div>
                 </div>
               </div>
-              <div className="relative aspect-square flex items-center justify-center p-10 md:p-20">
-                {/* Orbital Hub HUD */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#00FF41]/10 to-blue-500/10 rounded-full blur-[100px] animate-pulse" />
 
-                {/* Outer Rotating Marks */}
-                <div className="absolute inset-0 border border-dashed border-white/10 rounded-full animate-spin-slow" />
-                <div className="absolute inset-4 border border-white/5 rounded-full animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '20s' }} />
-
-                {/* Orbiting Tech Nodes */}
-                {[...Array(3)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute h-8 w-8 md:h-12 md:w-12 bg-black/80 border border-white/10 rounded-xl flex items-center justify-center z-20 group/node"
-                    animate={{
-                      rotate: 360,
-                    }}
-                    transition={{
-                      duration: 15 + i * 5,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    style={{
-                      transformOrigin: `50% ${140 + i * 20}px`, // Adjusted for mobile/desktop orbit
-                      top: '50%',
-                      marginTop: `-${140 + i * 20}px`,
-                    }}
-                  >
-                    <div className="relative">
-                      <div className="absolute -inset-2 bg-[#00FF41]/20 blur-sm rounded-full opacity-0 group-hover/node:opacity-100 transition-opacity" />
-                      <Network className="h-3 w-3 md:h-4 md:w-4 text-white/40 group-hover/node:text-[#00FF41] transition-colors" />
-                    </div>
-                    {/* Floating Node Label */}
-                    <div className="absolute -bottom-8 whitespace-nowrap opacity-0 group-hover/node:opacity-100 transition-opacity hidden md:block">
-                      <span className="text-[7px] font-bold text-[#00FF41] tracking-[0.3em] uppercase">NODE_SYNC</span>
-                    </div>
-                  </motion.div>
-                ))}
-
-                {/* Central Intelligence Core */}
-                <div className="absolute h-[70%] w-[70%] border border-white/10 rounded-full flex items-center justify-center bg-black/60 backdrop-blur-3xl shadow-[0_0_80px_rgba(0,255,65,0.05)] overflow-hidden">
-                  <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
-                    <div className="absolute top-1/2 left-0 w-full h-px bg-white" />
-                    <div className="absolute left-1/2 top-0 w-px h-full bg-white" />
-                  </div>
-
-                  {/* Radar Sweep Effect */}
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 bg-gradient-to-r from-[#00FF41]/20 to-transparent origin-center rounded-full pointer-events-none"
-                    style={{ clipPath: 'conic-gradient(from 0deg, black, transparent 90deg)' }}
-                  />
-
-                  <div className="relative z-10 flex flex-col items-center gap-4">
-                    <TechnicalIcon icon={Activity} glowColor="#00FF41" className="scale-150" />
-                    <div className="flex flex-col items-center mt-6">
-                      <span className="text-[10px] font-black text-[#00FF41] tracking-[0.4em] uppercase">ACTIVE_LINK</span>
-                      <span className="text-[8px] font-mono text-white/20 uppercase tracking-widest mt-1">LAT: 40.71 / LON: -74.01</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Technical Specification HUD (Overlaid on Radar) */}
+              <div className="lg:col-span-6 relative">
+                <NeuralPulseCore />
+                {/* Technical Specification HUD */}
                 <div className="absolute top-0 right-0 md:-right-10 bg-black/80 border border-white/10 rounded-2xl p-4 md:p-6 backdrop-blur-xl z-30 hidden md:block group-hover/hud:-translate-y-2 transition-transform">
                   <div className="text-[8px] font-black text-[#00FF41] tracking-[0.3em] uppercase mb-3">SYSTEM_SPEC_HUD</div>
                   <ul className="space-y-2 text-[7px] font-mono text-white/40 uppercase tracking-widest leading-none">
@@ -221,7 +166,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
                     <GlitchText text="THE RESONANCE STACK." />
                   </h2>
 
-                  <p className="text-white/30 text-xl font-light italic leading-relaxed mb-16 max-w-sm border-l border-white/10 pl-10">
+                  <p className="text-white/30 text-xl font-light italic leading-relaxed mb-16 max-sm border-l border-white/10 pl-10">
                     A proprietary defense substrate operating at the edge of machine intelligence and human intuition.
                   </p>
 
@@ -613,7 +558,7 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
             </div>
             <div className="relative pointer-events-none">
               <div className="absolute -inset-20 bg-white/5 blur-[100px] rounded-full" />
-              <Cpu className="h-32 w-32 md:h-64 md:h-64 text-white opacity-5 group-hover:opacity-10 transition-opacity duration-1000 rotate-12 group-hover:rotate-0" />
+              <Cpu className="h-32 w-32 md:h-64 text-white opacity-5 group-hover:opacity-10 transition-opacity duration-1000 rotate-12 group-hover:rotate-0" />
             </div>
           </div>
         </div>
