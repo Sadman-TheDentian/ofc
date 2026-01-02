@@ -133,25 +133,58 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
               </div>
 
               <div className="lg:col-span-6 relative">
-                <div className="relative">
-                  {/* Clean Containment Frame */}
-                  <div className="absolute inset-0 border border-white/5 rounded-3xl pointer-events-none" />
+                <div className="relative group/monolith overflow-hidden rounded-[4rem] border border-white/10 bg-[#050505] shadow-[0_0_100px_rgba(0,255,65,0.05)]">
+                  {/* Advanced Containment HUD (Physical Frame Logic) */}
+                  <div className="absolute top-10 left-10 right-10 flex justify-between items-center z-50 pointer-events-none opacity-20 group-hover/monolith:opacity-60 transition-opacity duration-1000">
+                    <div className="flex gap-4 items-center">
+                      <div className="h-1 w-12 bg-[#00FF41]" />
+                      <span className="text-[10px] font-black text-white tracking-[0.4em] uppercase italic">TERM_ID: 83F4_SOV</span>
+                    </div>
+                    <div className="flex gap-2 text-[8px] font-mono text-white/40">
+                      <span>SEC_L4</span>
+                      <span className="text-[#00FF41] animate-pulse">● LIVE</span>
+                    </div>
+                  </div>
+
+                  {/* Scanning Beam (High-Fidelity Depth Trace) */}
+                  <motion.div
+                    animate={{ y: ['-100%', '200%'] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute inset-x-0 h-40 bg-gradient-to-b from-transparent via-[#00FF41]/5 to-transparent skew-y-6 z-10 pointer-events-none"
+                  />
 
                   <SovereignMonolith />
 
-                  {/* Minimalist Data Feed */}
-                  <div className="absolute bottom-12 left-12 right-12 flex justify-between items-end pointer-events-none">
-                    <div className="flex flex-col gap-2">
-                      <div className="flex gap-1">
-                        {[...Array(4)].map((_, i) => (
-                          <div key={i} className="h-1 w-1 bg-[#00FF41]/20 rounded-full" />
+                  {/* Integrated Data Modules (Bottom Overlay) */}
+                  <div className="absolute bottom-10 left-10 right-10 z-50 grid grid-cols-2 gap-8 pointer-events-none">
+                    <div className="p-6 bg-black/80 border-l border-white/10 backdrop-blur-xl">
+                      <div className="text-[8px] font-black text-[#00FF41] tracking-widest uppercase mb-3">TELEMETRY_STREAM</div>
+                      <div className="flex items-end gap-1 h-12">
+                        {[0.3, 0.8, 0.5, 0.9, 0.4, 0.6, 0.7].map((h, i) => (
+                          <motion.div
+                            key={i}
+                            animate={{ height: [`${h * 100}%`, `${(h - 0.2) * 100}%`, `${h * 100}%`] }}
+                            transition={{ duration: 1, repeat: Infinity, delay: i * 0.1 }}
+                            className="flex-grow bg-[#00FF41]/30"
+                          />
                         ))}
                       </div>
-                      <span className="text-[7px] font-black text-white/20 tracking-[0.4em] uppercase italic">ENCRYPTION_LAYER_ISOLATED</span>
                     </div>
-                    <div className="text-right">
-                      <span className="text-[7px] font-mono text-white/10 uppercase tracking-widest">STABILITY_99.9%</span>
+
+                    <div className="p-6 bg-black/80 border-l border-white/10 backdrop-blur-xl flex flex-col justify-center">
+                      <div className="text-[8px] font-black text-white/20 tracking-widest uppercase mb-2">SYSTEM_RESILIENCE</div>
+                      <div className="text-2xl font-[1000] text-white italic tracking-tighter">99.999<span className="text-[#00FF41]">%</span></div>
+                      <span className="text-[6px] font-mono text-white/10 uppercase tracking-[0.2em] mt-2">DENTIGRID_SEC_STABILITY</span>
                     </div>
+                  </div>
+
+                  {/* Identity Hotspot (Interactive Label) */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] pointer-events-none">
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      className="w-80 h-80 rounded-full border border-[#00FF41]/5 animate-pulse"
+                    />
                   </div>
                 </div>
               </div>
