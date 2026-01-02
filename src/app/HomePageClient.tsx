@@ -90,101 +90,109 @@ export default function HomePageClient({ blogPosts, securityDivisions, newsArtic
 
             <div className="absolute top-0 right-0 p-40 bg-[#00FF41]/5 blur-[120px] rounded-full" />
 
-            <div className="grid lg:grid-cols-12 gap-16 md:gap-32 items-center relative z-10 px-4 md:px-12">
-              <div className="lg:col-span-6">
-                <div className="flex items-center gap-6 mb-12 md:mb-16">
-                  <div className="h-2 w-2 rounded-full bg-[#00FF41] animate-pulse" />
-                  <span className="text-[10px] font-black tracking-[1.2em] text-[#00FF41] uppercase italic">LIVE_INTEL_STREAM // ACTIVE</span>
+            <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-center relative z-10 px-4 md:px-12">
+              <div className="lg:col-span-5 space-y-12">
+                <div className="p-10 bg-black/40 border-l border-[#00FF41]/20 backdrop-blur-3xl group/panel hover:border-[#00FF41] transition-all duration-700 relative overflow-hidden rounded-r-3xl">
+                  <div className="absolute top-0 right-0 p-8 opacity-20 group-hover/panel:opacity-100 transition-opacity">
+                    <ShieldAlert className="h-4 w-4 text-[#00FF41] animate-pulse" />
+                  </div>
+                  <div className="flex items-center gap-4 mb-10">
+                    <div className="h-[1px] w-6 bg-[#00FF41]/40" />
+                    <span className="text-[10px] font-[1000] text-white tracking-[0.5em] uppercase italic">THREAT_INTEL_STREAM</span>
+                  </div>
+                  <div className="space-y-8 text-left">
+                    {[
+                      { label: 'SOVEREIGN_NODE_ALPHA', value: 'STABLE // L4_ENFORCED', status: 'OK' },
+                      { label: 'NETWORK_LATENCY', value: '0.42MS // SUB_PLANCK', status: 'ACTIVE' },
+                      { label: 'ENCRYPTION_HASH', value: 'SHA3_512 // ISO_READY', status: 'LOCK' }
+                    ].map((item, i) => (
+                      <div key={i} className="flex flex-col gap-2 relative">
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-[7px] font-mono text-white/30 uppercase tracking-[0.2em]">{item.label}</span>
+                          <span className="text-[6px] font-mono text-[#00FF41]/40 italic">{item.status}</span>
+                        </div>
+                        <span className="text-sm font-black text-white italic group-hover/panel:text-[#00FF41] transition-colors tracking-tight">{item.value}</span>
+                        <div className="h-[1px] w-full bg-white/5" />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-12 flex justify-between items-center bg-white/5 p-4 border border-white/5">
+                    <div className="flex gap-1.5">
+                      {[...Array(4)].map((_, i) => <div key={i} className="h-1 w-1 bg-[#00FF41]/60 rounded-full animate-pulse" />)}
+                    </div>
+                    <span className="text-[7px] font-mono text-white/20 uppercase tracking-[0.4em]">SYNC_RESONANCE_ACTIVE</span>
+                  </div>
                 </div>
 
-                <h2 className="text-5xl md:text-8xl lg:text-9xl font-[1000] text-white italic uppercase tracking-tighter mb-16 md:mb-20 leading-[0.8] relative group/title">
-                  THE<br />
-                  <span className="text-white/10 group-hover/hud:text-white transition-colors duration-1000">MONOLITH</span>
-                  <span className="text-[#00FF41]">_BASE.</span>
-                </h2>
-
-                <p className="text-white/40 text-xl md:text-2xl font-light leading-relaxed mb-20 md:mb-24 italic max-w-2xl border-l border-white/10 pl-12">
-                  "Maintaining a persistent neural mesh across 74 sovereign territories. Our predictive architecture intercepts high-fidelity threats with sub-450ms resolution."
-                </p>
-
-                <div className="grid sm:grid-cols-2 gap-10 md:gap-12">
-                  <div className="p-10 md:p-12 rounded-[3.5rem] bg-white/[0.01] border border-white/5 group/metric hover:bg-white/[0.03] hover:border-[#00FF41]/30 transition-all duration-700 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-8 opacity-0 group-hover/metric:opacity-100 transition-opacity">
-                      <div className="h-1.5 w-1.5 bg-[#00FF41] rounded-full" />
-                    </div>
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="text-4xl font-[900] text-white italic tracking-tighter uppercase">ELITE</div>
-                      <ShieldCheck className="h-6 w-6 text-[#00FF41]/40 group-hover/metric:text-[#00FF41] transition-colors" />
-                    </div>
-                    <div className="text-[10px] font-black text-white/20 tracking-[0.5em] uppercase italic group-hover/metric:text-[#00FF41]/40 transition-colors">NODE_CLUSTER_V7</div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-8 bg-white/[0.02] border border-white/10 group/metric hover:bg-[#00FF41]/5 transition-all duration-500 rounded-3xl">
+                    <Zap className="h-4 w-4 text-[#00FF41] mb-6 opacity-30 group-hover/metric:opacity-100 transition-opacity" />
+                    <div className="text-3xl font-[1000] text-white italic tracking-tighter mb-2 leading-none">0.45<span className="text-[#00FF41] font-mono">ms</span></div>
+                    <span className="text-[7px] font-black text-white/20 tracking-[0.3em] uppercase block italic">LATENCY_PROTOCOL</span>
                   </div>
-
-                  <div className="p-10 md:p-12 rounded-[3.5rem] bg-white/[0.01] border border-white/5 group/metric hover:bg-white/[0.03] hover:border-[#00FF41]/30 transition-all duration-700 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-8 opacity-0 group-hover/metric:opacity-100 transition-opacity">
-                      <div className="h-1.5 w-1.5 bg-[#00FF41] rounded-full" />
-                    </div>
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="text-4xl font-[900] text-[#00FF41] italic tracking-tighter uppercase">SUB-MS</div>
-                      <Zap className="h-6 w-6 text-[#00FF41]/40 group-hover/metric:text-[#00FF41] transition-colors" />
-                    </div>
-                    <div className="text-[10px] font-black text-white/20 tracking-[0.5em] uppercase italic group-hover/metric:text-[#00FF41]/40 transition-colors">TELEMETRY_LATENCY</div>
+                  <div className="p-8 bg-white/[0.02] border border-white/10 group/metric hover:bg-[#00FF41]/5 transition-all duration-500 rounded-3xl text-right">
+                    <Activity className="h-4 w-4 text-[#00FF41] mb-6 opacity-30 group-hover/metric:opacity-100 transition-opacity ml-auto" />
+                    <div className="text-3xl font-[1000] text-white italic tracking-tighter mb-2 leading-none">100<span className="text-[#00FF41] font-mono">%</span></div>
+                    <span className="text-[7px] font-black text-white/20 tracking-[0.3em] uppercase block italic">UPTIME_AVAIL</span>
                   </div>
                 </div>
               </div>
 
-              <div className="lg:col-span-6 relative">
-                <div className="relative group/monolith overflow-hidden rounded-[4rem] border border-white/10 bg-[#050505] shadow-[0_0_100px_rgba(0,255,65,0.05)]">
-                  {/* Advanced Containment HUD (Physical Frame Logic) */}
-                  <div className="absolute top-10 left-10 right-10 flex justify-between items-center z-50 pointer-events-none opacity-20 group-hover/monolith:opacity-60 transition-opacity duration-1000">
-                    <div className="flex gap-4 items-center">
-                      <div className="h-1 w-12 bg-[#00FF41]" />
-                      <span className="text-[10px] font-black text-white tracking-[0.4em] uppercase italic">TERM_ID: 83F4_SOV</span>
+              <div className="lg:col-span-7 relative">
+                <div className="relative group/monolith overflow-hidden rounded-[4rem] border border-white/10 bg-[#050505] shadow-[0_0_150px_rgba(0,255,65,0.08)]">
+                  {/* Industrial Machine Trim (Static Overlays) */}
+                  <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-white/10 to-transparent flex items-center px-12 justify-between z-50 pointer-events-none opacity-40">
+                    <div className="flex gap-10 items-center">
+                      <span className="text-[8px] font-mono tracking-widest text-[#00FF41]/60 uppercase">DENTIGRID_SERVER_NODE_83F4</span>
+                      <div className="h-1 w-1 bg-[#00FF41]/40 rounded-full" />
+                      <span className="text-[8px] font-mono tracking-widest text-white/40 uppercase">CORE: SOVEREIGN_OS_01</span>
                     </div>
-                    <div className="flex gap-2 text-[8px] font-mono text-white/40">
-                      <span>SEC_L4</span>
-                      <span className="text-[#00FF41] animate-pulse">● LIVE</span>
+                    <div className="flex gap-3">
+                      {[...Array(8)].map((_, i) => <div key={i} className="w-1.5 h-3 bg-white/5 border-x border-white/5" />)}
                     </div>
                   </div>
 
-                  {/* Scanning Beam (High-Fidelity Depth Trace) */}
-                  <motion.div
-                    animate={{ y: ['-100%', '200%'] }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute inset-x-0 h-40 bg-gradient-to-b from-transparent via-[#00FF41]/5 to-transparent skew-y-6 z-10 pointer-events-none"
-                  />
-
                   <SovereignMonolith />
 
-                  {/* Integrated Data Modules (Bottom Overlay) */}
-                  <div className="absolute bottom-10 left-10 right-10 z-50 grid grid-cols-2 gap-8 pointer-events-none">
-                    <div className="p-6 bg-black/80 border-l border-white/10 backdrop-blur-xl">
-                      <div className="text-[8px] font-black text-[#00FF41] tracking-widest uppercase mb-3">TELEMETRY_STREAM</div>
-                      <div className="flex items-end gap-1 h-12">
-                        {[0.3, 0.8, 0.5, 0.9, 0.4, 0.6, 0.7].map((h, i) => (
+                  {/* Integrated HUD Modules (Fixed to Glass Shell) */}
+                  <div className="absolute bottom-12 left-12 right-12 z-50 grid grid-cols-3 gap-8 pointer-events-none">
+                    <div className="col-span-2 p-10 bg-black/95 border border-white/10 backdrop-blur-3xl relative overflow-hidden">
+                      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/40 to-transparent" />
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="h-2 w-2 rounded-full bg-[#00FF41] animate-pulse shadow-[0_0_100px_#00FF41]" />
+                        <span className="text-[9px] font-[1000] text-white tracking-[0.5em] uppercase italic text-left">LIVE_INTERCEPT_AVAILABILITY</span>
+                      </div>
+                      <div className="flex items-end gap-2 h-20">
+                        {[0.2, 0.7, 0.4, 0.9, 0.5, 0.3, 0.8, 0.6, 0.4, 0.9, 0.2, 0.6, 0.8, 0.4].map((h, i) => (
                           <motion.div
                             key={i}
                             animate={{ height: [`${h * 100}%`, `${(h - 0.2) * 100}%`, `${h * 100}%`] }}
-                            transition={{ duration: 1, repeat: Infinity, delay: i * 0.1 }}
-                            className="flex-grow bg-[#00FF41]/30"
+                            transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1, ease: "easeInOut" }}
+                            className="flex-grow bg-[#00FF41]/10 group-hover/monolith:bg-[#00FF41]/30 transition-colors"
                           />
                         ))}
                       </div>
                     </div>
 
-                    <div className="p-6 bg-black/80 border-l border-white/10 backdrop-blur-xl flex flex-col justify-center">
-                      <div className="text-[8px] font-black text-white/20 tracking-widest uppercase mb-2">SYSTEM_RESILIENCE</div>
-                      <div className="text-2xl font-[1000] text-white italic tracking-tighter">99.999<span className="text-[#00FF41]">%</span></div>
-                      <span className="text-[6px] font-mono text-white/10 uppercase tracking-[0.2em] mt-2">DENTIGRID_SEC_STABILITY</span>
+                    <div className="p-10 bg-black/95 border border-white/10 backdrop-blur-3xl flex flex-col justify-center">
+                      <div className="text-[8px] font-black text-white/20 tracking-[0.4em] uppercase mb-3 italic text-left">RESILIENCE_INDEX</div>
+                      <div className="text-4xl font-[1000] text-white italic tracking-tighter leading-none text-left">99.99<span className="text-[#00FF41] font-mono">9</span></div>
+                      <div className="flex gap-2 mt-4">
+                        <span className="text-[7px] font-mono text-[#00FF41]/40 tracking-widest uppercase">STABLE</span>
+                        <span className="text-[7px] font-mono text-white/10 tracking-widest uppercase italic border-l border-white/5 pl-2">ISOLATED</span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Identity Hotspot (Interactive Label) */}
+                  {/* Volumetric Depth Identity Pulse */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] pointer-events-none">
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      className="w-80 h-80 rounded-full border border-[#00FF41]/5 animate-pulse"
-                    />
+                      animate={{ scale: [1, 1.4, 1], opacity: [0.03, 0.08, 0.03] }}
+                      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                      className="w-[40rem] h-[40rem] rounded-full border border-[#00FF41]/5 flex items-center justify-center"
+                    >
+                      <div className="w-[30rem] h-[30rem] rounded-full border border-[#00FF41]/10 border-dashed" />
+                    </motion.div>
                   </div>
                 </div>
               </div>
